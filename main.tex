@@ -1,0 +1,30 @@
+\documentclass[11pt]{article}
+
+\input{sections/preamble.tex}
+
+\def\version{0.0.0}
+
+\begin{document}
+
+\maketitle
+\thispagestyle{empty}
+
+%% DISPLAY PICTURE OR LOGO ON FIRST PAGE %%
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=.75\textwidth]{images/PoliTO.jpg}
+\end{figure}
+
+%% DISPLAY TABLE OF CONTENTS ON A NEW PAGE %%
+
+\newpage
+\tableofcontents
+
+%% WRITING AND SUBFILE CALL SECTION %%
+
+\subfile{sections/000-Generale.tex}
+\subfile{sections/001-Domande.tex}
+
+
+\end{document}
