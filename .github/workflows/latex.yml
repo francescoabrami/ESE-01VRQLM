@@ -1,0 +1,65 @@
+name: Build LaTeX document and Release (Docker-based)
+
+# Permissions
+permissions:
+  contents: write
+  pull-requests: read
+
+# Trigger
+on:
+  push:
+    paths:
+      - main.tex
+
+jobs:
+
+  build_latex:
+
+    runs-on: ubuntu-latest
+    steps:
+
+      # 1. Checkout repository
+      - name: Set up Git repository
+        uses: actions/checkout@v6
+
+      # 2. Run LaTeX using Docker
+      - name: Compile LaTeX document
+        uses: xu-cheng/latex-action@v4
+        with:
+          root_file: main.tex
+          texlive_version: '2023'
+
+      - name: Upload PDF file
+        uses: actions/upload-artifact@v5
+        with:
+          name: PDF
+          path: main.pdf
+
+      # 3. Extract version and rename output PDF 
+      - name: Extract version and rename PDF
+        id: get_version
+        run: |
+          VERSION=$(grep -oP '\\def\\version\{\K[^\}]+' main.tex || echo "v0.0.0")
+          echo "version=v$VERSION" >> $GITHUB_OUTPUT
+
+          if [ -f "main.pdf" ]; then
+            mv "main.pdf" "ESE.pdf"
+          else
+            echo "main.pdf not found!"
+            exit 1
+          fi
+          
+      # 4. Create Release and Upload PDF
+      - name: Create Release and Upload PDF
+        uses: softprops/action-gh-release@v2
+        with:
+          files: ESE.pdf
+          tag_name: ${{ steps.get_version.outputs.version }}
+          body: |
+          
+            Release for the version ${{ steps.get_version.outputs.version }} of the ESE.pdf notes.
+
+            This release includes the latest compiled version of the document to this date.
+
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
