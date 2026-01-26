@@ -1,0 +1,118 @@
+%% PACKAGES %%
+
+\usepackage{makeidx}
+\usepackage[italian]{babel}
+\usepackage{floatflt}
+\usepackage{titlesec}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{amsthm}
+\usepackage{amsfonts}
+\usepackage{hyperref}
+\usepackage{graphics}
+\usepackage{wrapfig}
+\usepackage[utf8]{inputenc}
+\usepackage{subfiles}
+\usepackage[version=3]{mhchem}
+\usepackage{pgfplots}
+\usepackage{amssymb}
+\usepackage{textcomp} 
+\usepackage{enumitem}
+\usepackage{blindtext}
+\usepackage{xcolor}
+\usepackage{mathtools}
+\usepackage[thinc]{esdiff}
+\usepackage[T1]{fontenc}
+\usepackage[ddmmyyyy]{datetime}
+
+\usepackage{tikz}
+\usetikzlibrary{arrows.meta}
+\usepackage{circuitikz}
+
+
+%% CUSTOM CODE STYLES DISPLAY %%
+
+\definecolor{codegreen}{rgb}{0,0.6,0}
+\definecolor{codegray}{rgb}{0.5,0.5,0.5}
+\definecolor{codepurple}{rgb}{0.58,0,0.82}
+\definecolor{backcolour}{rgb}{1,1,1} % BACKCOLOUR WHITE
+
+\lstdefinestyle{matstyle}{
+    backgroundcolor=\color{backcolour},   
+    commentstyle=\color{codegreen},
+    keywordstyle=\color{magenta},
+    numberstyle=\tiny\color{codegray},
+    stringstyle=\color{codepurple},
+    basicstyle=\ttfamily\footnotesize,
+    upquote=true, % NEW LINE
+    breakatwhitespace=false,         
+    breaklines=true,                 
+    captionpos=b,                    
+    keepspaces=true,                 
+    numbers=left,                    
+    numbersep=5pt,                  
+    showspaces=false,                
+    showstringspaces=false,
+    showtabs=false,                  
+    tabsize=2
+}
+
+\lstset{style=matstyle} % STYLE FRO MATLAB CODE
+
+
+%% THEOREM STYLE SECTION %%
+
+\newtheorem*{theorem*}{Teorema}
+\newtheorem*{lemma}{Lemma}
+\newtheorem*{corollary}{Corollario}
+\newtheorem*{prop*}{Proprietà}
+\newtheorem*{definition*}{Definizione}
+
+
+%% SECTION FOR CUSTOM PATHS %%
+
+\graphicspath{ {./images/} }
+
+%% LAYOUT SECTION %%
+
+\textwidth 15.5 cm
+\textheight 23.0 cm
+\topmargin -0.75 cm
+\oddsidemargin 0.5 cm
+\linespread{1.1}
+
+%% SECTION FOR CUSTOM COMMAND %%
+
+\newcommand{\unit}[1]{\ensuremath{\, \mathrm{#1}}}
+\renewcommand{\dateseparator}{-}
+
+%% TITLE INFORMATION AND VERSIONING %%
+
+\title{\textbf{Introduction to Embedded Systems Electronics\\ 01VRQLM \\ Prof Claudio Passerone \\ Prof. Luciano Prono \\ Prof. Massimo Rou Roch}}
+\author{Francesco Abrami - s310570}
+\date{A.A. 2025 - 2026 \\ \vspace{10pt} \small {Versione: \version \;- \today}}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
