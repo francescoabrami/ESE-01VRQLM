@@ -16,6 +16,10 @@ jobs:
   build_latex:
 
     runs-on: ubuntu-latest
+
+    env:
+      PDF_NAME: "ESE.pdf"
+
     steps:
 
       # 1. Checkout repository
@@ -39,13 +43,13 @@ jobs:
       - name: Extract version and rename PDF
         id: get_version
         run: |
-          VERSION=$(grep -oP '\\def\\version\{\K[^\}]+' main.tex || echo "v0.0.0")
+          VERSION=$(grep -oP '\\def\\version\{\K[^\}]+' main.tex || echo "0.0.0")
           echo "version=v$VERSION" >> $GITHUB_OUTPUT
 
           if [ -f "main.pdf" ]; then
-            mv "main.pdf" "ESE.pdf"
+            mv main.pdf "$PDF_NAME"
           else
-            echo "main.pdf not found!"
+            echo "${{ env.PDF_NAME }} not found!"
             exit 1
           fi
           
@@ -53,13 +57,14 @@ jobs:
       - name: Create Release and Upload PDF
         uses: softprops/action-gh-release@v2
         with:
-          files: ESE.pdf
+          files: ${{ env.PDF_NAME }}
           tag_name: ${{ steps.get_version.outputs.version }}
           body: |
           
-            Release for the version ${{ steps.get_version.outputs.version }} of the ESE.pdf notes.
+            Release for the version ${{ steps.get_version.outputs.version }} of the ${{ env.PDF_NAME }} notes.
 
             This release includes the latest compiled version of the document to this date.
 
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+            ### Changes of these release:
+
+            ${{ github.event.head_commit.message }}
