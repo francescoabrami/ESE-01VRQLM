@@ -120,18 +120,131 @@ Every single measurement in the universe—from the torque of a motor to the imp
 
 \subsection{Oscilloscope}
 
+After providing a comprehensive introduction to the concept of measurement and the associated uncertainties, we can now proceed to analyze one of the main measuring instruments used in laboratories. This instrument allows us to take measurements and observe what happens inside a circuit that we want to analyze.
+
 \subsubsection{Basic operation}
+
+Let's now begin to analyze the way an oscilloscope work starting by looking at how an analog one works. From seeing how the analog version works we will then move on to analyze and study the property and functions of its digital counterpart.
+
+
 \subsubsection{Display}
-\subsubsection{Example}
+
+\subsubsection{Examples}
 
 \subsection{Digital sampling oscilloscope - DSO}
 
 \subsubsection{Quantization}
+
+
 \subsubsection{Sampling}
-\subsection{Oscilloscope connections}
+
+
+\subsubsection{Oscilloscope connections}
+
+After introducing the operation of the oscilloscope, both from a theoretical and practical point of view, we can now analyze how it is connected to the outside world and what operations need to be performed before taking a measurement.\\
+
+In particolare l'oscilloscopio digitale a campionamento utilizza dei connetttori denominati BNC (Bayonet Neill–Concelman) utilizzati principalmente per quick-connect/disconnect, locking connector used for coaxial cables featuring a bayonet-style, twist-lock mechanism that prevents accidental disconnection, making it ideal for high-frequency. 
+
+At this point we might imagine that being the probe some kind di circuiti se stessa deve essere tenuta in considerazione all'interno della nostra misura in quanto potrebbe agire in un determianto modo sul fenomeno che andiao a misurare.
+
+In particoalre, essendo nel modno reale, il connettore in ingresso non è ideale: essa infatta introduce una resistenza che denominiam ocome $R_i$ e una capacità denominata come $C_i$. Possiamo dunque modellare il connettore come una resistenza in parallelo ad un condensatore come riportato di seguito.
+
+% TODO MODELLO R + C
+
+Arrivati a questo punto possiamo agigungere al nostro modello un generatore di tensione messo ad indicare la funzione che viene posta in ingresso al nostro oscilosscopio. Dato che anche questo non è ideale è necessario aggoungere un'opportuna resistenza $R_g$ in serie al generatore stesso. Infine è doveroso introdurre, in quanto viene utilizzato un cavo per connetere questi due componenti, una capacità parassita aggiunta proprio da questa ultimo componente. Mettendo le varie parti assieme otteniamo il seguente schema:
+
+% TODO SCHEMA COMPLETO 1
+
+In aggiunta a quanto detto possiamo andare a dare degli ordini di grandezza della resistenza $R_i$ e della capacità $C_i$ che si aggirano attorno ad 1 M$\Omega$ ed a decine di pF.\\
+
+Sapendo l'ordine di grandezza di questi due parametri possiamo avere un'idea del valore visto e misurato dall'oscilloscopio ai capi della capacità $C_i$.
+Analizzando il circuito visto sopra arriviamo alla seguente espressione:
+
+\[ V_i = V_g \cdot \frac{R_i}{R_i + R_g} \cdot \frac{R_i}{s(R_g \;//\; R_i)C_p + 1}\]\
+
+Arrivati a questo punto possiamo fare l'assunzione che il valore di $R_g$, essendo una resistenza parassita, sia molto bassa e duqnue molto minore di $R_i$: $R_g \ll R_i$.
+Data questa condizione possiamo allora andare a dire che il valore dell'attenuazione data dal partitore di tensione (primo termine moltiplicativo) sia approssimabile ad uno.
+Segue quanto detto in termnimi matematici:
+
+\[ R_g \ll R_i \Rightarrow \frac{R_i}{R_i + R_g}  \simeq 1 \]\
+
+Arrivati a questo punto, fatta la precedente assunzione sui valori di $R_g$ e $R_i$ possiamo dire che in corrente dirett (DC) il valore misurato a capi di $C_i$, ovvero $V_i$, sia circa pari a quello in ingresso: $V_g \simeq V_i$.\\
+
+Sapendo che però, come visto negl iesempi precedneti, sappiamo che con lo struento andiao anda alizzare forem d'onta di natura periodica ci chiadiamo come questo modello di circuito si comporti nel caso d itensioni alternate nel tempo.
+
+Possiamo dunqiue fare l'analisi del polo del secondo membro moltiplicato si ottiene che:
+
+\[ f_t = \frac{1}{2\pi (R_g \;//\; R_i)C_p}\]\
+
+Operando sempre attraverspo la semplificazione fatta prima otteniamo che:
+
+\[ f_t = \frac{1}{2\pi  R_i C_p}\]\
+
+Inserendo ora dei possibili valori, di cui abbimo visto prima i possiibli ordini di grandezza, possiamo andare ad avere un'idea della frequenza di taglio.
+Ipotizzando che $R_g$ sia 50 $\Omega$ e che $C_p$ sia 100 pF si ottiene il seguente risultato:
+
+\[ f_t = \frac{1}{2\pi  R_i C_p} = \frac{1}{2\pi \cdot 50 \Omega \cdot 100 \unit{pF}} = 31.830\; \unit{ks^{-1}} \simeq 32 \unit{MHz} \]\
+
+
+Come possiamo vedere abbiamo raggiunto, per le proiprità fisiche del nostro struemnto, un limite che non possiamo sorpassare. In altre parole non siamo in grado con il setup corrente di andare a misurare senza avere attenuazioni significative segnale con frequenze superiori ad i 32 MHz.\\
+
+Per ovviare a questo problea possiamo andare ad intordure una seconda componente all;intenro del nostro circuito per costruire una sonda compensata, ovvero che compensi l'effetto ch abbiamo appena sottolineato.
+
+Al fine di realizzare una sonda compensata andiamo ad aggiungere un dipolo compsoto da una resistenza $R_s$ connessa in parallea ad una capacotà variabile $C_s$ come mostrato di seguito:
+
+% TODO CIRCUITO COMPENSATO
+
+A quesot punto possiamo andare a calcolare la tensione ottenuta ai capi del consendatore del connettore. Si ottiene che:
+
+\[ V_i = V_g \cdot \frac{\dfrac{R_i}{sR_iC_p + 1}}{R_g + \dfrac{R_s}{sR_sC_s + 1} + \dfrac{R_i}{sR_iC_p + 1}}\]\
+
+Come visto in precedenza andiamo a vedere come si comporta questo circuito con correnti dirette e non. Prima di tutto andiamo a fare delle assunzioni:
+
+\begin{enumerate}
+	\item[\textbf{-}] $C_p = C_c + C_i $
+	\item[\textbf{-}] $R_s \cdot C_s = R_i \cdot C_i $
+	\item[\textbf{-}] $R_s = 9C_p$ e dunque $C_s = \dfrac{C_p}{9}$	
+	
+\end{enumerate}
+
+Fatte queste premesse edassunzioni arriviamo a dire che:
+
+\[ V_i = V_i \dfrac{R_i}{R_g + 10R_i}  \cdot \dfrac{1}{s \dfrac{R_gR_i}{R_g + 10R_i}C_p + 1} \]\
+
+
+A questo punto in corrente diretta (DC) si ha che:
+
+\[ \dfrac{R_i}{R_g + 10R_i}  \simeq \dfrac{R_i}{10R_i} \simeq \frac{1}{10} \]\
+
+Analizzando invece il circuito a tensioni non costanti si ottiene che:
+
+\[ f'_t = \frac{1}{2\pi \dfrac{R_gR_i}{R_g + 10R_i}C_p } \simeq \frac{1}{2\pi \dfrac{R_g}{10}C_p }  = \frac{10}{2\pi R_g C_p} \]\
+
+Possiamo notare come calcolando il valore ottenuto di $f'_t$ si ottiene una frequenza dieci volte più grande e dunque una maggiore banda di segnale in ingresso che non viene attenuata.
+Svolgendo i calcoli si ottiene che:
+
+
+\[ f'_t = \frac{10}{2\pi R_g C_p} = \frac{10}{2\pi \cdot 50 \Omega \cdot 100 \unit{pF}} = 318.30\; \unit{ks^{-1}} \simeq 320 \unit{MHz} \]\
+
+A questo punto comopreso andiamo a vedere nella pratica cosa succede. In partcioalre abbiamo visot come una sonda compensta carichi di meno il circuito e che quindi influisca con un'attenuazione costante. Infine dato che la capacità del compensatore deve essere variabile in quanto il suo valore di compensazione diopend dal cavo utilizzato e dalla capacità in ingresso dell'oscilloscopio. Viene dunque introdotto, cme visot in figura, un capacità variabile direttamente dall'utente affichè funzioni corettamnete.
+
+Andnado ne lparticoalr la regolazione avviene con un cacciavite in plastica - uno in metallo aggiungerebbe l'ennesima capacità parassita - sulla sonda stessa mentre essa è collegata a terra ed ad un'apposita uscita sull'oscilloscopio (PROBE COMP) che genera un'onda quadra avente certe caratteristiche tipo: $V_{pp}$ 1-5 V con frequenza $f_c$ pari a 1 kHz.
+Dato che se la sonda non è ben compensata si comporta come un filtro passa basso l'onda quadra generata verrà visualizzata sullo schemro dell'osciloscoapio affeta da alcuni difetti sui fronti di salita e discesa. È ragionevole pensare ciò in quanto queste parti del segnale rappresentano nel dominio della frequenza le componenti a maggiore frequenza. Di seguoito sono riportati degli esempi di onde quadre sovra e sotto-compensate. 
+
+% TODO IMAGE SOV E SOTT COMPENSAZIONE
+
+Notiamo come la sottcompensazione porti ad un drift crescente della parte piatta dell;onda  metre la sovracomoensazione porti la genereazione di un picco dopo  
+
+Tornando a noi una volta visualizzata l'onda sullo strumento ci è possibile regolare la capacità fino a quando non visualizzaimo una corretta onda quadra in che significa che la sonda è compensata correttamente.
+
 
 \subsubsection{Examples}
 
+
+\subsection{Digital Multimeter - DMM}
+
+
+\subsubsection{Examples}
 
 
 
