@@ -247,6 +247,29 @@ Tornando a noi una volta visualizzata l'onda sullo strumento ci è possibile reg
 \subsubsection{Examples}
 
 
+\begin{center}
+\begin{tikzpicture}[transform shape]
+	% Paths, nodes and wires:
+	\draw (12.5, 5) to[generic, mirror, v=$V_{out}$, voltage/distance from node=0.4, voltage/shift=2] (12.5, 8);
+	\draw (6, 8) to[capacitor, l={$C_{in}$}] (6, 5);
+	\node[nmos, rotate=-90](N1) at (6.98, 8){} node[anchor=north] at (N1.text){$SW_1$};
+	\draw (8, 5) to[empty diode, l_={$SW_2$}] (8, 8);
+	\draw (8, 8) to[cute inductor, l={$L$}, v<=$V_L$, voltage/shift=1] (11, 8);
+	\draw (5, 8) -- (6.25, 8);
+	\draw (7.75, 8) -- (8, 8);
+	\draw (11, 8) -- (12, 8);
+	\draw (12, 8) -- (12.5, 8);
+	\draw (12.5, 5) -- (12, 5);
+	\draw (11, 8) to[capacitor, l_={$C_{out}$}, label distance=0.07cm] (11, 5);
+	\draw (12, 5) -- (6, 5);
+	\draw (5, 8) to[open, v_<=$V_{in}$, voltage/bump b=1, voltage/shift=-0.4] (5, 5);
+	\node[ocirc] at (5, 8){};
+	\node[ocirc] at (5, 5){};
+	\node[ocirc] at (6.98, 8.98){};
+	\draw (5, 5) -- (6, 5);
+\end{tikzpicture}
+\end{center}
+
 
 
 
