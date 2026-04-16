@@ -58,11 +58,202 @@ Cominciamo ad analizzarne una ad una partendo dalle specifiche di input in partc
 \subsection{Switching power supply}
 
 
+\begin{figure}[h]
+\begin{center}
+
+\begin{tikzpicture}[transform shape]
+	\draw (3, 16) to[american voltage source, l_={$V_s$}, i=$I_s$] (3, 14);
+	\draw (6, 17) to[american resistor, l={$R$}] (6, 15);
+	\draw (6, 15) to[cute inductor, l={$L$}] (6, 13);
+	\draw (3, 14) -- (3, 13) -- (6, 13);
+	\draw (3, 16) -| (3, 17) -- (6, 17);
+\end{tikzpicture}
+	
+\caption{Classical power supply}	
+\end{center}
+\end{figure}
+
+
+
+\begin{figure}[h]
+\begin{center}
+
+\begin{tikzpicture}[transform shape]
+	\draw (3, 16) to[american voltage source, l_={$V_s$}, i=$I_s$] (3, 14);
+	\draw (6, 17) to[american resistor, l={$R$}] (6, 15);
+	\draw (6, 15) to[cute inductor, l={$L$}] (6, 13);
+	\draw (3, 14) -- (3, 13) -- (6, 13);
+	\draw (3, 16) -| (3, 17) -- (6, 17);
+	\draw (4.5, 17) to[capacitor, *-*, l={$C$}] (4.5, 13);
+\end{tikzpicture}
+	
+\caption{Classical power supply}	
+\end{center}
+\end{figure}
+
+
+\begin{figure}[h]
+\begin{center}
+
+\begin{tikzpicture}[transform shape]
+	\draw (3, 17) to[variable american resistor, invert, l={$R_s$}] (5, 17);
+	\draw (5, 15) to[variable american resistor, mirror, l={$R_p$}] (5, 17);
+	\draw (6.5, 15) to[european resistor, v>=$V_L$, voltage/distance from node=0.4, voltage/bump b=1, voltage/shift=1.5, i^<=$I_L$] (6.5, 17);
+	\draw (5, 17) -- (6.5, 17);
+	\draw (6.5, 15) -- (5, 15);
+	\draw (3, 17) -- (2, 17);
+	\draw (2, 15) -- (5, 15);
+	\draw (2, 17) to[open, o-o, v<=$V_{in}$, voltage/distance from node=1, voltage/bump b=0.3] (2, 15);
+\end{tikzpicture}
+
+\caption{Parallel linear variable voltage regulator}	
+\end{center}
+\end{figure}
+
+
+
+\begin{figure}[h]
+\begin{center}
+
+\begin{tikzpicture}[transform shape]
+	\draw (6, 7) to[capacitor, l={$C_{in}$}] (6, 4);
+	\node[nmos, rotate=-90](N1) at (7.48, 7){} node[anchor=north] at (N1.text){$SW_1$};
+	\draw (9, 4) to[empty diode, l={$SW_2$}] (9, 7);
+	\draw (9, 7) to[cute inductor, l={$L$}, v<=$V_L$, voltage/shift=1.5] (12, 7);
+	\draw (12, 7) to[capacitor, l={$C_{out}$}] (12, 4);
+	\draw (14, 4) to[generic, v=$V_{out}$, voltage/shift=1.5] (14, 7);
+	\draw (5, 7) -- (6.71, 7);
+	\draw (8.25, 7) -- (9.125, 7);
+	\draw (12, 7) -- (14, 7);
+	\draw (14, 4) |- (5, 4);
+	\draw (5, 7) to[open, o-o, v<=$V_{in}$, voltage/bump b=1] (5, 4);
+\end{tikzpicture}
+
+\caption{Buck step-down converter}	
+\end{center}
+\end{figure}
+
+
+
+\begin{figure}[h]
+\begin{center}
+
+\begin{tikzpicture}[transform shape]
+	\draw (6, 7) to[capacitor, l={$C_{in}$}] (6, 4);
+	\node[nmos](N1) at (9.125, 5.5){} node[anchor=west] at (N1.text){$SW_1$};
+	\draw (9.125, 7) to[empty diode, l={$SW_2$}] (12, 7);
+	\draw (6, 7) to[cute inductor, l={$L$}, v<=$V_L$, voltage/shift=1.5] (9, 7);
+	\draw (12, 7) to[capacitor, l={$C_{out}$}] (12, 4);
+	\draw (14, 4) to[generic, v=$V_{out}$, voltage/shift=1.5] (14, 7);
+	\draw (5, 7) -- (6.71, 7);
+	\draw (8.25, 7) -- (9.125, 7);
+	\draw (12, 7) -- (14, 7);
+	\draw (14, 4) |- (5, 4);
+	\draw (5, 7) to[open, o-o, v<=$V_{in}$, voltage/bump b=1] (5, 4);
+	\draw (9.085, 7) -| (9.125, 6.25);
+	\draw (9.125, 4.73) -- (9.125, 4);
+\end{tikzpicture}
+
+\caption{Boost step-up converter}
+\end{center}
+\end{figure}
+
+
+\begin{figure}[h]
+\begin{center}
+
+\begin{tikzpicture}[transform shape]
+	\draw (6, 7) to[capacitor, l={$C_{in}$}] (6, 4);
+	\node[nmos, rotate=-90](N1) at (7.48, 7){} node[anchor=north] at (N1.text){$SW_1$};
+	\draw (12, 7) to[empty diode, l={$SW_2$}] (9.125, 7);
+	\draw (9.125, 7) to[cute inductor, l={$L$}, v<=$V_L$, voltage/shift=1.5] (9.125, 4);
+	\draw (12, 7) to[capacitor, l={$C_{out}$}] (12, 4);
+	\draw (14, 4) to[generic, v=$V_{out}$, voltage/shift=1.5] (14, 7);
+	\draw (5, 7) -- (6.71, 7);
+	\draw (8.25, 7) -- (9.125, 7);
+	\draw (12, 7) -- (14, 7);
+	\draw (14, 4) |- (5, 4);
+	\draw (5, 7) to[open, o-o, v<=$V_{in}$, voltage/bump b=1] (5, 4);
+	\draw (9.125, 4.73) -- (9.125, 4);
+\end{tikzpicture}
+
+\caption{Buck-boost converter}
+\end{center}
+\end{figure}
+
+
+\begin{figure}[h]
+\begin{center}
+
+\begin{tikzpicture}[transform shape]
+	\draw (6, 7) to[capacitor, l={$C_{in}$}] (6, 4);
+	\node[nmos, rotate=-90](N1) at (7.48, 7){} node[anchor=north] at (N1.text){$SW_1$};
+	\draw (12.875, 7) to[empty diode, l={$SW_2$}] (10.5, 7);
+	\draw (12.875, 7) to[capacitor, l={$C_{out}$}] (12.875, 4);
+	\draw (14.875, 4) to[generic, v=$V_{out}$, voltage/shift=1.5] (14.875, 7);
+	\draw (5, 7) -- (6.71, 7);
+	\draw (12.875, 7) -- (14.875, 7);
+	\draw (5, 7) to[open, o-o, v<=$V_{in}$, voltage/bump b=1] (5, 4);
+	\node[transformer core, cute] at (9.46, 5.45){};
+	\draw (5, 4) -- (5.875, 4);
+	\draw (10.5, 6.5) -| (10.5, 7);
+	\draw (5.875, 4) -- (8.375, 4);
+	\draw (8.41, 4.4) -| (8.375, 4);
+	\draw (8.41, 6.5) |- (8.25, 6.5) -| (8.25, 7);
+	\draw (10.51, 4.4) |- (12.875, 4);
+	\draw (14.875, 4) |- (12.875, 4);
+	\node[circ] at (9.67, 6.15){};
+	\node[circ] at (9.25, 6.15){};
+	\node[shape=rectangle, minimum width=0.59cm, minimum height=0.59cm] at (8.437, 5.5){} node[anchor=center, align=center, text width=0.202cm, inner sep=6pt] at (8.437, 5.5){$L_1$};
+	\node[shape=rectangle, minimum width=0.59cm, minimum height=0.59cm] at (10.5, 5.5){} node[anchor=center, align=center, text width=0.202cm, inner sep=6pt] at (10.5, 5.5){$L_2$};
+\end{tikzpicture}
+
+\caption{Flyback converter}
+\end{center}
+\end{figure}
+
+
+
+\begin{figure}[h]
+\begin{center}
+
+\begin{tikzpicture}[transform shape]
+	\draw (6, 7) to[capacitor, l={$C_{in}$}] (6, 4);
+	\node[nmos, rotate=-90](N1) at (7.48, 7){} node[anchor=north] at (N1.text){$SW_1$};
+	\draw (10.5, 7) to[empty diode, l={$SW_2$}] (12.875, 7);
+	\draw (12.875, 7) to[capacitor, l={$C_{out}$}] (12.875, 4);
+	\draw (14.875, 4) to[generic, v=$V_{out}$, voltage/shift=1.5] (14.875, 7);
+	\draw (5, 7) -- (6.71, 7);
+	\draw (12.875, 7) -- (14.875, 7);
+	\draw (5, 7) to[open, o-o, v<=$V_{in}$, voltage/bump b=1] (5, 4);
+	\node[transformer core, cute] at (9.46, 5.45){};
+	\draw (5, 4) -- (5.875, 4);
+	\draw (10.5, 6.5) -| (10.5, 7);
+	\draw (5.875, 4) -- (8.375, 4);
+	\draw (8.41, 4.4) -| (8.375, 4);
+	\draw (8.41, 6.5) |- (8.25, 6.5) -| (8.25, 7);
+	\draw (10.51, 4.4) |- (12.875, 4);
+	\draw (14.875, 4) |- (12.875, 4);
+	\node[circ] at (9.67, 4.75){};
+	\node[circ] at (9.25, 6.15){};
+	\node[shape=rectangle, minimum width=0.59cm, minimum height=0.59cm] at (8.437, 5.5){} node[anchor=center, align=center, text width=0.202cm, inner sep=6pt] at (8.437, 5.5){$L_1$};
+	\node[shape=rectangle, minimum width=0.59cm, minimum height=0.59cm] at (10.5, 5.5){} node[anchor=center, align=center, text width=0.202cm, inner sep=6pt] at (10.5, 5.5){$L_2$};
+\end{tikzpicture}
+
+\caption{Flyback converter}
+\end{center}
+\end{figure}
 
 
 
 
+\begin{figure}[h]
+\begin{center}
 
+
+\caption{Buck-boost converter}
+\end{center}
+\end{figure}
 
 
 
