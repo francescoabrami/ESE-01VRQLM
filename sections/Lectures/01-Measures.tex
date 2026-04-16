@@ -2,15 +2,13 @@
 
 \graphicspath{{\subfix{../images/}}}
 
-
-
 \begin{document}
 
 %% BEGIN SUBFILE %%
 
 \newpage
 
-\section{Electronics measures}
+\section{Introductions to measurement}
 
 \subsection{Introduction}
 
@@ -26,7 +24,7 @@ With this little introduction let's now dig a bit deeper inside the history of m
 
 We threw away the physical artifacts. We stopped defining units by things and started defining them by the fundamental constants of the universe. Let us dissect this magnificent system piece by piece.
 
-\subsection{The paradigm shift, from artifacts to constants}
+\subsubsection{The paradigm shift, from artifacts to constants}
 
 Before 2019, the definition of units was backwards. We had a platinum-iridium cylinder in a vault in Paris called the International Prototype of the Kilogram (IPK), or "Le Grand K." By definition, its mass was exactly 1 kilogram. The problem? If someone dropped Le Grand K, or if it absorbed a microgram of contamination, the mass of the entire universe (measured in kg) mathematically shifted. The standard was vulnerable, local, and degrading.
 
@@ -34,7 +32,7 @@ The brilliant conceptual leap of the modern SI system is this: We took seven fun
 
 If we ever meet an advanced alien civilization, they will not know what Le Grand K is. But they will know the speed of light, and they will know the charge of an electron. The modern SI system is a language written for the cosmos.
 
-\subsection{The seven base units}
+\subsubsection{The seven base units}
 
 Every single measurement in the universe—from the torque of a motor to the impedance of a trace on a PCB, to the luminosity of a star—is derived from just seven base units. Let us explore where each one comes from.
 
@@ -109,16 +107,287 @@ Every single measurement in the universe—from the torque of a motor to the imp
 	\item[\textbf{-}] The Realization: we use radiometers to measure absolute optical power in Watts, and then apply the defined human-eye sensitivity curve to yield Candelas.
 \end{enumerate}
 
-
-\subsubsection{Derived units} % TODO - Small work
-
-
-\subsection{Measures}
-
-\subsubsection{Uncertainty} % TODO MAYBE REMOVE SUB SUB SECTION?
+\subsubsection{Derived units}
 
 
-\subsection{Oscilloscope}
+
+
+\subsection{Approach to measures}
+
+
+Measurement—that is, the performance of a procedure that allows us to obtain quantitative information about the manifestations of a physical system is an operation that plays an extremely important role in most aspects of human life. 
+
+Each of us performs measurements several times a day, often unconsciously, applying acquired mental we have acquired: we measure when we look at our car’s speedometer to stay within the speed limit, when we weigh the amount of flour to use in pizza dough, or when we check our wristwatch to arrive on time for an appointment.
+
+Measurement is the basis of all commercial transactions, as it is often necessary to determine the quantity of goods exchanged, such as the size of land and buildings, the mass of food products, and the volume of fuels.\\
+
+Measurement also plays a key role in the technical field, both in industry and in science. For example, it is essential to measure the electrical resistance of resistors produced by an electronic components manufacturer in order to determine whether the manufacturing process complies with pre-established quality criteria. 
+
+On the other hand, scientific activity would be meaningless if it were not supported by measurement results, since the understanding of a physical system or the validation of a model intended to represent it are contingent upon the measurement of certain of its manifestations.
+
+An important aspect to highlight, which is common to all measurements regardless of the context in which they are performed, is the reason for taking a measurement that is, to obtain quantitative information about the observed quantity, or the result of the measurement. 
+
+A measurement is never an end in itself; that is, one does not measure simply for the sake of doing so, but to compare the obtained measurement with pre-established limits or with other measurements of the same quantity, obtained at different times and places and with different equipment. The measurement of the intensity of electromagnetic waves emitted by electrical equipment is compared with limits imposed by international standards, just as the measurement of the concentration of carbon monoxide or nitrogen dioxide in the air is compared with warning thresholds established by laws and regulations. 
+
+In commerce, the measurement of the quantity of goods received by the buyer is compared with the measurement of the same quantity declared by the supplier. In the scientific sector, the validation of experiments performed by different research groups is often achieved through the comparison of the measurements obtained. 
+
+There are, however, two fundamental aspects that must be taken into consideration when performing comparisons between measurements:
+
+\begin{enumerate}
+	\item[\textbf{-}] Determine whether the measures under review are comparable;
+	\item[\textbf{-}] Determine how the comparison will be conducted.
+\end{enumerate}
+
+
+The “comparability” of measurements is a property that derives directly from the equipment used: comparing measurements of the same quantity obtained from different instruments makes sense only if the instruments are in some way “traceable” to the same primary standards recognized in a given context, or to different primary standards recognized as equivalent. It is therefore a matter of agreement among the parties who wish to “exchange” measurements.
+
+As for the procedure for performing the comparison, it is important to note that a measurement is not a single numerical value, but rather a range of values, the extent of which depends on the uncertainty associated with the measurement. The agreement between different measurements is therefore established based on the comparison of intervals, whereby the concept of equality is replaced by that of compatibility,  defined as the condition that occurs when the ranges of values assigned as measurements of the same quantity under the same conditions have a non-zero intersection.
+
+The definition highlights the fact that comparing two or more measurements makes sense only when the measurements refer to the same quantity evaluated under the same conditions of the measurement system.  If one wishes to compare measurements obtained in different states of the system, it would first be necessary to relate the measurements to the same state, using an appropriate mathematical model that describes the dependence of the measured quantity on the quantities that define the state of the system.
+
+We end now with the following figure that illustrates three possible scenarios resulting from the comparison of measures: the first subfigure shows a condition of compatibility between measures $m_1$ and $m_2$, while the second subfigure shows a situation of incompatibility.  Finally, the third subfigure highlights the fact that compatibility does not have the transitive property: compatibility between $m_1$ and $m_2$ and between $m_2$ and $m_3$ does not imply compatibility between $m_1$ and $m_3$.\\
+
+\begin{figure}[h]
+\begin{center}
+\begin{tikzpicture}[transform shape, every node/.style={font=\bfseries\sffamily}]
+	% Paths, nodes and wires:
+	\draw[line width=0.8pt] (0, 9.125) -| (0, 9) -| (0, 8.875);
+	\draw[line width=0.8pt] (0, 9) -- (2, 9);
+	\draw[line width=0.8pt] (2, 9.125) -| (2, 8.875);
+	\draw[line width=0.8pt] (1, 9) -| (1, 9.125);
+	\draw[line width=0.8pt] (-0.375, 8.125) -| (-0.375, 8) -| (-0.375, 7.875);
+	\draw[line width=0.8pt] (-0.375, 8) -- (1.625, 8);
+	\draw[line width=0.8pt] (1.625, 8.125) -| (1.625, 7.875);
+	\draw[line width=0.8pt] (0.625, 8) -| (0.625, 8.125);
+	\draw[dash pattern={on 1.6pt off 3.2pt}] (0, 8.875) -| (0, 8);
+	\draw[dash pattern={on 1.6pt off 3.2pt}] (1.625, 9) -| (1.625, 8.125);
+	\node[shape=rectangle, minimum width=0.59cm, minimum height=0.465cm] at (0.937, 9.375){} node[anchor=north west, align=left, text width=0.202cm, inner sep=6pt] at (0.625, 9.625){$m_1$};
+	\node[shape=rectangle, minimum width=0.59cm, minimum height=0.465cm] at (0.563, 7.75){} node[anchor=north west, align=left, text width=0.202cm, inner sep=6pt] at (0.25, 8){$m_2$};
+	\draw[line width=0.8pt] (3, 9.125) -| (3, 9) -| (3, 8.875);
+	\draw[line width=0.8pt] (3, 9) -- (5, 9);
+	\draw[line width=0.8pt] (5, 9.125) -| (5, 8.875);
+	\draw[line width=0.8pt] (4, 9) -| (4, 9.125);
+	\draw[line width=0.8pt] (5.375, 8.125) -| (5.375, 8) -| (5.375, 7.875);
+	\draw[line width=0.8pt] (5.375, 8) -- (7.375, 8);
+	\draw[line width=0.8pt] (7.375, 8.125) -| (7.375, 7.875);
+	\draw[line width=0.8pt] (6.375, 8) -| (6.375, 8.125);
+	\draw[dash pattern={on 1.6pt off 3.2pt}] (5.375, 9.125) -| (5.375, 8.125);
+	\node[shape=rectangle, minimum width=0.59cm, minimum height=0.465cm] at (3.938, 9.375){} node[anchor=north west, align=left, text width=0.202cm, inner sep=6pt] at (3.625, 9.625){$m_1$};
+	\node[shape=rectangle, minimum width=0.59cm, minimum height=0.465cm] at (6.313, 7.75){} node[anchor=north west, align=left, text width=0.202cm, inner sep=6pt] at (6, 8){$m_2$};
+	\draw[dash pattern={on 1.6pt off 3.2pt}] (5, 8.875) -| (5, 7.875);
+	\draw[line width=0.8pt] (8.375, 9) -- (9.375, 9);
+	\draw[line width=0.8pt] (8.875, 8.5) -- (10.875, 8.5);
+	\draw[line width=0.8pt] (10, 8) -- (11.75, 8) -| (11.75, 8.125) -| (11.75, 7.875);
+	\draw[line width=0.8pt] (10, 8.125) -| (10, 7.875);
+	\draw[line width=0.8pt] (10.875, 8.625) -| (10.875, 8.375);
+	\draw[line width=0.8pt] (8.875, 8.625) -| (8.875, 8.375);
+	\draw[line width=0.8pt] (9.375, 9.125) -| (9.375, 8.875);
+	\draw[line width=0.8pt] (8.375, 9.125) -| (8.375, 8.875);
+	\draw[line width=0.8pt] (8.875, 9.125) -| (8.875, 9);
+	\draw[line width=0.8pt] (10.875, 8) -| (10.875, 8.125);
+	\draw[line width=0.8pt] (9.875, 8.625) -| (9.875, 8.5);
+	\draw[dash pattern={on 1.6pt off 3.2pt}] (8.875, 8.625) -| (8.875, 9);
+	\draw[dash pattern={on 1.6pt off 3.2pt}] (9.375, 8.5) -| (9.375, 8.875);
+	\draw[dash pattern={on 1.6pt off 3.2pt}] (10, 8) -| (10, 8.5);
+	\draw[dash pattern={on 1.6pt off 3.2pt}] (10.875, 8) -| (10.875, 8.5);
+	\node[shape=rectangle, minimum width=0.59cm, minimum height=0.465cm] at (8.813, 9.375){} node[anchor=north west, align=left, text width=0.202cm, inner sep=6pt] at (8.5, 9.625){$m_1$};
+	\node[shape=rectangle, minimum width=0.59cm, minimum height=0.465cm] at (11.25, 8.625){} node[anchor=north west, align=left, text width=0.202cm, inner sep=6pt] at (10.938, 8.875){$m_2$};
+	\node[shape=rectangle, minimum width=0.59cm, minimum height=0.465cm] at (10.812, 7.75){} node[anchor=north west, align=left, text width=0.202cm, inner sep=6pt] at (10.5, 8){$m_3$};
+	\node[shape=rectangle, minimum width=1.09cm, minimum height=0.965cm] at (0.875, 6.625){} node[anchor=center, align=center, text width=0.702cm, inner sep=6pt] at (0.875, 6.625){(a)};
+	\node[shape=rectangle, minimum width=1.09cm, minimum height=0.965cm] at (10, 6.625){} node[anchor=center, align=center, text width=0.702cm, inner sep=6pt] at (10, 6.625){(c)};
+	\node[shape=rectangle, minimum width=1.09cm, minimum height=0.965cm] at (5.125, 6.625){} node[anchor=center, align=center, text width=0.702cm, inner sep=6pt] at (5.125, 6.625){(b)};
+\end{tikzpicture}
+\caption{Examples of comparisons between compatibility verification methods}
+\end{center}
+\end{figure}
+
+
+
+\subsection{Traceability of measuring equipment}  % DONE TBC
+
+The compatibility of measurements obtained with different instruments can be assessed only when \textbf{traceable} devices are used, that is, devices linked to national or international primary standards through an unbroken chain of comparisons, in each of which the minimum uncertainty must be stated.\\
+
+The image below represents the uninterrupted chain of traceability and referability among all samples. It can be observed that the value ranges progressively increase in width toward the bottom.
+
+\begin{figure}[h]
+\begin{center}
+\begin{tikzpicture}[transform shape, every node/.style={font=\bfseries\sffamily}]
+	\node[shape=rectangle, draw, line width=1pt, minimum width=0.965cm, minimum height=0.965cm] at (7.5, 8.5){};
+	\node[shape=rectangle, draw, line width=1pt, minimum width=0.965cm, minimum height=0.965cm] at (9, 8.5){};
+	\node[shape=rectangle, draw, line width=1pt, minimum width=0.965cm, minimum height=0.965cm] at (10.5, 8.5){};
+	\node[shape=rectangle, draw, line width=1pt, minimum width=3.965cm, minimum height=0.965cm] at (9, 6.5){};
+	\node[shape=rectangle, draw, line width=1pt, minimum width=3.465cm, minimum height=0.965cm] at (9, 4.5){};
+	\node[shape=rectangle, draw, line width=1pt, minimum width=2.965cm, minimum height=0.965cm] at (9, 2.5){};
+	\draw[line width=1pt, -latex] (10.5, 8) -- (10.5, 7);
+	\draw[line width=1pt, -latex] (9, 8) -- (9, 7);
+	\draw[line width=1pt, -latex] (7.5, 8) -- (7.5, 7);
+	\draw[line width=1pt, -latex] (9, 6) -- (9, 5);
+	\draw[line width=1pt, -latex] (9, 4) -- (9, 3);
+	\draw[line width=0.5pt, dash pattern={on 0.5pt off 1pt}] (6.5, 7.5) -- (11.5, 7.5);
+	\draw[line width=0.5pt, dash pattern={on 0.5pt off 1pt}] (6.5, 3.5) -- (11.5, 3.5);
+	\node[shape=rectangle, minimum width=3.965cm, minimum height=0.465cm] at (9, 9.5){} node[anchor=center, align=center, text width=3.577cm, inner sep=6pt] at (9, 9.5){\large Primary samples};
+	\node[shape=rectangle, minimum width=3.965cm, minimum height=0.465cm] at (9, 6.5){} node[anchor=center, align=center, text width=3.577cm, inner sep=6pt] at (9, 6.5){\large First line sample};
+	\node[shape=rectangle, minimum width=3.965cm, minimum height=0.465cm] at (9, 4.5){} node[anchor=center, align=center, text width=3.577cm, inner sep=6pt] at (9, 4.5){\large Work sample};
+	\node[shape=rectangle, minimum width=3.965cm, minimum height=0.465cm] at (9, 2.5){} node[anchor=center, align=center, text width=3.577cm, inner sep=6pt] at (9, 2.5){\Large Instrument};
+	\node[shape=rectangle, minimum width=2.965cm, minimum height=0.965cm] at (12.5, 8.5){} node[anchor=north, align=center, text width=2.577cm, inner sep=6pt] at (12.5, 9){Primary laboratory};
+	\node[shape=rectangle, minimum width=2.965cm, minimum height=0.965cm] at (12.5, 5.5){} node[anchor=north, align=center, text width=2.577cm, inner sep=6pt] at (12.5, 6){Secondary laboratory};
+	\node[shape=rectangle, minimum width=2.965cm, minimum height=0.965cm] at (12.5, 2.5){} node[anchor=north, align=center, text width=2.577cm, inner sep=6pt] at (12.5, 3){Business};
+	\draw[line width=1pt, -latex] (9, 2) -- (9, 1.5);
+	\draw[line width=0.8pt] (5, 9) -- (5, 2);
+	\draw[line width=0.8pt] (4.75, 9) -- (5.25, 9);
+	\draw[line width=0.8pt] (5.25, 9.125) -| (5.25, 8.875);
+	\draw[line width=0.8pt] (4.75, 9.125) -| (4.75, 8.875);
+	\draw[line width=0.8pt] (4.875, 7.5) -| (4.875, 7.625) -| (4.875, 7.375) -| (4.875, 7.5);
+	\draw[line width=0.8pt] (4.875, 7.5) -- (5.625, 7.5) -| (5.625, 7.625) -| (5.625, 7.375);
+	\draw[line width=0.8pt] (4.375, 2) -| (4.375, 2.125) -| (4.375, 1.875);
+	\draw[line width=0.8pt] (4.375, 2) -- (5.75, 2);
+	\draw[line width=0.8pt] (5.75, 2) -- (6, 2) -| (6, 2.125) -| (6, 1.875);
+	\draw[line width=0.8pt] (5.25, 3.5) -| (5.25, 3.625) -| (5.25, 3.375) -| (5.25, 3.5) -- (4.5, 3.5) -| (4.5, 3.625) -| (4.5, 3.375);
+	\node[shape=rectangle, minimum width=3.34cm, minimum height=0.715cm] at (4.937, 9.375){} node[anchor=center, align=center, text width=3.043cm, inner sep=4.7pt] at (4.937, 9.375){Value ranges};
+\end{tikzpicture}
+\caption{Example of a traceability chain}
+\end{center}
+\end{figure}
+
+
+It is therefore necessary to establish an agreement defining the primary standards for the various physical quantities; that is, a set of devices and/or experiments capable of realizing the \textbf{units of measurement} to be adopted for measuring different quantities, i.e., the conventional reference points used to compare quantities of the same kind.
+
+The agreement currently in force at the international level is a diplomatic treaty between states, known as the \textit{Metre Convention}, first signed in Paris in 1875 by representatives of seventeen countries (approximately seventy countries are now parties to the treaty). 
+
+The countries that are parties to the Metre Convention recognize the International System of Units (SI) and have entered into agreements that allow for the establishment of equivalence between the units of measurement realized at the primary laboratories of the various countries (\textit{Mutual Recognition Arrangement}) and equivalence between the accreditation systems of secondary laboratories (\textit{Multilateral Agreement}).
+
+The International Organization of Metrology and the main characteristics of the SI system are covered in the preceding sections on the introduction to measurement.
+
+\subsection{Uncertainty estimate} % DONE TBC
+
+The traceability of the instruments used to obtain different measurements of the same quantity is a necessary \textbf{but not sufficient} condition for compatibility to hold. Compatibility between measurements of the same quantity, referring to the same state of the measured system and obtained using traceable instruments, requires that:
+
+\begin{enumerate}
+	\item[\textbf{-}] Any systematic errors that significantly affect the measurements are identified and corrected;
+	\item[\textbf{-}] Appropriate methods are used to estimate measurement uncertainty;
+	\item[\textbf{-}] All significant sources of uncertainty are taken into account.
+	  
+\end{enumerate}
+
+A systematic error comparable to the measurement uncertainty, or an underestimation of the uncertainty, could in fact result in a situation where measurements are incompatible, whereas an overestimation of the uncertainty could lead to a situation where measurements are compatible even when they are actually inconsistent.
+
+However, the estimation of measurement uncertainty cannot be equated with a routine activity, as it requires prior knowledge regarding the measurement method used, the history and characteristics of the equipment used, and the interaction between instruments and the measurement system. 
+
+It can therefore be stated that to achieve compatibility, the traceability of the instrumentation used and an adequate level of operator expertise are necessary during the execution of the measurement and the processing of experimental data.
+
+We will now proceed to examine in detail the estimation of measurement uncertainty after a series of brief definitions; will then move on to a quick, and not entirely exhaustive, overview of examples of the evaluation and correction of systematic effects regarding the measurement instrumentation.
+
+\subsubsection{Some useful definitions} % DONE TBC
+
+We now reserve this final section to introduce some useful definitions of the most common and widely used terms in academia and industry when referring to measurements.
+
+\begin{enumerate}
+	\item[\textbf{-}]\textbf{Material standard:} A device that, during use, reproduces one or more known values of a quantity with a known uncertainty.
+	
+	\item[\textbf{-}]\textbf{Compatibility:} A condition that occurs when the ranges of values assigned on different occasions as measurements of the same parameter under the same conditions have at least one element in common.
+	
+	\item[\textbf{-}]\textbf{Influencing quantity}, quantity, other than the measurand, pertaining to the measured system itself, to the instruments used, and/or to the environment, whose variation alters, for the purposes of measurement or control, the characteristics of the instruments and/or the mode of measurement interaction. 
+	
+	\item[\textbf{-}]\textbf{Measurement uncertainty:}  limited range of a parameter’s value, corresponding to the elements of the range of values assigned to it as a measurement.
+	
+	\item[\textbf{-}]\textbf{Intrinsic uncertainty of a parameter:} The smallest uncertainty that can be assigned to the measurement of the parameter.
+	
+	\item[\textbf{-}]\textbf{Measurement:} information consisting of a number, an uncertainty, and a unit of measurement, assigned to represent a parameter in a given state of the system.
+
+	\item[\textbf{-}]\textbf{Measurand:} parameter subject to measurement and/or control, evaluated in the state assumed by the system at the time of the measurement itself.
+	
+	\item[\textbf{-}]\textbf{Measurement:} set of physical and computational operations performed using special devices interacting with the measured system for the purpose of assigning the measurement of a quantity taken as a parameter of that system.
+
+	\item[\textbf{-}]\textbf{Measurement method:} specification of the procedures for applying measuring instruments to the measured system, the characteristics of these instruments, and the methods for processing the reading signals, to be adopted in order to perform a measurement.
+
+	\item[\textbf{-}]\textbf{Repeated-measurement method:} method in which the measurement is assigned as the result of a statistical analysis of the distribution of data obtained by repeating the measurements several times under nominally identical conditions.
+	
+	\item[\textbf{-}]\textbf{Model:} An organized set of relationships between parameter values, describing the interactions and evolution of systems. 
+	
+	\item[\textbf{-}]\textbf{Parameter:} any quantity relevant to a system to which it is necessary to assign values in order to describe the system itself, its evolution, and its interactions with other systems and with the environment.
+ 
+	\item[\textbf{-}]\textbf{Measured system:} (or system under measurement) is a specific system on which the measurement and/or control is performed.
+
+	\item[\textbf{-}]\textbf{System state:} Set of values simultaneously assumed by the system’s parameters.
+	\item[\textbf{-}]\textbf{Transducer:} a technical device that subjects an input signal to a processing, transforming it into an equivalent output signal.
+
+	\item[\textbf{-}]\textbf{Unit of measurement:} a reference term adopted, by convention, to compare a quantity with others of the same kind.
+
+
+\end{enumerate}
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{Measurement uncertainty estimate}
+
+\subsection{Introduction}
+
+\subsection{Classification of measurement methods}
+\subsubsection{Direct measurement methods}
+\subsubsection{Indirect measurement methods}
+
+\subsection{Deterministic model}
+
+\subsubsection{Uncertainty propagation}
+\subsubsection{Examples}
+
+\subsection{Probabilistic model}
+
+\subsubsection{Category A uncertainty assessment}
+\subsubsection{Category B uncertainty assessment}
+\subsubsection{Uncertainty propagation}
+\subsubsection{Estimation of the confidence level}
+\subsubsection{Examples}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+
+\section{Electronic measurements}
+
+
+
+\subsection{Analog oscilloscope}
 
 After providing a comprehensive introduction to the concept of measurement and the associated uncertainties, we can now proceed to analyze one of the main measuring instruments used in laboratories. This instrument allows us to take measurements and observe what happens inside a circuit that we want to analyze.
 
@@ -207,7 +476,7 @@ Come visto in precedenza andiamo a vedere come si comporta questo circuito con c
 	
 \end{enumerate}
 
-Fatte queste premesse edassunzioni arriviamo a dire che:
+Fatte queste premesse ed assunzioni arriviamo a dire che:
 
 \[ V_i = V_i \dfrac{R_i}{R_g + 10R_i}  \cdot \dfrac{1}{\dfrac{s R_gR_i}{R_g + 10R_i}C_p + 1} \]\
 
@@ -247,28 +516,6 @@ Tornando a noi una volta visualizzata l'onda sullo strumento ci è possibile reg
 \subsubsection{Examples}
 
 
-\begin{center}
-\begin{tikzpicture}[transform shape]
-	% Paths, nodes and wires:
-	\draw (12.5, 5) to[generic, mirror, v=$V_{out}$, voltage/distance from node=0.4, voltage/shift=2] (12.5, 8);
-	\draw (6, 8) to[capacitor, l={$C_{in}$}] (6, 5);
-	\node[nmos, rotate=-90](N1) at (6.98, 8){} node[anchor=north] at (N1.text){$SW_1$};
-	\draw (8, 5) to[empty diode, l_={$SW_2$}] (8, 8);
-	\draw (8, 8) to[cute inductor, l={$L$}, v<=$V_L$, voltage/shift=1] (11, 8);
-	\draw (5, 8) -- (6.25, 8);
-	\draw (7.75, 8) -- (8, 8);
-	\draw (11, 8) -- (12, 8);
-	\draw (12, 8) -- (12.5, 8);
-	\draw (12.5, 5) -- (12, 5);
-	\draw (11, 8) to[capacitor, l_={$C_{out}$}, label distance=0.07cm] (11, 5);
-	\draw (12, 5) -- (6, 5);
-	\draw (5, 8) to[open, v_<=$V_{in}$, voltage/bump b=1, voltage/shift=-0.4] (5, 5);
-	\node[ocirc] at (5, 8){};
-	\node[ocirc] at (5, 5){};
-	\node[ocirc] at (6.98, 8.98){};
-	\draw (5, 5) -- (6, 5);
-\end{tikzpicture}
-\end{center}
 
 
 
