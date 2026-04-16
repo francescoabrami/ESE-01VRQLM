@@ -516,6 +516,33 @@ Tornando a noi una volta visualizzata l'onda sullo strumento ci è possibile reg
 \subsubsection{Examples}
 
 
+\begin{figure}[h]
+\begin{center}
+
+\begin{tikzpicture}[transform shape]
+\node[ieeestd or port](N1) at (4.956, 11.095){} node[anchor=center] at (N1.text){$V_{out}$};
+\node[ieeestd or port](N2) at (7.119, 10.815){} node[anchor=center] at (N2.text){$V_{IN}$};
+\draw (8.2, 10.815) to[empty diode] (10.037, 10.845);
+\node[op amp] at (8.18, 13.58){};
+\node[latch] at (4.87, 14.91){};
+\draw (6.99, 14.07) -- (5.99, 14.07);
+\draw (3.875, 11.375) -- (3, 11.375) -| (3, 15.75) -- (3.75, 15.75);
+\draw (5.99, 15.75) to[voltmeter] (7.25, 15.75);
+\draw (3, 13) to[variable capacitor] (4, 13);
+\draw (3, 15.75) to[american resistor] (1.125, 15.75);
+\node[schmitt] at (7.95, 15.75){};
+\draw (10.037, 10.845) to[variable cute inductor] (10, 13);
+\node[transformer core, cute] at (10.42, 14.63){};
+\node[nmos] at (1.125, 14.98){};
+\draw (3, 17.5) to[lowpass] (6, 17.5);
+\node[ground] at (11.47, 13.58){};
+\end{tikzpicture}
+
+\caption{Example circuit rendering}
+\end{center}
+\end{figure}
+
+
 
 
 
