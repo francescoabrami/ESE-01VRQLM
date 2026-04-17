@@ -6,9 +6,11 @@
 
 %% BEGIN SUBFILE %%
 
-\newpage
-
+\clearpage
+\thispagestyle{empty}
 \section{Introductions to measurement}
+
+
 
 \subsection{Introduction}
 
@@ -114,7 +116,6 @@ Every single measurement in the universe—from the torque of a motor to the imp
 
 \subsection{Approach to measures}
 
-
 Measurement—that is, the performance of a procedure that allows us to obtain quantitative information about the manifestations of a physical system is an operation that plays an extremely important role in most aspects of human life. 
 
 Each of us performs measurements several times a day, often unconsciously, applying acquired mental we have acquired: we measure when we look at our car’s speedometer to stay within the speed limit, when we weigh the amount of flour to use in pizza dough, or when we check our wristwatch to arrive on time for an appointment.
@@ -143,14 +144,13 @@ The “comparability” of measurements is a property that derives directly from
 
 As for the procedure for performing the comparison, it is important to note that a measurement is not a single numerical value, but rather a range of values, the extent of which depends on the uncertainty associated with the measurement. The agreement between different measurements is therefore established based on the comparison of intervals, whereby the concept of equality is replaced by that of compatibility,  defined as the condition that occurs when the ranges of values assigned as measurements of the same quantity under the same conditions have a non-zero intersection.
 
-The definition highlights the fact that comparing two or more measurements makes sense only when the measurements refer to the same quantity evaluated under the same conditions of the measurement system.  If one wishes to compare measurements obtained in different states of the system, it would first be necessary to relate the measurements to the same state, using an appropriate mathematical model that describes the dependence of the measured quantity on the quantities that define the state of the system.
+The definition highlights the fact that comparing two or more measurements makes sense only when the measurements refer to the same quantity evaluated under the same conditions of the measurement system.  If one wishes to compare measurements obtained in different states of the system, it would first be necessary to relate the measurements to the same state, using an appropriate mathematical model that describes the dependence of the measured quantity on the quantities that define the state of the system.\\
 
-We end now with the following figure that illustrates three possible scenarios resulting from the comparison of measures: the first subfigure shows a condition of compatibility between measures $m_1$ and $m_2$, while the second subfigure shows a situation of incompatibility.  Finally, the third subfigure highlights the fact that compatibility does not have the transitive property: compatibility between $m_1$ and $m_2$ and between $m_2$ and $m_3$ does not imply compatibility between $m_1$ and $m_3$.\\
+We end now with the following figure \ref{fig:abc} that illustrates three possible scenarios resulting from the comparison of measures: the first subfigure shows a condition of compatibility between measures $m_1$ and $m_2$, while the second subfigure shows a situation of incompatibility.  Finally, the third subfigure highlights the fact that compatibility does not have the transitive property: compatibility between $m_1$ and $m_2$ and between $m_2$ and $m_3$ does not imply compatibility between $m_1$ and $m_3$.\\
 
 \begin{figure}[h]
 \begin{center}
 \begin{tikzpicture}[transform shape, every node/.style={font=\bfseries\sffamily}]
-	% Paths, nodes and wires:
 	\draw[line width=0.8pt] (0, 9.125) -| (0, 9) -| (0, 8.875);
 	\draw[line width=0.8pt] (0, 9) -- (2, 9);
 	\draw[line width=0.8pt] (2, 9.125) -| (2, 8.875);
@@ -198,16 +198,13 @@ We end now with the following figure that illustrates three possible scenarios r
 	\node[shape=rectangle, minimum width=1.09cm, minimum height=0.965cm] at (5.125, 6.625){} node[anchor=center, align=center, text width=0.702cm, inner sep=6pt] at (5.125, 6.625){(b)};
 \end{tikzpicture}
 \caption{Examples of comparisons between compatibility verification methods}
+\label{fig:abc}
 \end{center}
 \end{figure}
-
-
 
 \subsection{Traceability of measuring equipment}  % DONE TBC
 
 The compatibility of measurements obtained with different instruments can be assessed only when \textbf{traceable} devices are used, that is, devices linked to national or international primary standards through an unbroken chain of comparisons, in each of which the minimum uncertainty must be stated.\\
-
-The image below represents the uninterrupted chain of traceability and referability among all samples. It can be observed that the value ranges progressively increase in width toward the bottom.
 
 \begin{figure}[h]
 \begin{center}
@@ -246,6 +243,7 @@ The image below represents the uninterrupted chain of traceability and referabil
 	\node[shape=rectangle, minimum width=3.34cm, minimum height=0.715cm] at (4.937, 9.375){} node[anchor=center, align=center, text width=3.043cm, inner sep=4.7pt] at (4.937, 9.375){Value ranges};
 \end{tikzpicture}
 \caption{Example of a traceability chain}
+\label{fig:trace}
 \end{center}
 \end{figure}
 
@@ -257,6 +255,8 @@ The agreement currently in force at the international level is a diplomatic trea
 The countries that are parties to the Metre Convention recognize the International System of Units (SI) and have entered into agreements that allow for the establishment of equivalence between the units of measurement realized at the primary laboratories of the various countries (\textit{Mutual Recognition Arrangement}) and equivalence between the accreditation systems of secondary laboratories (\textit{Multilateral Agreement}).
 
 The International Organization of Metrology and the main characteristics of the SI system are covered in the preceding sections on the introduction to measurement.
+
+The image \ref{fig:trace} above represents the uninterrupted chain of traceability and referability among all samples. It can be observed that the value ranges progressively increase in width toward the bottom.\\
 
 \subsection{Uncertainty estimate} % DONE TBC
 
@@ -321,7 +321,8 @@ We now reserve this final section to introduce some useful definitions of the mo
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\newpage
+\clearpage
+\thispagestyle{empty}
 \section{Measurement uncertainty estimate}
 
 \subsection{Introduction}
@@ -494,14 +495,17 @@ In the case of measurements obtained using direct methods, one simply sums the v
 
 If, on the other hand, the measurement is assigned using an indirect method, uncertainty contributions associated with the various quantities are combined according to the rules indicated below.\\
 
-Let Y denote the measured parameter, which is related to other parameters $X_i$ by the following model:\\
+Let Y denote the measured parameter, which is related to other parameters $X_i$ by the following model:
 
-\[Y = f(X_1,X_2,\dots, X_N)\]\
+\begin{equation}
+	Y = f(X_1,X_2,\dots, X_N)
+\end{equation}
 
-The central value $y_0$ of the range assigned as a measure of $Y$ is obtained from the central values $x_{i0}$ of the other parameters as follows:\\
+The central value $y_0$ of the range assigned as a measure of $Y$ is obtained from the central values $x_{i0}$ of the other parameters as follows:
 
-\[y_0 = f(x_10, x_20, \dots, x_{N0})\]\
-
+\begin{equation}
+	y_0 = f(x_10, x_20, \dots, x_{N0})
+\end{equation}
 
 The absolute value of the measurement uncertainty, i.e., the half-width of the range of values for $y$, is instead obtained separately from the absolute uncertainties $\delta_{xi}$ of the quantities $x_i$ using the following equation:\\
 
@@ -552,6 +556,7 @@ If the values $x_{10}$ and $x_{20}$ are similar, the denominator of the expressi
 where $P_i$ is the power absorbed by the primary winding of the transformer and $P_u$ is the power delivered to the secondary winding, both of which are measured with a relative uncertainty of 1\%. By applying the above equation, it is easy to verify that the relative uncertainty of the $P_p$ measurement is 99\%.
 
 \subsubsection*{Product and quotient}
+
 Let's now switch to a different case scenario:
 
 \begin{equation*}
@@ -578,18 +583,57 @@ from which we can extrapolate the relative uncertainty of $y$ as:
 
 The following rule therefore applies: \textbf{the relative uncertainty of a quantity obtained as a product and/or quotient of other quantities $x_i$ is equal to the sum of the relative uncertainties of the quantities $x_i$.}
 
-
-	
-
 \subsubsection*{Power and root}
+
+Let's now switch to a different case scenario considering the power and root operations.
+
+
+\[ 	Y_1 = X_1^N = \prod_N X_1  \]\
+
+Applying the rule of products, we simply get:
+
+\[ \varepsilon_{y_1} = N \cdot \varepsilon_{x_1}\]\
+
+
+Furthermore, since the root can be written as a power, such as:
+
+
+\[ Y_2 = \sqrt[M]{X_2} = {X_2}^{\frac{1}{M}}\]\
+
+
+we then get that:
+
+\[\varepsilon_{y_2} = \frac{1}{M} \cdot \varepsilon_{x_2}  \]\
 
 \subsubsection*{Small increment}
 
+Let us now consider the quantity $Y$ obtained as:
 
+\[ Y = X + \Delta_X \hspace{1cm} \unit{supposing\;that} \hspace{1cm} \Delta_X \ll X \]\
 
+and suppose that the quantity being measured is the quantity $Z$ defined as follows:
 
+\[ Z = \frac{Y}{X} = 1 + \frac{\Delta_X}{X}\]\
+
+From the last equation and using the definition of relative uncertainty, we have that:
+
+\[ \varepsilon_z = \varepsilon_{(1 + \Delta_X/X)} = \frac{\delta_{(1 + \Delta_X/X)}}{1 + \Delta_X/X} \approx \delta_{(1 + \Delta_X/X)}  \]\
+
+where the approximation used stems from the fact that, by assumption, $\Delta_X \ll X$. 
+
+Applying the rules described above yields the following relationship:
+
+\[ \delta_{(1+\Delta_X / X)} = \delta_1 + \delta_{\frac{\Delta_X}{X}} = \delta_{\frac{\Delta_X}{X}} = \frac{\Delta_X}{X} \cdot \varepsilon_{\frac{\Delta_X}{X}} = \frac{\Delta_X}{X} \cdot (\varepsilon_{\Delta_X} + \varepsilon_X)  \]\
+
+which ultimately allows us to express the relative uncertainty of the measurand as:
+
+\[ \varepsilon_z = \frac{\Delta_X}{X} \cdot (\varepsilon_{\Delta_X} + \varepsilon_X) \]\
+
+Note, therefore, that since the term $\Delta_X / X$ is much smaller than unity, the quantity measured by $Z$ is obtained with a relative uncertainty that is much smaller than the sum of the relative uncertainties of the input quantities.
 
 \subsection{Probabilistic model}
+
+
 
 \subsubsection{Category A uncertainty assessment}
 \subsubsection{Category B uncertainty assessment}
@@ -637,10 +681,9 @@ The following rule therefore applies: \textbf{the relative uncertainty of a quan
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 %%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\newpage
+\clearpage
+\thispagestyle{empty}
 \section{Electronic measurements}
-
-
 
 \subsection{Analog oscilloscope}
 
