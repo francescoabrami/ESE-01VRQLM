@@ -361,7 +361,10 @@ Direct measurement methods are based on comparing the quantity being measured wi
 
 The most common direct measurements are those performed using the a direct reading method, i.e., assigning the measurement $m$ based on the indication provided by a device to which the measurand is applied via the following relationship:
 
-\[ m = f_t(l) \]\
+
+\begin{equation}
+	m = f_t(l)
+\end{equation}
 
 where $f_t$ is the calibration function stored in the instrument being used.
 This measurement method therefore requires that the instrument be calibrated before use, in order to establish the correspondence between the readings provided by the instrument and the measurements of the quantities applied to its input.
@@ -386,7 +389,9 @@ Another category of direct measurement methods involves a comparison by contrast
 
 In this case, the measurement process involves an auxiliary device, whose function is to detect the condition of equivalence between the measurand $m$ and the quantity $c_1$ provided by the standard, so that the measurement is assigned as:
 
-\[m = c_1\]\
+\begin{equation}
+	m = c_1
+\end{equation}
 
 The uncertainty of the measured values obtained by applying a comparison method by opposition depends on the following factors:
 
@@ -400,7 +405,9 @@ The uncertainty of the measured values obtained by applying a comparison method 
 
 In electrical circuits, among the comparison methods, zero-crossing methods are often used, in which an auxiliary device is employed to detect a state of equilibrium, corresponding to the cancellation of a current or voltage in the circuit.  When the equilibrium condition is reached, the quantity under test $m$ can be expressed in terms of a number $n$ of known quantities provided by variable standards:
 
-\[m = f(c_1,c_2,\dots,c_n)\]\
+\begin{equation}
+	m = f(c_1,c_2,\dots,c_n)
+\end{equation}
 
 In this case, the uncertainty contributions to be considered are:
 
@@ -419,11 +426,15 @@ The first phase involves establishing the condition that allows the measurand to
 
 In a second step, a variable sample that realizes a quantity $c_R$ homogeneous with the measurand is substituted into the measurement system; then, the equilibrium condition is reestablished by acting exclusively on the sample $c_R$ and leaving the other devices unchanged. Under these conditions, the following relationship holds:
 
-\[c_R = f(c_1,c_2,\dots,c_n)\]\
+\begin{equation}
+	c_R = f(c_1,c_2,\dots,c_n)
+\end{equation}
 
 whereby the measurement $c_R$ is simply assigned as:
 
-\[m = c_R\]\
+\begin{equation}
+	m = c_R
+\end{equation}
 
 Note that, in this case, the measurement uncertainty $m$ depends on the uncertainty of the $c_R$ sample and on the short-term stability of the devices that generate the values $c_1,\;c_2,\;\dots, c_n\;$ which may be known only approximately.
 
@@ -435,7 +446,9 @@ These parameters are estimated using direct measurement methods. The application
 
 If we denote the indirectly obtained measurand by $Y$ and the directly measured quantities by $X$, this relationship can be expressed by the equation:\\
 
-\[Y = f(X_1,X_2,\dots, X_N)\]\
+\begin{equation}
+	Y = f(X_1,X_2,\dots, X_N)
+\end{equation}
 
 where, for simplicity, the dependence on the quantities that define the system’s state in terms of measurement and on the influencing quantities has been omitted, although this dependence must always be taken into account.
 
@@ -462,7 +475,9 @@ Even when the range of values is assigned by applying statistical techniques to 
 
 The measure m of a parameter can therefore be expressed using the following equation:\\
 
-\[m = (m_0 \pm \delta m)\; \unit{U} \]\
+\begin{equation}
+	m = (m_0 \pm \delta m)\; \unit{U} 
+\end{equation}
 
 where $\delta m$ is the absolute uncertainty of the measurement, expressed in the same unit of measurement U as $m_0$. The interval of width $2\delta m$ represents the range of values assigned as the measurement of the parameter.
 When the ranges of values assigned using different methods or equipment, or at different times, to the same measurand and in the same system state have at least one element in common, then the measurements are said to be compatible. 
@@ -470,22 +485,33 @@ If one wishes to evaluate the compatibility between measurements referring to di
 
 In many cases, it is more meaningful to report the relative value of the uncertainty, or the relative percentage value, rather than the absolute value, using the following definitions:\\
 
-\[ \varepsilon_m = \frac{\delta m}{m_0} \hspace{1cm} \varepsilon_{m\%} = \frac{\delta m}{m_0} \cdot 100\]\
+\begin{equation}
+	\varepsilon_m = \frac{\delta m}{m_0} \hspace{1cm} \varepsilon_{m\%} = \frac{\delta m}{m_0} \cdot 100
+\end{equation}
 
 Relative uncertainty, in fact, provides an immediate indication of the quality of a measurement, which may not be immediately apparent when reporting the absolute uncertainty. 
 
 Consider, for example, two length measurements characterized by the same absolute uncertainty $\delta m$ of 1 mm but with two different measured values of 1 m and 100 m. In this case, using absolute uncertainty, the results of the two measurements would be reported as:\\
 
-\[ m_1 = (1\; \pm\; 0.001) \; \unit{m} \hspace{1cm} m_2 = (100\; \pm\; 0.001) \; \unit{m} \]\
+
+
+\begin{equation}
+	m_1 = (1\; \pm\; 0.001) \; \unit{m} \hspace{1cm} m_2 = (100\; \pm\; 0.001) \; \unit{m}
+\end{equation}
 
 If, on the other hand, the measurements are given with the relative uncertainty expressed as a percentage, the result will be:\\
 
-\[ m_1 = 1\; \unit{m} \pm\; 0.1 \%  \hspace{1cm} m_2 = 100\; \pm\; 0.001 \% \]\
+\begin{equation}
+	m_1 = 1\; \unit{m} \pm\; 0.1 \%  \hspace{1cm} m_2 = 100\; \pm\; 0.001 \%
+\end{equation}
+
 
 This highlights the superior quality of the measurement $m_2$ compared to $m_2$.
 In some cases, it is convenient to express the uncertainty as a reduced value, that is, relative to a conventional value mc of the measurand, using the following equation:\\
 
-\[ \varepsilon_{red} = \frac{\delta m}{m_C}\]\
+\begin{equation}
+	\varepsilon_{red} = \frac{\delta m}{m_C}
+\end{equation}
 
 \subsubsection{Uncertainty propagation}
 
@@ -509,12 +535,16 @@ The central value $y_0$ of the range assigned as a measure of $Y$ is obtained fr
 
 The absolute value of the measurement uncertainty, i.e., the half-width of the range of values for $y$, is instead obtained separately from the absolute uncertainties $\delta_{xi}$ of the quantities $x_i$ using the following equation:\\
 
-\[ \delta_y = \bigg|  \frac{\partial f}{\partial x_1}   \bigg|_{(x_{10},\dots,x_{N0})} \cdot \delta_{x1} \; + \bigg| \frac{\partial f}{\partial x_N}   \bigg|_{(x_{10},\dots,x_{N0})} \cdot \delta_{xN} \]\
+
+\begin{equation}
+	\delta_y = \bigg|  \frac{\partial f}{\partial x_1}   \bigg|_{(x_{10},\dots,x_{N0})} \cdot \delta_{x1} \; + \bigg| \frac{\partial f}{\partial x_N}   \bigg|_{(x_{10},\dots,x_{N0})} \cdot \delta_{xN} 
+\end{equation}
 
 In other terms we can write that:\\
 
-\[\delta_y = \sum_{i = 1}^N  \bigg| \frac{\partial f}{\partial x_i} \bigg|_{x_0} \cdot \delta_{xi}	 \]\
-
+\begin{equation}
+	\delta_y = \sum_{i = 1}^N  \bigg| \frac{\partial f}{\partial x_i} \bigg|_{x_0} \cdot \delta_{xi}	
+\end{equation}
 
 The model expressed by the first relation represents the approximate Taylor series expansion to the first-order terms (linear expansion) of the function $f$ around the point $(x_0, x_1, \dots, x_n)$. If the function is linear, the relation is exact, since terms of order higher than the first are all zero. \\
 
@@ -528,11 +558,15 @@ Below are some examples of uncertainty calculations based on the deterministic m
 
 \subsubsection*{Sum and difference}
 
-\[ Y = X_1 + X_2 - X_3 \]\
+\begin{equation}
+	Y = X_1 + X_2 - X_3
+\end{equation}
 
 Applying the previous equation, we obtain that:\\
 
-\[\delta_y = \delta_1 + \delta_2 - \delta_3 \]\
+\begin{equation}
+	\delta_y = \delta_1 + \delta_2 - \delta_3
+\end{equation}
 
 From this, the following rule can be stated: \textbf{the absolute uncertainty of a quantity obtained as the sum and/or difference of other quantities $x_i$ is equal to the sum of the absolute uncertainties of the quantities $x_i$.}\\
 
@@ -543,15 +577,22 @@ In reality, however, it is possible that the nominal values $x_{10}$, $x_{20}$, 
 In the case of measurements obtained by difference, further analysis is warranted to guard against “unpleasant surprises.” 
 Consider the quantity Y obtained as:\\
 
-\[ Y = X_1 - X_2\]\
+\begin{equation}
+	Y = X_1 - X_2
+\end{equation}
 
 In this case the relative uncertainty is obtained as:\\
 
-\[ \varepsilon_y = \frac{\delta_y}{y_0} = \frac{\delta_{x_1} + \delta_{x_2}}{x_{10} - x_{20}} \]\
+\begin{equation}
+	\varepsilon_y = \frac{\delta_y}{y_0} = \frac{\delta_{x_1} + \delta_{x_2}}{x_{10} - x_{20}}
+\end{equation}
 
 If the values $x_{10}$ and $x_{20}$ are similar, the denominator of the expression just seen may become of the same order of magnitude or even smaller than the numerator, so that the relative uncertainty of the quantity obtained by difference can take on very high values. Consider, for example, the measurement of power losses $P$ in a 10 kW voltage transformer with an efficiency $\eta$ of 0.98, obtained as:
 
-\[P_p = P_i - P_u\]\
+\begin{equation}
+	P_p = P_i - P_u	
+\end{equation}
+
 
 where $P_i$ is the power absorbed by the primary winding of the transformer and $P_u$ is the power delivered to the secondary winding, both of which are measured with a relative uncertainty of 1\%. By applying the above equation, it is easy to verify that the relative uncertainty of the $P_p$ measurement is 99\%.
 
@@ -559,27 +600,27 @@ where $P_i$ is the power absorbed by the primary winding of the transformer and 
 
 Let's now switch to a different case scenario:
 
-\begin{equation*}
+\begin{equation}
 	Y = \frac{X_1 \cdot X_2}{X_3} 
-\end{equation*}\\
+\end{equation}
 
 The absolute uncertainty of the quantity $Y$ is given by:\\
 
-\begin{equation*}
+\begin{equation}
 	\delta_y = \frac{x_{20}}{x_{30}} \cdot \delta_{x_1} + \frac{x_{10}}{x_{30}} \cdot \delta_{x_2} + \frac{x_{10} \cdot x_{20}}{x_{30}} \cdot \delta_{x_3}
-\end{equation*}\\
+\end{equation}
 
 that can be rewritten as:\\
 
-\begin{equation*}
+\begin{equation}
 	\delta_y = \frac{x_{10} \cdot x_{20}}{x_{30}} \cdot \frac{\delta_{x_1}}{x_{10}} + \frac{x_{10} \cdot x_{20}}{x_{30}} \cdot \frac{\delta_{x_2}}{x_{20}} + \frac{x_{10} \cdot x_{20}}{x_{30}} \cdot \frac{\delta_{x_3}}{x_{30}} = y_0 \cdot (\varepsilon_{x_1} + \varepsilon_{x_2} + \varepsilon_{x_3})
-\end{equation*}\\
+\end{equation}\\
 
 from which we can extrapolate the relative uncertainty of $y$ as:
 
-\begin{equation*}
+\begin{equation}
 	\varepsilon_y = \frac{\delta_y}{y_0} = \varepsilon_{x_1} + \varepsilon_{x_2} + \varepsilon_{x_3}
-\end{equation*}\\
+\end{equation}\\
 
 The following rule therefore applies: \textbf{the relative uncertainty of a quantity obtained as a product and/or quotient of other quantities $x_i$ is equal to the sum of the relative uncertainties of the quantities $x_i$.}
 
@@ -587,47 +628,62 @@ The following rule therefore applies: \textbf{the relative uncertainty of a quan
 
 Let's now switch to a different case scenario considering the power and root operations.
 
-
-\[ 	Y_1 = X_1^N = \prod_N X_1  \]\
+\begin{equation}
+	Y_1 = X_1^N = \prod_N X_1 	
+\end{equation}
 
 Applying the rule of products, we simply get:
 
-\[ \varepsilon_{y_1} = N \cdot \varepsilon_{x_1}\]\
+\begin{equation}
+	\varepsilon_{y_1} = N \cdot \varepsilon_{x_1}
+\end{equation}
 
 
 Furthermore, since the root can be written as a power, such as:
 
-
-\[ Y_2 = \sqrt[M]{X_2} = {X_2}^{\frac{1}{M}}\]\
-
+\begin{equation}
+	Y_2 = \sqrt[M]{X_2} = {X_2}^{\frac{1}{M}}
+\end{equation}
 
 we then get that:
 
-\[\varepsilon_{y_2} = \frac{1}{M} \cdot \varepsilon_{x_2}  \]\
+\begin{equation}
+	\varepsilon_{y_2} = \frac{1}{M} \cdot \varepsilon_{x_2} 
+\end{equation}
 
 \subsubsection*{Small increment}
 
 Let us now consider the quantity $Y$ obtained as:
 
-\[ Y = X + \Delta_X \hspace{1cm} \unit{supposing\;that} \hspace{1cm} \Delta_X \ll X \]\
+\begin{equation}
+	Y = X + \Delta_X \hspace{1cm} \unit{supposing\;that} \hspace{1cm} \Delta_X \ll X 
+\end{equation}
 
 and suppose that the quantity being measured is the quantity $Z$ defined as follows:
 
-\[ Z = \frac{Y}{X} = 1 + \frac{\Delta_X}{X}\]\
+\begin{equation}
+	Z = \frac{Y}{X} = 1 + \frac{\Delta_X}{X}	
+\end{equation}
 
 From the last equation and using the definition of relative uncertainty, we have that:
 
-\[ \varepsilon_z = \varepsilon_{(1 + \Delta_X/X)} = \frac{\delta_{(1 + \Delta_X/X)}}{1 + \Delta_X/X} \approx \delta_{(1 + \Delta_X/X)}  \]\
+\begin{equation}
+	\varepsilon_z = \varepsilon_{(1 + \Delta_X/X)} = \frac{\delta_{(1 + \Delta_X/X)}}{1 + \Delta_X/X} \approx \delta_{(1 + \Delta_X/X)} 
+\end{equation}
 
 where the approximation used stems from the fact that, by assumption, $\Delta_X \ll X$. 
 
 Applying the rules described above yields the following relationship:
 
-\[ \delta_{(1+\Delta_X / X)} = \delta_1 + \delta_{\frac{\Delta_X}{X}} = \delta_{\frac{\Delta_X}{X}} = \frac{\Delta_X}{X} \cdot \varepsilon_{\frac{\Delta_X}{X}} = \frac{\Delta_X}{X} \cdot (\varepsilon_{\Delta_X} + \varepsilon_X)  \]\
+\begin{equation}
+	\delta_{(1+\Delta_X / X)} = \delta_1 + \delta_{\frac{\Delta_X}{X}} = \delta_{\frac{\Delta_X}{X}} = \frac{\Delta_X}{X} \cdot \varepsilon_{\frac{\Delta_X}{X}} = \frac{\Delta_X}{X} \cdot (\varepsilon_{\Delta_X} + \varepsilon_X) 
+\end{equation}
 
 which ultimately allows us to express the relative uncertainty of the measurand as:
 
-\[ \varepsilon_z = \frac{\Delta_X}{X} \cdot (\varepsilon_{\Delta_X} + \varepsilon_X) \]\
+\begin{equation}
+	\varepsilon_z = \frac{\Delta_X}{X} \cdot (\varepsilon_{\Delta_X} + \varepsilon_X) 
+\end{equation}
 
 Note, therefore, that since the term $\Delta_X / X$ is much smaller than unity, the quantity measured by $Z$ is obtained with a relative uncertainty that is much smaller than the sum of the relative uncertainties of the input quantities.
 
@@ -814,31 +870,6 @@ Tornando a noi una volta visualizzata l'onda sullo strumento ci è possibile reg
 \subsubsection{Examples}
 
 
-\begin{figure}[h]
-\begin{center}
-
-\begin{tikzpicture}[transform shape]
-\node[ieeestd or port](N1) at (4.956, 11.095){} node[anchor=center] at (N1.text){$V_{out}$};
-\node[ieeestd or port](N2) at (7.119, 10.815){} node[anchor=center] at (N2.text){$V_{IN}$};
-\draw (8.2, 10.815) to[empty diode] (10.037, 10.845);
-\node[op amp] at (8.18, 13.58){};
-\node[latch] at (4.87, 14.91){};
-\draw (6.99, 14.07) -- (5.99, 14.07);
-\draw (3.875, 11.375) -- (3, 11.375) -| (3, 15.75) -- (3.75, 15.75);
-\draw (5.99, 15.75) to[voltmeter] (7.25, 15.75);
-\draw (3, 13) to[variable capacitor] (4, 13);
-\draw (3, 15.75) to[american resistor] (1.125, 15.75);
-\node[schmitt] at (7.95, 15.75){};
-\draw (10.037, 10.845) to[variable cute inductor] (10, 13);
-\node[transformer core, cute] at (10.42, 14.63){};
-\node[nmos] at (1.125, 14.98){};
-\draw (3, 17.5) to[lowpass] (6, 17.5);
-\node[ground] at (11.47, 13.58){};
-\end{tikzpicture}
-
-\caption{Example circuit rendering}
-\end{center}
-\end{figure}
 
 
 
