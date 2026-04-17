@@ -1,8 +1,8 @@
-\documentclass[11pt]{article}
+\documentclass[twoside]{article}
 
 \input{sections/preamble.tex}
 
-\def\version{2.4.0}
+\def\version{3.1.0}
 
 \begin{document}
 
@@ -18,8 +18,12 @@
 
 %% DISPLAY TABLE OF CONTENTS ON A NEW PAGE %%
 
-\newpage
+\clearpage
+\thispagestyle{empty}
+\pagenumbering{roman}
 \tableofcontents
+\clearpage
+\pagenumbering{arabic}
 
 %% WRITING AND SUBFILE CALL SECTION %%
 
