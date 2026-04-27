@@ -2,15 +2,702 @@
 
 \graphicspath{{\subfix{../images/}}}
 
-
-
 \begin{document}
 
 
+\clearpage
+\thispagestyle{empty}
+\section{LAB 03 - Buck converter}
 
-\newpage
+The following section and subsections are representative of a possible solution for the third laboratory given for this course on April 21st 2026.
+The version you find below might differ from what was submitted and it might differ from what is now being asked.
 
-\subsection{LAB 03 - April 21st}
+
+%%%%%%%%%%%%%%%%%%%
+%%%% SECTION 1 %%%%
+%%%%%%%%%%%%%%%%%%%
+
+\subsection{Introduction}
+
+The section reported below covers the introduction part of this laboratory stating the object, instrument and problems.
+
+\subsection*{Object}
+
+In this laboratory report, we present and compare the results obtained during this experiment, which aimed to analyze the behavior of a DC-DC Buck switching converter.
+
+Specifically, we sought to analyze and compare the converter’s behavior under loaded and unloaded conditions, examining its operating mode by measuring parameters such as efficiency and input and output voltages, and then comparing the results obtained under different conditions as well as against the manufacturer’s specifications.
+
+\subsection*{Instruments} \label{ins}
+
+The following measurement instruments were used to conduct the analysis presented below:
+
+\begin{enumerate}
+	\item[\textbf{-}] HP 34401A Multimeter
+	\item[\textbf{-}] Rigol DP832 Power Supply
+	\item[\textbf{-}] Rigol DS1054 Digital Sampling Oscilloscope - DSO
+\end{enumerate}
+
+It was also used an adjustable high-power resistive load for loading the output of the Buck converter.\\
+
+
+Furthermore, for the measurements taken to determine their uncertainty, a deterministic single-reading approach was adopted. 
+
+Where measurements were taken directly from an instrument reading, the measurement is reported along with the uncertainty specified by the instrument manufacturer. For measurements derived from calculations, the uncertainty was calculated by propagating it as follows:\\
+
+Let Y denote the measured parameter, which is related to other parameters $X_i$ by the following model:
+
+\begin{equation*}
+	Y = f(X_1,X_2,\dots, X_N)
+\end{equation*}
+
+The central value $y_0$ of the range assigned as a measure of $Y$ is obtained from the central values $x_{i0}$ of the other parameters as follows:
+
+\begin{equation*}
+	y_0 = f(x_10, x_20, \dots, x_{N0})
+\end{equation*}
+
+The absolute value of the measurement uncertainty, i.e., the half-width of the range of values for $y$, is instead obtained separately from the absolute uncertainties $\delta_{xi}$ of the quantities $x_i$ using the following equation:\\
+
+\begin{equation*}
+	\delta_y = \bigg|  \frac{\partial f}{\partial x_1}   \bigg|_{(x_{10},\dots,x_{N0})} \cdot \delta_{x1} \; + \bigg| \frac{\partial f}{\partial x_N}   \bigg|_{(x_{10},\dots,x_{N0})} \cdot \delta_{xN} 
+\end{equation*}
+\vspace{0.5cm}
+
+In other terms we can write that:\\
+
+\begin{equation*}
+	\delta_y = \sum_{i = 1}^N  \bigg| \frac{\partial f}{\partial x_i} \bigg|_{x_0} \cdot \delta_{xi}	
+\end{equation*}
+\vspace{0.5cm}
+
+Before moving on, please note that the report includes a table listing all the required results, including units of measurement and uncertainty which is either estimated based on the instrument and data provided by the manufacturer or calculated as explained above.
+
+To avoid making this document too long, we have briefly summarized the sections of the instruction manual that specify the accuracy of the instruments used.
+
+Note that only the measurement ranges (voltage, current, ect.) and measured values corresponding to the less stringent calibration specification (1 year) — which requires measurements to be taken in an environment with a temperature range of 23$^\circ$ C $\pm$ 5$^\circ$ C are reported. Finally, note that the equipment used was powered on for an appropriate amount of time before taking the measurements, as specified by the manufacturer.
+
+\subsubsection*{HP 34401A}
+
+For this specific student, the accuracy specifications are given as the sum of the uncertainty of the reading and the sum of the uncertainties of the scale used, as follows:
+
+\[ \unit{Accuracy \; specification} \pm (\% \unit{of \; reading} + \% \unit{of \; range} )\]
+
+\begin{center}
+
+\begin{tabular}{c c  c}
+\textbf{Function} & \textbf{Range} & \textbf{1 Year 23$^\circ$ C $\pm$ 5$^\circ$} \\
+\hline
+DC Voltage & 10.00000 V &  0.0035 + 0.0005\\
+\hline
+DC Voltage & 100.0000 V & 0.0045 + 0.0006 \\
+\hline
+Resistance & 1.000000 k$\Omega$ & 0.010 + 0.001 \\
+\hline
+DC Current & 1.000000 A & 0.100 + 0.010\\
+\hline
+\end{tabular}
+\end{center}
+
+\subsubsection*{Rigol DP832}
+
+For this specific student, the accuracy specifications are given as the sum of the uncertainty of the reading value and the sum of an offset, as follows:
+
+\[ \unit{Accuracy \; specification} \pm (\% \unit{of \; reading} + \unit{offset} )\]
+
+\begin{center}
+\begin{tabular}{c  c}
+\textbf{Function} & \textbf{1 Year 25$^\circ$ C $\pm$ 5$^\circ$} \\
+\hline
+Voltage CH1 - CH2 &  0.05 + 0.020 V  \\
+\hline
+Voltage CH3  &  0.10 + 0.005 V  \\
+\hline
+Current & 0.20 + 0.005 A \\
+
+\end{tabular}
+\end{center}
+
+The following specifications apply to readback:
+
+\begin{center}
+\begin{tabular}{c  c}
+\textbf{Function} & \textbf{1 Year 25$^\circ$ C $\pm$ 5$^\circ$} \\
+\hline
+Voltage CH1 - CH2 &  0.05 + 0.010 V  \\
+\hline
+Voltage CH3  &  0.10 + 0.005 V \\
+\hline
+Current & 0.15 + 0.005 A \\
+\end{tabular}
+\end{center}
+
+\subsubsection*{Rigol DS1054}
+
+For this instrument these data are used:
+
+\begin{center}
+\begin{tabular}{c  c}
+\textbf{Function} & \textbf{1 Year} \\
+\hline
+Timebase accuracy &  $\leq$ 25 ppm \\
+\hline
+Clock drift & $\leq$ 25 ppm \\
+\hline
+DC Gain accuracy & $<$ 10 mV: $\pm$ 4 \% of full scale  \\
+\hline
+DC Gain accuracy & $\geq$ 10 mV: $\pm$ 3 \% of full scale  \\
+\hline
+DC Offset accuracy & $\pm$ 0.1 div $\pm$ 2 mV + 1 \% of offset  \\
+\end{tabular}
+\end{center}
+
+\subsection*{Observations}
+
+Note that, when calculating the current $I_{DCM}$ to determine an uncertainty interval around the measurement, a value of 5\% was used for the range of values assumed by the inductance $L$. This decision was made to account for the worst-case scenario in estimating the uncertainty interval of the measured current; by doing so, it was possible to determine even more clearly whether the board was operating in CCM or DCM mode, since the calculated current values were either higher or lower than both the central value and the entire range of values.
+
+Furthermore, regarding the value of $f_{sw}$, it was treated as a constant because, as it is an internal chip clock, we were unable to measure its exact value, and there are no specifications regarding its accuracy in the component’s data sheet.
+
+More on the theoretical and real value of the $f_{sw}$ is reported below in the following sub-section.
+
+\subsection*{Problems}
+
+
+During the experiment, several issues arose, including the poor accuracy of the resistive element—both in relation to the value indicated on its label and in relation to the circuit’s relative range between maximum and minimum. To address this issue, the resistance was measured before applying it to the converter’s output, taking care not to touch it and thereby alter its value.\\
+
+In addition to this, one of the problems encountered relates to the actual operating frequency ($f_{sw}$) of the XL4015 circuit. Since it is not possible to measure this frequency directly to verify that the load did not alter the measured frequency, it was observed that even without an output load, the switching frequency (measured directly from pin 3 of the IC) is consistent with the obtained values.
+
+
+%%%%%%%%%%%%%%%%%%%
+%%%% SECTION 2 %%%%
+%%%%%%%%%%%%%%%%%%%
+
+\subsection{Load measurements}
+
+Let’s begin by analyzing the electrical resistance specifications of the load. The results and their uncertainties are shown in the table below.
+
+\subsection*{Maximum potentiometer resistance}
+
+We report now the theoretical values and the measured ones. The table is followed by a brief comment on the results.
+
+\begin{center}
+\begin{tabular}{c c c c}
+
+\textbf{Object} & \textbf{Value} & $\delta$ & $\varepsilon_{\%}$  \\
+\hline
+Theoretical $R_{L,max}$ & 100 $\Omega$  & $\pm$ 2.5 $\Omega$  & 2.5\%\\ 
+\hline
+Measured $R_{L,max}$ & 68.269 $\Omega$ &   $\pm$ 0.010827 $\Omega$ & 0.0159\% \\
+\end{tabular}
+\end{center}
+
+The measured resistance value of the high-power resistor differs significantly from the value indicated on the instrument’s label. This confirms what was stated in the section on previously identified issues.
+
+\subsection*{Variable potentiometer resistance}
+
+Let’s now analyze the behavior of the variable load.
+The table below shows the measured values and the theoretical values.
+
+\begin{center}
+\begin{tabular}{c c c c}
+
+\textbf{Object} & \textbf{Value} & $\delta$ & $\varepsilon_{\%}$  \\
+\hline
+Theoretical $R_{L,min}$ & 0 $\Omega$  & $\pm$ 2.5 $\Omega$ & -  \\ 
+\hline
+Measured $R_{L,min}$ & 000.825 $\Omega$ &   $\pm$  0.010083 $\Omega$ & 1.22 \%\\
+\hline
+Measured $R_{L,max}$ & 069.722 $\Omega$ &   $\pm$ 0.016972  $\Omega$ & 0.024\%\\
+\hline
+Measured $R_{L}$ & 030.517 $\Omega$ & $\pm$ 0.013052 $\Omega$ & 0.043\%\\
+\end{tabular}
+\end{center}
+
+
+%%%%%%%%%%%%%%%%%%%
+%%%% SECTION 3 %%%%
+%%%%%%%%%%%%%%%%%%%
+
+\subsection{Buck regulator - Case 1}
+
+Let us now analyze the Buck regulator when the input voltage is set to $V_{in} = $ 8V and the output voltage is set to $V_{out} = $ 5V.
+
+\subsection*{Static voltage measures}
+
+The following measurements are relative to the static conditions of the converter.
+
+\subsubsection*{Without load}
+
+We proceeded to measure the input and output voltages of the Buck regulator with the board disconnected from the load.
+
+Here are the results we obtained:
+
+\begin{center}
+\begin{tabular}{c c c c}
+\textbf{Object} & \textbf{Value} & $\delta$ & $\varepsilon_{\%}$  \\
+\hline
+Set $V_{in}$ & 08.0000 V & $\pm$ 0.02400 V & 0.3000 \% \\ 
+\hline
+Measured $V_{in}$ &  08.0020 V  & $\pm$ 0.00033 V &  0.0041 \%  \\ 
+\hline
+Set $V_{out}$ & 5.0 V  & $\pm$ 0.1 V  & 2.00 \%\\ 
+\hline
+Measured $V_{out}$ - $V'_{out,5V}$  & 04.9747 V  & $\pm$ 0.00022 V  & 0.0045 \% \\ 
+\end{tabular}
+\end{center}
+
+Next, we can calculate the value of the $I_{DCM}$ current to determine whether the board is operating in DCM or CCM mode.
+For this calculation, we used the measured values or nominal values of the relevant parameters in accordance with the following formula:
+
+\[I_{DCM} = \frac{1}{2L} \cdot \frac{V_{out}}{V_{in}} \cdot \frac{1}{f_{SW}} \cdot (V_{out} - V_{in})\]\ 
+
+For the uncertainty interval, we obtained this formula:
+
+\[ \delta_{I_{DMC}} = \bigg| \frac{V_{out}^2}{2L\cdot V_{in} \cdot f_{sw}}\bigg| \cdot \delta_{V_{in}} + \bigg|  \frac{V_{in} - 2 V_{out}}{2L\cdot V_{in} \cdot f_{sw}}   \bigg| \cdot  \delta_{V_{out}} + \bigg| \frac{V_{out}^2 - V_{out} \cdot V_{in}}{2L^2\cdot V_{in} \cdot f_{sw}} \bigg| \cdot \delta_{L }\]\
+
+
+
+This yields the following results:
+
+
+\begin{center}
+\begin{tabular}{c c c}
+\textbf{Object} & \textbf{Value} & \textbf{Absolute Uncertainty} \\
+
+\hline
+Calculated $I_{DCM}$ & 0.11123 A & $\pm$ 0.050014 A \\ 
+
+\end{tabular}
+\end{center}
+
+
+At this point we know the output voltage and the load applied to the output which, we can approximate as an open circuit, ignoring any leak current which might be present. Since the almost infinite resistance we can assume that the output current is approximately zero ($\approx$ 0 A).\\
+
+Given the results, we can say that the converter is operating in DCM mode.
+
+
+\subsubsection*{With load}
+
+We will now connect the $R_L$ load determined earlier and measure the specified parameters; the results are shown below.
+
+\begin{center}
+\begin{tabular}{c c c c}
+\textbf{Object} & \textbf{Value} & $\delta$ & $\varepsilon_{\%}$  \\
+
+\hline
+Measured $V_{in}$ &  08.0019 V & $\pm$  0.00033 V & 0.0041 \% \\ 
+\hline
+Measured $V_{out}$ - $V''_{out,5V}$  &  04.9067 V  & $\pm$ 0.00022 V & 0.0045 \%  \\ 
+\end{tabular}
+\end{center}
+
+Before moving we have to compute the output current to state in what mode the converter is operating. We utilize the Ohm's law inverse formula to estimate the current given the resistance and the output voltage.\\
+
+Moving on we calculate again them $I_{DCM}$ current to compare it to the one obtained with Ohm's law to determine the working region of the board.
+
+\begin{center}
+\begin{tabular}{c c c}
+\textbf{Object} & \textbf{Value} & \textbf{Absolute Uncertainty} \\
+
+\hline
+Calculated $I_{DCM}$ & 0.112172 A & $\pm$ 0.050014 A \\ 
+\hline
+Calculated $I_{out}$ & 0.1608 A & $\pm$ 0.00047 A \\ 
+
+\end{tabular}
+\end{center}
+
+
+Say that given the $I_{DCM}$ current threshold is now lower the value found that means that the board is now working in CCM mode.
+
+\subsubsection*{Load regulation}
+
+Let us now calculate the load regulation $\Delta V_{out}$ and the current change $\Delta I_{out}$, assuming that when there is no load, the output current is approximately zero. We can therefore conclude that, since one of the two values is close to zero: $\Delta I_{out} \approx I_{out,max}$
+
+\begin{center}
+\begin{tabular}{c c c c c}
+\textbf{Object} & \textbf{Formula} & \textbf{Value} & $\delta$ & $\varepsilon_{\%}$  \\
+\hline
+$\Delta V_{out}$ & $ V'_{out,5V} - V''_{out,5V} $ & 0.068 V & $\pm$ 0.00045 V & 0.66 \%  \\ 
+\end{tabular}
+\end{center}
+
+\subsubsection*{Efficiency}
+
+We conclude this section by calculating the converter’s efficiency, estimating the output current using Ohm’s law, and reading the first value on the Rigol DP832 power supply. With the known currents and voltages, we can calculate the input and output powers. We conclude by calculating the converter’s efficiency.\\
+
+All the results are in the following table:
+
+
+\begin{center}
+\begin{tabular}{c c c c c}
+\textbf{Object} & \textbf{Formula} & \textbf{Value} & $\delta$ & $\varepsilon_{\%}$ \\
+\hline
+Calculated $I_{out}$ & $V''_{out,5V} / R_L$ & 0.161 A & $\pm$ 0.00047 A & 0.29 \% \\ 
+\hline
+Read $I_{in}$ & - &  0.130 A & $\pm$ 0.0028 A & 2.15 \% \\ 
+\hline
+Read $P_{in}$ & - & 1.04 W & $\pm$ 0.0071 W & 0.68 \%\\ 
+\hline
+Calculated $P_{out}$ & $V''_{out,5V} \cdot I_{out}$ &  0.789 W & $\pm$ 0.00295 W & 0.37 \% \\ 
+\hline
+Calculated $\eta$ & $P_{out}/P_{in}$ & 0.758 & $\pm$ 0.0105 & 1.38 \%  \\ 
+\end{tabular}
+\end{center}
+
+\subsection*{Dynamic voltage measures}
+
+The following measurements are relative to the dynamic conditions of the converter.
+
+\subsubsection*{Output voltage - Expected values}
+
+As we stated before the board is working in CCM mode thus we can only calculate the switching period $T_{sw}$ the times: $T_{on}$, $T_{off}$, the duty cycle $\delta$, the peak-to-peak value of $\Delta I_C$ and the voltage residual ripple $V_{ripple}$.
+
+We report now the table containing the obtained results calculated using the nominal values. As we can see some do not have an uncertainty reported as said inside the section \ref{ins}.
+
+\begin{center}
+\begin{tabular}{c c c c c}
+\textbf{Object} & \textbf{Formula} & \textbf{Value} & $\delta$ & $\varepsilon_{\%}$ \\
+\hline
+Calculated $\delta$ & $V_{in} / V_{out}$  & 0.625 & - & - \\ 
+\hline 
+Calculated $T_{sw}$ & $1 / f_{sw}$  &  5.56  $\mu$s & -  & - \\ 
+\hline
+Calculated $T_{on}$ & $\delta \cdot T_{sw}$ & 3.47 $\mu$s & - & - \\ 
+\hline
+Calculated $T_{off}$ & $(1 - \delta )\cdot T_{sw} $ & 2.09 $\mu$s & - & -  \\ 
+\hline
+Calculated $\Delta I_C$ - $\Delta I_L$  & ($V_{in} -V_{out}$) / $L \cdot \delta T_{sw}$  & 0.222 A & - & - \\ 
+\hline
+Calculated $V_{ripple}$ & $\Delta I_{out} \cdot ESR$ & 0.067 V & - & -  \\ 
+\end{tabular}
+\end{center}
+
+\subsubsection*{Output voltage - Measured parameters}
+
+Moving on we can measure the parameters introduced in the previous section. The measuring methodology is the one described in the section \ref{ins}.\\
+
+The figure below (Figure \ref{on}) shows the signal (DSO in AC coupling), which confirms the previous statement that the converter is operating in CCM mode.\\
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=.75\textwidth]{images/LAB/L3/IMG_0379.jpg}
+\caption{AC waveform of the output signal}	
+\label{on}
+\end{figure}
+
+The following are the measurements obtained via DSO in standard units, with the time axis on the vertical scale and the values shown in the table from which the reading was taken.
+
+\begin{center}
+\begin{tabular}{c c c c c c}
+\textbf{Object} & \textbf{Scale} & \textbf{Value (div)} & \textbf{Value} & $\delta$ & $\varepsilon_{\%}$ \\
+
+\hline
+ $V_{out}$ & 1 V/div &  4.92 div & 4.92 V & $\pm$ 20 mV & 0.41  \% \\ 
+\hline
+ $T_{sw}$ & 500 ns/div & 9.68 div & 4.84 $\mu$s & $\pm$ 10 ns & 0.21 \% \\ 
+ \hline
+$T_{on}$ & 500 ns/div & 6.22 div & 3.11 $\mu$s & $\pm$ 10 ns  & 0.32 \% \\ 
+ \hline
+ $T_{off}$ & 500 ns/div & 3.46 div & 1.73 $\mu$s &$\pm$ 10 ns & 0.58 \% \\ 
+  \hline
+ $\Delta V_{ripple}$ & 20 mV/div & 3.44 div & 68.8 mV &$\pm$ 0.4 mV & 0.58 \% \\ 
+\end{tabular}
+\end{center}
+
+We can now obtain the following values:
+
+\begin{center}
+\begin{tabular}{c c c c c}
+\textbf{Object} & \textbf{Formula}  & \textbf{Value} & $\delta$ & $\varepsilon_{\%}$ \\
+
+\hline
+$f_{sw}$ &  1 / $T_{sw}$ & 206.6 kHz & $\pm$ 434 Hz & 0.21 \% \\ 
+\hline
+$\delta$ &  $T_{on}$ / $T_{sw}$ &  0.615 & $\pm$ 0.0041 & 0.67 \% \\ 
+
+\end{tabular}
+\end{center}
+
+\subsubsection*{Expected and measured comparison}
+
+We can now proceed to make comparisons and observations regarding the measurements obtained.
+As we can see, the values for time intervals such as $T_{sw}$, $T_{on}$, and $T_{off}$ are not compatible, nor is the value of $\delta$.
+
+However, the measured and theoretical values of $\Delta V_{ripple}$ and the output voltage measured with the multimeter and oscilloscope remain compatible.
+
+This result is likely due to the fact that the fixed internal frequency of the chip used to operate $SW1$ is not actually 180 kHz but closer to the calculated value. We cannot directly measure the signal with frequency $f_{sw}$ since it is internal to the chip.
+
+
+Further considerations are provided at the end of the paper in section \ref{con}.
+
+
+
+%%%%%%%%%%%%%%%%%%%
+%%%% SECTION 4 %%%%
+%%%%%%%%%%%%%%%%%%%
+
+
+
+\subsection{Buck regulator - Case 2}
+
+Let us now analyze the Buck regulator when the input voltage is set to $V_{in} = $ 24V and the output voltage is set to $V_{out} = $ 5V.
+
+\subsection*{Static voltage measures}
+
+The following measurements are relative to the static conditions of the converter.
+
+\subsubsection*{Without load}
+
+The following measurements were taken in the same manner as described in the previous section.
+
+\begin{center}
+\begin{tabular}{c c c c}
+\textbf{Object} & \textbf{Value} & $\delta$ & $\varepsilon_{\%}$  \\
+\hline
+Measured $R_{L}$ & 49.912 $\Omega$ & $\pm$ 0.0149 $\Omega$ & 0.029 \% \\ 
+\hline
+Set $V_{in}$ & 24.0000 V & $\pm$ 0.03200 V & 0.1 \% \\ 
+\hline
+Set $V_{out}$ & 5.0 V  & $\pm$ 0.1 V  & 2.00 \%\\ 
+\hline
+Measured $V_{in}$ & 24.003 V & $\pm$ 0.00168 V &  0.007 \% \\ 
+\hline
+Measured $V_{out}$ - $V'_{out,24V}$  & 4.982 V & $\pm$ 0.00022 V & 0.005 \% \\
+
+\end{tabular}
+\end{center}
+
+In this case, when operating without a load, the output current can be approximated as zero, so the regulator is operating in DCM mode.
+
+\subsubsection*{With load}
+
+We will now connect the $R_L$ load determined earlier and measure the specified parameters; the results are shown below.
+
+\begin{center}
+\begin{tabular}{c c c c}
+\textbf{Object} & \textbf{Value} & $\delta$ & $\varepsilon_{\%}$  \\
+
+\hline
+Measured $V_{in}$ &  24.003 V & $\pm$  0.00168 V & 0.007 \% \\ 
+\hline
+Measured $V_{out}$ - $V''_{out,24V}$  &  4.9686 V  & $\pm$ 0.00022 V & 0.0044 \%  \\ 
+\end{tabular}
+\end{center}
+
+
+Before moving we have to compute the output current to state in what mode the converter is operating. We utilize the Ohm's law inverse formula to estimate the current given the resistance and the output voltage.
+
+\begin{center}
+\begin{tabular}{c c c c}
+\textbf{Object} & \textbf{Formula} & \textbf{Value} & \textbf{Absolute Uncertainty} \\
+
+\hline
+Calculated $I_{out}$ & $V''_{out,24V} / R_L$ & 0.0995 A & $\pm$ 0.0003454  A \\ 
+Calculated $I_{DCM}$ & - & 0.2329 A & $\pm$  0.0500075 A \\ 
+
+\end{tabular}
+\end{center}
+
+As we can see, the controller is working under the treasholf meanind we are still in DCM mode.
+
+\subsubsection*{Load regulation}
+
+
+Let us now calculate the load regulation $\Delta V_{out}$ and the current change $\Delta I_{out}$, assuming that when there is no load, the output current is approximately zero. We can therefore conclude that, since one of the two values is close to zero: $\Delta I_{out} \approx I_{out,max}$
+
+\begin{center}
+\begin{tabular}{c c c c c}
+\textbf{Object} & \textbf{Formula} & \textbf{Value} & $\delta$ & $\varepsilon_{\%}$  \\
+\hline
+$\Delta V_{out}$ & $ V'_{out,24V} - V''_{out,24V} $ & 0.0134 V & $\pm$ 0.00044 V & 0.33 \%  \\ 
+\end{tabular}
+\end{center}
+
+\subsubsection*{Efficiency}
+
+As done with previous case we report the obtained results:
+
+\begin{center}
+\begin{tabular}{c c c c c}
+\textbf{Object} & \textbf{Formula} & \textbf{Value} & $\delta$ & $\varepsilon_{\%}$ \\
+\hline
+Calculated $I_{out}$ & $V''_{out,24V} / R_L$ & 0.0995 A & $\pm$ 0.000034 A & 0.0345 \% \\ 
+\hline
+Read $I_{in}$ & - & 0.060 A & $\pm$ 0.002620 A &  4.37 \% \\ 
+\hline
+Read $P_{in}$ & - & 1.4402 W & $\pm$ 0.06299 W & 4.37\%\\ 
+\hline
+Calculated $P_{out}$ & $V''_{out,24V} \cdot I_{out}$ &  0.4946 W & $\pm$ 0.00019  W &  0.0390 \% \\ 
+\hline
+Calculated $\eta$ & $P_{out}/P_{in}$ & 0.3434 & $\pm$ 0.01515  &  4.4127 \%  \\ 
+\end{tabular}
+\end{center}
+
+\subsection*{Dynamic voltage measures}
+
+The following measurements are relative to the dynamic conditions of the converter.
+
+\subsubsection*{Output voltage - Expected values}
+
+We compute now the expected values for this second configuration as stated in the following table. Uncertainties are not display as said in the previous case:
+
+
+\begin{center}
+\begin{tabular}{c c c c c}
+\textbf{Object} & \textbf{Formula} & \textbf{Value} & $\delta$ & $\varepsilon_{\%}$ \\
+\hline
+Calculated $\delta$ & $V_{out} / V_{in}$  & 0.208 & - & - \\ 
+\hline 
+Calculated $T_{sw}$ & $1 / f_{sw}$  &  5.56  $\mu$s & -  & - \\ 
+\hline
+Calculated $T_{on}$ & $\delta \cdot T_{sw}$ & 1.16 $\mu$s & - & - \\ 
+\hline
+Calculated $T_{off}$ & $(1 - \delta )\cdot T_{sw} $ & 4.40 $\mu$s & - & -  \\ 
+\hline
+Calculated $T_{2}$ & $(V_{in} - V_{out}) / V_{out} \cdot \delta T_{sw}$ & 4.39  $\mu$s & - & -  \\ 
+\hline
+Calculated $T_{Idle}$ & $T_{off} - T_2$  & 0.01 $\mu$s & - & -  \\ 
+\hline
+Calculated $\Delta I_C$ - $\Delta I_L$  & ($V_{in} -V_{out}$) / $L \cdot \delta T_{sw}$  & 0.467 A & - & - \\ 
+\hline
+Calculated $V_{ripple}$ & $\Delta I_{out} \cdot ESR$ & 0.067 V & - & -  \\ 
+\end{tabular}
+\end{center}
+
+
+
+\subsubsection*{Output voltage - Measured parameters}
+
+
+The following are the measurements obtained via DSO in sigle mode, with the time axis on the vertical scale and the values shown in the table from which the reading was taken.\\
+
+The figure below (Figure \ref{off}) shows the signal (DSO in AC coupling), which confirms the previous statement that the converter is operating in CCM mode.\\
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=.75\textwidth]{images/LAB/L3/IMG_0381.jpg}
+\caption{AC waveform of the output signal}	
+\label{off}
+\end{figure}
+
+
+\begin{center}
+\begin{tabular}{c c c c c c}
+\textbf{Object} & \textbf{Scale} & \textbf{Value (div)} & \textbf{Value} & $\delta$ & $\varepsilon_{\%}$ \\
+
+\hline
+ $V_{out}$ & 1 V/div &  4.92 div & 4.92 V & $\pm$ 20 mV & 0.41  \% \\ 
+\hline
+ $T_{sw}$ & 500 ns/div & 9.68 div & 4.84 $\mu$s & $\pm$ 10 ns & 0.21 \% \\ 
+ \hline
+$T_{on}$ & 500 ns/div & 6.22 div & 3.11 $\mu$s & $\pm$ 10 ns  & 0.32 \% \\ 
+ \hline
+ $T_{off}$ & 500 ns/div & 3.46 div & 1.73 $\mu$s &$\pm$ 10 ns & 0.58 \% \\ 
+  \hline
+ $\Delta V_{ripple}$ & 20 mV/div & 3.44 div & 68.8 mV &$\pm$ 0.4 mV & 0.58 \% \\ 
+\end{tabular}
+\end{center}
+
+We can now obtain the following values:
+
+\begin{center}
+\begin{tabular}{c c c c c}
+\textbf{Object} & \textbf{Formula}  & \textbf{Value} & $\delta$ & $\varepsilon_{\%}$ \\
+
+\hline
+$f_{sw}$ &  1 / $T_{sw}$ & 206.6 kHz & $\pm$ 434 Hz & 0.21 \% \\ 
+\hline
+$\delta$ &  $V_{out}$ / $V_{in}$ &  0.615 & $\pm$ 0.0041 & 0.67 \% \\ 
+
+\end{tabular}
+\end{center}
+
+\subsubsection*{Expected and measured comparison}
+
+As mentioned, the results obtained are only partially consistent with the theoretical values. As for the inconsistent values, they all depend on the clock frequency used for the theoretical calculations, which differs from the frequency actually measured.
+
+
+
+%%%%%%%%%%%%%%%%%%%
+%%%% SECTION 5 %%%%
+%%%%%%%%%%%%%%%%%%%
+
+
+
+\subsection{Buck regulator efficiency}
+
+As a final step, we will set the input voltage $V_{in}$ to 24 V and the load resistance $R_L$ (019.224 $\Omega$ $\pm$ 0.00292 $\Omega$), then connect the multimeter in series with the load to measure the output and input currents and calculate the regulator efficiency.\\
+
+By setting the output voltage, by regulating the potentiometer, we obtained the following table with the results.\\
+
+For the values taken from instruments we followed the instructors given in sections \ref{ins}. Since alle the formulas are just multiplication or ratios the propagated uncertainty is just the sum of the relative on of its operand.
+
+\begin{center}
+\begin{tabular}{c c c c c c c}
+$V_{in}$ & $I_{in}$ & $P_{in}$ & $V_{out}$ & $I_{out}$ & $P_{out}$ & $\eta$ \\
+
+\hline
+ 24 V & 0.11 A & 2.640 W & 5 V & 0.2813 A & 1.407 W & 0.533 \\
+\hline
+ 24 V & 0.26 A & 6.240 W & 9 V &  0.5145 A &  4.630 W & 0.742 \\
+\hline 
+ 24 V & 0.42 A & 10.08 W & 12 V & 0.6936 A & 8.323 W & 0.823 \\
+\hline
+ 24 V & 0.61 A & 14.64 W & 15 V & 0.8639 A & 12.958 W & 0.885 \\
+\hline
+ 24 V & 1.03 A & 24.72 W & 20 V & 1.1646 A & 23.292 W & 0.942 \\
+\hline
+ 24 V & 1.40 A & 33.60 W & 23.8 V & 1.3837 A & 32.932 W & 0.980 \\
+\hline
+ 24 V & - &  - & 25 V & - & - & \\
+
+
+\end{tabular}
+\end{center}
+
+
+We report the computed absolute uncertainties of the reported measures:
+
+\begin{center}
+\begin{tabular}{c c c c c c c}
+$\delta_{Vin}$ & $\delta_{Iin}$ & $\delta_{Pin}$ & $\delta_{Vout}$ & $\delta_{Iout}$ & $\delta_{Pout}$ & $\delta_{\eta}$ \\
+
+\hline
+$\pm$ 0.022 V & $\pm$ 0.0052 A & $\pm$ 0.128 W & $\pm$ 0.1 V &  $\pm$ 0.00038 A &  $\pm$ 0.0214 W & 0.0372 \\
+
+\hline
+$\pm$ 0.022 V & $\pm$ 0.0055 A & $\pm$ 0.138 W & $\pm$ 0.1 V &  $\pm$ 0.00061 A &  $\pm$ 0.0123 W & 0.0256 \\
+
+\hline
+$\pm$ 0.022 V & $\pm$ 0.0084 A & $\pm$ 0.149 W & $\pm$ 0.1 V &  $\pm$ 0.00079 A &  $\pm$ 0.0095 W & 0.0201 \\
+
+\hline
+$\pm$ 0.022 V & $\pm$ 0.0062 A & $\pm$ 0.162 W & $\pm$ 0.1 V &  $\pm$ 0.00096 A &  $\pm$ 0.0078 W &  0.0167 \\
+
+\hline
+$\pm$ 0.022 V & $\pm$ 0.0071 A & $\pm$ 0.192 W & $\pm$ 0.1 V &  $\pm$ 0.00126 A &  $\pm$ 0.0061 W &  0.0131 \\
+
+\hline
+$\pm$ 0.022 V & $\pm$ 0.0078 A & $\pm$ 0.218 W & $\pm$ 0.1 V &  $\pm$ 0.00148 A &  $\pm$ 0.0053 W & 0.0115 \\
+
+\hline
+ - &  - &  - & - & - & - &  - \\
+
+\end{tabular}
+\end{center}
+
+We report now the graph of the efficiency $\eta$ in function of the output current:
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=.75\textwidth]{images/LAB/L3/ESE03.png}
+\caption{$\eta$ in function of $I_{out}$}	
+\end{figure}
+
+The obtained graph is compatible with the one seen in the XL4015 data sheet.
+Since we used the parameters reported above we do not have any data point regarding the efficiency for currents over the value of 2.0 A. In this region we should see the value of $\eta$ drop down until the 5.0 A limit of the converter.
+
+
 
 
 
