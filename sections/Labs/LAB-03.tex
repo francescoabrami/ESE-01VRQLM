@@ -162,11 +162,11 @@ More on the theoretical and real value of the $f_{sw}$ is reported below in the 
 
 \subsection*{Problems}
 
-
 During the experiment, several issues arose, including the poor accuracy of the resistive element—both in relation to the value indicated on its label and in relation to the circuit’s relative range between maximum and minimum. To address this issue, the resistance was measured before applying it to the converter’s output, taking care not to touch it and thereby alter its value.\\
 
-In addition to this, one of the problems encountered relates to the actual operating frequency ($f_{sw}$) of the XL4015 circuit. Since it is not possible to measure this frequency directly to verify that the load did not alter the measured frequency, it was observed that even without an output load, the switching frequency (measured directly from pin 3 of the IC) is consistent with the obtained values.
+In addition to this, one of the problems encountered relates to the actual operating frequency ($f_{sw}$) of the XL4015 circuit. Since it is not possible to measure this frequency directly to verify that the load did not alter the measured frequency, it was observed that even without an output load, the switching frequency (measured directly from pin 3 of the IC) is consistent with the obtained values.\\
 
+We later found on the data sheet of the XL4015 that the reference frequency is not actually fix but has a nominal value of 180 kHz but the actual value ranges from 144 kHz to 216 kHz. That means that the measured and computed values are inside the expected range.
 
 %%%%%%%%%%%%%%%%%%%
 %%%% SECTION 2 %%%%
