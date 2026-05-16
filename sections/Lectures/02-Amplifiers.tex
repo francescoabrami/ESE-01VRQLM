@@ -138,6 +138,7 @@ At this point, we would like to draw some conclusions regarding the practical ex
 \end{enumerate}
 
 \subsubsection{Non-ideal operational amplifiers}
+\label{nonidopamp}
 
 Our discussion involves several approximations: real operational amplifiers have characteristics that deviate from the ideal model.
 
@@ -389,12 +390,255 @@ We can therefore say that this circuit (non-inverting amplifier) is a good volta
 
 \subsubsection{Voltage follower}
 
+One variation of the circuit we have discussed at length is the one shown in the following \ref{ex6}
+
+\begin{figure}
+\begin{center}
+
+\begin{tikzpicture}[transform shape]
+	\node[op amp] at (6.19, 13.49){};
+	\draw (4.5, 13) to[european voltage source, v_<=$v_i$, voltage/shift=0.3] (4.5, 11.75);
+	\draw (4.5, 13) -- (5, 13);
+	\node[ground] at (4.5, 11.75){};
+	\draw (7.38, 13.49) -| (8, 13.5);
+	\node[ocirc](N1) at (8, 13.49){} node[anchor=south] at ([yshift=0.09cm]N1.text){$v_{out}$};
+	\node[circ] at (7.38, 13.49){};
+	\draw (4.625, 13.98) -| (4.5, 15) -- (7.25, 15) -| (7.375, 13.5);
+	\draw (5, 13.98) |- (4.625, 13.98);
+\end{tikzpicture}
+
+
+\label{ex6}
+\caption{Voltage follower}	
+\end{center}	
+\end{figure}
+
+
+In this topology, the maximum possible feedback is achieved: the fact that the feedback is a short circuit maximizes the portion of the signal fed back to the input ($\beta$ = 1); the consequences are, on the one hand, to make the circuit gain unitary, but on the other hand to make the loop gain as high as possible, greatly increasing the input impedance and reducing the output impedance by the same factor; this circuit will therefore draw very little current from the input, and at the output it will essentially be an ideal voltage generator (i.e., with virtually zero impedance).
+
+The voltage follower configuration is widely used precisely as an \textit{"impedance separator"}. 
+
+We will return to the voltage follower when we discuss the frequency response of operational amplifiers.
 
 
 \subsubsection{Transresistance amplifier}
+
+
+Another circuit topology based on the operational amplifier is shown
+in \autoref{ex7}.
+The input is current-based, the output is voltage-based; since the ratio between the output and the input is dimensionally a resistance, this topology is called a \textit{"transresistance"} amplifier. Since no current enters the inverting terminal of the device, all the current flows through $R_2$, so the output voltage will be equal to:
+
+\begin{equation}
+	v_{out} = -I_RR_2
+\end{equation}
+
+\begin{figure}[h]
+\begin{center}
+
+\begin{tikzpicture}[transform shape]
+	\node[op amp] at (6.19, 13.49){};
+	\draw (4.5, 13) -- (5, 13);
+	\node[ground] at (4.5, 11.75){};
+	\draw (7.38, 13.49) -| (8, 13.5);
+	\node[ocirc](N1) at (8, 13.49){} node[anchor=south] at ([yshift=0.09cm]N1.text){$v_{out}$};
+	\node[circ] at (7.38, 13.49){};
+	\draw (5, 13.98) |- (4.625, 13.98);
+	\draw (4.5, 13) -| (4.5, 11.75);
+	\node[circ] at (4.5, 13.98){};
+	\draw (4.5, 13.98) -| (3, 13.875);
+	\draw (3, 13.98) to[european current source, i<_=$I_R$] (3, 11.855);
+	\node[ground] at (3, 11.75){};
+	\draw (3, 11.75) -| (3, 11.855);
+	\draw (4.75, 15.125) to[american resistor, l={$R_2$}] (7.38, 15.125);
+	\draw (7.38, 13.49) |- (7.375, 15.125);
+	\draw (4.625, 13.98) -- (4.5, 13.98);
+	\draw (4.5, 13.98) |- (4.5, 15.125) -- (4.75, 15.125);
+\end{tikzpicture}
+
+
+\label{ex7}
+\caption{Transresistance amplifier schematics}	
+\end{center}	
+\end{figure}
+
+
+Essentially, this circuit topology \textit{"converts"} current into voltage, providing a voltage output that is proportional to the resistance $R_2$. Upon analyzing this circuit, it is easy to see that both the input and output impedances are very low.
+
 \subsubsection{Inverting amplifier}
+
+The transresistance amplifier forms the basis of this topology, which, together with the non-inverting amplifier, represents one of the most common configurations for the linear operation of the operational amplifier. 
+
+In this case, as we will see shortly, this topology will form the basis of many other linear circuits based on the active device. If, starting from the previous topology, we replace the current source with a voltage source, followed by a series resistor as shown in \autoref{ex7}, we obtain a configuration in which the input voltage is first converted into a current, which is then converted back into voltage at the amplifier’s output.
+
+\begin{figure}
+\begin{center}
+
+\begin{tikzpicture}[transform shape]
+	\node[op amp] at (6.19, 13.51){};
+	\draw (4.5, 13.02) -- (5, 13.02);
+	\node[ground] at (4.5, 11.77){};
+	\draw (7.38, 13.51) -| (8, 13.52);
+	\node[ocirc](N1) at (8, 13.51){} node[anchor=south] at ([yshift=0.09cm]N1.text){$v_{out}$};
+	\node[circ] at (7.38, 13.51){};
+	\draw (5, 14) |- (4.625, 14);
+	\draw (4.5, 13.02) -| (4.5, 11.77);
+	\node[circ] at (4.5, 14){};
+	\node[ground] at (3, 11.75){};
+	\draw (3, 11.75) -| (3, 11.855);
+	\draw (4.75, 15.145) to[american resistor, l={$R_2$}] (7.38, 15.145);
+	\draw (7.38, 13.51) |- (7.375, 15.145);
+	\draw (4.625, 14) -- (4.5, 14);
+	\draw (4.5, 14) |- (4.5, 15.145) -- (4.75, 15.145);
+	\draw (4.5, 14) to[american resistor, l_={$R_1$}] (3, 14);
+	\draw (3, 14) to[european voltage source, v<=$V_i$] (3, 11.875);
+\end{tikzpicture}
+	
+\label{ex8}	
+\caption{Inverting amplifier schematics}
+\end{center}	
+\end{figure}
+
+
+Before presenting the (brief) calculation of this circuit’s gain, let’s start by pointing out its weakness: the input resistance, $R_i$, is equal to $R_1$, that is, the resistance in series with the input voltage source. 
+In fact, since $R_1$ is connected between a voltage source and a \textit{"virtual 0 V"} terminal—that is, a terminal with zero potential difference relative to a terminal connected to 0 V (the non-inverting terminal), we can say that the loop equation toward 0 V via the "$-$" terminal holds; by introducing a test voltage source $V_x$, we will have, across $R_1$ a current $I_x$ equal to:
+
+\begin{equation}
+	I_x = \frac{V_x}{R_1} \rightarrow z_1 = \frac{V_x}{I_x} = R_1
+\end{equation}
+
+
+At this point, we know how much current flows through $R_1$, but we also know that no current flows into the op-amp (using the ideal model, which so far has proven to be quite accurate; we may revisit this later); all of the current (already quantified as the ratio of the input voltage to $R_1$) will therefore flow through $R_2$, so that we have:
+
+
+\begin{equation}
+	V_{out} = - \frac{V_{in}}{R_1} \cdot R_2
+\end{equation}
+
+From which:
+
+\begin{equation}
+	\frac{V_{out}}{V_{in}} = - \frac{R_2}{R_1}
+\end{equation}
+
+Therefore, this amplifier, is capable of amplifying (in very simple terms, depending solely on the ratio of the resistors) and inverting the phase (rotating it by 180°) of the input signal. Taking into account the finite gain ($A_d$) of the operational amplifier, we can recalculate to obtain:
+
+\begin{equation}
+\frac{V_{in} + v_d}{R_1} = \frac{-v_d - V_{out}}{R_2}
+\end{equation}
+
+But since $v_d = V_{out} / A_d$, from which:
+
+\begin{equation}
+	V_{in} = -V_{out} \left( \frac{R_1}{R_2} + \frac{R_1 + R_2}{A_dR_2} \right)
+\end{equation}
+
+By introducing $\beta$ = $\frac{R_1}{R_1 + R_2}$ and rearranging the terms, we finally obtain:
+
+\begin{equation}
+	\frac{V_{out}}{V_{in}} = - \frac{R_2}{R_1} \cdot \frac{1}{1 + \frac{1}{A_d \beta}} = \left( 1 - \frac{1}{\beta} \right) \cdot \frac{1}{1 + \frac{1}{\beta}}
+\end{equation}
+
+
+We have thus obtained another type of amplifier. The problem, however, is that this is not a true voltage amplifier. We have already noted that its input impedance is equal to $R_1$, which is far from high; therefore, its performance is influenced by the output impedance of the signal source, which will reduce the gain of the stage. 
+As for the output impedance, it suffices to note that the circuit used for the calculation is the same as in the case of the non-inverting amplifier, so we obtain the same value calculated in \autoref{nonidopamp}.
+
 \subsubsection{Current amplifier}	
+
+
+\autoref{ex9} shows the schematic of an amplifier whose input is again a current source, $I_s$. 
+
+
+\begin{figure}
+\begin{center}
+
+\begin{tikzpicture}[transform shape]
+	\node[op amp, yscale=-1] at (6.19, 14.49){};
+	\node[ground] at (4.5, 14.875){};
+	\draw (5, 14.98) -| (4.5, 14.875);
+	\draw (3, 12) to[european current source, i<^=$I_s$, current/distance=0.2] (3, 14);
+	\draw (5, 14) -- (3, 14);
+	\node[ground] at (3, 12){};
+	\node[circ] at (4.5, 14){};
+	\node[circ](N1) at (7.375, 12.25){} node[anchor=west] at ([xshift=0.08cm]N1.text){$A$};
+	\draw (7.38, 14.49) to[american resistor, l={$R_L$}, i_=$I_L$, current/distance=0.2] (7.375, 12.25);
+	\draw (7.375, 12.25) to[american resistor, l={$R_1$}] (5.75, 12.25);
+	\draw (7.38, 12.24) to[american resistor, l={$R_2$}] (7.375, 10.5);
+	\draw (5.75, 12.25) -| (4.5, 14);
+	\node[ground] at (7.375, 10.5){};
+\end{tikzpicture}
+
+
+\label{ex9}
+\caption{Current amplifier}	
+\end{center}	
+\end{figure}
+
+
+As in the case of the transresistance amplifier, and whose output is the current $I_L$ in the load resistor $R_L$. 
+Considering a real operational amplifier, since the non-inverting input is at 0 V, the inverting input will also be approximately at 0 V (virtual ground). Since no current enters the operational amplifier’s inputs, the current $I_s$ will flow through resistor $R_1$. The voltage at node $A$ will be $V_A$ = $R_1I_s$, and the current $I_{R_2}$ through resistor $R_2$ will be given by:
+
+\begin{equation}
+	I_{R_2} = \frac{V_A}{R_2} = I_s \frac{R_1}{R_2}
+\end{equation}
+
+At node $A$, we have $I_L + I_s = I_{R_2}$, from which we can obtain:
+
+\begin{equation}
+	I_L = I_s \left( 1 + \frac{R_1}{R_2} \right)
+\end{equation}
+
+The fact that the input current $I_L$ does not depend on the value of the load resistor $R_L$ means that the circuit’s output behaves like a current source whose value is proportional to the input current. We therefore have a current amplifier with high output impedance and a gain of:
+
+\begin{equation}
+	A_I = \left( 1 + \frac{R_1}{R_2} \right)
+\end{equation}
+
+Since the input voltage $v_i = -v_d$ is close to 0 V, the input impedance $Z_i = \frac{v_1}{I_s}$ will be very small, ideally infinitesimal. 
+
+A more precise estimation of $Z_i$ can be obtained using the operational amplifier model with differential input impedance and non-infinite gain, as done in the previous sections. The calculations are left as an exercise. % TODO HERE!
+
+
+
+
+
 \subsubsection{Transconductance amplifier}
+
+
+The final amplifier variant we will consider in this chapter is shown in \autoref{ex10}. 
+
+\begin{figure}
+\begin{center}
+
+\begin{tikzpicture}[transform shape]
+	\node[op amp, yscale=-1] at (6.19, 14.51){};
+	\node[ground] at (3, 12){};
+	\node[circ](N1) at (7.375, 12.25){} node[anchor=west] at ([xshift=0.08cm]N1.text){$A$};
+	\draw (7.38, 14.51) to[american resistor, l={$R_L$}, i_=$I_L$, current/distance=0.2] (7.375, 12.27);
+	\draw (7.38, 12.24) to[american resistor, l={$R_1$}] (7.375, 10.5);
+	\node[ground] at (7.375, 10.5){};
+	\draw (3, 12) to[european voltage source, v=$V_{in}$] (3, 14);
+	\draw (3, 14) -| (3, 15) -- (4.5, 15);
+	\draw (4.5, 15) -- (5, 15);
+	\draw (5, 14.02) -| (4.5, 14) |- (7.375, 12.25);
+\end{tikzpicture}
+
+
+\label{ex10}
+\caption{Transconductance amplifier}	
+\end{center}	
+\end{figure}
+
+
+In this case, the input is a voltage $V_{in}$, and the output is the current $I_L$ flowing through the load resistor $R_L$.
+
+The analysis of this circuit is very simple. Since $v_d \approx 0 V, V_A = V_{in}$, and the current $I_{R_1}$ through resistor $R_1$ is given by $\frac{V_A}{R_1}$. Since no current flows through the inverting input of the op-amp, we have $I_L = I_{R_1}$. We therefore have:
+
+\begin{equation}
+	I_L = V_{in} \frac{1}{R_1}
+\end{equation}
+
+The proportionality factor between input and output is, in terms of physical units, a conductance, hence the amplifier’s name. In this case, both the input impedance and the output impedance are very high.
+
 
 %\subsection{Current Mirrors}
 %\subsubsection{BJT Current Mirror}
