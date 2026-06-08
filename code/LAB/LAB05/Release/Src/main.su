@@ -1,0 +1,8 @@
+../Drivers/STM32L4xx_HAL_Driver/Inc/stm32l4xx_ll_bus.h:563:22:LL_AHB2_GRP1_EnableClock	8	static
+../Src/main.c:878:13:StartDefaultTask	8	static
+../Src/main.c:896:13:StartAcquisitionTask	8	static
+../Src/main.c:914:13:StartDisplayTask	8	static
+../Src/main.c:271:6:SystemClock_Config	96	static
+../Src/main.c:162:5:main	112	static
+../Src/main.c:933:6:HAL_TIM_PeriodElapsedCallback	0	static
+../Src/main.c:950:6:Error_Handler	0	static
