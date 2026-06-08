@@ -21,6 +21,524 @@ The version you find below might differ from what was submitted and it might dif
 \subsection{Introduction}
 
 
+The main purpose of this exercise is to become familiar with the equipment and measurement procedures used in the fields of electronics and integrated systems.
+
+\subsection*{Goal}
+
+The objective of this laboratory is to become familiar with electronic measurement techniques through practical use of a Digital Storage Oscilloscope (DSO).
+In the first part we will briefly go over some calibration practices to then move on to the analog and digital sections.
+
+\subsection*{Instrument}
+
+Here is the list of the different instruments and equipment used during this laboratory.
+
+\subsubsection*{Rigol DS1054}
+
+For this instrument these data are used:
+
+\begin{table}[h!]
+\centering	
+
+\begin{tabular}{c  c}
+\textbf{Function} & \textbf{1 Year} \\
+\hline
+Timebase accuracy &  $\leq$ 25 $\pm$ ppm \\
+\hline
+Clock drift & $\leq$ 5 $\pm$ ppm/year \\
+\hline
+DC Gain accuracy & $<$ 10 mV: $\pm$ 4 \% of full scale  \\
+\hline
+DC Gain accuracy & $\geq$ 10 mV: $\pm$ 3 \% of full scale  \\
+\hline
+DC Offset accuracy & $\pm$ 0.1 div $\pm$ 2 mV + 1 \% of offset  \\
+\end{tabular}
+ 
+\caption{Uncertainty DSO}
+\label{dosunc}
+\end{table}
+
+The data shown above refer to the DSO accuracy on the data obtain via the internal measuring engine. Since for this laboratory is require to obtain measures via visual inspection of the scope also these types of measures will be given in the report.
+
+\subsubsection*{VirtLAB Board}
+
+The VirtLAB Board, which was used to generate signals to measure, was prepared before the laboratory with a custom firmware that was able to generate different signal on different output pins.
+
+\subsection*{Observations}
+
+\subsection*{Problems}
+
+
+
+\subsection{Preparation}
+
+
+
+\subsection{Analog signal measurements}
+
+\subsubsection*{Sinusoidal waveform}
+
+By enabling the Switch 7 on the VirtLAB and after connecting the probe to the correct output pin a sinusoidal wave was observed.
+
+Here is a reported graph of the signal that was visualized on the DSO screen.
+
+% MISSING FIGURE
+
+We proceed to take the required measurements that are reported down below.
+For the measure give by the DSO the uncertainty was calculated via the data given by the manufacturer and listed in the \autoref{dosunc}.
+
+\begin{table}[h!]
+\centering	
+
+\begin{tabular}{ccccc}
+\textbf{Object} & \textbf{Value} & \textbf{$\delta$} & \textbf{$\varepsilon_{\%}$} &  \textbf{Unit} \\
+\hline
+ $V_{pp}$ & 1.14 & $\pm$ 0.048 & $\pm$ 04.21 \% &  V \\
+ \hline
+ $V_{min}$ & 0.463  & $\pm$ 0.07995 & $\pm$ 17.27 \% &  V \\
+ \hline
+ $V_{max}$ & 1.58  & $\pm$ 0.07995 & $\pm$ 05.60 \% &  V  \\
+ \hline
+ Frequency & 7999.00  & $\pm$ 0.20 & $\pm$ 0.0025 \% &  Hz \\
+ \hline
+ Period & 125.2 & $\pm$ 0.00313 & $\pm$ 0.0025 \%  &  $\mu$s \\
+ \hline
+ Average & 0.995  & $\pm$ 0.07995 & $\pm$ 08.04 \% &  V \\ 
+ \hline
+ $V_{RMS}$ & 1.07 & $\pm$ 0.07995 & $\pm$ 07.47 \% &  V \\
+ 
+
+\end{tabular}
+\caption*{Sinusoidal waveform - DSO}
+\end{table}
+
+We then took the same measurements by visual inspection. The results are shown in the following table. We reported the reading in division that was then converted to a proper measure with their relative uncertainty.
+
+\begin{table}[h!]
+\centering	
+
+\begin{tabular}{ccccccc}
+\textbf{Object} & \textbf{Measure} & \textbf{Scale}  & \textbf{Value}  & \textbf{$\delta$} & \textbf{$\varepsilon_{\%}$} & \textbf{Unit} \\
+\hline
+ $V_{pp}$ & 5.6 &  200 mV/div & 1.12 & &  & V \\
+ \hline
+ $V_{min}$ & 2.2  &  200 mV/div  & 0.440  &  & &  V \\
+ \hline
+ $V_{max}$ & 8.0  &  200 mV/div &  1.60 & &  & V  \\
+ \hline
+ Frequency & -  & -  &  &  &  & Hz \\
+ \hline
+ Period & 6.2 &  20.0 $\mu$s/div & 124.0 &  &   & $\mu$s \\
+ \hline
+ Average & - & - &   &   & &  V \\ 
+ \hline
+ $V_{RMS}$ & - & - &    &  &  & V \\
+ 
+
+\end{tabular}
+\caption*{Sinusoidal waveform - Visual}
+\end{table}
+
+
+\subsubsection*{Triangular waveform}
+
+By enabling the Switch 6 on the VirtLAB and after connecting the probe to the correct output pin a triangular wave was observed.
+
+% MISSING FIGURE
+
+We proceed to take the required measurements that are reported down below.
+For the measure give by the DSO the uncertainty was calculated via the data given by the manufacturer and listed in the \autoref{dosunc}.
+
+
+\begin{table}[h!]
+\centering	
+
+\begin{tabular}{ccccc}
+\textbf{Object} & \textbf{Value} & \textbf{$\delta$} & \textbf{$\varepsilon_{\%}$} &  \textbf{Unit} \\
+\hline
+ $V_{pp}$ & 0.580 & $\pm$ 0.024 & $\pm$ 04.14 \% &  V \\
+ \hline
+ $V_{min}$ & 0.440  & $\pm$ 0.00435 & $\pm$ 09.88 \% &  V \\
+ \hline
+ $V_{max}$ & 1.02  & $\pm$ 0.00435 & $\pm$ 04.26 \% &  V  \\
+ \hline
+ Frequency & 4705.88  & $\pm$ 0.12 & $\pm$ 0.0025 \% &  Hz \\
+ \hline
+ Period & 212.0 & $\pm$ 0.0053 & $\pm$ 0.0025 \%  &  $\mu$s \\
+ \hline
+ Average & 0.749  & $\pm$ 0.00435 & $\pm$  05.81 \% &  V \\ 
+ \hline
+ $V_{RMS}$ & 0.766 & $\pm$ 0.00435 & $\pm$ 05.68 \% &  V \\
+ 
+
+\end{tabular}
+\caption*{Triangular waveform - DSO}
+\end{table}
+
+We then took the same measurements by visual inspection. The results are shown in the following table. We reported the reading in division that was then converted to a proper measure with their relative uncertainty.
+
+\begin{table}[h!]
+\centering	
+
+\begin{tabular}{ccccccc}
+\textbf{Object} & \textbf{Measure} & \textbf{Scale}  & \textbf{Value}  & \textbf{$\delta$} & \textbf{$\varepsilon_{\%}$} & \textbf{Unit} \\
+\hline
+ $V_{pp}$ & 5.8 &  100 mV/div & 0.580 & &  & V \\
+ \hline
+ $V_{min}$ & 4.6  &  200 mV/div  & 0.460  &  & &  V \\
+ \hline
+ $V_{max}$ & 5.2 &  200 mV/div &  1.04 & &  & V  \\
+ \hline
+ Frequency & -  & -  &  &  &  & Hz \\
+ \hline
+ Period &  10.6 &  20.0 $\mu$s/div &  210.0 &  &   & $\mu$s \\
+ \hline
+ Average & - & - &   &   & &  V \\ 
+ \hline
+ $V_{RMS}$ & - & - &    &  &  & V \\
+ 
+
+\end{tabular}
+\caption*{Triangular waveform - Visual}
+\end{table}
+
+
+\subsubsection*{Rectangular waveform}
+
+
+
+
+By enabling the Switch 5 on the VirtLAB and after connecting the probe to the correct output pin a rectangular wave was observed.
+
+% MISSING FIGURE
+
+We proceed to take the required measurements that are reported down below.
+For the measure give by the DSO the uncertainty was calculated via the data given by the manufacturer and listed in the \autoref{dosunc}.
+
+
+\begin{table}[h!]
+\centering	
+
+\begin{tabular}{ccccc}
+\textbf{Object} & \textbf{Value} & \textbf{$\delta$} & \textbf{$\varepsilon_{\%}$} &  \textbf{Unit} \\
+\hline
+ $V_{pp}$ & 1.14  & $\pm$ 0.048 & $\pm$ 04.21 \% &  V \\
+ \hline
+ $V_{min}$ &  0.448 & $\pm$ 0.07939 & $\pm$ 17.72  \% &  V \\
+ \hline
+ $V_{max}$ & 1.59  & $\pm$ 0.07939 & $\pm$ 04.99 \% &  V  \\
+ \hline
+ Frequency & 3200.00 & $\pm$ 0.08 & $\pm$ 0.0025 \% &  Hz \\
+ \hline
+ Period & 313.0  & $\pm$ 0.0078 & $\pm$ 0.0025 \% &  $\mu$s \\
+ \hline
+ Average & 0.993  & $\pm$ 0.07939 & $\pm$  07.99 \% &  V \\ 
+ \hline
+  $t_{rise}$ & 2.000 & $\pm$ 0.003 & $\pm$  0.20 \% &  $\mu$s \\ 
+ \hline
+ $t_{fall}$ & 1.500  & $\pm$ 0.003 & $\pm$  0.20 \% &  $\mu$s \\ 
+ \hline
+ $V_{RMS}$ & 1.14  & $\pm$ 0.07939 & $\pm$ 06.96 \% &  V \\
+ 
+
+\end{tabular}
+\caption*{Rectangular waveform - DSO}
+\end{table}
+
+
+We then took the same measurements by visual inspection. The results are shown in the following table. We reported the reading in division that was then converted to a proper measure with their relative uncertainty.
+
+\begin{table}[h!]
+\centering	
+
+\begin{tabular}{ccccccc}
+\textbf{Object} & \textbf{Measure} & \textbf{Scale}  & \textbf{Value}  & \textbf{$\delta$} & \textbf{$\varepsilon_{\%}$} & \textbf{Unit} \\
+\hline
+ $V_{pp}$ & 5.8 &  100 mV/div & 0.580 & &  & V \\
+ \hline
+ $V_{min}$ & 4.6  &  200 mV/div  & 0.460  &  & &  V \\
+ \hline
+ $V_{max}$ & 5.2 &  200 mV/div &  1.04 & &  & V  \\
+ \hline
+ Frequency & -  & -  &  &  &  & Hz \\
+ \hline
+ Period &  10.6 &  20.0 $\mu$s/div &  210.0 &  &   & $\mu$s \\
+ \hline
+ Average & - & - &   &   & &  V \\ 
+ \hline
+ $t_{rise}$ & 4.2 &  500 ns/div & 2.100  &  &  & $\mu$s \\
+ \hline
+ $t_{fall}$ & 3.2  & 500 ns/div & 1.600  &  &  & $\mu$s \\
+ \hline
+ $V_{RMS}$ & - & - &   &  &  & V \\
+ 
+
+\end{tabular}
+\caption*{Rectangular waveform - Visual}
+\end{table}
+
+
+
+
+\subsection{Digital signal measurements}
+
+
+
+\subsubsection*{High frequency digital signals}
+
+
+By enabling the Switch 4 on the VirtLAB and after connecting the probe to the correct output pin an high frequency signal was observed.
+
+% MISSING FIGURE
+
+We proceed to take the required measurements that are reported down below.
+For the measure give by the DSO the uncertainty was calculated via the data given by the manufacturer and listed in the \autoref{dosunc}.\\
+
+Reported here are the measures found via the DSO for the CH1 and CH2.
+
+
+\begin{table}[h!]
+\centering	
+
+\begin{tabular}{ccccc}
+\textbf{Object} & \textbf{Value} & \textbf{$\delta$} & \textbf{$\varepsilon_{\%}$} &  \textbf{Unit} \\
+\hline
+ $V_{pp}$ & 3.52  & $\pm$ 0.120 & $\pm$ 03.41 \% &  V \\
+ \hline
+ Frequency & 2352940 & $\pm$ 58.81 & $\pm$ 0.0025 \% & Hz \\
+ \hline
+ Period & 424.0  & $\pm$ 0.0106 & $\pm$ 0.0025 \% & ns \\
+ \hline
+ Duty $+$ & 12.26  & -  & - &  \% \\ 
+ \hline
+ Duty $-$ & 87.74  & -  & - &  \% \\ 
+ \hline
+ $t_{rise}$ &  22.00  & $\pm$  & $\pm$   \% &  ns \\ 
+ \hline
+ $t_{fall}$ &  22.00 & $\pm$  & $\pm$  \% &  ns \\
+ 
+
+\end{tabular}
+\caption*{High frequency CH1 - DSO}
+\end{table}
+
+
+\begin{table}[h!]
+\centering	
+
+\begin{tabular}{ccccc}
+\textbf{Object} & \textbf{Value} & \textbf{$\delta$} & \textbf{$\varepsilon_{\%}$} &  \textbf{Unit} \\
+\hline
+ $V_{pp}$ & 3.56  & $\pm$ 0.120 & $\pm$ 03.37 \% &  V \\
+ \hline
+ Frequency & 2351830 & $\pm$ 58.82 & $\pm$ 0.0025 \% & Hz \\
+ \hline
+ Period & 426.0  & $\pm$ 0.0107 & $\pm$ 0.0025 \% & ns \\
+ \hline
+ Duty $+$ & 12.21  & -  & - &  \% \\ 
+ \hline
+ Duty $-$ & 87.79  & -  & - &  \% \\ 
+ \hline
+ $t_{rise}$ &  08.00  & $\pm$  & $\pm$   \% &  ns \\ 
+ \hline
+ $t_{fall}$ &  08.00 & $\pm$  & $\pm$  \% &  ns \\
+ 
+
+\end{tabular}
+\caption*{High frequency CH2 - DSO}
+\end{table}
+
+
+
+\begin{table}[h!]
+\centering	
+
+\begin{tabular}{ccccccc}
+\textbf{Object} & \textbf{Measure} & \textbf{Scale}  & \textbf{Value}  & \textbf{$\delta$} & \textbf{$\varepsilon_{\%}$} & \textbf{Unit} \\
+\hline
+ $V_{pp}$ & 5.8 &  100 mV/div & 0.580 & &  & V \\
+ \hline
+ Frequency & -  & -  &  &  &  & Hz \\
+ \hline
+ Period &  10.6 &  20.0 $\mu$s/div &  210.0 &  &   & $\mu$s \\
+ \hline 
+ Duty $+$ &   & -  & - &  \% \\ 
+ \hline
+ Duty $-$ &   & -  & - &  \% \\ 
+ \hline
+ $t_{rise}$ &  &   &   &  &  & $\mu$s \\
+ \hline
+ $t_{fall}$ &   &  &   &  &  & $\mu$s \\
+
+\end{tabular}
+\caption*{High frequency CH1 - Visual}
+\end{table}
+
+
+
+\begin{table}[h!]
+\centering	
+
+\begin{tabular}{ccccccc}
+\textbf{Object} & \textbf{Measure} & \textbf{Scale}  & \textbf{Value}  & \textbf{$\delta$} & \textbf{$\varepsilon_{\%}$} & \textbf{Unit} \\
+\hline
+ $V_{pp}$ & 5.8 &  100 mV/div & 0.580 & &  & V \\
+ \hline
+ Frequency & -  & -  &  &  &  & Hz \\
+ \hline
+ Period &  10.6 &  20.0 $\mu$s/div &  210.0 &  &   & $\mu$s \\
+ \hline 
+ Duty $+$ &   & -  & - &  \% \\ 
+ \hline
+ Duty $-$ &   & -  & - &  \% \\ 
+ \hline
+ $t_{rise}$ &  &   &   &  &  & $\mu$s \\
+ \hline
+ $t_{fall}$ &   &  &   &  &  & $\mu$s \\
+
+\end{tabular}
+\caption*{High frequency CH2 - Visual}
+\end{table}
+
+
+
+\subsubsection*{Low frequency digital signals}
+
+
+By enabling the Switch 3 on the VirtLAB and after connecting the probe to the correct output pin a low frequency signal was observed.
+
+% MISSING FIGURE
+
+We proceed to take the required measurements that are reported down below.
+For the measure give by the DSO the uncertainty was calculated via the data given by the manufacturer and listed in the \autoref{dosunc}.\\
+
+Reported here are the measures found via the DSO for the CH1 and CH2.
+
+
+
+\begin{table}[h!]
+\centering	
+
+\begin{tabular}{ccccc}
+\textbf{Object} & \textbf{Value} & \textbf{$\delta$} & \textbf{$\varepsilon_{\%}$} &  \textbf{Unit} \\
+\hline
+ $V_{pp}$ & 3.52  & $\pm$ 0.120 & $\pm$ 03.41 \% &  V \\
+ \hline
+ Frequency & 23.8 & $\pm$ 0.0006 & $\pm$ 0.0025 \% & Hz \\
+ \hline
+ Period & 42.05  & $\pm$ 0.0106 & $\pm$ 0.0025 \% & ms \\
+ \hline
+ Duty $+$ & 49.94  & -  & - &  \% \\ 
+ \hline
+ Duty $-$ & 50.05  & -  & - &  \% \\ 
+ \hline
+ $t_{rise}$ & 19.60  & $\pm$  & $\pm$   \% &  ns \\ 
+ \hline
+ $t_{fall}$ & 18.80 & $\pm$  & $\pm$  \% &  ns \\
+ 
+
+\end{tabular}
+\caption*{Low frequency CH1 - DSO}
+\end{table}
+
+
+\begin{table}[h!]
+\centering	
+
+\begin{tabular}{ccccc}
+\textbf{Object} & \textbf{Value} & \textbf{$\delta$} & \textbf{$\varepsilon_{\%}$} &  \textbf{Unit} \\
+\hline
+ $V_{pp}$ & 3.52  & $\pm$ 0.120 & $\pm$ 03.41 \% &  V \\
+ \hline
+ Frequency & 23.8 & $\pm$ 0.0006 & $\pm$ 0.0025 \% & Hz \\
+ \hline
+ Period & 42.05  & $\pm$ 0.0106 & $\pm$ 0.0025 \% & ms \\
+ \hline
+ Duty $+$ & 49.94  & -  & - &  \% \\ 
+ \hline
+ Duty $-$ & 50.05  & -  & - &  \% \\ 
+ \hline
+ $t_{rise}$ & 7.100  & $\pm$  & $\pm$   \% &  ns \\ 
+ \hline
+ $t_{fall}$ & 7.100 & $\pm$  & $\pm$  \% &  ns \\
+ 
+
+\end{tabular}
+\caption*{Low frequency CH2 - DSO}
+\end{table}
+
+
+
+\begin{table}[h!]
+\centering	
+
+\begin{tabular}{ccccccc}
+\textbf{Object} & \textbf{Measure} & \textbf{Scale}  & \textbf{Value}  & \textbf{$\delta$} & \textbf{$\varepsilon_{\%}$} & \textbf{Unit} \\
+\hline
+ $V_{pp}$ & 5.8 &  100 mV/div & 0.580 & &  & V \\
+ \hline
+ Frequency & -  & -  &  &  &  & Hz \\
+ \hline
+ Period &  10.6 &  20.0 $\mu$s/div &  210.0 &  &   & $\mu$s \\
+ \hline 
+ Duty $+$ &   & -  & - &  \% \\ 
+ \hline
+ Duty $-$ &   & -  & - &  \% \\ 
+ \hline
+ $t_{rise}$ &  &   &   &  &  & $\mu$s \\
+ \hline
+ $t_{fall}$ &   &  &   &  &  & $\mu$s \\
+
+\end{tabular}
+\caption*{Low frequency CH1 - Visual}
+\end{table}
+
+
+
+\begin{table}[h!]
+\centering	
+
+\begin{tabular}{ccccccc}
+\textbf{Object} & \textbf{Measure} & \textbf{Scale}  & \textbf{Value}  & \textbf{$\delta$} & \textbf{$\varepsilon_{\%}$} & \textbf{Unit} \\
+\hline
+ $V_{pp}$ & 5.8 &  100 mV/div & 0.580 & &  & V \\
+ \hline
+ Frequency & -  & -  &  &  &  & Hz \\
+ \hline
+ Period &  10.6 &  20.0 $\mu$s/div &  210.0 &  &   & $\mu$s \\
+ \hline 
+ Duty $+$ &   & -  & - &  \% \\ 
+ \hline
+ Duty $-$ &   & -  & - &  \% \\ 
+ \hline
+ $t_{rise}$ &  &   &   &  &  & $\mu$s \\
+ \hline
+ $t_{fall}$ &   &  &   &  &  & $\mu$s \\
+
+\end{tabular}
+\caption*{Low frequency CH2 - Visual}
+\end{table}
+
+
+
+
+
+
+\subsubsection*{Custom digital signals}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

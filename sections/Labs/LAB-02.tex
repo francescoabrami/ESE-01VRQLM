@@ -14,196 +14,31 @@
 \vspace*{1.5cm}
 
 
-The following section and subsections are representative of a possible solution for the second laboratory given for this course on March 24th 2026.
-The version you find below might differ from what was submitted and it might differ from what is now being asked.
-
-\vspace*{1cm}
-
 \subsection{Introduction}
-	
-In this paper is shown the laboratory report for the second laboratory of this course. We have reported the taken measurements and quoted graphs as asked in the paper.
-We ran into an issue in point 2.3 where we see a sinusoidal output wave only flattened on the positive side. We tried to give a reasonable explanation to the issue we encountered.
+
+\subsubsection*{Objective}
+\subsubsection*{Instruments}
+\subsubsection*{Observations}
+\subsubsection*{Problems}
+
 
 \subsection{Inverting Amplifier}
 
-In this first section we have reported all of the data for the first part of the laboratory. We added a small comment for each of them to better explain what have we done.
-
 \subsubsection*{Gain of the inverting amplifier}
-
-For the first measurements we set the wave to be a sinusoidal, 1kHz, zero DC offset. The $A_v$ calculated using the $V_{pp}$ values is very similar to the theoretical gain of the amplifier.
-The value calculated using the offset ( $A_V$ DC) is very different from what we would expect because both the $V_{avg}$ of input and output are close to 0, where even a tiny imperfection explodes into huge errors.
-The phase shift are overall close to the expected value of 180 degrees for the inverting amplifier, measuring a value of 179.3 $\pm$ 0.01 degrees.
-
-\vspace{1cm}
-\begin{center}
-\begin{tikzpicture}
-\begin{axis}[
-    xlabel={Time (ms)},
-    ylabel={Voltage (V)},
-    xmin=0, xmax=3,
-    ymin=-3, ymax=3,
-    samples=200,
-    axis lines=middle,
-    grid=both,
-    width=10cm, height=6cm
-]
-\addplot[blue, thick, domain=0:3] {0.5 * sin(360*x)};
-\addplot[red, thick, domain=0:3] {-(4.55/2) * sin(360*x)};
-\legend{Input, Output}
-\end{axis}
-
-\node at (current bounding box.south) [yshift=-0.8cm]
-{Input vs Output at 1\,kHz};
-
-\end{tikzpicture}
-
-\vspace{1cm}
-
-% ---- Plot 2 ----
-\begin{tikzpicture}
-\begin{axis}[
-    xlabel={Time (ms)},
-    ylabel={Voltage (V)},
-    xmin=0, xmax=3,
-    ymin=-5, ymax=3.5,
-    samples=200,
-    axis lines=middle,
-    grid=both,
-    width=10cm, height=6cm,
-    legend pos=north east
-]
-\addplot[blue, thick, domain=0:3] {0.5 * sin(360*x) + 0.5};
-\addplot[red, thick, domain=0:3] {-(4.55/2)*sin(360*x) - 4.55/2};
-\legend{Input, Output}
-\end{axis}
-
-\node at (current bounding box.south) [yshift=-0.8cm]
-{Input vs Output with DC offset at 1\,kHz};
-
-\end{tikzpicture}
-\end{center}
-
-
-After setting the waveform generator to add a +0.5V offset to the signal, the results remained the same regarding the calculations for Av using Vpp. The real difference was in the measurement of the gain using the direct component of the input signal: this time we got away from the troubled region near 0 and got a better measurement that differs from the theoretical value by just 1.1\%.
-
 \subsubsection*{Rising time of the step response}
-
-%GRAFICO RAMPA
-
-\begin{center}
-\begin{tikzpicture}
-\begin{axis}[
-    xlabel={Time ($\mu$s)},
-    ylabel={Voltage (V)},
-    xmin=0, xmax=16,         
-    ymin=-1.5, ymax=1.5,     
-    samples=200,
-    axis lines=middle,
-    grid=both,
-    width=10cm, height=6cm
-]
-\addplot[thick, blue] coordinates {
-    (0, -1) (2, -1) (12, 1) (14, 1)
-};
-\end{axis}
-
-% Title below
-\node at (current bounding box.south) [yshift=-0.8cm]
-{Square 2V\textsubscript{pp} with Skew at 1\,kHz};
-
-\end{tikzpicture}
-\end{center}
-
-We began by calculating the bandwidth of the amplifier F = GBP / (1 + |AV|) = 180KHz
-We set the waveform generator to output a 1kHz square wave with 2Vpp and 50% Duty cycle.
-With this input the required SR would be 2PI * F * dV = 10.2V/us way more than the typical SR of the uA741, which is 0.5V/us. This makes the output rise time limited by the SR, Giving a theoretical rise time of 14.5us.
-This result matches the waveform of Vout, which is a straight ramp of m = 0.5V/us.
-
-%GRAFICO EXPO
-\begin{center}
-\begin{tikzpicture}
-\begin{axis}[
-    xlabel={Time ($\mu$s)},
-    ylabel={Voltage (V)},
-    xmin=-2, xmax=12,        
-    ymin=-1.5, ymax=1.5,     
-    samples=200,
-    axis lines=middle,
-    grid=both,
-    width=10cm, height=6cm
-]
-\addplot[thick, blue, domain=-1.5:11, samples=200] {
-    ifthenelse(x < 0, -1, 1 - 2*exp(-2*x/3))
-};
-\end{axis}
-
-% Title below the plot
-\node at (current bounding box.south) [yshift=-0.8cm] 
-{Square 0.1V\textsubscript{pp} with band at 1\,kHz};
-
-\end{tikzpicture}
-\end{center}
-
-Now we set the $V_{pp}$ of the input signal to be much smaller: 0.1 $V_{pp}$
-With this new signal the required SR is roughly the same as the typical value of SR of the OpAmp, so the amplifier is "strong enough" to follow the input signal. This is clearly visible in the waveform of $V_{out}$: the curve now is totally different than before; it is an exponential rise with a rise time an order of magnitude faster than the previous experiment. This exponential rise is the bandwidth effect.\\
-
 \subsubsection*{Virtual ground}
+\subsubsection*{Output dynamic range}
 
-We now look at both input terminals of the OpAmp: $V+$ and $V-$.
-In an ideal OpAmp these two terminals should be both at the same voltage, in this case $V+$ is connected to ground: we should read 0V on both of them.
-When we measure $V+$ we see a very noisy signal of just 17.6 mV and an average value of 540 uV. This very small signal is just noise and is really close to being 0.
-On the $V-$ terminal we see a very small and very noisy sinusoidal signal. This is due to the fact that in a real differential amplifier $V-$ = $\frac{-V_{out}}{A}$ . In this case $A$ is $2 * 10^5$: so we theoretically expect a signal 200'000 times smaller that $V_{out}$ and 180 degrees out of phase.
+\subsection{Non Inverting Amplifier}
 
-As before we report a table with the measured values
+\subsubsection*{Input resistance}
+\subsubsection*{Output resistance}
+\subsubsection*{Bode diagram}
 
-\begin{table}[h!]
-\centering
-\begin{tabular}{cccccc}
- &  &  &  \\ 
-\textbf{Symbol} & \textbf{Parameter} & \textbf{Expression} & \textbf{Value (V)}  \\
-\hline
-$V_{+}$ & Average voltage on the plus terminal & & 0 \\
-$V_{-}$ & Average voltage on the minus terminal & & $\approx$ 0 \\
-\hline
-\end{tabular}
-\label{tab:table}
-\end{table}
+\subsection{Audio Amplifier}
 
-As we know the plus terminal shows the actual ground. The minus terminal is the virtual ground. With that said we know that thanks to the negative feedback the two terminals should be at the same tension. In this case we observed, having an AC signal as input, some ripples measuring around 10 mV.
-
-\subsubsection*{Output dynamic range}  % TODO GRAPH
-
-From the datasheet we know that the OpAmp can only output a current of 25 mA. The input signal will always be a 1 kHz sinusoidal with 1 $V_{pp}$, giving us an output of a 1KHz sinusoidal 4.55 $V_{pp}$.
-
-%  SIN NON TAGLAUTA
-
-For the first measurement we hook up the output to a 1 kOhm load, using I = V / R with V = 2.27 V and R = 1 kOhm we get an expected current of 2.27 mA, well within the max of the OpAmp, this will have a negligible effect on the waveform of $V_{out}$ because the OpAmp has enough "strength" to provide that current: we see a waveform that is identical to the one without any load.
-We now hook up a heavier load of 100 Ohm. This requires a current of 22.7 mA, which is around the typical current of the OpAmp (and higher than the minimum possible value). This caused the $V_{out}$ waveform to be flattened at about +2V, which means that the transistors inside the OpAmp gave up following the input signal when the output current exceeded 20mA.
-We don't know why the waveform is only cut in the positive values and not in the negatives.
-
-We now show the obtained signal wave and the table with the required values.
-
-\begin{table}[h!]
-\centering
-\begin{tabular}{cccccc}
- &  &  &  \\ 
-\textbf{Symbol} & \textbf{Parameter} & \textbf{Expression} & \textbf{Value (V)}  \\
-\hline
-$V_{outppR11}$ & Peak-to-peak output voltage with R11 & & 4.55 \\
-$V_{outppR12}$ & Peak-to-peak output voltage with R12 & & 4.55  \\
-\hline
-\end{tabular}
-\label{tab:table}
-\end{table}
-
-We report now the shown waveform.
-
-\begin{figure}[h!]                
-\centering                  
-    \includegraphics[width=0.70\textwidth]{images/LAB/L2/14.png}  
-    \caption*{Shown signal at point 2.4} 
-    \label{fig:polito}   
-\end{figure}
+\subsubsection*{Bode diagram}
+\subsubsection*{DC gain}
 
 
 
