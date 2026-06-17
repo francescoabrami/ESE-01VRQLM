@@ -15,6 +15,7 @@
 
 
 \subsection{Introduction}
+\label{introlab02}
 
 \subsubsection*{Objective}
 \subsubsection*{Instruments}
@@ -24,20 +25,637 @@
 
 \subsection{Inverting Amplifier}
 
+
+
 \subsubsection*{Gain of the inverting amplifier}
+
+We proceeded to analyze the first point on the paper by measuring the peak-to-peak voltages on the input and output voltages.
+The graphs on the obtained signal are reported here below:
+
+% GRAPHS
+
+Moving on here are the measurements that were obtained alongside the theoretical values of some of the components.
+
+
+\begin{table}[h!]
+\centering	
+
+\begin{tabular}{ccccc}
+\textbf{Object} & \textbf{Measure}   & \textbf{$\delta$} & \textbf{$\varepsilon_{\%}$} & \textbf{Unit} \\
+\hline
+$V_{pp,in}$  & 1.06 & $\pm$ 0.048  & $\pm$ 04.52 \% &  V \\ 
+\hline
+$V_{pp,out}$ & 4.77 & $\pm$ 0.240  & $\pm$ 05.03 \% &  V \\ 
+\hline
+$R_{f}$   &  100 & $\pm$  5.0  &  $\pm$ 5 \% & k$\Omega$ \\
+\hline
+$R_{in}$  &  22  & $\pm$ 1.1  &  $\pm$ 5 \% & k$\Omega$ \\
+
+\end{tabular}
+\caption*{Gain $A_{V}$ of the amplifier}
+\end{table}
+
+We can now calculate the gain $A_{V,real}$ and $A_{V,theo}$ of the amplifier given the parameters seen above.
+
+
+\begin{equation}
+	A_{V,real} = -\frac{V_{pp,out}}{V_{pp,in}} = - \frac{4.77}{1.06} = - 4.543 \; \pm \;  
+\end{equation}
+
+\begin{equation}
+	A_{V,theo} = - \frac{R_f}{R_{in}} = - \frac{100}{22} = - 4.545 
+\end{equation}
+
+
+We then added a 500 mV DC component to the input signal.
+We proceeded to compute the gain $A_{V,DC}$ an the we compared it to the values of $A_{V,real}$ and $A_{V,theo}$.
+
+ 
+\begin{table}[h!]
+\centering	
+
+\begin{tabular}{ccccc}
+\textbf{Object} & \textbf{Measure}   & \textbf{$\delta$} & \textbf{$\varepsilon_{\%}$} & \textbf{Unit} \\
+\hline
+$V_{pp,in}$  & 1.06 & $\pm$ 0.048  & $\pm$ 04.52 \% &  V \\ 
+\hline
+$V_{pp,out}$ & 4.77 & $\pm$ 0.240  & $\pm$ 05.03 \% &  V \\ 
+
+\end{tabular}
+\caption*{Gain $A_{V,CD}$ of the amplifier}
+\end{table}
+
+
+\begin{equation}
+	A_{V,CD} = -\frac{V_{pp,out}}{V_{pp,in}} = \frac{4.77}{1.06} \; \pm \;  
+\end{equation}
+
+
+
 \subsubsection*{Rising time of the step response}
+
+
+For this section of the laboratory a 1 kHz square wave (2 $V_{pp}$) was set as input and the rise time of the output was analyzed.
+The following graphs represents the output that was visualized on the oscilloscope screen:
+
+% PUTPUT
+
+These are the measures we obtained.
+
+
+\begin{table}[h!]
+\centering	
+
+\begin{tabular}{ccccc}
+\textbf{Object} & \textbf{Measure}   & \textbf{$\delta$} & \textbf{$\varepsilon_{\%}$} & \textbf{Unit} \\
+\hline
+$V_{pp,in}$  & 2.22 & $\pm$ 0.120  & $\pm$ 05.41 \% &  V \\ 
+\hline
+$V_{pp,out}$ & 9.68 & $\pm$ 0.480  & $\pm$ 04.96 \% &  V \\ 
+\hline
+$t_{rise,real}$ & 9.080 & $\pm$ 0.080 & $\pm$ 00.88 \% & $\mu$s \\
+\hline
+$t_{rise,theo}$ &   &  -  & -  & $\mu$s \\ 
+
+\end{tabular}
+\caption*{Rise time $t_r$ of the output 1kHz 2$V_{pp}$}
+\end{table}
+
+
+
+%%% STUFF
+
+
+Moving to the second part of this section of the laboratory a 1 kHz square wave (0.100 $V_{pp}$) was set as input and the rise time of the output was analyzed.
+The following graphs represents the output that was visualized on the oscilloscope screen:
+
+% PUTPUT
+
+These are the measures we obtained.
+
+
+\begin{table}[h!]
+\centering	
+
+\begin{tabular}{ccccc}
+\textbf{Object} & \textbf{Measure}   & \textbf{$\delta$} & \textbf{$\varepsilon_{\%}$} & \textbf{Unit} \\
+\hline
+$V_{pp,in}$  & 0.101  & $\pm$ 0.0048 & $\pm$ 04.75 \% &  V \\ 
+\hline
+$V_{pp,out}$ & 0.474 & $\pm$ 0.024 & $\pm$ 05.06 \% &  V \\ 
+\hline
+$t_{rise,real}$ & 1.445 & $\pm$ 0.020 & $\pm$ 01.37 \% & $\mu$s \\
+\hline
+$t_{rise,theo}$ &   &  -  & -  & $\mu$s \\ 
+
+\end{tabular}
+\caption*{Rise time $t_r$ of the output 1kHz 0.100 $V_{pp}$}
+\end{table}
+
+
+%To get the theoretical rise time we proceeded this way.
+%If the op-amp is operating linearly and not slew-rate limited, its rise time is approximately:
+%
+%\begin{equation}
+%	t_{r,BW} \approx \frac{0.35}{BW_{CL}}
+%\end{equation}
+%
+%Where $BW_{CL}$ is the closed-loop bandwidth that in this case is 1 kHz.
+%
+%In this case the corresponding maximum slope during the rise is roughly:
+%
+%\begin{equation}
+%	\frac{dV}{dt} \bigg|_{max} \approx \frac{0.8\; V_{step}}{t_{r,BW}}
+%\end{equation}
+%
+%The 0.8 value is derived from the (10 \% - 90 \%) rise time required.
+%
+%Substituting $t_r = 0.35 / BW$ we get:
+%
+%\begin{equation}
+%	\frac{dV}{dt} \bigg|_{max} \approx 2.29 V_{step} \; BW_{CL}
+%\end{equation}
+%
+%Now by comparing the slew rate (SR) of the amplifier with the found value we can say where the $t_{rise}$ is limited by slew-rate or bandwidth.
+%
+%If:
+%
+%\begin{equation}
+%	SR > 2.29 V_{step} \; BW_{CL}
+%\end{equation}
+%
+%the amplifier can support the required slope and the response is bandwidth limited.
+%
+%
+%If:
+%
+%\begin{equation}
+%	SR < 2.29 V_{step} \; BW_{CL}
+%\end{equation}
+%
+%then the amplifier cannot support the required slope and the response becomes slew-rate limited.
+%
+%Also it is useful to calculate the maximum step amplitude that can be reproduced without slew-rate limiting:
+%
+%\begin{equation}
+%	V_{step,max} \approx \frac{SR}{2.29\;BW_{CL}}
+%\end{equation}
+%
+%If the input step is larger than this value, slew-rate limiting occurs.
+%
+%In our case the typical value of SR given by the manufacturer is 0.5 V/$\mu$s and $BW_{CL}$ is 1 kHz we get that:
+%
+%\begin{equation}
+%	V_{step,max} \approx \frac{0.5 \cdot 10^{-6}}{2.29 \cdot 10^3}
+%\end{equation}
+
+
+
 \subsubsection*{Virtual ground}
+
+Before moving on, for these additional parts, the input signal was set back to a 1 kHz sinusoidal wave with 1 $V_{pp}$.
+
+We now examine both input terminals of the operational amplifier: $V^+$
+  and $V^-$. In an ideal op-amp, these two terminals are at the same voltage. Since $V^+$ is connected to ground, we would expect both inputs to read 0 V.
+  
+  However, when measuring $V^+$, we observe a very noisy signal with a peak amplitude of about 17.6 mV and an average value of approximately 540 $\mu$V. This is extremely small and can be considered close to zero, with the observed fluctuations attributable to noise and measurement limitations.
+  
+  At the $V^−$ terminal, we observe a very small, noisy sinusoidal signal. This behavior arises because, in a real differential amplifier, the input-output relationship can be approximated as:
+  
+\begin{equation}
+	V_{out} = A \cdot(V^+ - V^-)
+\end{equation}
+
+which can be rearranged as:
+
+\begin{equation}
+	V^- = V^+ - \frac{V_{out}}{A}
+\end{equation}
+  
+  Given that the open-loop gain $A \approx$ 2 $\cdot$ $10^5$, the voltage difference between the inputs is theoretically expected to be extremely small, about 200000 times smaller than $V{out}$, and 180$^\circ$ out of phase with the output signal.
+  
+  As previously noted, we include a table summarizing the measured values. Since the non-inverting input ($V^+$) is tied to ground, it represents the reference potential. The inverting input ($V^−$) behaves as a virtual ground due to the negative feedback mechanism, meaning it is held very close to 0 V. In practice, both terminals are not exactly equal, but the difference is extremely small and only observable as noise and residual error.
+
 \subsubsection*{Output dynamic range}
+
+For this last part of the inverting amplifier section the circuit was loaded with the following resistors $R_{11}$ of 1 k$\Omega$ and then with $R_{12}$ of 100 $\Omega$ set in parallel to the previous one.
+With the op-amp loaded only with $R_{11}$ no changes in the output voltage were noted. The situation changed when the second scenario was applied.
+
+Here are the measured and calculated data:
+
+\begin{table}[h!]
+\centering	
+
+\begin{tabular}{ccccc}
+\textbf{Object} & \textbf{Measure}   & \textbf{$\delta$} & \textbf{$\varepsilon_{\%}$} & \textbf{Unit} \\
+\hline
+$V_{pp,in,R_{11}}$  & 1.06  & $\pm$ 0.048 & $\pm$ 04.52 \% &  V \\ 
+\hline
+$V_{pp,out,R_{11}}$ & 4.77 & $\pm$ 0.240 & $\pm$ 05.03 \% &  V \\ 
+\hline
+$V_{pp,in,R_{12}}$  & 1.06  & $\pm$ 0.048 & $\pm$ 04.52 \% &  V \\ 
+\hline
+$V_{pp,out,R_{12}}$ & 4.36 & $\pm$ 0.240 & $\pm$ 05.50 \% &  V \\ 
+\hline
+$R_{11}$ & 1000 & $\pm$ 50 & $\pm$ 5 \% &  $\Omega$ \\ 
+\hline
+$R_{12}$ & 100 &  $\pm$ 5 & $\pm$ 5 \% &  $\Omega$ \\ 
+\hline
+$R_{11} // R_{12}$ & 90.91 & $\pm$ 4.54 & $\pm$ 5 \% &  $\Omega$ \\ 
+
+\end{tabular}
+\caption*{Output $V_{pp}$ with $R_{11}$ and $R_{12}$}
+\end{table}
+
+We cannot calculate the output current in the different cases using Ohm's Law.
+
+\begin{table}[h!]
+\centering	
+
+\begin{tabular}{ccccc}
+\textbf{Object} & \textbf{Measure}   & \textbf{$\delta$} & \textbf{$\varepsilon_{\%}$} & \textbf{Unit} \\
+\hline
+$I_{R_{11}}$  &  4.77 & $\pm$ 0.478 & $\pm$ 10.02 \% &  mA \\ 
+\hline
+$I_{R_{12}}$  &  47.9 & $\pm$ 4.813 & $\pm$ 10.08 \% &  mA \\
+
+
+\end{tabular}
+\caption*{Output $V_{pp}$ with $R_{11}$ and $R_{12}$}
+\end{table}
+
+
+In the first case the output resistance is high enough to draw a small current that is under the 25 mA typical output current of the op-amp.
+In the second case the op-amp is hitting its output limits.
+The limits can be seen with different non typical behaviors.
+
+For example in this case the output load requires too much current than the op-amp can provide (it is not a power driver) bringing it in a non linear working zone like current limiting or saturation that can be seen as clipping on the output sine wave.
+
+We now report the output obtained when not in the linear region.
+We can clearly see that the $V_{min}$ is lower than expected (clipping) at only -1.96 V while $V_{max}$ is at 2.40 V. Also the $V_{avg}$ is no longer near the zero but at 72.5 mV.
+As we can see from the data, and from the following picture, the output signal is clearly distorted
+
+
 
 \subsection{Non Inverting Amplifier}
 
+
+
 \subsubsection*{Input resistance}
+
+We can now start with the second part, after having moved all of our connections to the other section of the board. The signal that was set as input is a 1 kHz sinusoidal wave with 1 $V_{pp}$.
+
+We then proceeded to probe the input and output an output signal with and without the $R_3$ 4.7 k$\Omega$ inserted, the data measured are reported below.
+
+\begin{table}[h!]
+\centering	
+
+\begin{tabular}{ccccc}
+\textbf{Object} & \textbf{Measure}   & \textbf{$\delta$} & \textbf{$\varepsilon_{\%}$} & \textbf{Unit} \\
+
+\hline
+$V_{in,J3}$  &  1.06 & $\pm$ 0.048 & $\pm$ 04.52 \% &  V \\ 
+\hline
+$V_{in,S3\;closed}$  &  1.06 & $\pm$ 0.048 & $\pm$ 04.52 \% &  V \\ 
+\hline
+$V_{in,S3\;open}$  &  0.720 & $\pm$ 0.048 & $\pm$ 06.67 \% &  V \\
+\hline
+$R_{3}$  &  4700 & $\pm$ 235 & $\pm$ 5 \% & $\Omega$ \\
+\hline
+$R_{10k}$  & 10000 & $\pm$ 500 & $\pm$ 5 \% & $\Omega$ \\
+
+\end{tabular}
+\caption*{Input and output of non-inverting op-amp}
+\end{table}
+
+As a first operation we can calculate the $R_{seen}$ which is the resistance seen by the voltage source. Please not that is not the $R_{in}$ of the op-amp we want to calculate.
+We get that:
+
+\begin{equation}
+	R_{seen} = R_3 \cdot \frac{V_{in,S3\;open}}{V_{in,S3\;closed} - V_{in,S3\;open}} = 9952.94 \pm 2150 \; \Omega 
+\end{equation}
+
+This, as we said is not the resistance $R_{in}$ of the op-amp, but it the result of the voltage divider between the $R_{in}$ and $R_{10k}$ which is the bias resistor of the circuit.
+
+Since we expect a very large $R_{in}$ (2 M$\Omega$ from data sheets) it is clearly visible that the $R_{10k}$ is biasing our result.
+We can undo the voltage divider and calculate the value of $R_{in}$. This operation will introduce a lot of uncertainties given the division with two number of the same order of magnitude. As we can see the $\delta$ for $R_{seen}$ is already considerable thus we will not propagate it even further.
+
+\begin{equation}
+	R_{in} = \frac{R_{seen} \cdot R_{10k} }{R_{seen} - R_{10k}} = \frac{9952.94 \cdot 10000}{10000 - 9952.94} = 2114946.88 \approx 2.1 \unit{M}\Omega
+\end{equation} 
+
 \subsubsection*{Output resistance}
+
+As we have come to a result for the input resistance we can now and go and estimate the output resistance $R_{out}$.
+As indicated by the laboratory paper a 1 kHz sinusoidal 1 $V_{pp}$ signal was applied to the source and the input and output of the op-amp were probed.
+Now the setup no longer includes the $R_3$ resistance but it has been added a $R_5$ fo 2.2 k$\Omega$ to act as a load.
+Here are reported the data that we measured.
+
+
+\begin{table}[h!]
+\centering	
+
+\begin{tabular}{ccccc}
+\textbf{Object} & \textbf{Measure}   & \textbf{$\delta$} & \textbf{$\varepsilon_{\%}$} & \textbf{Unit} \\
+
+\hline
+$V_{in,J3}$  &  1.06 & $\pm$ 0.048 & $\pm$ 04.52 \% &  V \\ 
+\hline
+$V_{out,S7\;closed}$  &  9.84 & $\pm$ 0.480 & $\pm$ 04.88 \% &  V \\ 
+\hline
+$V_{out,S7\;open}$  &  9.76 & $\pm$ 0.480 & $\pm$ 04.91 \% &  V \\
+\hline
+$R_{5}$  &  4700 & $\pm$ 235 & $\pm$ 5 \% & $\Omega$ \\
+\hline
+$R_{out,OL}$  &  $\approx$ 75 &  - &  -  & $\Omega$ \\
+
+\end{tabular}
+\caption*{Output resistance $R_{out}$ of non-inverting op-amp}
+\end{table}
+
+
+To measure the $R_{out}$ we need to use the difference in the $V_{out}$ value caused by the insertion of the load $R_5$.
+
+As a first operation we can estimate the output resistance of closed loop (CL) $R_{out,CL}$.
+
+\begin{equation}
+	R_{out,CL} = R_3 \cdot \frac{V_{out,S7\;closed} - V_{out,S7\;open}}{V_{out,S7\;open}} = 18.033 \; \Omega 
+\end{equation} 
+
+As we can see this value differs from the one reported on the data sheets. This is due to the feedback loop. In the calculated case the feedback network (outside the IC) was configured with a 100 k$\Omega$ resistance $R_1$ between the output and the inverting input and a 12 k$\Omega$ resistance $R_2$ between the inverting input and ground.\\
+
+Given these information we can account for the close loop that usually affects (via the feedback) the value of the output resistance bringing it down.
+By not going too deep in this matter we can say that:
+
+\begin{equation}
+	R_{out,closed} \approx \frac{R_{out,open} }{1 + A\beta}
+\end{equation}
+
+By using $R_{out,closed}$ $\approx$ 18 $\Omega$ and $R_{out,open}$ = 75 $\Omega$ we get that:
+
+\begin{equation}
+	1 + A\beta \approx \frac{75}{18} \approx 4.17
+\end{equation}
+
+So we get a loop gain of approximately 3.17 that is a reasonable result for this frequency and setup.
+
 \subsubsection*{Bode diagram}
+
+Arrived at this point we were able, by applying different input frequency, to obtain the gain for some frequency point and then plot the Bode diagram for the op-amp.\\
+Here below are reported the diagrams for the two different Bode diagrams we were able to generate. They mainly differ in their ability to keep a good gain even past their specs. More on this is topic has beed discussed inside the \autoref{introlab02}.
+
+
+
+%%%%%%%%%%%%%%
+%% PRIMO BODE
+%%%%%%%%%%%%%%
+
+
+\begin{center}
+\begin{tikzpicture}
+\begin{semilogxaxis}[
+    xlabel={Frequency},
+    ylabel={Gain},
+    grid=both,
+    legend pos=south east,
+    width=14cm,
+    height=8cm,
+    xmin=0, xmax=2e7,
+    ymin=-30, ymax=25,
+    xtick={0.1, 1, 10,100,1000,10000,100000,1000000, 10000000},
+    xticklabels={0.1, 1, 10,100,1k,10k,100k,1M,10M},
+    minor x tick num=11,
+    title={Bode diagram - Case I}
+]
+
+% Dati misurati (solo punti)
+\addplot+[
+    only marks,
+    mark=o,
+    mark size=2pt,
+] table[header=false, x index=0, y index=1] {
+	0.1 19.23
+	0.2 19.23
+	0.5 19.23
+	1 19.23
+	2 19.23
+	5  19.23
+    10       19.23
+    20       19.23
+    50       19.07
+    100      19.30
+    200      19.30
+    500      19.30
+    1000     19.30
+    2000     19.30
+    5000     19.30
+    10000    19.30
+    20000    19.34
+    50000    19.30
+    100000   19.23
+    200000   18.78
+    500000   16.00
+    1000000  10.59
+    2000000  5.86
+    5000000 2.62
+    
+};
+\addlegendentry{Measured}
+
+% Guadagno teorico (linea continua)
+\addplot[thick, domain=0.1:1e6, samples=200] table[header=false, x index=0, y index=1] {
+	0.1 20
+	0.2 20
+	0.5 20
+	1 20
+	2 20
+	5  20
+    10       20
+    20       20
+    50       20
+    100      20
+    200      20
+    500      20
+    1000     20
+    2000     20
+    5000     20
+    10000    20
+    20000    20
+    50000    20
+    100000   20
+    1000000  0
+};
+\addlegendentry{Theoretical}
+\end{semilogxaxis}
+\end{tikzpicture}
+\end{center}
+
+%%%%%%%%%%%%%%
+%% SECONDO BODE
+%%%%%%%%%%%%%%
+
+
+
+\begin{center}
+\begin{tikzpicture}
+\begin{semilogxaxis}[
+    xlabel={Frequency},
+    ylabel={Gain},
+    grid=both,
+    legend pos=south east,
+    width=12cm,
+    height=8cm,
+    xmin=5, xmax=2e6,
+    ymin=-25, ymax=25,
+    xtick={10,100,1000,10000,100000,1000000},
+    xticklabels={10,100,1k,10k,100k,1M},
+    minor x tick num=9,
+    title={Bode diagram - Case II}
+]
+
+% Dati misurati (solo punti)
+\addplot+[
+    only marks,
+    mark=o,
+    mark size=2pt,
+] table[header=false, x index=0, y index=1] {
+	0.1	19.21
+	0.2	19.21
+	0.5	19.21
+	1	19.21
+	2	19.21
+	5		19.21	 	
+    10       19.21
+    20       19.21
+    50       19.21
+    100      19.21
+    200      19.29
+    500      19.35
+    1000     19.35
+    2000     19.35
+    5000     19.35
+    10000    19.35
+    20000    19.14
+    50000    15.51
+    100000   9.70
+    200000   18.78
+    500000   16.00
+    1000000  10.59
+    2000000
+    5000000
+};
+\addlegendentry{Measured}
+
+% Guadagno teorico (linea continua)
+\addplot[thick, domain=10:1e6, samples=200] table[header=false, x index=0, y index=1] {
+    10       20
+    20       20
+    50       20
+    100      20
+    200      20
+    500      20
+    1000     20
+    2000     20
+    5000     20
+    10000    20
+    20000    20
+    50000    20
+    100000   20
+    1000000  0
+};
+\addlegendentry{Theoretical}
+
+\end{semilogxaxis}
+\end{tikzpicture}
+
+\end{center}
+
+
 
 \subsection{Audio Amplifier}
 
 \subsubsection*{Bode diagram}
+
+
+\begin{center}
+\begin{tikzpicture}
+\begin{semilogxaxis}[
+    xlabel={Frequency},
+    ylabel={Gain},
+    grid=both,
+    legend pos=south east,
+    width=12cm,
+    height=8cm,
+    xmin=5, xmax=2e6,
+    ymin=-25, ymax=25,
+    xtick={10,100,1000,10000,100000,1000000},
+    xticklabels={10,100,1k,10k,100k,1M},
+    minor x tick num=9,
+    title={Bode diagram - Audio amplifier}
+]
+
+% Dati misurati (solo punti)
+\addplot+[
+    only marks,
+    mark=o,
+    mark size=2pt,
+] table[header=false, x index=0, y index=1] {
+	0.1 {-30.40}
+	0.2 -27.64
+	0.5 -27.44
+	1 -28.29
+	2 -26.60
+	5 	-24.83
+    10 -20.33     	
+    20  -15.21
+    50     -1.86
+    100    7.79
+    200   14.58
+    500      16.14
+    1000     19.07
+    2000     19.21
+    5000     19.21
+    10000    19.21
+    20000    18.69
+    50000    14.70
+    100000   9.15
+    200000   4.00
+    500000   -4.27
+    1000000  -10.30
+    2000000  -16.76
+    5000000	-23.48
+    
+};
+\addlegendentry{Measured}
+
+% Guadagno teorico (linea continua)
+
+\addplot[thick, domain=10:1e6, samples=100] table[header=false, x index=0, y index=1] {
+    10      -21.50
+    20      -15.68
+    50        0.62
+    100      11.1
+    200      19.4
+    500      19.4
+    1000     19.4
+    2000     19.4
+    5000     19.4
+    10000    19.4
+    20000    17.36
+    50000    10.85
+    100000    0
+    200000    0
+    500000    0
+    1000000   0
+};
+\addlegendentry{Theorical}
+
+\end{semilogxaxis}
+\end{tikzpicture}
+
+\end{center}
+
+
 \subsubsection*{DC gain}
 
 
