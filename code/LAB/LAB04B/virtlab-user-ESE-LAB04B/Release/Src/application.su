@@ -1,3 +1,0 @@
-../Src/application.c:21:6:tim1Callback	8	static
-../Src/application.c:29:6:tim4PeriodCallback	0	static
-../Src/application.c:34:6:StartDefaultTask	24	static
