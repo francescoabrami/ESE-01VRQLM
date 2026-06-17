@@ -22,6 +22,58 @@ The version you find below might differ from what was submitted and it might dif
 \subsection{Introduction}
 
 
+This first laboratory experience has the goal to install a development environment for the VirtLAB board on the student devices's.
+
+\subsection*{Objective}
+
+This laboratory serves the purpose of being a guide to accomplish what just was described above. The main objective of this section will be to explain all of the different tools and at the end be able to flash a test template on the MCU present on the VirtLAB board.\\
+
+\subsection*{Observations}
+
+Before proceeding we want to present some observations that were made during the experience.
+
+\begin{enumerate}[label=\textbf{-}]
+	\item All of the software will be compatible with the STMCubeIDE and not with others environment like VSCode.
+	\item Some of the specific procedures can be differ based on which OS it is being used. The following procedure has been carried out on a machine running MacOS Tahoe 26.3.
+\end{enumerate}
+
+
+
+
+\subsection*{Problems}
+
+
+During this laboratory no problem where encountered that forced us to stop or proceed in a different manner.
+
+
+\subsection{Needed hardware}
+
+\subsubsection*{VirtLAB}
+
+\subsubsection*{STLinkbridge}
+
+\subsection{Needed software}
+
+\subsubsection*{STLinkbridge}
+
+\subsubsection*{STM32CubeIDE}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 %% SECTION B OF LAB 4
 \clearpage
 \thispagestyle{empty}
@@ -37,4 +89,307 @@ The version you find below might differ from what was submitted and it might dif
 \vspace*{1cm}
 \subsection{Introduction}
 
+The purpose of this laboratory exercise was to analyze the performance of a microcontroller (MCU) that had been previously programmed with dedicated firmware. 
+
+By performing various measurements - in release and debug mode - on the device’s input/output pins, characteristic system parameters were recorded and evaluated in order to verify its proper functioning and operational performance under various conditions.
+
+
+\subsection*{Object}
+
+The purpose of this report is to present and analyze the results obtained during the measurements performed throughout the laboratory session. After completing the measurement procedure, the collected data are examined and interpreted in order to assess their validity and consistency. Furthermore, the report aims to explain the observed results and discuss whether they are feasible and compatible with the expected behavior of the system under test.
+
+\subsection*{Instruments} 
+
+To performed all of the task the following instrumentations and resources where used:
+
+\begin{enumerate}[label=\textbf{-}]
+	\item Project template for the MCU
+	\item Rigol DS1054Z Digital Storage Oscilloscope 
+	\item VirtLAB Board
+\end{enumerate}
+
+For the measurements taken with the DSO, the value reported is the one measured by the internal engine. As good practice the measurements were also took by visual inspection to confirm a correct reading to ensure what we were measuring was reasonable.
+
+\subsection*{Observations}
+
+Before programming the MCU with the template and taking the measurements we observe what the \texttt{application.c} file contained to try to imagine what would happen to the output that we will be probing and what difference we would encounter between the debug and release mode.\\
+
+After analyzing the code we expected to see slower times and lower frequency and more delay in the debug mode due to use of HAL functions respect to their LL counterpart.
+Also the execution mode plays a big role by optimizing more or less the firmware by removing some debug capabilities which slow down some tasks specially at high frequencies.
+
+\subsection*{Problems}
+
+During the experience we did not encounter any critical issue or different results than the one we were expecting.
+
+
+
+
+\subsection{Toggle IO10 HAL}
+
+For the first test case, the selected pin was enabled, and the digital oscilloscope probes were properly calibrated and connected to the corresponding pin on the VirtLAB board.
+
+Next, the project model was loaded onto the MCU, and a series of measurements was performed in both release and debug configurations to evaluate system performance.\\
+
+By enabling Switch 7 on the VirtLAB board, a square wave was observed at the corresponding output pin, as expected from the implemented code.\\
+
+The measurements obtained during this test are reported in the tables below.\\
+
+
+\begin{table}[h]
+\centering
+\begin{tabular}{ccc}
+
+\textbf{Object} & \textbf{Measure} & \textbf{Unit} \\
+\hline
+Frequency & 521 &  kHz \\
+\hline
+Duty $+$ & 50.00 & \% \\
+\hline
+Duty $-$ & 50.00 & \% \\
+
+\end{tabular}
+\caption*{Toggle IO10 HAL - Release}
+\label{tab:example}
+\end{table}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{ccc}
+
+\textbf{Object} & \textbf{Measure} & \textbf{Unit} \\
+\hline
+Frequency & 244 &  kHz \\
+\hline
+Duty $+$ & 49.76  &\% \\
+\hline
+Duty $-$ & 50.24  & \% \\
+
+\end{tabular}
+\caption*{Toggle IO10 HAL - Debug}
+\label{tab:example}
+\end{table}
+
+
+
+\subsection{Toggle IO29 LL}
+
+For the second test case, the selected switch was enabled and the corresponding pin was probed accordingly using the oscilloscope. As performed in the previous test, measurements were acquired in both release and debug modes in order to compare the system behavior under different compilation configurations. \\
+
+By enabling Switch 6 on the VirtLAB board, a square wave was successfully observed on the oscilloscope. This signal was consistent with the expected output defined by the previously analyzed firmware, confirming the correct execution of the programmed logic. \\
+
+The measurements obtained during this test are reported in the tables below.\\
+
+\begin{table}[h]
+\centering
+\begin{tabular}{ccc}
+
+\textbf{Object} & \textbf{Measure} & \textbf{Unit} \\
+\hline
+Frequency & 817 & kHz \\
+\hline
+Duty $+$ & 50.33 & \% \\
+\hline
+Duty $-$ & 49.67 & \% \\
+
+\end{tabular}
+\caption*{Toggle IO29 LL - Release}
+\label{tab:example}
+\end{table}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{ccc}
+
+\textbf{Object} & \textbf{Measure} & \textbf{Unit} \\
+\hline
+Frequency & 252 & kHz \\
+\hline
+Duty $+$ & 50.00 & \% \\
+\hline
+Duty $-$ & 50.00 & \% \\
+
+\end{tabular}
+\caption*{Toggle IO29 LL - Debug}
+\label{tab:example}
+\end{table}
+
+
+
+
+\subsection{Set Reset IO29 LL}
+
+Moving on to the third test case, the same measurement procedure as in the previous tests was followed. Measurements were acquired as requested, in both debug and release modes, in order to ensure a consistent comparison across configurations.\\
+
+By enabling Switch 5, a fast switching signal was observed for a brief period of time, as later confirmed by the collected data. The observed waveform was consistent with the expected behavior defined by the corresponding section of the firmware.\\
+
+The measurements obtained during this test are reported in the tables below.\\
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{ccc}
+\textbf{Object} & \textbf{Measure} & \textbf{Unit} \\
+\hline
+Frequency & 1.05 & MHz \\
+\hline
+Duty $+$ & 01.76 & \% \\
+\hline
+Duty $-$ & 98.24 & \% \\
+\end{tabular}
+\caption*{Set Reset IO29 LL - Release}
+\label{tab:example}
+\end{table}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{ccc}
+\textbf{Object} & \textbf{Measure} & \textbf{Unit} \\
+\hline
+Frequency & 427 & kHz \\
+\hline
+Duty $+$ & 24.79 & \% \\
+\hline
+Duty $-$ & 75.21 & \% \\
+\end{tabular}
+\caption*{Set Reset IO29 LL - Debug}
+\label{tab:example}
+\end{table}
+
+
+\subsection{Toggle Pulse IO9 IO10 HAL}
+
+Finally, the last test was performed by connecting a second probe to the appropriate pin in order to measure the interrupt latency. This setup allowed the measurement of the timing of the interrupt signal latency.\\
+
+By enabling Switch 4 and both channels on the DSO, the relevant data were collected as requested. As in the previous tests, measurements were recorded for both release and debug modes.\\
+
+The first data are referring only to the measure of the signal present on IO9.
+
+\begin{table}[h]
+\centering
+\begin{tabular}{ccc}
+
+\textbf{Object} & \textbf{Measure} & \textbf{Unit} \\
+\hline
+Frequency & 8.00 & kHz \\
+\hline
+Duty $+$ & 50.00 & \% \\
+\hline
+Duty $-$ & 50.00 & \% \\
+
+\end{tabular}
+\caption*{Toggle IO9 HAL - Release}
+\label{tab:example}
+\end{table}
+
+\begin{table}[h]
+\centering
+\begin{tabular}{ccc}
+
+\textbf{Object} & \textbf{Measure} & \textbf{Unit} \\
+\hline
+Frequency & 8.00 & kHz \\
+\hline
+Duty $+$ & 50.00 & \% \\
+\hline
+Duty $-$ & 50.00 & \% \\
+
+\end{tabular}
+\caption*{Toggle IO9 HAL  - Debug}
+\label{tab:example}
+\end{table}
+
+Moving on we can now measure the interrupt latency between the fall of I09 and response on IO10.
+
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{ccc}
+
+\textbf{Object} & \textbf{Measure} & \textbf{Unit} \\
+\hline
+Latency & 1.764 & $\mu$s \\
+
+\end{tabular}
+\caption*{Latency I09 IO10 HAL - Release}
+\label{tab:example}
+\end{table}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{ccc}
+
+\textbf{Object} & \textbf{Measure} & \textbf{Unit} \\
+\hline
+Latency & 51.3 & $\mu$s  \\
+
+\end{tabular}
+\caption*{Latency I09 IO10 HAL - Release}
+\label{tab:example}
+\end{table}
+
+
+Next, the period was gradually decreased, initially following a 1–2–5 sequence and subsequently performing a finer search to identify a more precise limit value.
+
+As observed, both in debug and release modes, the interrupt latency remained approximately constant. 
+However, by reducing the signal period, the rising edge of the signal on IO9 progressively moved closer to the pulse generated on IO10. This indicated that when the interrupt latency became too large relative to the signal period, the interrupt service routine was triggered after the next falling edge of IO9. In such cases, timing issues were observed, including missed pulses.\\
+
+The values reported below represent the minimum working value of \texttt{const int period} and of the actual period in seconds for the release and debug mode.\\
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{ccc}
+
+\textbf{Object} & \textbf{Measure} & \textbf{Unit} \\
+\hline
+\texttt{const int period} & 294 & - \\
+\hline
+Period & 3.67 & $\mu$s
+\end{tabular}
+\caption*{Period IO9 - Release}
+\label{tab:example}
+\end{table}
+
+\begin{table}[h!]
+\centering
+\begin{tabular}{ccc}
+\textbf{Object} & \textbf{Measure} & \textbf{Unit} \\
+\hline
+\texttt{const int period} & 492 & -  \\
+\hline
+Period & 6.15 & $\mu$s
+\end{tabular}
+\caption*{Period IO9 - Debug}
+\label{tab:example}
+\end{table}
+
+
+\newpage
+Finally we note that the value obtained above are compatible with what we saw in the code and project files. The frequency with which TIM1 is set in the project is 80 MHz with a prescalar set to zero. With that we can easily calculate the period and frequency of the signal generated on IO9.
+
+
+\subsection{Conclusion}
+
+
+From the data we gathered we can strongly say that there is, specially in high frequency task, a significant difference between the usage of LL functions instead of their HAL version. 
+This is due to the fact that HAL functions provide a more safe, but also more complex and abstract, methods which is are present in LL function which usually operate directly over the device register with inline declarations.
+
+Not only is the use of LL libraries faster than HAL libraries, but executing the code in release mode instead of debug mode can also lead to significant performance improvements. 
+This is clearly observable in almost all the performed tests, where the frequency of the generated signal and the measured timing differ substantially between configurations. In particular, the signal frequency is often approximately doubled or halved depending on the case, highlighting the strong impact of compiler optimization and build configuration on overall system performance.
+
+
+
+
+
+
+
+
+
+
+
+
+
 \end{document}
+
+
+
+
+
