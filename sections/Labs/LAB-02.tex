@@ -220,7 +220,7 @@ We now examine both input terminals of the operational amplifier: $V^+$
   
   However, when measuring $V^+$, we observe a very noisy signal with a peak amplitude of about 17.6 mV and an average value of approximately 540 $\mu$V. This is extremely small and can be considered close to zero, with the observed fluctuations attributable to noise and measurement limitations.
   
-  At the $V^−$ terminal, we observe a very small, noisy sinusoidal signal. This behavior arises because, in a real differential amplifier, the input-output relationship can be approximated as:
+  At the $V^{-}$ terminal, we observe a very small, noisy sinusoidal signal. This behavior arises because, in a real differential amplifier, the input-output relationship can be approximated as:
   
 \begin{equation}
 	V_{out} = A \cdot(V^+ - V^-)
@@ -234,7 +234,7 @@ which can be rearranged as:
   
   Given that the open-loop gain $A \approx$ 2 $\cdot$ $10^5$, the voltage difference between the inputs is theoretically expected to be extremely small, about 200000 times smaller than $V{out}$, and 180$^\circ$ out of phase with the output signal.
   
-  As previously noted, we include a table summarizing the measured values. Since the non-inverting input ($V^+$) is tied to ground, it represents the reference potential. The inverting input ($V^−$) behaves as a virtual ground due to the negative feedback mechanism, meaning it is held very close to 0 V. In practice, both terminals are not exactly equal, but the difference is extremely small and only observable as noise and residual error.
+  As previously noted, we include a table summarizing the measured values. Since the non-inverting input ($V^+$) is tied to ground, it represents the reference potential. The inverting input ($V^-$) behaves as a virtual ground due to the negative feedback mechanism, meaning it is held very close to 0 V. In practice, both terminals are not exactly equal, but the difference is extremely small and only observable as noise and residual error.
 
 \subsubsection*{Output dynamic range}
 
