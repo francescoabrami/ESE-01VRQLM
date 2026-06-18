@@ -1,0 +1,61 @@
+\documentclass[../main.tex]{subfiles}
+
+\graphicspath{{\subfix{../images/}}}
+
+
+\begin{document}
+
+
+
+\clearpage
+\thispagestyle{empty}
+\vspace*{7cm}
+\section{Application of the operational amplifier}
+\vspace*{1.5cm}
+
+This chapter examines several linear applications of the op-amp, including various types of summing amplifiers, the differential amplifier, the instrumentation amplifier, and single-supply circuits.
+
+\vspace*{1cm}
+
+\subsection{Inverting configuration}
+
+In the introductory chapter on operational amplifiers, we examined the two basic types of amplifiers that can be built using this component: the non-inverting amplifier and the inverting amplifier. 
+
+What is interesting about the inverting configuration is that its transfer function is extremely simple: it essentially consists of the ratio between two resistive elements. It is possible to extend this type of topology by including reactive elements in the feedback network, obtaining, with two generic impedances $Z_1$ and $Z_2$ (in place of the corresponding resistors $R_1$ and $R_2$), something much more general:
+
+\begin{equation}
+	\frac{V_{out}}{V_{in}} = - \frac{Z_2}{Z_1}
+\end{equation}
+
+This means that, by selecting appropriate $Z_1$ and $Z_2$ values, it is possible to easily synthesize transfer functions of our choice, with results that can differ significantly from those of a simple amplifier. 
+For this reason, it is often said that the inverting amplifier is the \textit{"mother"} of many linear circuits based on the use of the operational amplifier, such as active filters or various types of circuits.\\
+
+In the following paragraphs, we will begin by presenting a first example of a circuit based on the inverting amplifier. As we will soon see, the name \textit{"operational"} of the amplification device on which we are basing our discussion derives precisely from the fact that, by configuring its use with certain external components, it is possible, in a very simple manner, to perform various types of mathematical operations on signals (derivation, logarithm, integration, linear combinations).
+
+\subsubsection{Integrator}
+\subsubsection{Differentiator}
+\subsubsection{Inverting summing amplifier}
+
+\subsection{Differential amplifier}
+\subsection{Non-inverting summing amplifier}
+\subsection{Generalized summing amplifier}
+
+\subsection{Instrumentation amplifiers}
+\subsubsection{Introduction}
+\subsubsection{Electromagnetic compatibility}
+\subsubsection{Instrumentation amplifiers}
+\subsubsection{Two op-amp amplifier}
+
+\subsection{Audio amplifiers}
+\subsection{Single supply circuits}
+
+
+
+
+
+
+
+
+
+
+\end{document}
