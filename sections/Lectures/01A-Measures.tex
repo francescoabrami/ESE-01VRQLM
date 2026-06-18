@@ -109,8 +109,91 @@ Every single measurement in the universe—from the torque of a motor to the imp
 
 \subsubsection{Derived units}
 
+Once the seven base units are defined, everything else in physics and engineering emerges from them like a structured grammar.\\
+
+These are called derived units, and they are formed by algebraic combinations of the base quantities multiplication, division, and powers—without introducing any new physical \textit{"fundamentals"}.\\
+
+This is what makes the SI system so powerful: it is coherent, meaning every derived unit can be reduced cleanly back to the seven base units without extra conversion factors hiding in the background.\\
+
+Let us look at the most important derived units, especially those that dominate electronics and measurement systems.\\
+
+\paragraph{Force: Newton (N)}
+
+\begin{enumerate}[label=\textbf{-}]
+	\item Definition: A force that accelerates a 1 kg mass by 1 $m/s^2$.
+			\[ 1\unit{N} = 1 \unit{kg} \cdot \unit{m} \cdot \unit{s}^{-2} \]\	
+	\item Interpretation: Force is not a fundamental \textit{"thing"}; it is mass reacting to acceleration. In electronics laboratories, it quietly appears in contexts like mechanical stress on components, actuator systems, and sensor calibration.\\
+\end{enumerate}
+
+\paragraph{Energy: Joule (J)}
+
+\begin{enumerate}[label=\textbf{-}]
+	\item Definition: The work done when a force of 1 N moves an object by 1 meter.
+		\[ 1\unit{J} = 1 \unit{N} \cdot \unit{m} =  1 \unit{kg} \cdot \unit{m}^2 \cdot \unit{s}^{-2}\]\
+	\item Interpretation: Energy is the universal accounting currency of physics. Whether stored in a capacitor, dissipated in a resistor, or delivered by a battery, everything eventually reduces to joules.\\
+\end{enumerate}
+
+\paragraph{Power: Watt (W)}
+
+\begin{enumerate}[label=\textbf{-}]
+	\item Definition: The rate of energy transfer.
+	\[ 1 \unit{W} = 1 \unit{J} \cdot \unit{s}^1 = 1 \unit{kg} \cdot \unit{m}^2 \cdot \unit{s}^{-3} \]\
+	\item Electronics relevance: In circuits, power is immediately recognizable through:
+	\[ P = VI = I^2R = \frac{V^2}{R}\]\
+	This is why power measurements are central in electronics labs: every component has a thermal and electrical limit expressed in watts.\\
+\end{enumerate}
+
+\paragraph{Pressure: Pascal (Pa)}
+
+\begin{enumerate}[label=\textbf{-}]
+	\item Definition: Force per unit area.
+	\[ 1 \unit{Pa} = 1 \unit{N} \cdot \unit{m}^{-2} = 1 \unit{kg} \cdot \unit{m}^{-1} \cdot \unit{s}^{-2} \]\
+	\item Interpretation: While more common in fluid mechanics, pressure appears in electronics through MEMS devices, barometric sensors, and even packaging stress analysis of chips.\\
+\end{enumerate}
+
+\paragraph{Electric charge: Coulomb (C)}
+
+\begin{enumerate}[label=\textbf{-}]
+	\item Definition:
+	\[ 1\unit{C} = 1 \unit{A} \cdot \unit{s} \]\
+	\item Interpretation: Charge is not continuous in nature; it is quantized in multiples of the elementary charge $e$. In practical terms, the coulomb is a macroscopic aggregation of an enormous number of electrons.\\
+\end{enumerate}
+
+\paragraph{Voltage: Volt (V)}
+
+\begin{enumerate}[label=\textbf{-}]
+	\item Definition:
+	\[ 1 \unit{V} = 1 \unit{W} \cdot \unit{A}^{-1} = 1 \unit{kg} \cdot \unit{m}^{2} \cdot \unit{s}^{-3} \cdot \unit{A}^{-1} \]\
+	\item Interpretation: Voltage represents energy per unit charge:
+	\[ V = \frac{J}{C}\]\
+	In electronics, it is the \textit{"potential landscape"} that drives current flow through circuits.\\
+\end{enumerate}
 
 
+\paragraph{Resistance: Ohm ($\Omega$)}
+
+\begin{enumerate}[label=\textbf{-}]
+	\item Definition: 
+	\[ 1 \unit{\Omega} = 1 \unit{V} \cdot \unit{A}^{-1} \]\
+	\item Interpretation: Resistance measures how strongly a material opposes current flow. At the microscopic level, it emerges from electron scattering inside a conductor yet macroscopically it behaves as a perfectly clean linear law: 
+	\[ V = IR\]\
+\end{enumerate}
+
+
+
+\paragraph{Frequency: Hertz (Hz)}
+
+\begin{enumerate}[label=\textbf{-}]
+	\item Definition:
+	\[ 1 \unit{Hz} = 1 \unit{s}^{-1}\]\
+	\item Interpretation: Frequency is the heartbeat of oscillatory systems: clocks, AC signals, radio communication, and digital electronics all depend on precise frequency control. In fact, the entire SI system ultimately leans on frequency via the cesium atomic clock.\\
+\end{enumerate}
+
+So then why derived units matter? The power of derived units is not just mathematical elegance it is practical engineering control. 
+
+Every measurement in a laboratory, from the noise on an op-amp output to the efficiency of a power converter, ultimately collapses into combinations of: kg, m, s, A, K, mol, cd.
+
+This means that once the base units are defined with enough precision, the entire physical world becomes computable, reproducible, and comparable anywhere in the universe.
 
 \subsection{Approach to measures}
 
