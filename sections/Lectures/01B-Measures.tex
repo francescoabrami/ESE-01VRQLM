@@ -430,27 +430,27 @@ The following sections will present the general rules for uncertainty evaluation
 
 Let a generic quantity $X$ be measured using a repeated-measurement method, and let $x_1, x_2, x_3, \dots, x_N$ denote the $N$ observations (the so-called sample) obtained under nominally identical conditions. It is further assumed that the observations of the quantity $X$ are mutually uncorrelated.\\
 
-The population mean (or expected value) $\mu$ is estimated by means of the empirical mean  $\bar{x}$ of the available sample.
+The population mean (or expected value) $\mu$ is estimated by means of the empirical mean  $\overline{x}$ of the available sample.
 
 
 \begin{equation}
-	\bar{x} = \frac{1}{N} \sum_{k=1}^N x_k
+	\overline{x} = \frac{1}{N} \sum_{k=1}^N x_k
 \label{eq:233}
 \end{equation}
 
- It should be noted that the sample mean  $\bar{x}$ is itself a random variable whose probability density function is asymptotically Gaussian (see the Central Limit Theorem in). Moreover, if the observations $x_k$ are Gaussian-distributed, then the sample mean exhibits a Gaussian distribution even for finite sample sizes.\\
+ It should be noted that the sample mean  $\overline{x}$ is itself a random variable whose probability density function is asymptotically Gaussian (see the Central Limit Theorem in). Moreover, if the observations $x_k$ are Gaussian-distributed, then the sample mean exhibits a Gaussian distribution even for finite sample sizes.\\
 
 
 
 The population variance $\sigma^2$ is estimated through the corrected empirical variance $s^2(x)$ of the sample:
 
 \begin{equation}
-	s^2(x) = \frac{1}{N - 1} \sum_{k=1}^N(x_k - \bar{x})^2
+	s^2(x) = \frac{1}{N - 1} \sum_{k=1}^N(x_k - \overline{x})^2
 \end{equation}
 
-The positive square root $s(x)$ of the empirical variance, expressed in the same units as the quantity $X$, is referred to as the experimental standard deviation and represents the dispersion of the individual observations around the sample mean $\bar{x}$.\\
+The positive square root $s(x)$ of the empirical variance, expressed in the same units as the quantity $X$, is referred to as the experimental standard deviation and represents the dispersion of the individual observations around the sample mean $\overline{x}$.\\
 
-\autoref{} illustrates, for example, two sets of voltage output measurements of a power supply. Both datasets are characterized by the same empirical mean $\bar{V}$, but by different values of the experimental standard deviation: it is observed that the second dataset, which exhibits a lower dispersion around the mean, is associated with a smaller standard deviation $s_2(V)$ than that of the first dataset $s_1(V)$.\\
+\autoref{} illustrates, for example, two sets of voltage output measurements of a power supply. Both datasets are characterized by the same empirical mean $\overline{V}$, but by different values of the experimental standard deviation: it is observed that the second dataset, which exhibits a lower dispersion around the mean, is associated with a smaller standard deviation $s_2(V)$ than that of the first dataset $s_1(V)$.\\
 
 The experimental standard deviation therefore represents the uncertainty contribution associated with random effects. 
 Consequently, when the quantity $X$ is estimated via a single measurement, the corresponding standard uncertainty is taken equal to the experimental standard deviation, namely:
@@ -462,26 +462,26 @@ Consequently, when the quantity $X$ is estimated via a single measurement, the c
 
 It should be noted that, even in the case of single-measurement methods, the experimental standard deviation should always be estimated, in order to avoid neglecting uncertainty contributions that may be significant.
 
-When the quantity $X$ is instead estimated using a repeated-measurement method, the expected value of $X$ is represented by the sample mean $\bar{x}$.\\
+When the quantity $X$ is instead estimated using a repeated-measurement method, the expected value of $X$ is represented by the sample mean $\overline{x}$.\\
 
 Consequently, it is necessary to provide an estimate of the dispersion associated with the mean value itself, which in general could be obtained by analyzing multiple estimates of the mean derived from different sets of repeated measurements. 
 
 However, this approach is often impractical; therefore, the variance of the mean is estimated from the empirical variance of the sample as follows:
 
 \begin{equation}
-	s^2(\bar{x}) = \frac{s^2(x)}{N}
+	s^2(\overline{x}) = \frac{s^2(x)}{N}
 \end{equation}
 
-The experimental standard deviation of the mean, i.e. the dispersion of different estimates of the sample mean $\bar{x}$ around the expected value, is then given by:
+The experimental standard deviation of the mean, i.e. the dispersion of different estimates of the sample mean $\overline{x}$ around the expected value, is then given by:
 
 \begin{equation}
-	s(\bar{x}) = \frac{s(x)}{\sqrt{N}}
+	s(\overline{x}) = \frac{s(x)}{\sqrt{N}}
 \end{equation}
 
 In the case of a quantity X estimated via repeated measurements, the standard uncertainty is therefore taken equal to the experimental standard deviation of the mean, namely:
 
 \begin{equation}
-	u(x) = s(\bar{x}) = \frac{s(x)}{\sqrt{N}}
+	u(x) = s(\overline{x}) = \frac{s(x)}{\sqrt{N}}
 \label{eq:237}
 \end{equation}
 
@@ -489,7 +489,7 @@ In the case of a quantity X estimated via repeated measurements, the standard un
 In the case of a quantity $X$ estimated via repeated measurements, the standard uncertainty is therefore taken as equal to the experimental standard deviation of the mean, namely:
 
 \begin{equation}
-	u_A(x) = s(\bar{x})
+	u_A(x) = s(\overline{x})
 \end{equation}
 
 At this stage, a critical remark concerning relation (\autoref{eq:237}) is necessary, as it appears to suggest that the standard uncertainty may be arbitrarily reduced simply by increasing the number $N$ of observations of the measured random variable.\\
@@ -498,7 +498,7 @@ First, it should be noted that, as $N$ increases, the observation time increases
 Consequently, in addition to higher measurement costs, it becomes increasingly difficult to ensure the stability of the measurand: there is a risk of tracking temporal variations of the measurand rather than performing repeated observations under nominally identical conditions. 
 
 % FOGURE REF
-Under such circumstances, the empirical estimators previously defined lose their validity, as illustrated for instance in FIGURE , where it is observed that the sample mean $\bar{V}$ is no longer a consistent estimator of the population mean.\\
+Under such circumstances, the empirical estimators previously defined lose their validity, as illustrated for instance in FIGURE , where it is observed that the sample mean $\overline{V}$ is no longer a consistent estimator of the population mean.\\
 
 % FOGURE REF
 Furthermore, as the measurement duration increases, the risk of correlation among observations also increases, for example due to periodic fluctuations of influence quantities, as shown in the example of Figure 2.3. Under these conditions, estimator (\autoref{eq:237}) is no longer applicable, since the observations $x_1, x_2, x_3, \dots, x_N$ are no longer statistically independent.\\
@@ -507,7 +507,7 @@ With increasing number of observations, it therefore becomes increasingly diffic
 
 It is therefore reasonable to select a number of observations $N$ such that the standard deviation of the mean (\autoref{eq:237}) becomes negligible, or at least of the same order of magnitude, with respect to the other uncertainty contributions.\\
 
-A further relevant aspect concerns the estimation of the probability density function ($p.d.f.$) of the sample mean $\bar{x}$, which is obtained through relation (\autoref{eq:233}). As previously recalled in connection with the Central Limit Theorem, $\bar{x}}$ is a random variable whose $p.d.f.$ is asymptotically Gaussian. 
+A further relevant aspect concerns the estimation of the probability density function ($p.d.f.$) of the sample mean $\overline{x}$, which is obtained through relation (\autoref{eq:233}). As previously recalled in connection with the Central Limit Theorem, $\overline{x}$ is a random variable whose $p.d.f.$ is asymptotically Gaussian. 
 
 Nevertheless, the sample mean is often assumed to follow a Gaussian distribution even for small sample sizes, including the case $N = 1$. 
 This approximation is generally acceptable, also because an exact determination of the $p.d.f.$ would require the application of complex analytical methods based on the convolution of the $p.d.f.$s of the population of individual observations.\\
@@ -519,7 +519,7 @@ However, the estimator of the experimental standard deviation of the mean, expre
 For instance, considering a normally distributed random variable $X$, the relative uncertainty of the estimator of the experimental standard deviation of the mean can be expressed as:
 
 \begin{equation}
-	\frac{\sigma[s(\bar{x})]}{s(\bar{x})} \approx \frac{1}{\sqrt{2 \cdot (N - 1)}}}
+	\frac{\sigma[s(\overline{x})]}{s(\overline{x})} \approx \frac{1}{\sqrt{2 \cdot (N - 1)}}
 \end{equation}
 
 Using this relation, relative uncertainties of approximately 24\% for $N=10$ and 16\% for $N=20$ are obtained. 
@@ -591,6 +591,7 @@ In this case, the standard uncertainty is obtained from the half-width $\delta_x
 \end{equation}
 
 \subsubsection{Uncertainty propagation}
+\label{uncprop243}
 
 In the simple case of a single direct-reading measurement, the standard uncertainty is obtained by combining in quadrature the various uncertainty contributions, such as instrumental uncertainty and reading uncertainty, all of which are evaluated using Type B methods.
 
@@ -603,19 +604,19 @@ If the measurement is instead obtained by applying a measurement method based on
 Let $Y$ denote the general measurand, which is related to $M$ quantities $X_i$ through the relationship:
 
 \begin{equation}
-	Y = f \left X_1, \dots, X_H, X_{H+1} \dots, X_M \right)
+	Y = f \left( X_1, \dots, X_H, X_{H+1} \dots, X_M \right)
 \end{equation}
 
 (where the first $H$ quantities are obtained by direct methods with repeated readings, while the remaining $M-H$ quantities are obtained by single-reading direct methods or are provided by third parties).
 
 It should be recalled that, for a correct application of the probabilistic model of uncertainty evaluation, the measurement model must account for all significant systematic effects; therefore, \autoref{eq:243} must include any correction terms related, for example, to instrument loading or to the effect of influence quantities.
 
-For each quantity $X_1, \dots, X_H$, a set of observations is available, so (\autoref{eq:233}) can be used to estimate the sample means $\bar{x}_1, \dots, \bar{H}$ of the available datasets. For the quantities $X_{H+1}, \dots, X_{M}$, only a single value is available, $x_{(H+1)0}, \dots, x_{M0}$ obtained, for example, from a single instrument reading or from data reported in a calibration certificate.\\
+For each quantity $X_1, \dots, X_H$, a set of observations is available, so (\autoref{eq:233}) can be used to estimate the sample means $\overline{x}_1, \dots, \overline{H}$ of the available datasets. For the quantities $X_{H+1}, \dots, X_{M}$, only a single value is available, $x_{(H+1)0}, \dots, x_{M0}$ obtained, for example, from a single instrument reading or from data reported in a calibration certificate.\\
 
 The estimate $y_0$ of the measurand is obtained as:
 
 \begin{equation}
-	y_0 = f \left(\bar{x_1}, \dots, \bar{H}, x_{(H+1)0}, \dots, x_{M0} \right)
+	y_0 = f \left(\overline{x_1}, \dots, \overline{H}, x_{(H+1)0}, \dots, x_{M0} \right)
 \label{eq:244}	
 \end{equation}
 
@@ -629,7 +630,7 @@ Regarding the evaluation of the measurement uncertainty, known as the combined s
 
 where $u(x_i)$ is the standard uncertainty of the generic quantity $X_i$ appearing in \autoref{eq:244}, estimated by applying the appropriate uncertainty evaluation technique (Type A and/or Type B), while $u(x_j, x_l)$, known as the covariance of the pair of quantities $x_j$ and $x_l$ estimates of the two quantities.\\
 
-The statistical dependence between two random variables is usually expressed by a dimensionless parameter called the correlation coefficient, which can take values between −1 and +1 and is obtained by normalizing the covariance with respect to the product of the standard deviations of the two variables:
+The statistical dependence between two random variables is usually expressed by a dimensionless parameter called the correlation coefficient, which can take values between -1 and +1 and is obtained by normalizing the covariance with respect to the product of the standard deviations of the two variables:
 
 \begin{equation}
 	\rho(x_j, x_l) = \frac{u(x_j, x_l)}{u(x_j) \cdot u(x_i)}
@@ -668,17 +669,17 @@ It should be noted that \autoref{eq:248} has a form similar to that used for unc
 
 \subsubsection*{Analytical estimation of correlation}
 
-In the case of two generic quantities $X_j$ and $X_l$ obtained by measurement methods based on repeated readings, i.e. when $N$ statistically independent observations are available for each quantity, it is possible to estimate not only the sample means $\bar{x_j}$ and $\bar{x_l}$ (\autoref{eq:233}) and the standard deviations of the mean $s(\bar{x_j}$ and $s(\bar{x_l}$ (\autoref{eq:237}), but also to compute an estimate of the covariance between the sample means using the following relationship:
+In the case of two generic quantities $X_j$ and $X_l$ obtained by measurement methods based on repeated readings, i.e. when $N$ statistically independent observations are available for each quantity, it is possible to estimate not only the sample means $\overline{x_j}$ and $\overline{x_l}$ (\autoref{eq:233}) and the standard deviations of the mean $s(\overline{x_j}$ and $s(\overline{x_l}$ (\autoref{eq:237}), but also to compute an estimate of the covariance between the sample means using the following relationship:
 
 \begin{equation}
-	s(x_j, x_l) = \frac{1}{N \cdot (N-1)} \sum_{i=1}^N \left( x_{ji} - \bar{x_j} \right) \cdot \left( x_{li} - \bar{x_l} \right)
+	s(x_j, x_l) = \frac{1}{N \cdot (N-1)} \sum_{i=1}^N \left( x_{ji} - \overline{x_j} \right) \cdot \left( x_{li} - \overline{x_l} \right)
 \label{eq:249}	
 \end{equation}
 
 Starting from (\autoref{eq:249}), it is also possible to obtain an estimate of the correlation coefficient between the sample means as follows:
 
 \begin{equation}
-	\rho (\bar{x_j},\bar{x_l}) = \frac{s(\bar{x_j},\bar{x_l})}{s(\bar{x_j}) \cdot s(\bar{x_l}}
+	\rho (\overline{x_j},\overline{x_l}) = \frac{s(\overline{x_j},\overline{x_l})}{s(\overline{x_j}) \cdot s(\overline{x_l}}
 \end{equation}
 
 % FIGURA DA FARE
@@ -688,7 +689,86 @@ Figure 2.5 shows an example of two uncorrelated quantities, for which the correl
 \subsubsection{Estimation of the confidence level}
 
 
+In many measurement applications, in addition to the combined standard uncertainty ($u_c(Y)$), it is advisable to report the expanded uncertainty ($U(y) = k_v \cdot u_c(Y)$). 
+This allows the definition of a confidence interval with bounds $(Y_0 - k_v \cdot u_c(Y))$ and $(Y_0 + k_v \cdot u_c(Y))$, which has probability $(p)$ (confidence level) of containing the expected value of the measured quantity $(Y)$. 
+
+The coverage factor $(k_p)$ corresponding to the confidence level $(p)$ depends on the probability density function ($p.d.f.$) of the random variable associated with the measurement.\\
+
+In most applications, it can be reasonably assumed that the measured random variable follows a normal distribution. 
+Under this assumption, the relationship between confidence level and coverage factor can be obtained from the Gaussian probability density function or, more simply, from tables that directly provide this correspondence. Typical values of $(k_v)$ used in practice are 2 and 3, which correspond approximately to confidence levels of 95.4\% and 99.7\%, respectively.\\
+
+If there are reasonable doubts about the normality of the probability distribution of the measured random variable, Chebyshev’s inequality may be used. This provides an upper bound on the probability that the measurand lies outside the interval $(Y_0 \pm k_v \cdot u_c(Y))$, independently of the form of the probability distribution function. 
+
+However, this upper bound, equal to $(k^{-2})$, is almost always much larger than the actual probability. 
+For example, in the case of a Gaussian distribution, the probability that the measurand falls outside the interval $(Y_0 \pm 3 \cdot u_c(Y))$ is approximately 0.003, whereas the upper bound given by Chebyshev’s inequality is about 0.11.\\
+
+% TODO FINISH STUFF APPENDIX B
+A better correspondence between confidence level and coverage factor can be obtained using other techniques not proposed here such as , 
+
+It should be noted, however, that these techniques are used almost exclusively in high-level measurement applications, i.e., when uncertainties are close to those of primary reference standards.
+
 \subsubsection{Examples}
+
+As a conclusion to this section, and as an illustrative example of the rules presented so far, we report the evaluation of the standard uncertainty of a quantity obtained through a repeated-measurement method.\\
+
+The output voltage of a stabilized power supply is measured using a digital multimeter by applying a repeated-observation method, obtaining 20 measurements of the measurand. The estimate of the quantity $(V)$ is given by the sample mean $(\overline{V})$, equal to 9.9992 V. By examining the available readings, the observed phenomenon can be represented by the following model:
+
+\begin{equation}
+	V_i = \overline{V} + n_i
+\label{eq:251}	
+\end{equation}
+
+where $n_i$ are the successive realizations of the measurand signal superimposed on the measurement signal.\\
+
+Applying the Type A uncertainty evaluation method, the experimental standard deviation of the noise is estimated as:
+
+\begin{equation}
+	u_A(V) = s(n) = 9 \unit{mV}
+\end{equation}
+
+Since the estimate of the measurand is given by the empirical mean, the standard uncertainty is equal to the experimental standard deviation of the mean (\autoref{eq:237}), evaluated as:
+
+\begin{equation}
+	u_A(V) = \frac{s(n)}{\sqrt{20}} = 2 \text{ mV} 
+\end{equation}
+
+In addition to the contribution related to the repeatability of the measurand, one must also account for the fact that each reading $V_i$ is affected by instrumental uncertainty. 
+
+Assume that the uncertainty specifications of the instrument are expressed as a value interval of width $2 \delta_v$, with $\delta_v = 2.5 $ mV.\\
+
+Under the assumption that all values within this interval are equally likely to represent the measurand i.e., assuming a uniform probability density function for the random variable the standard uncertainty of each observation evaluated by a Type B method is given by:
+
+\begin{equation}
+	u_B(V_i) = \frac{\delta_v}{\sqrt{3}} \approx 1.44 \text{ mV}, \quad i = 1, \ldots, 20
+\end{equation}
+
+The propagation of the Type B uncertainty of the individual observations onto the estimate $V$ of the measurand can be carried out by noting that the sample mean estimator (\autoref{eq:233}) can be treated as an indirect measurement method, so that the rules presented in \autoref{uncprop243} can be applied.\\
+
+To estimate the correlation coefficient between the different readings, we consider model (\ref{eq:251}) in the absence of noise $(n_i = 0)$, since its effect has already been accounted for using the Type A method. 
+
+Under these conditions, the correlation coefficient between the observations $V_i$ can be considered equal to unity, since the different readings are obtained with the same instrument and the same measurement range. 
+
+Therefore, relation (\ref{eq:248}) can be applied, yielding:
+
+\begin{equation}
+	u_B(\overline{V}) = \sum_{i=1}^{20} \frac{\delta \overline{V}}{\delta V_i} \cdot u_B(V_i) = \frac{1}{20} \cdot 20 \cdot u_B(V_i) = u_B(V_i)
+\end{equation}
+
+In the end we get that:
+
+\begin{equation}
+	u_B(\overline{V}) = u_B(V_i) = 1.44 \unit{mV}
+\end{equation}
+
+which is a reasonable result, as it shows that the averaging operation does not reduce a systematic effect such as instrumental uncertainty.\\
+
+Finally, by combining the contributions obtained through Type A and Type B methods, the standard uncertainty of the sample mean $\overline{V}$ is obtained:
+
+\begin{equation}
+	u(\overline{V}) = \sqrt{u^2_A(\overline{V}) + u^2_B(\overline{V})}  \approx 2.55 \unit{mV}
+\end{equation}
+
+
 
 
 
