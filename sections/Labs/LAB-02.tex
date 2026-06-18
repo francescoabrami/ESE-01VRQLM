@@ -17,15 +17,34 @@
 \subsection{Introduction}
 \label{introlab02}
 
+Operational amplifiers are fundamental analog electronic devices widely used for signal amplification and conditioning. This laboratory investigates the behavior of inverting and non-inverting amplifier configurations using a AU741 op-amp and compares experimental measurements with the ideal theoretical model.
+
 \subsubsection*{Objective}
+
+The objective of this laboratory is to analyze the performance of feedback operational amplifier circuits. Gain, input and output resistance, bandwidth, and frequency response are experimentally measured using an oscilloscope and signal generator. Bode plots are obtained for both the non-inverting and audio amplifier configurations. The measured results are compared with theoretical predictions and the limitations of the LM741 operational amplifier, such as its gain-bandwidth product and slew rate, are evaluated.
+
 \subsubsection*{Instruments}
+
+During this laboratory experience the following material (instruments and devices) were used:
+
+\begin{enumerate}[label=\textbf{-}]
+	\item Rigol DS1054 Digital Sampling Oscilloscope - DSO
+	\item HP 34401A Multimeter
+	\item Rigol DP832 Programmable Power Supply
+	\item Analog Function Generator - AFG
+	\item A3 Board
+	\item BNC Connectors
+\end{enumerate}
+
 \subsubsection*{Observations}
+
+During this laboratory we did not found any substantial observation beside the one that the real behavior of op-amp are sometimes different that the ideal model especially when the IC is paired with other discrete components that might have very large uncertainties (5\% - 10\%) that could change some observed behaviors such as knees in a Bode diagram etc. 
+
 \subsubsection*{Problems}
 
+During the laboratory no serious issued were found or encountered. Still we had many problems related to the understanding of the circuit and getting to see if the output of given by the circuit was what we expected. Also the numbering of the switch (1 for open and 2 for close) made us redo many measurements since we got these wrong (1 and 0 would have been better). 
 
 \subsection{Inverting Amplifier}
-
-
 
 \subsubsection*{Gain of the inverting amplifier}
 
@@ -57,13 +76,12 @@ $R_{in}$  &  22  & $\pm$ 1.1  &  $\pm$ 5 \% & k$\Omega$ \\
 
 We can now calculate the gain $A_{V,real}$ and $A_{V,theo}$ of the amplifier given the parameters seen above.
 
-
 \begin{equation}
-	A_{V,real} = -\frac{V_{pp,out}}{V_{pp,in}} = - \frac{4.77}{1.06} = - 4.543 \; \pm \;  
+	A_{V,real} = -\frac{V_{pp,out}}{V_{pp,in}} = - \frac{4.77}{1.06} = - 4.54 \; \pm \;  0.43 \unit{V} 
 \end{equation}
 
 \begin{equation}
-	A_{V,theo} = - \frac{R_f}{R_{in}} = - \frac{100}{22} = - 4.545 
+	A_{V,theo} = - \frac{R_f}{R_{in}} = - \frac{100}{22} = - 4.55
 \end{equation}
 
 
@@ -87,7 +105,7 @@ $V_{pp,out}$ & 4.77 & $\pm$ 0.240  & $\pm$ 05.03 \% &  V \\
 
 
 \begin{equation}
-	A_{V,CD} = -\frac{V_{pp,out}}{V_{pp,in}} = \frac{4.77}{1.06} \; \pm \;  
+	A_{V,CD} = -\frac{V_{pp,out}}{V_{pp,in}} = \frac{4.77}{1.06} = 4.5 \; \pm \; 0.43  \unit{V}  
 \end{equation}
 
 
@@ -115,7 +133,7 @@ $V_{pp,out}$ & 9.68 & $\pm$ 0.480  & $\pm$ 04.96 \% &  V \\
 \hline
 $t_{rise,real}$ & 9.080 & $\pm$ 0.080 & $\pm$ 00.88 \% & $\mu$s \\
 \hline
-$t_{rise,theo}$ &   &  -  & -  & $\mu$s \\ 
+$t_{rise,theo}$ & 14.50  &  -  & -  & $\mu$s \\ 
 
 \end{tabular}
 \caption*{Rise time $t_r$ of the output 1kHz 2$V_{pp}$}
@@ -146,68 +164,13 @@ $V_{pp,out}$ & 0.474 & $\pm$ 0.024 & $\pm$ 05.06 \% &  V \\
 \hline
 $t_{rise,real}$ & 1.445 & $\pm$ 0.020 & $\pm$ 01.37 \% & $\mu$s \\
 \hline
-$t_{rise,theo}$ &   &  -  & -  & $\mu$s \\ 
+$t_{rise,theo}$ &  2.020 &  -  & -  & $\mu$s \\ 
 
 \end{tabular}
 \caption*{Rise time $t_r$ of the output 1kHz 0.100 $V_{pp}$}
 \end{table}
 
 
-%To get the theoretical rise time we proceeded this way.
-%If the op-amp is operating linearly and not slew-rate limited, its rise time is approximately:
-%
-%\begin{equation}
-%	t_{r,BW} \approx \frac{0.35}{BW_{CL}}
-%\end{equation}
-%
-%Where $BW_{CL}$ is the closed-loop bandwidth that in this case is 1 kHz.
-%
-%In this case the corresponding maximum slope during the rise is roughly:
-%
-%\begin{equation}
-%	\frac{dV}{dt} \bigg|_{max} \approx \frac{0.8\; V_{step}}{t_{r,BW}}
-%\end{equation}
-%
-%The 0.8 value is derived from the (10 \% - 90 \%) rise time required.
-%
-%Substituting $t_r = 0.35 / BW$ we get:
-%
-%\begin{equation}
-%	\frac{dV}{dt} \bigg|_{max} \approx 2.29 V_{step} \; BW_{CL}
-%\end{equation}
-%
-%Now by comparing the slew rate (SR) of the amplifier with the found value we can say where the $t_{rise}$ is limited by slew-rate or bandwidth.
-%
-%If:
-%
-%\begin{equation}
-%	SR > 2.29 V_{step} \; BW_{CL}
-%\end{equation}
-%
-%the amplifier can support the required slope and the response is bandwidth limited.
-%
-%
-%If:
-%
-%\begin{equation}
-%	SR < 2.29 V_{step} \; BW_{CL}
-%\end{equation}
-%
-%then the amplifier cannot support the required slope and the response becomes slew-rate limited.
-%
-%Also it is useful to calculate the maximum step amplitude that can be reproduced without slew-rate limiting:
-%
-%\begin{equation}
-%	V_{step,max} \approx \frac{SR}{2.29\;BW_{CL}}
-%\end{equation}
-%
-%If the input step is larger than this value, slew-rate limiting occurs.
-%
-%In our case the typical value of SR given by the manufacturer is 0.5 V/$\mu$s and $BW_{CL}$ is 1 kHz we get that:
-%
-%\begin{equation}
-%	V_{step,max} \approx \frac{0.5 \cdot 10^{-6}}{2.29 \cdot 10^3}
-%\end{equation}
 
 
 
@@ -323,7 +286,6 @@ $V_{in,S3\;open}$  &  0.720 & $\pm$ 0.048 & $\pm$ 06.67 \% &  V \\
 $R_{3}$  &  4700 & $\pm$ 235 & $\pm$ 5 \% & $\Omega$ \\
 \hline
 $R_{10k}$  & 10000 & $\pm$ 500 & $\pm$ 5 \% & $\Omega$ \\
-
 \end{tabular}
 \caption*{Input and output of non-inverting op-amp}
 \end{table}
@@ -374,7 +336,7 @@ $R_{out,OL}$  &  $\approx$ 75 &  - &  -  & $\Omega$ \\
 \end{table}
 
 
-To measure the $R_{out}$ we need to use the difference in the $V_{out}$ value caused by the insertion of the load $R_5$.
+To measure the $R_{out}$ we need to use the difference in the $V_{out}$ value caused by the insertion of the load $R_5$.\\
 
 As a first operation we can estimate the output resistance of closed loop (CL) $R_{out,CL}$.
 
@@ -398,13 +360,49 @@ By using $R_{out,closed}$ $\approx$ 18 $\Omega$ and $R_{out,open}$ = 75 $\Omega$
 \end{equation}
 
 So we get a loop gain of approximately 3.17 that is a reasonable result for this frequency and setup.
+This result is only to have an idea on how well our calculations and operations that we have done are somewhat correct.\\
 
 \subsubsection*{Bode diagram}
 
 Arrived at this point we were able, by applying different input frequency, to obtain the gain for some frequency point and then plot the Bode diagram for the op-amp.\\
-Here below are reported the diagrams for the two different Bode diagrams we were able to generate. They mainly differ in their ability to keep a good gain even past their specs. More on this is topic has beed discussed inside the \autoref{introlab02}.
+
+Reported below is the schematic of the circuit that was analyzed for this section.\\
+
+\begin{figure}[h!]
+\begin{center}
+
+\begin{tikzpicture}[transform shape, scale=0.75]
+	\node[op amp] at (8.69, 6.01){};
+	\draw (5, 6.5) to[american resistor, l={$R_{in}$}] (7, 6.5);
+	\draw (9.88, 6.01) -| (11, 6);
+	\draw (7.5, 8.5) to[american resistor, l_={$R_f$}] (9.5, 8.5);
+	\draw (9.5, 8.5) -- (10, 8.5) -| (10, 6);
+	\draw (7.5, 8.5) -- (7, 8.5) -| (7, 6.5);
+	\draw (7, 6.5) -- (7.5, 6.5);
+	\node[ground] at (7, 2){};
+	\draw (4, 2.75) to[european voltage source, l={$V_{in}$}] (4, 4.5);
+	\draw (7, 4) to[american resistor, l={$R_{bias}$}] (7, 2);
+	\draw (7.5, 5.52) -| (7, 5);
+	\node[ground] at (3.5, 6){};
+	\draw (4, 6.5) -- (3.5, 6.5) -| (3.5, 6);
+	\draw (7, 5) -| (7, 4);
+	\draw (7, 4.5) -- (6, 4.5);
+	\draw (5, 4.5) -- (4, 4.5);
+	\node[ground] at (4, 2.75){};
+	\node[circ] at (7, 6.5){};
+	\node[circ] at (10, 6){};
+	\node[circ](N1) at (11, 6){} node[anchor=south] at ([yshift=0.19cm]N1.text){$V_{out}$};
+	\draw (5, 4.5) -- (6, 4.5);
+	\draw (4, 6.5) -- (5, 6.5);
+\end{tikzpicture}
+
+\caption{Non-inverting amplifier circuit schematics}	
+\end{center}	
+\end{figure}
 
 
+
+Here below is also reported the diagram for the Bode diagrams that we were able to generate. There is also reported the whole data set of measures from which it was generated from.\\
 
 %%%%%%%%%%%%%%
 %% PRIMO BODE
@@ -428,7 +426,7 @@ Here below are reported the diagrams for the two different Bode diagrams we were
     title={Bode diagram - Case I}
 ]
 
-% Dati misurati (solo punti)
+% Guadagno Reale BODE I
 \addplot+[
     only marks,
     mark=o,
@@ -457,125 +455,173 @@ Here below are reported the diagrams for the two different Bode diagrams we were
     500000   16.00
     1000000  10.59
     2000000  5.86
-    5000000 2.62
+    5000000 1.70
     
 };
 \addlegendentry{Measured}
 
-% Guadagno teorico (linea continua)
+% Guadagno Teorico BODE I
 \addplot[thick, domain=0.1:1e6, samples=200] table[header=false, x index=0, y index=1] {
-	0.1 20
-	0.2 20
-	0.5 20
-	1 20
-	2 20
-	5  20
-    10       20
-    20       20
-    50       20
-    100      20
-    200      20
-    500      20
-    1000     20
-    2000     20
-    5000     20
-    10000    20
-    20000    20
-    50000    20
-    100000   20
+	0.1 18.4
+	0.2 18.4
+	0.5 18.4
+	1 18.4
+	2 18.4
+	5  18.4
+    10       18.4
+    20       18.4
+    50       18.4
+    100      18.4
+    200      18.4
+    500      18.4
+    1000     18.4
+    2000     18.4
+    5000     18.4
+    10000    18.4
+    20000    18.4
+    50000    18.4
+    100000   18.4
     1000000  0
+    5000000 -14.0
 };
 \addlegendentry{Theoretical}
 \end{semilogxaxis}
 \end{tikzpicture}
 \end{center}
 
-%%%%%%%%%%%%%%
-%% SECONDO BODE
-%%%%%%%%%%%%%%
+
+As we can see the Bode diagram is pretty \textit{"Boring"} which is very good for this case. Specifically we can see that the amplifier in this conditions (is not open-loop) can amplify very well, with almost a 20 dB gain every signal from low frequency all the way up to around 100 kHz.\\
+
+This limit is given by the feedback resistance, here are the calculations.
+
+\begin{equation}
+	A_v = \frac{R_f}{R_{in}} + 1 = 9.333
+\end{equation}
+
+We can then convert it to dB, we get that:
+
+\begin{equation}
+	G_{max} = 20 \cdot \log_{10} \left ( A_v \right ) \approx 19.4 \unit{dB}
+\end{equation}
+
+With this known we can also predict the expected bandwidth from $GBW$:
+
+\begin{equation}
+	f_{BW} \approx \frac{GBW}{A_v} = \frac{1 \unit{MHz}}{9.333} \approx 107.15 \unit{kHz}
+\end{equation}
 
 
 
-\begin{center}
-\begin{tikzpicture}
-\begin{semilogxaxis}[
-    xlabel={Frequency},
-    ylabel={Gain},
-    grid=both,
-    legend pos=south east,
-    width=12cm,
-    height=8cm,
-    xmin=5, xmax=2e6,
-    ymin=-25, ymax=25,
-    xtick={10,100,1000,10000,100000,1000000},
-    xticklabels={10,100,1k,10k,100k,1M},
-    minor x tick num=9,
-    title={Bode diagram - Case II}
-]
 
-% Dati misurati (solo punti)
-\addplot+[
-    only marks,
-    mark=o,
-    mark size=2pt,
-] table[header=false, x index=0, y index=1] {
-	0.1	19.21
-	0.2	19.21
-	0.5	19.21
-	1	19.21
-	2	19.21
-	5		19.21	 	
-    10       19.21
-    20       19.21
-    50       19.21
-    100      19.21
-    200      19.29
-    500      19.35
-    1000     19.35
-    2000     19.35
-    5000     19.35
-    10000    19.35
-    20000    19.14
-    50000    15.51
-    100000   9.70
-    200000   18.78
-    500000   16.00
-    1000000  10.59
-    2000000
-    5000000
-};
-\addlegendentry{Measured}
 
-% Guadagno teorico (linea continua)
-\addplot[thick, domain=10:1e6, samples=200] table[header=false, x index=0, y index=1] {
-    10       20
-    20       20
-    50       20
-    100      20
-    200      20
-    500      20
-    1000     20
-    2000     20
-    5000     20
-    10000    20
-    20000    20
-    50000    20
-    100000   20
-    1000000  0
-};
-\addlegendentry{Theoretical}
+Reported here below are the gathered data points that were used to generate the Bode diagram just shown above. As we can see no uncertainties measure was taken into account and also all of the calculations to obtain the gain in dB from $V_{pp,in}$ and $V_{pp,out}$ are omitted. This was the formula that was applied:
 
-\end{semilogxaxis}
-\end{tikzpicture}
+\begin{equation}
+	\unit{\textbf{Gain}} = 20 \cdot \log_{10} \left( \frac{V_{pp,out}}{V_{pp,in}} \right)
+\end{equation}
 
-\end{center}
+
+\begin{table}[h!]
+\centering	
+
+\begin{tabular}{cccc}
+\textbf{Frequency} & \textbf{$V_{pp,in}$} & \textbf{$V_{pp,out}$}  & \textbf{Gain dB} \\
+\hline
+ 10 Hz & 1.04 V & 9.52 V & 19.23 dB \\
+ \hline
+ 20 Hz & 1.04 V & 9.52 V &  19.23 dB \\
+ \hline
+ 50 Hz & 1.04 V & 9.52 V & 19.07 dB \\
+ \hline
+ 100 Hz & 1.04 V & 9.60 V & 19.30 dB \\
+ \hline
+ 200 Hz & 1.04 V & 9.60 V & 19.30 dB \\
+ \hline
+ 500 Hz & 1.04 V & 9.60 V & 19.30 dB \\
+ \hline
+ 1 kHz & 1.04 V & 9.60 V &  19.30dB \\
+ \hline
+ 2 kHz & 1.04 V & 9.60 V &  19.30dB \\
+ \hline
+ 5 kHz & 1.04 V & 9.60 V & 19.30 dB \\
+ \hline
+ 10 kHz & 1.04 V & 9.60 V & 19.30 dB \\
+ \hline
+ 20 kHz & 1.04  V & 9.64 V & 19.34 dB \\
+ \hline
+ 50 kHz & 1.04  V & 9.60 V & 19.30  dB \\
+ \hline
+ 100 kHz & 1.04 V & 9.52 V & 19.23 dB \\
+ \hline
+ 200 kHz &1.04  V & 9.04 V & 18.78 dB \\
+ \hline
+ 500 kHz & 1.04 V & 6.56 V & 16.00 dB \\
+ \hline
+ 1 MHz & 1.04 V & 3.52 V & 10.59 dB \\
+  \hline
+ 2 MHz & 1.04 V & 2.29 V & 6.86 dB \\
+  \hline
+ 5 MHz & 1.04 V & 1.77 V & 4.62 dB \\
+
+\end{tabular}
+\caption*{Data points for Bode diagram - Case I}
+\end{table}
+
 
 
 
 \subsection{Audio Amplifier}
 
+Moving to the last section the behavior of the audio amplifier was analyzed.
+Specifically this was the setup of the circuit during this phase.
+
+
+\begin{figure}[h!]
+\begin{center}
+
+\begin{tikzpicture}[transform shape, scale = 0.75]
+	\node[op amp] at (8.69, 6.01){};
+	\draw (5, 6.5) to[american resistor, l={$R_{in}$}] (7, 6.5);
+	\draw (4, 6.5) to[capacitor, l={$C_{in}$}] (5, 6.5);
+	\draw (9.88, 6.01) -| (11, 6);
+	\draw (7.5, 8) to[american resistor, l_={$R_f$}] (9.5, 8);
+	\draw (7.5, 9) to[capacitor, l={$C_f$}] (9.5, 9);
+	\draw (7.5, 8) -| (7.5, 9);
+	\draw (9.5, 9) -| (9.5, 8);
+	\draw (9.5, 8.5) -- (10, 8.5) -| (10, 6);
+	\draw (7.5, 8.5) -- (7, 8.5) -| (7, 6.5);
+	\draw (7, 6.5) -- (7.5, 6.5);
+	\node[ground] at (7, 2){};
+	\draw (4, 2.75) to[european voltage source, l={$V_{in}$}] (4, 4.5);
+	\draw (7, 4) to[american resistor, l={$R_{bias}$}] (7, 2);
+	\draw (7.5, 5.52) -| (7, 5);
+	\node[ground] at (3.5, 6){};
+	\draw (4, 6.5) -- (3.5, 6.5) -| (3.5, 6);
+	\draw (5, 4.5) to[capacitor, l={$C_5$}] (6, 4.5);
+	\draw (7, 5) -| (7, 4);
+	\draw (7, 4.5) -- (6, 4.5);
+	\draw (5, 4.5) -- (4, 4.5);
+	\node[ground] at (4, 2.75){};
+	\node[circ] at (7, 6.5){};
+	\node[circ] at (10, 6){};
+	\node[circ](N1) at (11, 6){} node[anchor=south] at ([yshift=0.19cm]N1.text){$V_{out}$};
+\end{tikzpicture}
+
+
+\caption{Audio amplifier circuit schematics}	
+\end{center}	
+\end{figure}
+
+
+
 \subsubsection*{Bode diagram}
 
+
+Given the circuit schematics the same procedure shown before was used to gather the data point in order to produce the following Bode diagram.
+
+%%%%%%%%%%%%%%
+%% AUDIO AMP BODE
+%%%%%%%%%%%%%%
 
 \begin{center}
 \begin{tikzpicture}
@@ -584,34 +630,29 @@ Here below are reported the diagrams for the two different Bode diagrams we were
     ylabel={Gain},
     grid=both,
     legend pos=south east,
-    width=12cm,
+    width=14cm,
     height=8cm,
-    xmin=5, xmax=2e6,
-    ymin=-25, ymax=25,
-    xtick={10,100,1000,10000,100000,1000000},
-    xticklabels={10,100,1k,10k,100k,1M},
-    minor x tick num=9,
-    title={Bode diagram - Audio amplifier}
+    xmin=0, xmax=2e7,
+    ymin=-30, ymax=25,
+    xtick={0.1, 1, 10,100,1000,10000,100000,1000000, 10000000},
+    xticklabels={0.1, 1, 10,100,1k,10k,100k,1M,10M},
+    minor x tick num=11,
+    title={Bode diagram - Case II}
 ]
 
-% Dati misurati (solo punti)
+% Guadagno Reale AUDIO AMP
 \addplot+[
     only marks,
     mark=o,
     mark size=2pt,
 ] table[header=false, x index=0, y index=1] {
-	0.1 {-30.40}
-	0.2 -27.64
-	0.5 -27.44
-	1 -28.29
-	2 -26.60
-	5 	-24.83
-    10 -20.33     	
-    20  -15.21
-    50     -1.86
-    100    7.79
-    200   14.58
-    500      16.14
+
+    10       -20.33
+    20       -15.22
+    50       -1.86
+    100      7.79
+    200      14.58
+    500      16.41
     1000     19.07
     2000     19.21
     5000     19.21
@@ -623,41 +664,178 @@ Here below are reported the diagrams for the two different Bode diagrams we were
     500000   -4.27
     1000000  -10.30
     2000000  -16.76
-    5000000	-23.48
-    
+    5000000 -23.48
 };
 \addlegendentry{Measured}
 
-% Guadagno teorico (linea continua)
+% Guadagno Teorico AUDIO AMP
+\addplot[thick, domain=10:1e6, samples=200] table[header=false, x index=0, y index=1] {
 
-\addplot[thick, domain=10:1e6, samples=100] table[header=false, x index=0, y index=1] {
-    10      -21.50
-    20      -15.68
-    50        0.62
-    100      11.1
-    200      19.4
-    500      19.4
-    1000     19.4
-    2000     19.4
-    5000     19.4
-    10000    19.4
-    20000    17.36
-    50000    10.85
-    100000    0
-    200000    0
-    500000    0
-    1000000   0
+    10 -4.35  
+%    20 1.37     
+%    50 8.55     
+%    100 13.52  
+    133 18.4  
+%    200 17.99
+%    500      18.4
+%    1000     18.4
+%    2000     18.3
+%    5000     17.5
+%    10000    15.7
+    10600   18.4
+%    20000    11.8
+%    50000    4.8
+%    100000   -1.1
+%    200000	-7.1
+%    500000   -15.1
+    1000000 -21.1
 };
-\addlegendentry{Theorical}
-
+\addlegendentry{Theoretical}
 \end{semilogxaxis}
+\label{audioampbode}
 \end{tikzpicture}
-
 \end{center}
 
 
+Reported here below are the gathered data points that were used to generate the Bode diagram just shown above. As we can see no uncertainties measure was taken into account and also all of the calculations to obtain the gain in dB from $V_{pp,in}$ and $V_{pp,out}$ are omitted. The same formula as before was applied.
+
+
+\begin{table}[h!]
+\centering	
+
+\begin{tabular}{cccc}
+\textbf{Frequency} & \textbf{$V_{pp,in}$} & \textbf{$V_{pp,out}$}  & \textbf{Gain dB} \\
+\hline
+ 10 Hz & 1.06 V & 0.102 V & -20.33 dB \\
+ \hline
+ 20 Hz & 1.06 V & 0.184 V &  -15.22 dB \\
+ \hline
+ 50 Hz & 1.06 V & 0.856 V & -1.86 dB \\
+ \hline
+ 100 Hz & 1.06 V & 2.60 V & 7.79 dB \\
+ \hline
+ 200 Hz & 1.06 V & 5.68 V & 14.58 dB \\
+ \hline
+ 500 Hz & 1.06 V & 6.8 V & 16.41 dB \\
+ \hline
+ 1 kHz & 1.06 V & 9.52 V &  19.07 dB \\
+ \hline
+ 2 kHz & 1.06 V & 9.68 V &  19.21 dB \\
+ \hline
+ 5 kHz & 1.06 V & 9.68 V & 19.21 dB \\
+ \hline
+ 10 kHz & 1.06 V & 9.68 V & 19.21 dB \\
+ \hline
+ 20 kHz & 1.06  V & 9.12 V & 18.69 dB \\
+ \hline
+ 50 kHz & 1.06  V & 5.76 V & 14.70  dB \\
+ \hline
+ 100 kHz & 1.06 V & 3.04 V & 9.15 dB \\
+ \hline
+ 200 kHz & 1.06  V & 1.68 V & 4.00 dB \\
+ \hline
+ 500 kHz & 1.06 V & 0.648 V & -4.27 dB \\
+ \hline
+ 1 MHz & 1.06 V & 0.324 V & -10.30 dB \\
+
+\end{tabular}
+\caption*{Data points for Bode diagram - Case II}
+\end{table}
+
+In this case, differently from before, some other component were introduced changing the behavior of the amplifier.
+Specifically adding the $C_f$ in the feedback network added a high cut-off frequency of around 10.6 kHz. As we can see from the theoretical Bode diagram also a cut-off region is present on the low frequency side. This behavior is due to the series of the components $R_{in}$ and $C_{in}$ that create a cut-off before the frequency of around 133 Hz. Between the two region a flat gain region with a value of 18.4 dB is present.\\
+
+Here are the calculations that led us to those theoretical result.\\
+
+We start from the close loop gain of the circuit:
+
+\begin{equation}
+	A_v = \frac{R_f}{R_{in}} + 1 = 9.333
+\end{equation}
+
+We can then convert it to dB, we get that:
+
+\begin{equation}
+	G_{max} = 20 \cdot \log_{10} \left ( A_v \right ) \approx 19.4 \unit{dB}
+\end{equation}
+
+Now we can calculate the frequency where the high side pole will be located.
+To do this we consider the feedback network.
+Knowing that $R_f$ and $C_f$ are 100 k$\Omega$ and 150 pF we get that:
+
+\begin{equation}
+	f_{C,high} = \frac{1}{2\pi R_f C_f} \approx 10.6 \unit{kHz}
+\end{equation}
+
+We don't have to forget that at the input there is also an high pass filter given by the series of the components $R_{in}$ and $C_{in}$.
+
+\begin{equation}
+	f_{C,low} = \frac{1}{2\pi R_{in} C_{in}} \approx 132.6 \unit{Hz}
+\end{equation}
+
+With this we can draw the theoretical Bode diagram which will be flat between $f_{C,low}$ and $f_{C,high}$ with a gain of around 18.4 dB. Also our calculations match the expected $f_{BW}$, since:
+
+\begin{equation}
+	f_{BW} \approx f_{C,high} - f_{C,low}
+\end{equation} 
+
+For the domain of frequencies that are outside the $f_{BW}$ domain will be attenuated by 20dB/dec.\\
+
+As seen in the Bode diagram shown in \autoref{audioampbode} our predictions are compatible with the data we gathered. As seen for the previous case the amplifier has a better response better than the one we predicted for frequencies greater than $f_{C,high}$.
+
+Regarding the lower frequency side we can see slightly worts performances that would not be ideal for an audio amplifier. This is due to the $f_{C,low}$ being too high respect the $\approx$ 20 Hz of the lower frequency that the human body can ear. For example if someone who likes techno or dance music would rather not use this device.\\
+
 \subsubsection*{DC gain}
+
+Before coming to and end we can stimate the DC Gain of the audio amplifier we just analyzed.\\
+
+We are going to do this by measuring the average values of the input and output voltages and then add a $\pm$ 500 mV offset and observe what changes at the output. Here are the data we gathered the signal frequency of the sinusoidal was set to 5 kHz and the $V_{pp}$ to 1.
+
+
+\begin{table}[h!]
+\centering	
+
+\begin{tabular}{ccc}
+\textbf{Object} & \textbf{Measure} & \textbf{Unit} \\
+
+\hline
+$V_{avg,in}$ & 0.251 & V \\
+\hline
+$V_{avg,out}$ & 2.53 & V \\
+
+\hline
+$V_{avg,in}^+$ & 0.530 & V \\
+\hline
+$V_{avg,out}^+$ & 2.90 & V \\
+
+\hline
+$V_{avg,in}^-$ & -0.550 & V \\
+\hline
+$V_{avg,out}^-$ & 2.92 & V \\
+
+\end{tabular}
+\caption*{Output resistance $R_{out}$ of non-inverting op-amp}
+\end{table}
+
+Give these results we can say that since the audio amplifier is AC-coupled due to the input coupling capacitor and the capacitor in the feedback network. 
+
+These capacitors block the DC component of the input signal, resulting in a DC gain close to zero. Consequently, changing the input offset does not affect the steady-state output voltage, and only the AC component of the signal is amplified.
+Hence the value we see (2.90 V and 2.92 V) are the same and given by the $V_{avg,in}$ being amplified and not by the others offsets.
+
 
 
 
 \end{document}
+
+
+
+
+
+
+
+
+
+
+
+
+

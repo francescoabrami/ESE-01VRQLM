@@ -21,6 +21,278 @@ The version you find below might differ from what was submitted and it might dif
 \vspace*{1cm}
 \subsection{Introduction}
 
+In this laboratory, we will use a MCU by interacting with sensors and external peripherals, the microcontroller enables the acquisition, processing, and management of data from the surrounding environment. During the experimental activity, the main focus will be to implement some control action using the MCU and its features.
+
+\subsubsection*{Object}
+
+For this lab experience we had to design and implement an a hysteretic temperature control system on a VirtLAB board. 
+The firmware, developed in K on top of the previous laboratory template, adds a dedicated task that reads the NTC thermistor voltage, converts it to temperature, and drives a 47$\Omega$ heater through a 2N2222 NPN transistor so that the temperature is maintained at a target of 50 $^\circ$C. 
+Experimental measurements are compared with theoretical calculations.
+
+\subsubsection*{Instruments} 
+
+For the accomplishment of this task the following instruments and hardware components where used:
+
+\begin{enumerate}[label=\textbf{-}]
+	\item NTC Resistor - 10 k$\Omega$ at 25$^\circ$C, decreasing by 4\% per $^\circ$C rise.
+	\item 4 x 10 k$\Omega$ resistors
+	\item 1 x 47 $\Omega$ resistor
+	\item 1 x 1 k$\Omega$ resistor
+	\item 2N2222 NPN Transistor
+	\item Agilent 34410A 6 1/2 digit multimeter.
+	\item VirtLAB Board
+	\item Mounting equipment (i.e. breadboard, jumper cables, ect.)
+\end{enumerate}
+
+\subsubsection*{Observations}
+
+During the laboratory session it was suggested to flip the transistor (Collector and Emitter) used to switch the current to the resistor with the goal of allowing more current to flow and have a bigger power dissipation.
+
+\subsubsection*{Problems}
+
+As discussed in the final sections we encountered some problems when we tried to reach the 50 $^\circ$C temperature. The resistance did not get hot enough for us to test the control system at that temperature. It was then chosen a lower temperature (33 $^\circ$C) at which the correct behavior was observed. 
+
+
+
+
+
+
+
+
+
+\newpage
+\subsection{Hardware}
+
+
+In regard to the hardware configuration the setup to sense the temperature is the same used in the previous one. This time only the switching circuit was added in addition to the heater element (47 $\Omega$ resistor).
+We will briefly go over the sensing circuit again and then move on to the new part.
+
+\subsubsection*{Sensing circuit}
+
+Temperature is measured by reading the voltage across an NTC thermistor. The NTC has a nominal resistance of 10 k$\Omega$ at 25 $^\circ$C and a negative temperature coefficient of -4\%,$\text{K}^{-1}$, meaning its resistance decreases as temperature rises.
+
+Two independent resistive dividers, both powered between $V_{cc} = 3.3$ V and GND, are assembled on the breadboard and connected to the analog port J801 of the VirtLAB board.
+The two ADC are the same used previously and are connected to AIN3 and AIN4.
+
+\subsubsection*{Heater and switch circuit}
+
+The heater is a 47 {$\Omega$} resistor connected between $V_{cc}$ and the collector of a 2N2222 NPN transistor used as a low-side switch. When the transistor is saturated, current flows through the resistor, dissipating power and raising its temperature. The NTC thermistor is placed in direct contact with the heater so that the measured temperature follows the heater temperature.
+
+
+GPIO \texttt{IO01} of the VirtLAB board controls the base of the transistor through a 1 {k$\Omega$} current-limiting resistor. A 10 {k$\Omega$} resistor between base and GND makes sure the transistor stays off when IO01 is low or in a high-impedance state, preventing unwanted heater activation.\\
+
+Here presented is the schematic of the heather and switch circuit used during the laboratory.
+
+\begin{figure}[h!]
+\begin{center}
+
+	\begin{tikzpicture}[transform shape]
+        \draw (2, 3) to[american resistor, l={$1\text{K}\Omega$}] (4, 3);
+        \draw (4, 3) to[american resistor, l={$10\text{K}\Omega$}] (4, 1);
+        \draw (4, 1) -- (6, 1);
+        \node[pnp, yscale=-1] at (6, 3.007){};
+        \draw (4, 3) -| (5.16, 3.007);
+        \draw (6, 2.25) -| (6, 1);
+        \draw (6, 3.777) to[american resistor, l={$47\Omega$}] (6, 5.75);
+        \node[rground, xscale=-1, yscale=-1](N1) at (6, 5.75){}
+            node[anchor=south] at (N1.south){$V_{cc}$};
+        \node[ground] at (6, 1){};
+        \draw (2, 3) -- (1.75, 3);
+        \node[circ](N2) at (1.75, 3){} node[anchor=north] at (N2.south){$\unit{IO}01$};
+    \end{tikzpicture}
+\caption{Circuit schematic of the power side if the controller}    
+\end{center}	
+\end{figure}
+
+
+
+
+
+
+
+
+
+
+
+
+
+\subsection{Firmware}
+
+After having implemented the hardware devices we can move on by testing if the adopted firmware solution works as intended.
+By adapting the previous laboratory to his one it was just a manner of adding a file and adding a new block to the previously implemented flow.
+We also recall the way we the previous task interfaces were designed to now be able to read the temperature and control the heater accordingly.
+
+\subsubsection*{Hysteretic control task(\texttt{heater.c})}
+
+\texttt{StartHeaterTask} implements the hysteretic control loop. On startup, the system is forced into a known state, by setting the GPIO driving the transistor low and a local boolean \texttt{state}, that tracks the current heater status to \texttt{false}.
+ The task then blocks indefinitely on \texttt{controllQueueHandle}, waiting for a temperature sample (in units of $\frac{1}{10}$\,K, i.e.\ an integer where \texttt{3232} represents 323.2 K = 50 $^\circ$ C posted by the acquisition task.
+
+The tasks uses \texttt{led0} as feedback to signal the heater status, either On or off.\\
+
+Two thresholds are derived from the compile-time constants:
+
+\begin{itemize}
+    \item \textbf{Upper threshold}: \texttt{TARGET\_TEMPERATURE\_10K + HYSTERESIS\_10K}
+          $ = 3232 + 10 = 3242$ $\rightarrow$ 324.2 K = 51 $^\circ$C.
+          
+          When the heater is on and the temperature exceeds this value the
+          GPIO is driven low (heater off) and the LED is turned off.
+    \item \textbf{Lower threshold}: \texttt{TARGET\_TEMPERATURE\_10K - HYSTERESIS\_10K}
+          $= 3232 - 10 = 3222$ $\rightarrow$ 322.2 K = 49 $^\circ$C.
+          
+          When the heater is off and the temperature drops below this value
+          the GPIO is driven high (heater on) and the LED is turned on.
+          
+\end{itemize}
+
+The $\pm$ 1 K band around the target prevents fast
+switching around 50 $^\circ$ C.\\
+
+We can now report a piece of the code that implements this task. The code has just been added to the project created in the previous laboratory.\\
+
+\begin{lstlisting}
+#define TARGET_TEMPERATURE_10K 3232 
+#define HYSTERESIS_10K         10
+
+extern osMessageQueueId_t controllQueueHandle;
+
+void StartHeaterTask(void *argument) {
+
+    bool state = false;
+    HAL_GPIO_WritePin(HeaterActive_GPIO_Port, HeaterActive_Pin, GPIO_PIN_RESET);
+
+    for(;;) {
+        uint16_t temperatureK = 0; 
+        osMessageQueueGet(controllQueueHandle, &temperatureK, NULL,     		osWaitForever);
+
+        if (state && temperatureK > TARGET_TEMPERATURE_10K + HYSTERESIS_10K) {
+            state = false;
+            HAL_GPIO_WritePin(HeaterActive_GPIO_Port, HeaterActive_Pin, GPIO_PIN_RESET);
+            led0(OFF);
+        }
+        
+        else if (!state && temperatureK < TARGET_TEMPERATURE_10K - HYSTERESIS_10K) {
+            state = true;
+            HAL_GPIO_WritePin(HeaterActive_GPIO_Port, HeaterActive_Pin, GPIO_PIN_SET);
+            led0(ON);
+        }
+    }
+}
+\end{lstlisting}
+
+
+\subsubsection*{Flowchart}
+
+We propose now the complete ﬂow chart of the system we explained above comprehensive of what we have done in the previous laboratory.\\
+
+\begin{tikzpicture}[transform shape, scale=0.85]
+	\node[shape=rectangle, draw, line width=1pt, minimum width=1.965cm, minimum height=0.965cm] at (2.5, 7.5){} node[anchor=center, align=center, text width=1.577cm, inner sep=6pt] at (2.5, 7.5){$\textbf{TIM1}$};
+	\node[shape=rectangle, draw, line width=1pt, minimum width=1.965cm, minimum height=0.965cm] at (7, 7.5){} node[anchor=center, align=center, text width=1.577cm, inner sep=6pt] at (7, 7.5){$\textbf{Wake }$\\$\textbf{ADC}$};
+	\node[shape=rectangle, draw, line width=1pt, minimum width=2.465cm, minimum height=0.965cm] at (7, 5.5){} node[anchor=center, align=center, text width=2.077cm, inner sep=6pt] at (7, 5.5){$\textbf{Read LUT}$};
+	\node[shape=rectangle, draw, line width=1pt, minimum width=1.965cm, minimum height=0.965cm] at (7, 3.5){} node[anchor=center, align=center, text width=1.577cm, inner sep=6pt] at (7, 3.5){$\textbf{Wait}$};
+	\node[shape=rectangle, draw, line width=1pt, minimum width=1.965cm, minimum height=0.965cm] at (11, 5.5){} node[anchor=center, align=center, text width=1.577cm, inner sep=6pt] at (11, 5.5){$\textbf{Default}$};
+	\draw[line width=0.8pt, -latex] (3.5, 7.5) -- (6, 7.5);
+	\draw[line width=0.8pt, -latex] (8.25, 5.5) -- (10, 5.5);
+	\draw[line width=0.8pt, -latex] (12, 5.5) -- (14, 5.5);
+	\draw[line width=0.8pt, -latex] (7, 7) -- (7, 6);
+	\draw[line width=0.8pt, -latex] (7, 5) -- (7, 4);
+	\node[shape=rectangle, draw, line width=1pt, minimum width=1.965cm, minimum height=0.965cm] at (15, 5.5){} node[anchor=center, align=center, text width=1.577cm, inner sep=6pt] at (15, 5.5){$\textbf{LCD}$};
+	\node[shape=rectangle, draw, line width=1pt, minimum width=1.965cm, minimum height=0.965cm] at (15, 3.5){} node[anchor=center, align=center, text width=1.577cm, inner sep=6pt] at (15, 3.5){$\textbf{Display}$};
+	\node[shape=rectangle, draw, line width=1pt, minimum width=1.965cm, minimum height=0.965cm] at (15, 1.5){} node[anchor=center, align=center, text width=1.577cm, inner sep=6pt] at (15, 1.5){$\textbf{Wait}$};
+	\draw[line width=0.8pt, -latex] (15, 5) -- (15, 4);
+	\draw[line width=0.8pt, -latex] (15, 3) -- (15, 2);
+	\node[shape=rectangle, minimum width=1.965cm, minimum height=0.965cm] at (13, 5.75){} node[anchor=center, align=center, text width=1.577cm, inner sep=6pt] at (13, 5.75){$\textbf{Queue}$};
+	\node[shape=rectangle, minimum width=1.715cm, minimum height=0.965cm] at (9.125, 5.75){} node[anchor=center, align=center, text width=1.327cm, inner sep=6pt] at (9.125, 5.75){$\textbf{Queue}$};
+	\node[shape=rectangle, minimum width=1.965cm, minimum height=0.965cm] at (4.75, 7.75){} node[anchor=center, align=center, text width=1.577cm, inner sep=6pt] at (4.75, 7.75){$\textbf{Interrupt}$};
+	\draw[line width=0.8pt, -latex] (5.75, 3.5) -- (4.75, 3.5) -- (4.75, 7.25);
+	\draw[line width=0.8pt, -latex] (13.75, 1.5) -- (13, 1.5) -- (13, 5.25);
+	\draw[line width=0.8pt, -latex] (16, 5.5) -- (18, 5.5);
+	\node[shape=rectangle, minimum width=1.965cm, minimum height=0.965cm] at (17, 5.75){} node[anchor=center, align=center, text width=1.577cm, inner sep=6pt] at (17, 5.75){$\textbf{Queue}$};
+	\node[shape=rectangle, draw, line width=1pt, minimum width=1.965cm, minimum height=0.965cm] at (19, 5.5){} node[anchor=center, align=center, text width=1.577cm, inner sep=6pt] at (19, 5.5){$\textbf{Control}$};
+	\node[shape=rectangle, draw, line width=1pt, minimum width=1.965cm, minimum height=0.965cm] at (19, 1.5){} node[anchor=center, align=center, text width=1.577cm, inner sep=6pt] at (19, 1.5){$\textbf{Wait}$};
+	\draw[line width=0.8pt, -latex] (19, 5) -- (19, 4.5);
+	\draw[line width=0.8pt, -latex] (19, 2.5) -- (19, 2);
+	\draw[line width=0.8pt, -latex] (17.75, 1.5) -- (17, 1.5) -- (17, 5.25);
+	\draw[line width=1pt] (19, 4.5) -- (18, 3.5) -- (19, 2.5) -- (20, 3.5) -- cycle;
+	\node[shape=rectangle, minimum width=1.965cm, minimum height=0.965cm] at (19, 3.5){} node[anchor=center, align=center, text width=1.577cm, inner sep=6pt] at (19, 3.5){$\textbf{Switch}$};
+\end{tikzpicture}
+
+\vspace*{0.5cm}
+
+As said before the control task is just another task with the ability to read from a queue and, after having a value, act accordingly.
+This is concept follows the task - event based programming in which each action is separated from others and and act independently and, using and event driven approach, do not waste energy and resources from other task and operations. 
+
+
+
+
+
+
+
+\subsection{Calculations and measurements}
+
+We can now move on and review if the theoretical calculations match the real case scenario we observed.
+
+\subsubsection*{Theoretical measurements}
+
+The heater consists of a 47 $\Omega$ resistor supplied at $V_{cc} = 3.3$ V. Assuming the transistor is fully saturated ($V_{CE,sat} \approx 0$), the current through the heater is:
+
+\begin{equation*}
+    I_{heater} = \frac{V_{cc}}{R_{heater}} = \frac{3.3}{47} \approx 70.213 \unit{mA}    
+\end{equation*}
+
+The dissipated power is therefore:\\
+
+\begin{equation*}
+    P_{heater} = \frac{V_{cc}^{2}}{R_{heater}} = \frac{3.3^{2}}{47} \approx 231.702 \unit{mW}   
+\end{equation*}
+
+
+\subsubsection*{Experimental Measurements}
+
+The current through the heater was measured using the multimeter in current mode. 
+
+The measured value is:
+
+\begin{equation*}
+    I_{meas} = 61.849 \unit{mA}
+\end{equation*}
+
+The corresponding measured power dissipated by the 47 $\Omega$ heater is:\\
+
+\begin{equation*}
+    P_{meas} = I_{meas}^{2} \cdot R_{heater} = (61.849 \times 10^{-3})^{2} \times 47 \approx 179.789\unit{mW}
+\end{equation*}
+
+
+The difference between the theoretical value 70.2 mA, 231.7 mW and the measured one (61.849 mA, 179.8 mW) is attributed  to the collector emitter saturation voltage $V_{CE,sat}$ of the 2N2222 transistor being different than zero, which reduces the effective voltage across the heater below the ideal 3.3 V.\\
+
+\begin{table}[h!]
+\centering	
+
+\begin{tabular}{cccc}
+\textbf{Object} & \textbf{Calculated} & \textbf{Measure} & \textbf{Unit}\\
+\hline
+Heater current $I$  & 70.2  & 61.849 & mA \\
+\hline
+Heater power $P$  & 231.7 & 179.8 & mW \\
+
+\end{tabular}
+\caption*{Measured value of $I$ and $W$}
+\end{table}
+
+
+\subsection{Conclusion}
+
+The laboratory successfully demonstrated the implementation of a hysteretic temperature control system on the VirtLAB board. The firmware correctly drives the heater on and off around the target temperature, with the $\pm$1 K hysteresis band preventing rapid switching of the GPIO output.
+
+During testing, however, the target temperature had to be lowered from the nominal 50 $^\circ$C to 33 $^\circ$C. The 47 $\Omega$ heater resistor, powered at 3.3 V, was not able to raise the NTC temperature to 50 $^\circ$C under the experimental conditions: since resistor and thermistor were in contact on a breadboard with no insulation, most of the heat generated was dissipating into the surrounding air. Reducing the target temperature to 33 $^\circ$C  brought it inside the achievable range of the setup, and the hysteretic behaviour was successfully observed at this temperature.
+
+On the measurement side, the heater current measured by the multimeter (61.849 mA) was lower than the calculated value (70.2 mA), consistent with the non-zero $V_{CE,{sat}}$ of the transistor reducing the voltage applied across the heater. The corresponding measured power (179.8 mW) was proportionally lower than the calculated 231.7 mW.
+
+
+
+
+
 
 
 \end{document}
