@@ -1,0 +1,446 @@
+\documentclass[../main.tex]{subfiles}
+
+\graphicspath{{\subfix{../images/}}}
+
+
+
+\begin{document}
+
+
+
+\clearpage
+\thispagestyle{empty}
+
+\vspace*{7cm}
+\section{Final Project - \unit{I^2C} Memory}
+\vspace*{1.5cm}
+
+The following section and subsections are representative of a possible solution for the final project given for this course on June 5th 2026.
+The version you find below might differ from what was submitted and it might differ from what is now being asked. 
+
+\vspace*{1.cm}
+\subsection{Introduction}
+
+In this laboratory will cover the ability to comunicate to a memory peripheral via the I$^2$C protocol by implementing the required API functions that will be enabling this specific feature. The correctness of the implemented solution will wi tested and verified via the oscilloscope.
+
+\subsubsection*{Object}
+
+This lab exercise aims to develop the ability to write code that implements read and write operations via the I$^2$C protocol from the VirtLAB board, directed at a specific memory device on the secondary board.
+
+In addition, this lab aims to verify the correctness of these operations by using a digital scope (DSO) to observe and analyze the generated signals, thereby assessing whether the communication was performed correctly.
+
+\subsubsection*{Instruments} 
+
+For the accomplishment of this task the following instruments and hardware components where used:
+
+\begin{enumerate}[label=\textbf{-}]
+	\item Project template
+	\item VirtLAB Mother board
+	\item X-NUCLEO-EEPRMA1 Daughter board
+	\item Rigol DS1054Z DSO
+	\item Mounting equipment (i.e. breadboard, jumper cables, ect.)
+\end{enumerate}
+	
+\subsubsection*{Observations}
+
+To this laboratory we reserved a full conclusion (\autoref{concpf}) section to fully analyze the meaning of the result that have been found by comparing to what we expected to find.
+
+
+\subsubsection*{Problems}
+
+During this laboratory experience, no issues emerged either during the code execution phase or during the previous coding preparation. 
+All results were immediately confirmed, and the expected behavior was successfully observed and analyzed.
+
+
+
+\subsection{Hardware}
+
+We began the laboratory experience by configuring the hardware setup correctly.
+In this specific moment the Daughter board (X-NUCLEO-EEPRMA1) was mounted on the Mother board (VirtLAB) as described in the laboratory papers.
+After correctly connecting all the necessary pins for correct communication, via two jumper cables, the CLK and SDA lines of the I$^2$C interface were probed and connected, respectively, to the CH1 and CH2 on the oscilloscope.\\
+
+Before moving on we noted that the memory we wanted to interface with has the E1 and E2 pins soldered to the PCB and these pins are connected to $V_{cc}$. This element will be fundamental for the addressing of the device pver the I$^2$C protocol.
+
+
+
+\subsection{Firmware}
+
+Regarding the firmware structure a new project was created by basing the basic structure on the template of the previous laboratories.
+Specifically the peripheral I2C3 was enabled on pins PC0 (SCL) and PC1 (SDA), using the graphic editor of .ioc file inside the CUBE IDE.
+During the setup of the peripheral I2C3 all the settings were left as default besides the CLK like frequency that was lowered to 100 kHz as specified in the laboratory papers.\\
+
+After doing this preliminary setup, but before having any interaction with the hardware on lab day, the following API interface functions were implemented:
+
+\begin{enumerate}[label=\textbf{-}]
+	\item \texttt{int memInit( void )}
+	\item \texttt{int memRead( uint16\_t address, uint8\_t *dataPtr )}
+	\item \texttt{int mewWrite( uint16\_t address, uint8\_t data )}
+\end{enumerate}
+
+We can now show how the API functions were implemented and what basic code structure was used to perform the basic tests required by the laboratory guide.\\
+
+All of the function, either used for testing or implementing the required API interfaces have been correctly coded by the requires \texttt{I2Cmem.c}, \texttt{I2Cmem.h}, \texttt{I2CTestCase.c} and \texttt{I2CTestCase.h} files.
+Also the prototypes of the API functions were implemented as described in the laboratory guide.
+
+\subsubsection*{API Interface - \texttt{memInit}}
+
+This first functions serves as a wrapper that calls the HAL initialing function for the interface that we enabled before in the previous configuration.\\
+
+Here is the code of the implementation:\\
+
+\begin{lstlisting}
+int memInit(void) {
+
+	I2CmemStatus = HAL_I2C_Init(&hi2c3); 
+    return (I2CmemStatus == HAL_OK) ? 0 : -1;
+    
+}
+
+\end{lstlisting}
+
+
+\subsubsection*{API Interface - \texttt{memRead}}
+
+In a second instance the API function to read the memory was implemented in the following way.\\
+
+\begin{lstlisting}
+int memRead(uint16_t memAddress, uint8_t *data) {
+
+    I2CmemStatus = HAL_I2C_Mem_Read(&hi2c3, 
+    								DEV_ADDRESS,
+                                 	memAddress,
+                                    I2C_MEMADD_SIZE_16BIT,
+                                 	data,
+                                    1,
+                                    HAL_MAX_DELAY);
+	osDelay(5);
+    return (I2CmemStatus == HAL_OK) ? 0 : -1; 
+}
+\end{lstlisting}
+
+\vspace{0.5cm}
+
+With the API we created we are now able to call the HAL I$^2$C function given to us by the manufacturer (STMicroelectronics) and pass the the correct values to implement a single byte read operation.
+
+In particular we are able to pass to the HAL function the interface, that we previously initialized, on which operate. 
+
+In addition to that we have to specify the device address (U3 interface on the board) and then the memory address from which we want to read. 
+
+Lastly the function needs the data (in this case is a pointer) where to put the data that was just read. In addition to all of these parameters the \texttt{I2C\_MEMADD\_SIZE\_16BIT} and \texttt{HAL\_MAX\_DELAY} parameters represent the size of the internal memory address and the maximum delay that the function waits before returning a timeout error. 
+
+Obviously the parameter 1 was passed since we are implementing a single byte read operation.
+
+The function then return 1 or 0 depending on the result that the HAL function has returned indicating a if the operation was successful or not.
+
+\subsubsection*{API Interface - \texttt{mewWrite}}
+
+After implementing the read API function we implemented the write one in the following way.\\
+
+
+\begin{lstlisting}
+int memWrite(uint16_t memAddress, uint8_t data) {
+
+    I2CmemStatus = HAL_I2C_Mem_Write(&hi2c3, 
+                                     DEV_ADDRESS,
+                                     memAddress,
+                                     I2C_MEMADD_SIZE_16BIT,
+                                     &data,
+                                     1,
+                                     HAL_MAX_DELAY);
+	osDelay(5);
+    return (I2CmemStatus == HAL_OK) ? 0 : -1;
+}		
+\end{lstlisting}
+
+\vspace{0.5cm}
+
+
+With the API we created we are now able to call the HAL I$^2$C function given to us by the manufacturer (STMicroelectronics) and pass the the correct values to implement a single byte write operation.
+
+In particular the values that are passed to the HAL function are simular to the one we have just introduced above. The only difference we have here consist in the data field which is now the data we want to write.
+As before the functions returns 0 or 1 depending of the success of the operation.
+
+\subsubsection*{Test cases - \texttt{IC2mem.c}}
+
+After implementing the API that were required by the laboratory guide we moved on by implementing some simple test cases.
+
+Here is an example of the kind of test that we implemented.
+Reported below is just the first (\texttt{testCase0}) of four different scenario of tests.\\
+
+\begin{lstlisting}
+	int testCase0(void) {
+
+    const uint16_t testAddress1 = 0x0001;
+    const uint16_t testAddress2 = 0x0002;
+
+    const uint8_t testData1 = 0x00;
+    const uint8_t testData2 = 0xFF;
+
+    uint8_t readData1;
+    uint8_t readData2;
+
+    memWrite(testAddress1, testData1);
+    memWrite(testAddress2, testData2);
+
+    memRead(testAddress1, &readData1);
+    memRead(testAddress2, &readData2);
+
+    return readData1 == testData1 && readData2 == testData2 ? 0 : -1;
+}
+\end{lstlisting}
+
+\vspace{0.5cm}
+
+As we can see by the code presented above we define some addresses and some constants that were later written and then read from the memory.
+The test just writes the data reads them back and checks if the read data corresponds to the on that was just written.\\
+
+As said above other tests were implemented but they are just a variation of this one. Moreover they all try to write and then read some data with the exception of variating some parameters like address and data (i.e. write to the first and last address, write a 32-bit data or use an out of range address)
+
+\subsubsection*{Firmware - \texttt{application.c}}
+
+Lastly we implemented the whole firmware structure (Test and API) inside the \texttt{application.c} file where also the \texttt{StartDefaultTask} is to be able to run the test by using the dip-switches on the VirtLAB board.
+
+Specifically this is the proposed implementation that we decided to use when the dip-switch 1 was set to the on position.\\
+
+\begin{lstlisting}	
+else if( getSwitch1() ) { 
+
+	while( getSwitch1() ) {
+
+		memInit();			
+		led0( OFF );
+		led1( OFF );
+		led2( OFF );
+		led3( OFF );
+
+		if ( testCase0() )
+			led0( ON );
+		osDelay( 1000 );
+			
+		if ( testCase1() )
+			led1( ON );
+		osDelay( 1000 );
+	
+		if ( testCase2() )
+			led2( ON );
+		osDelay( 1000 );
+
+		if ( testCase3() )
+			led3( ON );
+		osDelay( 1000 );
+
+	}
+}	
+\end{lstlisting}
+
+\vspace{0.5cm}
+
+In this simple case when the first dip-switch is enabled the board LEDs blink every 500 ms in an alternating patter (code not present) then when the second dip-switch is enabled each of the test cases is run with a 1 second delay from each other.
+In particular if the case that was run return a successful results an LED is turned on.
+
+
+\subsubsection*{Addressing}
+
+Before moving on we want to clarify how the \texttt{DEV\_ADDRESS} parameter was obtained. This value represent the value of the address of the device we want to comunicate with over the I$^2$C protocol. \\
+
+For this specific kind of memory device 2 pins (and not the typical 3) are used for getting an address. For our case pin E1 and E2 define the address that the memory can obtain: since are both connected to $V_{cc}$, logical value 1, the memory as the address 11 (since only 2 E pins are available there could be a maximum of 4, and not 8, devices over this I$^2$C bus).\\
+
+Moving on: we know that the I$^2$C square protocol uses an 8 bit device address to select to which slave communicate to.
+Provided on the device manual is the complete device addressing that can be followed to configure the address in the correct way.\\
+
+
+Here is the table reporting what was present on the data sheets:
+
+\begin{center}
+\begin{tabular}{c c c c c c c c}
+\textbf{b7} & \textbf{b6} & \textbf{b5} & \textbf{b4} & \textbf{b3} & \textbf{b2} & \textbf{b1} & \textbf{b0} \\
+\hline
+
+1 & 0 & 1 & 0 & 1 & 1 & 0 &  0 or 1 \\
+
+\end{tabular}
+\end{center}
+
+The bits from \textbf{b7-b4} are the device identification number and are fixed for every type pd EEPROMs devices.
+Then \textbf{b3} and \textbf{b2} are the chip select and corresponds to the E1 and E2 pins, so they are both set to 1. We note that the slave device on the I$^2$C square bus compares the address the master sends with the one it has set internally by pins like E1 and E2.
+
+Moving on \textbf{b1} corresponds to the 17th addressing bit of the memory (this bit decides if the lower or higher part of the memory is being accessed). Since we are using 16-bit addressing we will set this to 0 and use only the first part of the memory matrix.
+
+Lastly the \textbf{b0} bit is set either to zero or one for read and write operations.\\
+
+As we can see we obtained the desired device address that will be used the I$^2$C protocol. We implemented that inside the firmware ad an hexadecimal value. Before moving on we note that since the read/write bit is part of the device address we will be logically addressing two different devices in read and write operations. Since addressing two different devices could be difficult and confusing the HAL functions helps us by requiring a 7-bit shifted to the left to which the correct HAL function will add the correct value of the read/write bit.\\
+
+In the code we will find this implementation:\\
+
+\begin{lstlisting}
+#define DEV_ADDRESS_7_BIT 0x56 // 7-bit address no RW bit
+#define DEV_ADDRESS (DEV_ADDRESS_7_BIT << 1) // Shift left for RW bit
+\end{lstlisting}
+
+\vspace{0.5cm}
+
+As said before the last bit is not considered inside the device address so the address 1010110 in base two will be converted to hexadecimal (0x56) and then shifted to the left by one (\texttt{0x56 $<<$ 1}).\\
+
+We can also find the value (8-bit) of the two logical address that the data will be read from and written to, these will be come useful later.
+
+\begin{enumerate}[label=\textbf{-}]
+	\item Read address is 10101101$_2$ =  0xAD
+	\item Write address is 10101100$_2$ = 0xAC
+\end{enumerate}
+
+
+\subsubsection*{Flowchart}
+
+Given the full explanation of the code seen above we report now the flow chart of the code.\\
+
+\begin{figure}[h!]
+\begin{center}
+
+\begin{tikzpicture}[transform shape, scale = 0.75]
+	\node[shape=rectangle, draw, line width=1pt, minimum width=2.465cm, minimum height=0.965cm] at (12, 7){} node[anchor=east, align=right, text width=2.077cm, inner sep=6pt] at (13.25, 7){$\textbf{LED OFF}$};
+	\node[shape=rectangle, draw, line width=1pt, minimum width=2.465cm, minimum height=0.965cm] at (12, 5){} node[anchor=center, align=center, text width=2.077cm, inner sep=6pt] at (12, 5){$\textbf{500ms}$};
+	\node[shape=rectangle, draw, line width=1pt, minimum width=1.965cm, minimum height=0.965cm] at (12, 3){} node[anchor=center, align=center, text width=1.577cm, inner sep=6pt] at (12, 3){$\textbf{LED ON}$};
+	\draw[line width=0.8pt, -latex] (12, 6.5) -- (12, 5.5);
+	\draw[line width=0.8pt, -latex] (12, 4.5) -- (12, 3.5);
+	\node[shape=rectangle, draw, line width=1pt, minimum width=2.965cm, minimum height=0.965cm] at (14.5, 12){} node[anchor=center, align=center, text width=2.577cm, inner sep=6pt] at (14.5, 12){$\textbf{DefaultTaks}$};
+	\draw[line width=1pt] (14.5, 10) -- (13.5, 9) -- (14.5, 8) -- (15.5, 9) -- cycle;
+	\node[shape=rectangle, minimum width=1.965cm, minimum height=0.965cm] at (14.5, 9){} node[anchor=center, align=center, text width=1.577cm, inner sep=6pt] at (14.5, 9){$\textbf{Switch}$};
+	\draw[line width=0.8pt, -latex] (14.5, 11.5) -- (14.5, 11);
+	\draw[line width=0.8pt, -latex] (13.5, 9) -| (12, 7.5);
+	\node[shape=rectangle, draw, line width=1pt, minimum width=2.465cm, minimum height=0.965cm] at (17, 7){} node[anchor=center, align=center, text width=2.077cm, inner sep=6pt] at (17, 7){$\textbf{LED OFF}$};
+	\node[shape=circle, draw, line width=1pt, minimum width=0.465cm] at (14.5, 10.75){};
+	\draw[line width=0.8pt, -latex] (14.5, 10.5) -- (14.5, 10);
+	\draw[line width=0.8pt, -latex] (17, 6.5) -- (17, 6);
+	\draw[line width=1pt] (17, 6) -- (16, 5) -- (17, 4) -- (18, 5) -- cycle;
+	\node[shape=rectangle, minimum width=1.965cm, minimum height=0.965cm] at (17, 5){} node[anchor=center, align=center, text width=1.577cm, inner sep=6pt] at (17, 5){$\textbf{Case0}$};
+	\draw[line width=0.8pt, -latex] (16, 5) -| (15, 4);
+	\draw[line width=0.8pt, -latex] (18, 5) -- (19, 5) -- (19, 4);
+	\node[shape=rectangle, draw, line width=1pt, minimum width=2.465cm, minimum height=0.965cm] at (15, 3.5){} node[anchor=center, align=center, text width=2.077cm, inner sep=6pt] at (15, 3.5){$\textbf{LED OFF}$};
+	\node[shape=rectangle, draw, line width=1pt, minimum width=1.965cm, minimum height=0.965cm] at (19, 3.5){} node[anchor=center, align=center, text width=1.577cm, inner sep=6pt] at (19, 3.5){$\textbf{LED ON}$};
+	\draw[line width=0.8pt, -latex] (15, 3) -| (15, 2) -- (16.75, 2);
+	\draw[line width=0.8pt, -latex] (19, 3) -| (19, 2) -- (17.25, 2);
+	\node[shape=circle, draw, line width=1pt, minimum width=0.465cm] at (17, 2){};
+	\draw[line width=0.8pt, -latex] (17, 1.75) -- (17, 1.25);
+	\draw[line width=1pt] (17, 1.25) -- (16, 0.25) -- (17, -0.75) -- (18, 0.25) -- cycle;
+	\node[shape=rectangle, minimum width=1.965cm, minimum height=0.965cm] at (17, 0.25){} node[anchor=center, align=center, text width=1.577cm, inner sep=6pt] at (17, 0.25){$\textbf{Case1}$};
+	\draw[line width=0.8pt, -latex] (16, 0.25) -| (15, -0.75);
+	\draw[line width=0.8pt, -latex] (18, 0.25) -- (19, 0.25) -- (19, -0.75);
+	\node[shape=rectangle, draw, line width=1pt, minimum width=2.465cm, minimum height=0.965cm] at (15, -1.25){} node[anchor=center, align=center, text width=2.077cm, inner sep=6pt] at (15, -1.25){$\textbf{LED OFF}$};
+	\node[shape=rectangle, draw, line width=1pt, minimum width=1.965cm, minimum height=0.965cm] at (19, -1.25){} node[anchor=center, align=center, text width=1.577cm, inner sep=6pt] at (19, -1.25){$\textbf{LED ON}$};
+	\draw[line width=0.8pt, -latex] (15, -1.75) -| (15, -2.75) -- (16.75, -2.75);
+	\draw[line width=0.8pt, -latex] (19, -1.75) -| (19, -2.75) -- (17.25, -2.75);
+	\node[shape=circle, draw, line width=1pt, minimum width=0.465cm] at (17, -2.75){};
+	\draw[line width=1pt] (25, 6) -- (24, 5) -- (25, 4) -- (26, 5) -- cycle;
+	\node[shape=rectangle, minimum width=1.965cm, minimum height=0.965cm] at (25, 5){} node[anchor=center, align=center, text width=1.577cm, inner sep=6pt] at (25, 5){$\textbf{Case2}$};
+	\draw[line width=0.8pt, -latex] (24, 5) -| (23, 4);
+	\draw[line width=0.8pt, -latex] (26, 5) -- (27, 5) -- (27, 4);
+	\node[shape=rectangle, draw, line width=1pt, minimum width=2.465cm, minimum height=0.965cm] at (23, 3.5){} node[anchor=center, align=center, text width=2.077cm, inner sep=6pt] at (23, 3.5){$\textbf{LED OFF}$};
+	\node[shape=rectangle, draw, line width=1pt, minimum width=1.965cm, minimum height=0.965cm] at (27, 3.5){} node[anchor=center, align=center, text width=1.577cm, inner sep=6pt] at (27, 3.5){$\textbf{LED ON}$};
+	\draw[line width=0.8pt, -latex] (23, 3) -| (23, 2) -- (24.75, 2);
+	\draw[line width=0.8pt, -latex] (27, 3) -| (27, 2) -- (25.25, 2);
+	\node[shape=circle, draw, line width=1pt, minimum width=0.465cm] at (25, 2){};
+	\draw[line width=0.8pt, -latex] (25, 1.75) -- (25, 1.25);
+	\draw[line width=1pt] (25, 1.25) -- (24, 0.25) -- (25, -0.75) -- (26, 0.25) -- cycle;
+	\node[shape=rectangle, minimum width=1.965cm, minimum height=0.965cm] at (25, 0.25){} node[anchor=center, align=center, text width=1.577cm, inner sep=6pt] at (25, 0.25){$\textbf{Case3}$};
+	\draw[line width=0.8pt, -latex] (24, 0.25) -| (23, -0.75);
+	\draw[line width=0.8pt, -latex] (26, 0.25) -- (27, 0.25) -- (27, -0.75);
+	\node[shape=rectangle, draw, line width=1pt, minimum width=2.465cm, minimum height=0.965cm] at (23, -1.25){} node[anchor=center, align=center, text width=2.077cm, inner sep=6pt] at (23, -1.25){$\textbf{LED OFF}$};
+	\node[shape=rectangle, draw, line width=1pt, minimum width=1.965cm, minimum height=0.965cm] at (27, -1.25){} node[anchor=center, align=center, text width=1.577cm, inner sep=6pt] at (27, -1.25){$\textbf{LED ON}$};
+	\draw[line width=0.8pt, -latex] (23, -1.75) -| (23, -2.75) -- (24.75, -2.75);
+	\draw[line width=0.8pt, -latex] (27, -1.75) -| (27, -2.75) -- (25.25, -2.75);
+	\node[shape=circle, draw, line width=1pt, minimum width=0.465cm] at (25, -2.75){};
+	\draw[line width=0.8pt, -latex] (17, -3) -| (17, -3.5) -- (21, -3.5) -| (21, 7) -- (25, 7) -- (25, 6);
+	\draw[line width=0.8pt, -latex] (25, -3) -| (25, -3.5) -- (29, -3.5) |- (14.75, 10.75);
+	\draw[line width=0.8pt, -latex] (15.5, 9) -- (17, 9) -| (17, 7.5);
+	\draw[line width=0.8pt, -latex] (12, 2.5) -| (12, 2) -- (10, 2) -- (10, 10.75) -- (14.25, 10.75);
+\end{tikzpicture}	
+
+\end{center}
+\caption{Flowchart of the operations implemented by the code}	
+\end{figure}
+
+
+\subsection{I$^2$C Transaction}
+
+After having completed the setup of the hardware and software part we connected flashed the VirtLAB board with the firmware we created and checked via the DSO the correct execution of the code we implemented.\\
+
+For this section we will report only the first test case in which the following operations are done:
+
+\begin{enumerate}[label=\textbf{-}]
+	\item Write 0x00 inside the 0x0001 address
+	\item Write 0xFF inside the 0x0002 address
+	\item Read the value of the 0x0001 address
+	\item Read the value of the 0x0002 address
+\end{enumerate}
+
+
+After probing the correct pins on the board we were able to view the following signal on the oscilloscope screen. To better analyze the waveforms that we were shown on the DSO scope we enabled the I$^2$C to hexadecimal decoding to be able to immediately see the data that were sent over the protocol.\\
+
+Here are the data transfer of the writing operations described before. The CLK is visible on CH2 (bottom blue) and the SDA line is visible on CH1 (top yellow). All of the specification and validation of the protocol will be covered in the \autoref{concpf}.\\
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=.5\textwidth]{images/LAB/PF/1.png}
+\caption{Write 0x00 inside the 0x0001 address}	
+\end{figure}
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=.5\textwidth]{images/LAB/PF/2.png}
+\caption{Write 0xFF inside the 0x0002 address}	
+\end{figure}
+
+\newpage
+Here are the data transfer of the writing operations described before. The CLK is visible on CH2 (bottom blue) and the SDA line is visible on CH1 (top yellow). All of the specification and validation of the protocol will be covered in the \autoref{concpf}.
+
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=.5\textwidth]{images/LAB/PF/3.png}
+\caption{Read the value of the 0x0001 address}	
+\end{figure}
+
+
+\begin{figure}[h!]
+\centering
+\includegraphics[width=.5\textwidth]{images/LAB/PF/4.png}
+\caption{Read the value of the 0x0002 address}	
+\end{figure}
+
+
+\subsection{Conclusions}
+\label{concpf}
+
+
+At this point we can come to conclusions part to explain the results obtained and if they differ from what we expected.\\
+
+First of all we want to bring some observations that we have done during the course of the experience.\\
+
+The first observation we want to bring up is the fact that by implementing the API prototypes given in the laboratory guide wi will never be able to address all of the memory since the 17th bit will never be used since it is part of the device address. In the case that the user would like to use 17-bit addressing with the given API it will be necessary to add some login to decide which device (at least on a logical way) will be addressed.\\
+
+As a second observation since we are using the HAL functions given by the manufacturer they implement the safest possible mechanism to write and read data. This implementations causes that on every function call the MCU generate a START and STOP condition on the I$^2$C bus that forces the memory to execute an internal write on the memory matrix. This operation takes at most 5 ms and causes the memory to not respond to any SDA variation. This is the reason that forced use to implement a 5 ms delay after every function call to avoid accessing the memory when it will not be available. \\
+
+We note that the HAL functions implements some kind of mechanism (given by the memory) to speed up writing operation when sending multiple byte that are on the same memory page. Due to the HAL function being so safe we were not able to test sone limit cases such as writing on different memory pages to see what happened at the protocol layer.\\
+
+For the sake of completeness and out of curiosity we also tried to pool for the HAL\_OK status to be able to perform two sequential read via two different function call. This approach was later abandoned during the lab sessione to avoid any confusion created on the SDA line and since we did not care about the performance the 5 ms second delay was the way it was decides to proceed.\\
+
+Coming now to the actual conclusion. We were able to implement a correct firmware that respected the API prototypes given inside the laboratory guide and some basic test cases to interface with the EEPROM memory via the I$^2$C protocol.\\
+
+In a second phase we were also able to confirm via the DSO the predicted behavior of the SDA and CKL (100 kHz) lines.
+As shown in the pictures given by the DSO we were able to write to the correct memory address the correct data and then read it by generating the correct START and STOP condition and by addressing the device and the memory accordingly.\\
+
+In the end we noticed that the last two pictures, even if they represent reading operation, seem to be writing and then reading. This behavior is correct and its needed to preload the desired address inside the EEPROM memory (done via a dummy reading) and then generating a START condition followed this time by the actual reading operation (reading addressing) and the data being sent to the master of the bus (MCU).
+
+Figured out this little problem we found out that all the reading and writing decoded by the DSO engine were correct and shown the device addresses we were expecting (\texttt{W:AC} and \texttt{R:AD}).\\
+
+There are also some spike visible in the graph, these are due to the master releasing the line and checking where as the slave (EEPROM memory) takes it down to confirm the previously sent 8 bit of data. This operation might not be as smooth and sometimes the master releases the SDA line before the slave has pulled it to a low value thus creating those brief voltage spikes. 
+
+
+
+
+
+
+
+
+
+\end{document}
