@@ -10,23 +10,996 @@
 \section{Questions}
 \vspace*{1.5cm}
 
-In this sections we will display some question, with the relative answers, divided by topics to help students rehearse the lecture material and have a better grasp on all of the topics.
+In this sections we will display some question and exercises, with the relative answers and solutions, divided by topics to help students rehearse the lecture material and have a better grasp on all of the topics. Some of the following questions have been taken from past exam sessions while others have been carefully chosen to optimize rehearsal of different topics.
 
-\subsection{Electronic Measurements - Questions}
-\subsection{Electronic Measurements - Answers}
+For readability purposes the theory and lesson question are separate from the one regarding the corresponding laboratory experience.
 
+\vspace*{1.5cm}
+\subsection{Electronic measurements - Questions}
+
+\begin{enumerate}[label=\textbf{\arabic*.}]
+
+	\item What is the purpose of a digital storage oscilloscope (DSO)?
+	\item What is the difference between an analog oscilloscope and a DSO?
+	\item Why do calibration labs exist in a hierarchical structure?
+	\item Why is uncertainty never reducible to zero in real measurements?
+	\item Why is sampling important in a digital oscilloscope?
+	\item What is sampling frequency and how is it defined?
+	\item What is sampling period and how is it related to sampling frequency?
+	\item What is the Nyquist theorem and why is it important in measurements?
+	\item What happens if a signal is sampled below the Nyquist rate?
+	\item What is the fundamental goal of performing a measurement in engineering?
+	\item Why is defining the \textit{"target"} the first step in any measurement process?
+	\item What happens if the measurement goal is not clearly defined?
+	\item What is aliasing in digital signal acquisition?
+	\item Why does aliasing distort waveform measurements?
+	\item What is the role of the oscilloscope timebase?
+	\item How does changing time/div affect waveform observation?
+	\item What is vertical sensitivity (V/div) in an oscilloscope?
+	\item What is the purpose of triggering in a DSO?
+	\item What is a \textit{"standard of measurement"} in practice?
+	\item Why do we say measurement is a comparison with a reference?
+	\item What is traceability in measurement systems?
+	\item Why do primary standards have (almost) zero uncertainty?
+	\item What are the differences between \texttt{AUTO}, \texttt{NORMAL}, and \texttt{SINGLE} trigger modes?
+	\item Why is a stable trigger important for waveform analysis?
+	\item What is probe compensation in an oscilloscope?
+	\item Why must oscilloscope probes be calibrated before use?
+	\item What causes overshoot and undershoot in square wave measurements?
+	\item How can probe compensation correct waveform distortion?
+	\item Why should oscilloscope probes be used instead of standard wires?
+	\item What is the bandwidth of an oscilloscope?
+	\item What is meant by \textit{"you cannot decide yes/no without uncertainty"}?
+	\item Why is \textit{"beauty"} not a measurable quantity in engineering terms?
+	\item What conditions are required for a quantity to be measurable?
+	\item How does bandwidth affect measured signals?
+	\item What is the rise time of a signal?
+	\item What does it mean to \textit{"define what we measure"} in a physical system?
+	\item Why is it necessary to define a standard before performing measurements?
+	\item How is rise time related to bandwidth?
+	\item What is fall time and how is it measured?
+	\item Why are 10\% and 90\% reference levels used for timing measurements?
+	\item What is duty cycle in a periodic digital signal?
+	\item How is duty cycle measured on an oscilloscope?
+	\item What is peak-to-peak voltage?
+	\item What is RMS voltage and why is it important?
+	\item How is RMS voltage calculated for a sinusoidal signal?
+	\item Why does a triangular waveform have a different RMS formula than a sine wave?
+	\item What is a measurement unit and why is it essential for comparison?
+	\item Why can different operators obtain different results for the same quantity?
+	\item What is DC offset in a waveform?
+	\item How can an oscilloscope measure average voltage?
+	\item What is the effect of enabling multiple channels on sampling behavior?
+	\item What is multiplexing in multi-channel oscilloscopes?
+	\item Why can sampling performance change when CH1-CH4 are enabled?
+	\item What is dot mode display and why is it used?
+	\item What is persistence mode in waveform display?
+	\item Why is minimizing persistence useful for calibration and sampling analysis?
+	\item What is measurement uncertainty and why is it unavoidable?
+	\item Why is a numerical value without uncertainty incomplete?
+	\item How does uncertainty affect decision-making in engineering systems?
+\end{enumerate}
+
+	
+
+
+
+
+
+
+
+\subsection{Electronic measurements - Answers}
+
+\begin{enumerate}[label=\textbf{\arabic*.}]
+
+	\item A Digital Storage Oscilloscope (DSO) is an electronic instrument used to observe, measure, and analyze electrical signals that change over time. 
+	
+	Its main purpose is to take an incoming electrical signal (like voltage) and display it as a waveform on a screen, showing how the signal varies with time. Unlike older analog oscilloscopes, a DSO converts the signal into digital data using an analog-to-digital converter (ADC), then stores it in memory. This allows the waveform to be frozen, saved, and analyzed later.
+	
+	Key functions include measuring signal properties such as voltage, frequency, period, rise time, and distortion. Because the data is stored digitally, DSOs can also perform advanced processing like zooming in on specific parts of a signal, comparing multiple waveforms, and capturing rare or one-time events (glitches).
+	
+	DSOs are widely used in electronics design, troubleshooting, and maintenance for example in testing circuits, debugging microcontrollers, analyzing audio or communication signals, and verifying sensor outputs.
+
+	\item An analog oscilloscope displays the input signal directly as a continuous waveform on a screen using electron beam deflection. It shows signals in real time but cannot store them or easily analyze past events. On the other side a Digital Storage Oscilloscope (DSO) converts the signal into digital data using an ADC, then stores it in memory. This allows it to freeze, save, zoom, and perform detailed analysis on waveforms, including capturing single or rare events.
+	
+	\item Calibration labs are organized in a hierarchical structure to ensure traceability and accuracy of measurements.
+
+	At the top are national or primary standards labs, which maintain the most accurate reference standards. Below them are secondary and accredited labs, which calibrate their equipment against higher level standards. At the lowest level are industrial or working labs, which use calibrated instruments for everyday measurements.
+	
+	This hierarchy ensures that every measurement can be traced back to a recognized national or international standard, minimizing errors and maintaining consistency across different labs, industries, and countries.
+
+	\item Uncertainty can never be reduced to zero because every real measurement has limitations and unavoidable imperfections.
+
+	Instruments have finite resolution, meaning they can only measure in discrete steps, not exact values. There are also environmental influences like temperature, vibration, or electrical noise that affect readings. On top of that, no sensor or calibration standard is perfectly accurate, and even the act of measuring can slightly disturb the system.
+
+	In addition to all of this, human factors and statistical variation in repeated measurements add further small variations.
+
+	\item Sampling is important in a digital oscilloscope because it is how a continuous analog signal is converted into digital form.
+	
+	The oscilloscope takes discrete measurements (samples) of the signal at regular time intervals using an analog-to-digital converter. These samples are then used to reconstruct and display the waveform.
+
+	If the sampling rate is too low, important details of the signal can be missed or misrepresented (aliasing). If it is high enough, the DSO can accurately capture fast changes, short pulses, and complex wave shapes.
+
+	\item Sampling frequency is the number of samples (measurements) taken per second when converting a continuous signal into a digital signal in a digital oscilloscope. It is defined as:
+	\begin{equation}
+		f_s = \frac{1}{T_s}
+	\end{equation}	
+	where $f_s$ is sampling frequency (Hz) and $T_s$ is the time interval between two consecutive samples (sampling period). A higher sampling frequency means more data points per second, which gives a more accurate representation of the original signal and helps avoid distortion like aliasing.
+	
+	\item Sampling period ($T_s$) is the time interval between two consecutive samples taken by a digital oscilloscope. It tells you how often the signal is being measured in time. It is related to sampling frequency by a simple inverse relationship as seen bofore:
+	\begin{equation}
+		f_s = \frac{1}{T_s}
+	\end{equation}
+	
+	
+	\item The Nyquist theorem (or Nyquist sampling theorem) states that to accurately reconstruct a continuous signal from sampled data, the sampling frequency must be at least twice the highest frequency component of the signal. In formula form we get that:
+	\begin{equation}
+		f_s \geq 2 \cdot f_{max}
+	\end{equation}
+	
+	where $f_s$ is the sampling frequency and $f_{max}$ highest frequency component present in the signal. It prevents aliasing, which is when high-frequency signals are incorrectly displayed as lower-frequency signals due to insufficient sampling.
+
+	
+
+	\item If a signal is sampled below the Nyquist rate, it causes aliasing. High-frequency parts of the signal are misinterpreted as lower frequencies, the waveform becomes distorted and misleading and the reconstructed signal no longer matches the original.
+	
+	
+	\item The fundamental goal of performing a measurement in engineering is to obtain a reliable, quantitative value of a physical quantity so it can be used for analysis, design, control, and verification. In practice, this means: checking whether a system or component meets specifications, enabling comparison between designs or conditions and lastly being able to tell if some measurements and provided values are compatible with each others.  
+	
+	
+	\item Defining the target is the first step in any measurement because you must be clear about exactly what quantity you want to measure before doing anything else. Without this, it’s easy to measure the wrong thing or use the wrong method.
+
+	Once the target is defined, you can choose the right instrument, set the required accuracy, and correctly interpret the result. It ensures the measurement is relevant and useful for the engineering problem.
+
+	\item If the measurement goal is not clearly defined, the result is often confusion and unreliable data. You may end up measuring the wrong quantity, using an unsuitable method or instrument, or collecting data that cannot be properly interpreted.
+
+	This leads to results that are inconsistent, not meaningful for the problem, and potentially useless for decision-making or engineering design.
+	
+	Also if the goal is not defined you might measure something that you actually need with less precision that needed or spend too much time setting up and measuring very precisely something that does not require that level of precision.
+
+	\item Aliasing is an error that occurs in digital signal acquisition when a signal is sampled at a rate that is too low to properly capture its true variation.
+
+	When this happens, high-frequency components of the signal are \textit{"misread"} as lower-frequency signals, causing the reconstructed waveform to appear distorted or even completely different from the original.
+
+	In practice (e.g., in a digital oscilloscope), aliasing makes a fast-changing signal look slower or incorrectly shaped because the sampling rate violates the Nyquist condition.
+	
+	\item Aliasing distorts waveform measurements because when a signal is sampled too slowly, the sampling system cannot capture the true rapid changes in the waveform. Instead, those fast variations get “folded” into lower frequencies during reconstruction.
+
+	As a result, the oscilloscope or digital system interprets the signal as having a different frequency and shape than it actually does. This leads to a reconstructed waveform that may look slower, shifted, or completely different from the original signal, even though the real signal hasn’t changed.
+
+	\item The oscilloscope timebase controls the horizontal scaling of the display, meaning it determines how much time is represented per division on the screen.
+
+	By adjusting the timebase, you set how \textit{"fast"} or \textit{"slow"} the waveform appears horizontally. 
+	A faster timebase lets you zoom in on rapid signal changes, while a slower timebase lets you view longer time intervals.
+
+In short, the timebase defines the time window of the signal being displayed, allowing accurate observation of signal timing and behavior.
+
+	
+	
+	\item Changing the time/div setting on an oscilloscope changes how much time is shown across each horizontal division of the screen. If you set a smaller time/div (faster timebase), you zoom in on the signal in time. This lets you see fine details like sharp edges or fast transitions, but only over a short time window.
+
+	If you set a larger time/div (slower timebase), you zoom out and can observe longer periods of the signal, but fine details may become harder to see.
+
+	So, time/div directly affects whether you see a detailed close-up of the waveform or a broader overview of its behavior over time.
+
+	\item Vertical sensitivity (V/div) on an oscilloscope is the setting that defines how much voltage each vertical division on the screen represents. It controls the vertical scaling of the waveform, determining how tall or compressed the signal appears.
+
+	A lower V/div setting makes the oscilloscope more sensitive, so small voltage changes appear larger and easier to observe. A higher V/div setting reduces sensitivity, allowing larger signals to fit on the screen but making small details less visible.
+
+	\item Triggering in a DSO is used to stabilize the display of a repeating waveform by making sure each sweep of the oscilloscope starts at the same point in the signal.
+
+	Without triggering, the waveform would appear to move or drift across the screen, making it hard to analyze. By setting a trigger condition (such as a specific voltage level or edge), the oscilloscope captures the signal consistently at the same reference point each time.
+	
+	\item A standard of measurement in practice is a well-defined reference value or physical artifact used to define and reproduce a unit of measurement consistently.
+
+	In simple terms, it is the \textit{"benchmark"} that all other measurements are compared against. For example, a standard meter or calibrated voltage reference ensures that measurements made in different labs, places, or times are consistent and traceable.
+
+
+	\item We say measurement is a comparison with a reference because every measurement is ultimately made by relating an unknown quantity to a known standard value.
+
+	In practice, you are not directly \textit{"seeing"} a quantity like length, voltage, or time, you are comparing it against a calibrated reference unit (such as a meter, volt, or second) and expressing how many times it contains that unit or how it differs from it. This is what gives measurements meaning and consistency across different instruments and locations.
+
+	So, measurement is essentially a structured comparison that turns a physical quantity into a meaningful number by referencing a standard.
+
+	
+	\item Traceability in measurement systems means being able to link a measurement result back to a recognized standard through an unbroken chain of comparisons and calibrations.
+
+	In practice, this means any measurement you take can be traced step-by-step back to a national or international reference standard (like those maintained by a national metrology institute). Each instrument in the chain is calibrated against a more accurate one, ensuring consistency.
+
+	This is important because it guarantees that measurements are reliable, comparable, and globally accepted, no matter where or when they are made.
+
+	
+	\item Primary standards are defined to be the highest-level reference in a measurement system, so their uncertainty is made extremely small often described as \textit{"almost zero"} because they are realized under the best possible conditions using the most precise methods available.
+ 
+ 	In practice, they still have a tiny uncertainty due to unavoidable physical limits (like quantum effects, environmental influences, and instrument imperfections), but this is minimized by careful design, control, and repeated verification.	
+	
+	\item In a DSO, trigger modes control how the oscilloscope starts capturing and displaying a waveform.
+	\texttt{AUTO} mode continuously updates the display even if no valid trigger event is found. This is useful for quickly seeing whether a signal is present, but the waveform may appear unstable if the trigger conditions are not well set.
+
+	\texttt{NORMAL} mode only triggers and updates the display when the signal meets the trigger condition. If no trigger occurs, the screen stays frozen, which is useful for observing stable or specific events.
+
+	\texttt{SINGLE} modecaptures the waveform once when a trigger event occurs, then stops. It is used to capture one-time or rare events, such as glitches or pulses, for detailed analysis.
+
+	\item A stable trigger is important because it ensures the oscilloscope displays the waveform in a consistent and repeatable position on the screen. Without a stable trigger, each sweep would start at a different point in the signal, causing the waveform to drift or appear unstable.
+
+	This stability is essential for accurate waveform analysis because it allows you to clearly observe signal shape, timing, and amplitude. It also makes it possible to reliably measure features like period, frequency, and rise time without the display constantly shifting.
+
+	\item Probe compensation is the process of adjusting an oscilloscope probe so that it accurately matches the input characteristics of the oscilloscope.
+
+	In practice, a probe has small internal capacitances and resistances that can distort fast signals, especially square waves (infinite frequency component). To correct this, the probe is connected to a built-in calibration (square wave) signal on the oscilloscope, and a small adjustment capacitor on the probe is tuned until the displayed waveform looks correct (a clean, flat square wave with no rounding or overshoot).
+
+	Proper probe compensation ensures accurate amplitude and timing measurements, especially for fast-changing signals.
+
+	\item Oscilloscope probes must be calibrated (or compensated) before use to ensure they accurately transfer the signal from the circuit to the oscilloscope without distortion.
+
+	Because probes contain small internal resistance and capacitance, they can unintentionally alter fast-changing signals. If they are not properly adjusted to match the oscilloscope input, the displayed waveform can show errors such as overshoot, rounding, or incorrect amplitude.
+	
+	\item Overshoot and undershoot in square wave measurements are mainly caused by non-ideal behavior of the measurement system, especially when the signal changes very quickly.
+
+	They occur because the oscilloscope, probe, or circuit cannot respond instantly to sharp transitions. The system has parasitic capacitance and inductance, which causes temporary energy storage and ringing when the square wave edge occurs. This leads to the signal briefly going above the final steady value (overshoot) or below it (undershoot) before settling.
+
+	The two behaviors are shown on the scope via a square wave that is no longer well defined but presents some spikes on the square wave transitions.
+
+	\item Probe compensation corrects waveform distortion by matching the probe’s electrical characteristics to the oscilloscope input.
+
+	A real probe has resistance and capacitance that can act like a filter, which distorts fast signals (especially square waves) by rounding edges or creating overshoot/undershoot. During compensation, the probe is adjusted using a known reference signal (usually a square wave from the oscilloscope).
+
+	A small adjustable capacitor inside the probe is tuned so that the probe’s RC response matches the oscilloscope’s input RC network. When properly adjusted, the probe no longer \textit{"slows down"} or distorts the signal, so the displayed waveform accurately reflects the true input signal.
+
+	
+	\item Oscilloscope probes should be used instead of standard wires because they are designed to minimize signal distortion and loading effects.
+
+	A probe has controlled resistance and capacitance, so it draws very little current from the circuit and preserves the true shape of fast signals. Standard wires, on the other hand, add significant parasitic capacitance and inductance, which can distort waveforms—especially high-frequency or fast-edge signals like square waves.
+
+	Lastly probes have a proper design (hooks and pins) to be able to probe certain specific points on a circuit.
+	
+	
+	\item The bandwidth of an oscilloscope is the range of signal frequencies it can accurately measure and display without significant distortion.
+
+	It is defined as the frequency at which the displayed signal amplitude drops to about 70.7\% (-3 dB point) of the true input value.
+
+	In practice, bandwidth determines how fast a signal the oscilloscope can handle—if a signal contains frequency components higher than the scope’s bandwidth, those details will be attenuated or lost, leading to inaccurate waveform representation.
+
+
+	\item It means that in real measurements you can’t make a completely absolute decision (like \textit{"the value is correct"} or \textit{"it passes/fails"}) without considering the uncertainty of the measurement.
+
+	Every measurement has some error range, so the true value is not a single point but an interval. Because of this, a result close to a limit might still fall inside or outside the acceptable range depending on its uncertainty.
+
+	So instead of a strict yes/no based only on the measured value, you must consider whether the value plus or minus its uncertainty overlaps the decision threshold.
+
+	
+	
+	\item Beauty  is not a measurable quantity in engineering terms because it is subjective and lacks a clearly defined, universal standard unit.
+
+	Unlike physical quantities such as length or voltage, beauty depends on personal perception, cultural background, and context, which vary from person to person. Since there is no consistent reference standard or repeatable measurement method that produces the same result for everyone, it cannot be quantified in an objective, scientific way.
+
+	
+	\item For a quantity to be measurable in engineering, it must satisfy a few key conditions.
+
+	First, it must be clearly defined, meaning everyone agrees on exactly what is being measured. 
+	
+	Second, there must be a standard unit or reference so results can be expressed consistently. 
+	
+	Third, it must be observable or detectable through an instrument or method that can produce repeatable results. 
+	
+	Finally, the measurement should be reproducible, meaning different people using the same method under similar conditions should get the same result within a known uncertainty.
+
+	Without these conditions, the quantity cannot be reliably measured in a scientific or engineering sense.
+
+	
+	\item Bandwidth affects measured signals because it determines how much of the signal’s frequency content the oscilloscope can accurately capture.
+	
+	If the signal contains frequency components close to or higher than the oscilloscope’s bandwidth, those components are attenuated, so the waveform appears distorted—often with reduced amplitude and slower edges. This is especially noticeable in fast signals like square waves, where sharp transitions may look rounded.
+
+	A higher bandwidth allows the oscilloscope to preserve more detail of fast-changing signals, while a lower bandwidth acts like a filter that smooths out rapid variations and reduces measurement accuracy.
+
+	
+	\item The rise time of a signal is the time it takes for a signal to change from a low level to a high level, typically measured from 10\% to 90\% of its final value.
+
+	It describes how quickly a signal can transition, and it is especially important in fast digital and pulse signals.
+
+	A shorter rise time means a faster, sharper signal, while a longer rise time means the signal changes more slowly and appears more rounded.
+
+	
+	
+	\item To \textit{"define what we measure"} in a physical system means to clearly specify exactly which physical quantity is being observed, how it is defined, and under what conditions it is measured.
+
+	In practice, many physical quantities can be interpreted in different ways (for example, peak value vs RMS value, instantaneous vs average). So defining what we measure ensures everyone is referring to the same thing, using the same rules and reference conditions.
+
+	This step is essential because without a precise definition, the measurement could be ambiguous, inconsistent, or not comparable across different instruments or experiments.
+
+	\item It is necessary to define a standard before performing measurements because a measurement only has meaning if it is compared to a fixed, agreed reference.
+
+	A standard ensures that everyone measures in the same way and uses the same unit, so results are consistent, comparable, and reproducible. Without a standard, the same physical quantity could be reported differently depending on the instrument, method, or location, making the data unreliable and useless for engineering or scientific work.
+
+
+	\item Rise time and bandwidth are directly related because both describe how fast a system can respond to changes in a signal.
+
+	A higher bandwidth means the oscilloscope can handle faster-changing signals, which results in a shorter (faster) rise time. 
+	Conversely, a lower bandwidth limits high-frequency content, making the measured rise time appear slower.
+
+	For most oscilloscopes, the relationship is approximately:
+	
+	\begin{equation}
+		\unit{Rise\;time} \approx 0.35 / \unit{Bandwidth}
+	\end{equation}
+
+	So, higher bandwidth get you a faster rise time that produces a more accurate capture of sharp signal edges.
+
+	
+	
+	\item Fall time is the time a signal takes to transition from a high level to a low level, typically measured from 90\% down to 10\% of its final value.
+
+	It describes how quickly a signal drops, and it is the opposite of rise time.
+
+	
+	\item The 10\% and 90\% reference levels are used because they avoid the unstable and distorted parts of a signal transition.
+
+	Near 0\% and 100\%, signals are often affected by noise, overshoot, undershoot, and nonlinear behavior, which can make timing measurements inconsistent. By using 10\% and 90\%, engineers focus on the most linear and repeatable portion of the transition, where the signal is changing steadily.
+
+	
+	\item The duty cycle of a periodic digital signal is the percentage of one full cycle in which the signal is in the logical high state.
+
+	It is defined as: 
+	
+	\begin{equation}
+		\unit{Duty\;cycle} = \frac{t_{H}}{T_{P}} \cdot 100\%
+	\end{equation}
+
+	A 50\% duty cycle means the signal is high for half of each cycle, while a higher duty cycle means it stays high for longer compared to the low state. Duty cycle is important because it determines how power or information is delivered in switching and pulse-based systems.
+
+	
+	\item Duty cycle is measured on an oscilloscope by first displaying a stable periodic waveform using proper triggering, then measuring the time the signal stays in the high state and comparing it to the total period.
+
+	Practically, you measure: $T_{H}$ that is the time the signal is above a chosen threshold (usually 50\% of amplitude). The you measure $T_P$ that is the time for one full cycle.
+
+	Then the via the oscilloscope (or manual calculation) gives:
+	
+	\begin{equation}
+		\unit{Duty\;cycle} = \frac{t_{H}}{T_{P}} \cdot 100\%
+	\end{equation}
+	
+	
+	\item Peak-to-peak voltage ($V_{pp}$) is the total voltage difference between the maximum positive peak and the maximum negative peak of a signal.
+	In other words, it measures the full vertical swing of a waveform.
+	So:
+	
+	\begin{equation}
+		V_{pp} = V_{max} - V_{min}
+	\end{equation}
+
+	It is commonly used in oscilloscopes because it gives a clear idea of the overall amplitude of an AC or varying signal, especially when it swings above and below zero.
+	
+	\item RMS voltage (Root Mean Square voltage) is the effective value of an AC voltage that represents the same power delivery as a DC voltage.
+
+	In simple terms, it tells you how much useful energy a varying signal can deliver to a load, even though the voltage is constantly changing.
+
+	Mathematically, it is the square root of the average of the squared instantaneous voltage over one cycle.
+
+	RMS voltage is important because it gives a realistic measure of power in AC signals, allowing meaningful comparison with DC systems. For example, mains electricity (like 230 V in Europe) is always specified in RMS because it represents the equivalent heating or power effect.
+
+	\item For a sinusoidal signal, the RMS voltage is calculated using a standard simplified result from the general RMS definition.
+
+	For a sine wave:
+	
+	\begin{equation}
+		V_{RMS} = \frac{V_{peak}}{\sqrt{2}}
+	\end{equation}
+
+
+	or equivalently:
+	
+	\begin{equation}
+		V_{RMS} \approx 0.707 \cdot V_{peak}
+	\end{equation}
+
+	This works because a sinusoidal signal is symmetrical and smooth, so when you apply the RMS definition (squaring the signal, averaging over one full cycle, then taking the square root), it simplifies neatly to this constant factor.
+
+	We remember that the RMS value represents the effective DC equivalent power. In this case for a sine wave, the RMS is always about 70.7\% of its peak value. This is why, for example, a mains supply labeled 230 V (RMS) actually has a peak voltage of about 325 V.
+
+	
+	\item A triangular waveform has a different RMS formula than a sine wave because its shape is different, meaning the voltage changes over time in a different way.
+
+	RMS depends on how the signal is distributed over one cycle (you square the signal, average it, then take the square root). Since a sine wave changes smoothly and non-linearly, while a triangular wave changes linearly (constant slope up and down), the mathematical averaging gives a different result. In example we compare the square wave RMS voltage to a triangular one:
+	
+	\begin{equation}
+		V_{RMS} = \frac{V_{peak}}{\sqrt{2}}
+	\end{equation}
+	
+	\begin{equation}
+		 V_{RMS} = \frac{V_{peak}}{\sqrt{3}} )
+	\end{equation}
+
+	So the key reason is that RMS is shape-dependent, and different waveforms store and distribute energy differently over time, which changes the final effective value.
+
+	 
+	\item A measurement unit is a defined standard quantity used to express and compare physical measurements, such as meters for length, seconds for time, or volts for voltage.
+
+	It is essential for comparison because a number alone has no meaning without a reference. Saying \textit{"5"} means nothing unless we know whether it is 5 meters, 5 seconds, or 5 volts. Units allow different measurements to be standardized, communicated, and compared consistently across different people, instruments, and locations.
+
+
+	\item Different operators can obtain different results for the same quantity because real measurements are never perfectly ideal and depend on human, instrument, and environmental factors.
+
+	Operators may use instruments slightly differently (reading resolution, alignment, trigger settings, or probe placement), and they may also interpret measurement points differently (for example, where exactly a waveform crosses 10\% or 90\%). Small variations in technique, timing, or judgment can lead to different readings.
+
+	In addition, measurement systems always have uncertainty, so even with correct procedure, results can vary slightly. This is why standardized procedures and calibration are essential to reduce operator-to-operator variation.
+
+	
+	\item DC offset in a waveform is a constant voltage level that shifts the entire signal up or down from zero volts.
+
+	Instead of oscillating symmetrically around 0 V, the waveform is “biased” so its average value is no longer zero. For example, a sine wave with a positive DC offset will appear centered above the horizontal axis.
+
+	In practice, DC offset is important because it can affect how signals are interpreted or processed, especially in circuits that expect signals to be centered around 0 V (pure AC).
+
+	
+	
+	\item An oscilloscope measures average voltage by taking all the sampled voltage values of a waveform over a defined time window and computing their mean value.
+
+	Mathematically, it averages the instantaneous voltage over one or more cycles:
+	
+	\begin{equation}
+		V_{avg} = \frac{1}{T} \int_0^T v(t),dt
+	\end{equation}
+
+	In digital oscilloscopes (DSO), this is done numerically: the signal is sampled many times, the samples are summed, and then divided by the number of samples.
+
+	This measurement is useful because it represents the DC component (or DC offset) of the signal and helps distinguish between purely AC waveforms and those with a steady bias.
+
+	
+	
+	\item Enabling multiple channels on a digital oscilloscope can affect sampling because the instrument often shares its sampling resources (ADC and time base) between channels.
+
+	In many DSOs, when more channels are active, the oscilloscope may: split the maximum sampling rate across channels (so each channel gets a lower effective sampling rate), or use time-interleaving or multiplexing, where channels are sampled sequentially instead of simultaneously.
+		
+	\item Multiplexing in multi-channel oscilloscopes is the technique of using a single analog-to-digital converter (ADC) to measure multiple input channels by switching between them very quickly.
+
+	Instead of having a separate ADC for each channel, the oscilloscope samples one channel, then rapidly switches to the next, and so on in a repeating cycle. This happens fast enough that the signals still appear continuous on the screen.
+
+	The advantage is lower cost and complexity, but the limitation is that each channel may effectively get a lower sampling rate compared to a single-channel measurement, especially when many channels are active.
+
+	
+	\item Sampling performance can change when CH1-CH4 are enabled because the oscilloscope’s internal acquisition resources are shared across channels.
+
+	In many DSOs, the maximum sampling rate and ADC bandwidth are limited. When only one channel is active, the full sampling capacity can be used for that signal. But when multiple channels (CH1-CH4) are enabled, the oscilloscope splits the available sampling rate between channels and switches between channels using multiplexing.
+
+	As a result, each channel may be sampled less frequently, which reduces the effective time resolution and can slightly degrade the accuracy of fast or high-frequency signal measurements.
+
+	
+	
+	\item Dot mode display is an oscilloscope display mode where the waveform is shown as individual sampled points (dots) without connecting lines between them.
+
+	Each acquired sample is plotted directly on the screen at its corresponding time and voltage value.
+
+	This mode is used either to shows the actual sampled data, making it easy to see the sampling behavior or helps identify under-sampling or aliasing issues. It also makes it clear when there are gaps between samples or insufficient sampling rate.
+
+	However, it can make waveforms look less smooth, which is why many oscilloscopes also use line or interpolation modes for normal viewing.
+
+	
+	
+	\item Persistence mode in waveform display is a feature where the oscilloscope keeps previous waveform traces on the screen for a period of time instead of clearing them immediately.
+
+	Instead of showing only the most recent acquisition, it overlays new waveforms on top of older ones, with older traces gradually fading out depending on the persistence setting.
+
+	Is it used to help visualize signal variation over time and ease the detection of rare glitches or anomalies.
+	Is it also useful to shows jitter or noise distribution in digital signals and it gives a clearer view of how stable or unstable a waveform is.
+
+	
+	\item Minimizing persistence is useful for calibration and sampling analysis because it forces the oscilloscope to show only the most recent acquisition, without old traces interfering.
+
+	This matters because calibration and sampling checks require a clean, unambiguous waveform. If persistence is high, previous samples overlap with current ones, which can hide small errors, distort edge positions, or make noise and jitter look worse (or artificially smoother than they really are).
+
+	
+	\item Measurement uncertainty is the quantified doubt about a measurement result, meaning it describes the range within which the true value is expected to lie.
+
+	No measurement gives an exact value because every measurement is affected by limitations such as instrument precision, calibration errors, environmental conditions, and human reading errors.
+
+	It is unavoidable because: instruments always have finite resolution (they cannot measure infinitely precisely). Is it also unavoidable due to physical conditions (temperature, noise, vibration) always introduce small variations that occur even in perfect procedures that involve random fluctuations in repeated measurements.
+
+	So uncertainty is not a mistake it is an inherent part of all real-world measurements that must always be considered to correctly interpret results.
+	
+	\item A numerical value without uncertainty is incomplete because it does not tell you how reliable or precise the measurement is.
+
+	In real measurements, every value is only an estimate of the true quantity, and there is always some possible range of error due to instrument limits, environmental effects, and reading variations. Without uncertainty, you cannot know whether the result is highly accurate or only a rough approximation.
+
+	So two measurements like \textit{"10 V"} and \textit{"10 V $\pm$ 0.1 V"} may look the same at first glance, but they carry very different meanings in terms of confidence and usefulness. Uncertainty is what gives the number its context and scientific validity.
+
+
+	\item Uncertainty affects engineering decision-making because it determines how confidently you can judge whether a system meets a requirement or limit.
+
+	In practice, every measurement has a range of possible values, not a single exact number. This means a result close to a specification limit may still be acceptable or unacceptable depending on its uncertainty. Engineers therefore cannot rely only on the measured value; they must consider the full value $\pm$ uncertainty range.
+
+	As a result, uncertainty influences decisions like safety margins, pass/fail testing, and system reliability. It often forces engineers to adopt conservative choices, design buffers, or probabilistic criteria instead of absolute yes/no judgments.
+	
+\end{enumerate}
+
+\vspace*{1.5cm}
+\subsection{Electronic measurements LAB01 - Questions}
+
+\begin{enumerate}[label=\textbf{\arabic*.}]
+	\item Why must oscilloscope probes be used instead of direct cables in all measurements?
+	\item How is probe calibration performed using the oscilloscope calibration output?
+	\item What indicates that a probe is incorrectly compensated?
+	\item How do you adjust a probe to remove overshoot and undershoot?
+	\item Why is a square wave used for probe calibration?
+	\item How do you determine sampling frequency from dots on the oscilloscope screen?
+	\item Why is the horizontal scale set to 5 ns/div in the sampling experiment?
+	\item What changes when CH2 is enabled in sampling measurements?
+	\item Why does enabling more channels affect sampling rate?
+	\item How can you verify sampling frequency experimentally?
+	\item What is the function of the VirtLAB board in the experiment?
+	\item How is waveform generation controlled on the VirtLAB board?
+	\item What is the role of dip-switches in waveform selection?
+	\item What happens when no dip-switch is activated?
+	\item What is the expected LED behavior when dip-switch 8 is ON?
+	\item How do you correctly connect the oscilloscope probe to DAC OUT1?
+	\item Why must the ground terminal be connected to GND on J801?
+	\item What risks are caused by incorrect grounding during measurement?
+	\item How is sinusoidal waveform frequency measured using the oscilloscope?
+	\item Why must both automated DSO measurements and manual measurements be compared?
+	\item In the oscilloscope lab, what is the \textit{"target"} of the measurement?
+	\item Why is it important to define what quantity you are measuring before using the oscilloscope?
+	\item What happens if you measure frequency without defining waveform conditions?
+	\item Why must oscilloscope measurements always include uncertainty estimation?
+	\item What are the main sources of uncertainty when reading a waveform on a DSO?
+	\item Why does the number of divisions introduce uncertainty in measurements?
+	\item How does probe calibration affect measurement reliability?
+	\item Why is a square wave ideal for checking probe compensation?
+	\item What happens to measurement accuracy if the probe is not properly calibrated?
+	\item Why is it not enough to trust automatic oscilloscope measurements?
+	\item How does vertical scale choice affect measurement uncertainty?
+	\item How does horizontal scale choice affect time measurement accuracy?
+	\item Why does increasing resolution not always improve measurement reliability?
+	\item What is the effect of sampling (dot spacing) on measurement precision?
+	\item Why is aliasing considered a \textit{"dangerous measurement error"}?
+	\item What happens if the sampling frequency is too low for the signal being measured?
+	\item Why is comparing CH1 and CH2 sampling behavior important in the lab?
+	\item What role does the VirtLAB board play as a \textit{"measurement reference system"}?
+	\item Why is it important to connect the ground correctly when measuring signals?
+	\item How does the oscilloscope act as a “comparison instrument” rather than a direct truth meter?
+	\item Why can two measurements (e.g., A = 10.2 cm and B = 10.0 cm) not be compared directly without uncertainty?
+	\item What is the internal architecture of a digital storage oscilloscope?
+	\item Why is an ADC necessary in a DSO?
+	\item What is acquisition memory and why is it important?
+	\item What is the difference between sampling and reconstruction?
+	\item Why does a DSO always introduce time discretization?
+	\item What is the role of the interpolator in waveform display?
+	\item Why is linear interpolation commonly used instead of \texttt{sinc} interpolation?
+	\item What is the effect of too few samples per period?
+	\item Why does a signal appear distorted with low sampling density?
+	\item What is dot display and when is it useful?
+	\item What is vector display mode in an oscilloscope?
+	\item Why does persistence affect waveform visualization?
+	\item What is the Nyquist criterion?
+	\item Why is the Nyquist theorem not fully sufficient in real measurements?
+	\item What is aliasing and why is it dangerous?
+	\item Why can aliasing produce a “plausible but wrong” signal?
+	\item What is the minimum number of samples per period with and without interpolation?
+	\item A signal has frequency 2 MHz. Oscilloscope sampling frequency is 5 MHz. Is aliasing expected? Justify.
+	\item A signal is sampled with period $t_s$ = 2ns. Compute sampling frequency.
+	\item You observe 12 dots per period. Timebase = 1 $\mu$s/div, 10 divisions total. Estimate signal frequency.
+	\item A waveform shows 3 divisions per period. Timebase = 50 ns/div. Compute frequency.
+	\item You reduce timebase from 1 µs/div to 10 ns/div. What happens to sampling density and measurement accuracy?
+	\item A sinusoid has peak value $V_p$ = 5V. Compute RMS.
+	\item A triangular wave has peak-to-peak 8V. Compute RMS (assume symmetric $\pm$A).
+	\item A square wave is $\pm$3V. Compute RMS.
+	\item A signal is: $v(t) = 2\sin(\omega t) + 1$. Compute DC value and RMS total.
+	\item A measured RMS is 10V using AC coupling. DC offset = 6V. Compute total RMS.
+	\item Vertical scale = 0.5 V/div Peak-to-peak spans 4.2 divisions $\pm$ 0.1 div Compute voltage and uncertainty.
+	\item Horizontal scale = 10 ns/div. One period = 6.3 divisions $\pm$ 0.2 div. Compute frequency and uncertainty.
+	\item You measure rise time: scale = 5 ns/div, measured = 3.8 div $\pm$ 0.1 div Compute rise time.
+	\item Given oscilloscope bandwidth 100 MHz. Compute equivalent rise time.
+	\item Measured rise time = 12 ns, oscilloscope rise time = 3 ns. Compute real rise time.
+\end{enumerate}
+
+
+
+
+\subsection{Electronic measurements LAB01 - Answers}
+
+\begin{enumerate}[label=\textbf{\arabic*.}]
+
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item 
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	\item  
+	
+\end{enumerate}
+
+\vspace*{1.5cm}
 \subsection{Operational amplifiers - Questions}
+
+\begin{enumerate}[label=\textbf{\arabic*.}]
+	\item What are the fundamental characteristics of the ideal op-amp?
+	\item Why doesn't the op-amp function as a linear open-loop amplifier?
+	\item What is negative feedback?
+	\item Derive the gain voltage of ideal the non-inverting op-amp.
+	\item Derive the gain of the ideal inverting op-amp.
+	\item What does virtual ground stands for?
+	\item Why does the inverting amplifier's input have a resistance of approximately $R_1$?
+	\item Why does the non-inverting input of the op-amp have such a high resistance?
+	\item What is the purpose of the power supply terminals of an operational amplifier?
+	\item Why are the power supply pins often omitted from circuit schematics?
+	\item Explain the meaning of differential gain in an operational amplifier.
+	\item Why is the differential gain of an ideal operational amplifier assumed to be infinite?
+	\item What limits the maximum output voltage of an operational amplifier?
+	\item Explain the difference between the linear region and the saturation region of an operational amplifier.
+	\item Why does even a very small differential input voltage drive an open-loop operational amplifier into saturation?
+	\item Explain the virtual gorund concept and when it can be applied.
+	\item What assumptions are made when analyzing ideal operational amplifier circuits?
+	\item Why does no current flow into the input terminals of an ideal operational amplifier?
+	\item Why is negative feedback essential for linear amplifier operation?
+	\item How does negative feedback make the amplifier gain independent of the open-loop gain?
+	\item What is the loop gain of an amplifier?
+	\item Why should the loop gain be much greater than one?
+	\item Explain the feedback factor ($\beta$) and how it is determined.
+	\item What are the advantages of using a voltage follower?
+	\item Why is a voltage follower useful for impedance matching?
+	\item Explain why a voltage follower has unity gain.
+	\item Why can a non-inverting amplifier never have a gain smaller than one?
+	\item Compare the advantages and disadvantages of inverting and non-inverting amplifiers.
+	\item Why does the inverting amplifier produce a 180$^\circ$ phase shift?
+	\item Explain why the gain of the inverting amplifier depends only on resistor values.
+	\item Why is the source resistance important in an inverting amplifier?
+	\item Why does the source resistance have almost no effect on a non-inverting amplifier?
+	\item What is a transresistance amplifier, and when is it used?
+	\item Explain the operation of a transconductance amplifier.
+	\item What is the difference between a current amplifier and a voltage amplifier?
+	\item Compare the input and output impedances of the five ideal op-amp amplifier configurations.
+	\item Why is it impossible to build a non-inverting amplifier with a gain of 0.5?
+	\item How do resistor tolerances affect the gain accuracy of an amplifier?
+	\item Why is choosing resistor values not only a matter of obtaining the desired gain?
+	\item What practical limitations prevent using extremely small feedback resistors?
+	\item Explain the effect of finite open-loop gain on the closed-loop gain.
+	\item Why is the error caused by finite open-loop gain usually negligible?
+	\item How does finite input resistance affect amplifier performance?
+	\item Why does negative feedback increase the effective input resistance of a non-inverting amplifier?
+	\item How does negative feedback reduce the output resistance of an amplifier?
+	\item Explain the meaning of Common Mode Rejection Ratio (CMRR).
+	\item Why is a high CMRR desirable in practical operational amplifiers?
+	\item What is the difference between differential-mode voltage and common-mode voltage?
+
+\end{enumerate}
+
+
 \subsection{Operational amplifiers - Answers}
 
+\begin{enumerate}[label=\textbf{\arabic*.}]
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+		\item
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+		\item
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+		\item
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+		\item
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+	
+\end{enumerate}
+
+\vspace*{1.5cm}
+\subsection{Operational amplifiers LAB02 - Questions}
+
+\begin{enumerate}[label=\textbf{\arabic*.}]
+	\item How is the symmetrical 12 V, 0 V, -12 V, power supply obtained in Laboratory 2? 
+	\item Why is it important to set the probe factor to 10X in the DSO?
+	\item For the A3.2 module configured as an inverting amplifier, what is the expected nominal gain?
+	\item Why is the output of the inverting amplifier out of phase with the input?
+	\item What happens when you change the input offset of the inverter to $+500$ mV?
+	\item How can you tell if the rejected step is limited by bandwidth or slew rate?
+	\item Why is it that reducing the amplitude of the sine wave to 100 m$V_{pp}$ causes the system to exceed the slew rate limit?
+	\item In Lab 2, what does it mean to measure the virtual ground of the inverting amplifier?
+	\item Why isn't the V$+$ terminal of the inverting amplifier exactly an ideal ground?
+	\item What happens when the output is loaded with $R_{11}$ = 1 K$\Omega$ and $R_{12}$ = 100 $\Omega$?
+	\item In the non-inverting A3.1 module, what is that nominal gain expected?
+	\item How do you measure the input resistance ($R_{in}$) of the non-inverting amplifier using $R_3$ = 4.7 k$\Omega$?
+	\item Why is the measurement of $R_{in}$ is sensitive to uncertainty?
+	\item How do you calculate the excitation resistance using the load $R_5$ = 2.2 k$\Omega$?
+	\item In the Bode plot of a non-inverting amplifier, which quantities are measured at each frequency?
+	\item How is the passing band of the measured Bode diagram determined?
+	\item What is the expected relationship between bandwidth and gain-bandwidth of the AU741?
+	\item In the audio circuit with capacitors, what kind of response would you expect?
+	\item Why isn't the DC offset at the input amplified in audio circuits, just like the AC signal?
+	\item What are the most common practical mistakes in the Laboratory 2?
+\end{enumerate}
+\subsection{Operational amplifiers LAB02 - Answers}
+
+
+\begin{enumerate}[label=\textbf{\arabic*.}]
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+\end{enumerate}
+
+\vspace*{1.5cm}
 \subsection{Power supplies - Questions}
+
+
+\begin{enumerate}[label=\textbf{\arabic*.}]
+	\item What is the purpose of a power supply in an electronic circuit?
+	\item Explain the difference between an ideal voltage source and a practical voltage source.
+	\item What is internal resistance and how does it affect the output voltage?
+	\item Define load regulation.
+	\item Define line regulation.
+	\item What is the efficiency of a power supply?
+	\item Why is efficiency important in power electronics?
+	\item Explain the operating principle of a transformer.
+	\item Why can a transformer only operate with AC?
+	\item What is the purpose of a bridge rectifier?
+	\item Compare half-wave and full-wave rectifiers.
+	\item Why is a full-wave rectifier generally preferred?
+	\item What is ripple voltage?
+	\item How does a filter capacitor reduce ripple?
+	\item What determines the value of ripple voltage?
+	\item What happens if the filter capacitor is too small?
+	\item What is the purpose of a voltage regulator?
+	\item Explain the operating principle of a Zener diode regulator.
+	\item Why must a Zener diode operate in reverse bias?
+	\item What is dropout voltage?
+	\item Explain the difference between linear regulators and switching regulators.
+	\item What are the advantages of linear regulators?
+	\item What are the disadvantages of linear regulators?
+	\item What are the advantages of switching regulators?
+	\item Why are switching regulators more efficient than linear regulators?
+	\item Explain the operating principle of a Buck converter.
+	\item Why is a Buck converter called a step-down converter?
+	\item What is the function of the inductor in a Buck converter?
+	\item What is the function of the output capacitor in a Buck converter?
+	\item What is the purpose of the freewheeling diode in a Buck converter?
+	\item What is the duty cycle of a Buck converter?
+	\item How does changing the duty cycle affect the output voltage?
+	\item Explain the difference between Continuous Conduction Mode (CCM) and Discontinuous Conduction Mode (DCM).
+	\item Under what operating conditions does a Buck converter enter DCM?
+	\item Why is switching frequency important in converter design?
+	\item What causes output voltage ripple in a switching regulator?
+	\item What is the role of Equivalent Series Resistance (ESR) in output ripple?
+	\item Why is negative feedback used in regulated power supplies?
+	\item Compare linear and switching power supplies in terms of efficiency, noise, and complexity.
+	\item What practical factors limit the maximum output current of a power supply?
+\end{enumerate}
+
+
+
+
+
 \subsection{Power supplies - Answers}
 
+\begin{enumerate}[label=\textbf{\arabic*.}]
+	\item
+	\item 
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item 
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item 
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item 
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item 
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+\end{enumerate}
+
+
+\vspace*{1.5cm}
+\subsection{Power supplies LAB03 - Questions}
+
+\begin{enumerate}[label=\textbf{\arabic*.}]
+	\item What is the objective of the Buck converter laboratory experiment?
+	\item Why is the output voltage adjusted using the onboard potentiometer?
+	\item How is the maximum resistance of the laboratory load measured?
+	\item Why is the load resistance set to a specific value before the measurements?
+	\item How can you determine whether the converter operates in CCM or DCM?
+	\item Why are measurements performed both with and without the load connected?
+	\item What information does the load regulation measurement provide?
+	\item How is the output current estimated during the efficiency calculation?
+	\item Why is the input current measured directly from the laboratory power supply?
+	\item How are the input and output powers calculated?
+	\item Why is the converter efficiency always less than 100\%?
+	\item Which quantities must be calculated theoretically before measuring the output ripple?
+	\item Why is AC coupling used when measuring the output ripple on the oscilloscope?
+	\item Why are the oscilloscope automatic measurements not recommended for ripple measurements?
+	\item How can the switching frequency be determined from the oscilloscope waveform?
+	\item How is the duty cycle obtained from the measured switching waveform?
+	\item Why is the measured ripple different from the theoretical prediction?
+	\item How does increasing the input voltage from 8 V to 24 V affect the converter operation?
+	\item Why is the converter efficiency measured for several different output voltages?
+	\item What are the most common sources of experimental error during the Buck converter laboratory?
+
+\end{enumerate}
+
+
+
+
+
+
+
+\subsection{Power supplies LAB03 - Answers}
+
+\begin{enumerate}[label=\textbf{\arabic*.}]
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+	\item
+\end{enumerate}
+
+
+\vspace*{1.5cm}
 \subsection{Firmware - Questions}
 \subsection{Firmware - Answers}
 
+\vspace*{1.5cm}
 \subsection{Sensors - Questions}
 \subsection{Sensors - Answers}
 
+\vspace*{1.5cm}
 \subsection{Actuators and motors - Questions}
 \subsection{Actuators and motors - Answers}
 
