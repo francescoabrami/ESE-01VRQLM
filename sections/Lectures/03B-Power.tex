@@ -1,0 +1,981 @@
+\documentclass[../main.tex]{subfiles}
+
+\graphicspath{{\subfix{../images/}}}
+
+
+
+\begin{document}
+
+\subsection{Buck Converter}
+
+The first converter we will study is called a buck or step-down converter. The
+main characteristic of this topology is that the output voltage is always lower than the input voltage. The circuit diagram is shown in the \autoref{buckfig}.
+
+\begin{figure}[h]
+\begin{center}
+
+\begin{tikzpicture}[transform shape]
+	\draw (3, 16) to[american voltage source, l_={$V_s$}, i=$I_s$] (3, 14);
+	\draw (6, 17) to[american resistor, l={$R$}] (6, 15);
+	\draw (6, 15) to[cute inductor, l={$L$}] (6, 13);
+	\draw (3, 14) -- (3, 13) -- (6, 13);
+	\draw (3, 16) -| (3, 17) -- (6, 17);
+	\draw (4.5, 17) to[capacitor, *-*, l={$C$}] (4.5, 13);
+\end{tikzpicture}
+	
+\caption{Classical power supply}	
+\end{center}
+\end{figure}
+
+
+\begin{figure}[h]
+\begin{center}
+
+\begin{tikzpicture}[transform shape]
+	\draw (3, 17) to[variable american resistor, invert, l={$R_s$}] (5, 17);
+	\draw (5, 15) to[variable american resistor, mirror, l={$R_p$}] (5, 17);
+	\draw (6.5, 15) to[european resistor, v>=$V_L$, voltage/distance from node=0.4, voltage/bump b=1, voltage/shift=1.5, i^<=$I_L$] (6.5, 17);
+	\draw (5, 17) -- (6.5, 17);
+	\draw (6.5, 15) -- (5, 15);
+	\draw (3, 17) -- (2, 17);
+	\draw (2, 15) -- (5, 15);
+	\draw (2, 17) to[open, o-o, v<=$V_{in}$, voltage/distance from node=1, voltage/bump b=0.3] (2, 15);
+\end{tikzpicture}
+
+\caption{Parallel linear variable voltage regulator}	
+\end{center}
+\end{figure}
+
+
+
+\begin{figure}[h]
+\begin{center}
+
+\begin{tikzpicture}[transform shape]
+	\draw (6, 7) to[capacitor, l={$C_{in}$}] (6, 4);
+	\node[nmos, rotate=-90](N1) at (7.48, 7){} node[anchor=north] at (N1.text){$SW_1$};
+	\draw (9, 4) to[empty diode, l={$SW_2$}] (9, 7);
+	\draw (9, 7) to[cute inductor, l={$L$}, v<=$V_L$, voltage/shift=1.5] (12, 7);
+	\draw (12, 7) to[capacitor, l={$C_{out}$}] (12, 4);
+	\draw (14, 4) to[generic, v=$V_{out}$, voltage/shift=1.5] (14, 7);
+	\draw (5, 7) -- (6.71, 7);
+	\draw (8.25, 7) -- (9.125, 7);
+	\draw (12, 7) -- (14, 7);
+	\draw (14, 4) |- (5, 4);
+	\draw (5, 7) to[open, o-o, v<=$V_{in}$, voltage/bump b=1] (5, 4);
+\end{tikzpicture}
+
+\caption{Buck step-down converter}	
+\label{buckfig}
+\end{center}
+\end{figure}
+
+We will first study how CCM works, and then DCM.\\
+
+\subsubsection*{Continuous Current Mode - CCM}
+
+Our goal is to determine the relationship between the switch’s duty cycle ($D_C$) and the output voltage. To do this, we can analyze the voltage waveform across the inductor and calculate the current flowing through it.\\
+
+As mentioned above, there are two states: switch on and switch off.\\
+
+\textbf{Switch closed -} When the switch is closed, as shown in \autoref{buckworkfig} , the
+voltage at the left terminal of the inductor is the input voltage, while
+the voltage at the right terminal is the output voltage; therefore:
+
+\begin{equation}
+	V_L = V_{in} - V_{out}
+\end{equation}
+
+
+\begin{figure}[h!]
+\begin{center}
+
+
+
+\label{buckworkfig}
+\caption{Circuit diagram of the buck converter with the switch closed.}	
+\end{center}	
+\end{figure}
+
+
+Since we have assumed that changes in the input and output voltages are much slower than a switching cycle, the voltage across the inductor is constant. 
+
+Since the current is the integral of the voltage across the inductor, it will follow a linear trend, as shown in Figure 9.34.
+
+Assuming that the initial level of $i_L(t)$ is equal to a certain $I_A$, we can write:
+
+\begin{equation}
+	i_L(t) = i_L(0) = \int_0^t V_L(t) \;dt = I_A + \int_0^t (V_{in} - V_{out})\;dt = I_A + \frac{1}{L} (V_{in} - V_{out}) \cdot t
+\end{equation}
+
+and therefore, at the end of the time interval $T_1$, the current in the inductor will reach its maximum value $I_B$, which can be calculated as:
+
+\begin{equation}
+	I_B = I_A + \frac{1}{L} (V_{in} - V_{out}) \cdot T_1
+\end{equation}
+
+
+\begin{figure}[h!]
+\begin{center}
+
+
+
+\label{currentvoltagebuck}
+\caption{Trends in the $V_L$ voltage and $I_L$ current in CCM mode.}	
+\end{center}	
+\end{figure}
+
+\textbf{Switch open -} When the switch opens at the end of $T_1$, the current in the inductor will continue to flow due to the diode. 
+
+The voltage across the inductor will change sign and, if we neglect the voltage drop across the diode itself, will become equal to:
+
+\begin{equation}
+	V_L = -V_{out}
+\end{equation}
+
+During the time the switch is open, the current in the inductor will decrease and, assuming steady-state operation, will return to the value $I_A$ at the end of the period $T_2$. 
+
+We can therefore write a new equation:
+
+\begin{equation}
+	I_A = I_B - \frac{1}{L} V_{out} \cdot T_2
+\end{equation}
+
+
+\textbf{Transfer Functions in CCM -} The relationships found for the open-and closed-circuit conditions must both hold true. 
+Calculating the difference between the maximum and minimum current for both cases, we get:
+
+\begin{equation}
+	I_B - I_A = T_1 \cdot \frac{V_{in} - V_{out}}{L} = T_2 \cdot \frac{V_u}{L}
+\end{equation}
+
+From which we get that:
+
+\begin{equation}
+	T_1 \cdot (V_{in} - V_{out}) = T_2 \cdot V_{out} \hspace{10pt} \longrightarrow \hspace{10pt} T_1 \cdot V_{in} = (T_1 + T_2) \cdot V_{out}
+\end{equation}
+
+\begin{equation}
+	M = \frac{V_{in}}{V_{out}} = \frac{T}{T_1 + T_2} = D_C
+\end{equation}
+
+This relationship represents the control equation for the buck converter in continuous-mode operation. 
+This relationship is very simple, and the fact that the load does not appear in it means that the load regulation for a buck converter in continuous-mode operation is very good. The line regulation depends on how the controller is implemented.\\
+
+
+
+\textbf{Operating Limits -} Continuous mode thus allows for very simple control of the regulator. However, it is necessary to know the conditions that guarantee operation in CCM. We must introduce a new equation. We can do this by noting that the function of the capacitor $C_{out}$ is to filter the frequency components of the current in the inductor. The average value of the current in the inductor, on the other hand, represents the output current.
+
+Since the current waveform in the inductor is triangular, its average value will be the arithmetic mean of the maximum and minimum values:
+
+\begin{equation}
+	I_{out} = \frac{V_{out}}{R_L} = \frac{I_A + I_B}{2}
+\end{equation}
+
+In the previous paragraph, we also concluded that:
+
+\begin{equation}
+	I_B - I_A = T_2 \cdot \frac{V_{out}}{L}
+\end{equation}
+
+In this last equation, we can substitute $T_2$ with its expression in terms of the duty cycle:
+
+\begin{equation}
+	T_2 = T_{sw} (1 - D_C) = \frac{1 - D_C}{f_{sw}} 
+\end{equation}
+
+Then:
+
+\begin{equation}
+\begin{cases}
+	I_A + I_B = \dfrac{2V_{out}}{R_L} \\
+	I_B - I_A = \dfrac{V_{out}}{L} \cdot \dfrac{1 - D_C}{f_{sw}}
+\end{cases}	
+\end{equation}
+
+Taking the difference between the first and second expressions, we find:
+
+\begin{equation}
+	I_A = \frac{V_{out}}{R_L} - \frac{V_{out}(1 - D_C)}{2Lf_{sw}}
+\end{equation}
+
+This relationship can be used to calculate the minimum inductance value that ensures continuous operation under specific load and input voltage conditions. In fact, setting $I_A > 0$ yields:
+
+\begin{equation}
+	L > \frac{R_L(1 - D_C)}{2f_{sw}}
+\end{equation}
+
+As can be seen, the value of $L$ depends linearly on the load resistance.
+
+In particular, it will not be possible to keep the regulator in CCM for low output currents. 
+
+The input voltage also plays a role, as there is a dependence on the duty cycle. The higher the input voltage, the lower the duty cycle—for a given output voltage—and the higher the value of $L$ required to keep the converter in CCM.
+
+\subsubsection*{Discontinuous Current Mode - DCM}
+
+
+Let’s now consider the discontinuous mode. 
+The voltage and current waveforms in the inductor are shown in \autoref{DCMfig}.
+
+\begin{figure}
+\begin{center}
+
+\caption{Trends in the $V_L$ voltage and $I_L$ current in DCM mode.}
+\label{DCMfig}	
+\end{center}	
+\end{figure}
+
+In this case, at the beginning of the cycle, the current in the inductor is zero and reaches its maximum, $I_B$, after $T_1$. At $T_2$, the current returns to 0 and remains there until the end of the cycle.\\
+
+\textbf{Switch closed -} With this condition we can therefore write:
+
+\begin{equation}
+	I_B = \frac{1}{L}(V_{in} - V_{out}) \cdot T_1
+\end{equation}
+
+\textbf{Switch open -} On the other and, with the opposite condition we can say that: 
+
+\begin{equation}
+	0 = I_B - \frac{1}{L} V_{out} \cdot T_2
+\end{equation}
+
+At this point, as seen before:
+
+\begin{equation}
+	T_1 \cdot (V_{in} - V_{out}) = T_2 \cdot V_{out} \hspace{10pt} \longrightarrow \hspace{10pt} T_1 \cdot V_{in} = (T_1 + T_2) \cdot V_{out}
+\end{equation}
+
+\begin{equation}
+	M = \frac{V_{out}}{V_{in}} = \frac{T_1}{T_1 + T_2}
+\end{equation}
+
+
+The difference is that now $T_1 + T_2 < T_{sw}$ and $T_2$ is unknown.\\
+We need a new condition from which to derive the dependence of $M$ on the duty cycle. We can observe that in discontinuous mode, the output current continues to be equal to the average value of the current in the inductor, but now this quantity is given by:
+
+\begin{equation}
+	I_{out} = \frac{V_{out}}{R_L} = \frac{I_B}{2} \cdot \frac{T_1 + T_2}{T_{sw}}	
+\end{equation}
+
+Writing out $I_B$ as a function of $V_{out}$ we get that:
+
+\begin{equation}
+	\frac{V_{out}}{R_L} = \frac{V_{out} \cdot T_2}{2L} \cdot \frac{T_1 + T_2}{T_{sw}}
+\end{equation}
+
+$T_2$ in unknown but we can express it as a function of $T_1$ and M. We get that:
+
+\begin{equation}
+	T_1 + T_2 = \frac{T_1}{M}
+\end{equation}
+
+and we also get that:
+
+\begin{equation}
+	T_2 = \frac{T_1}{M} - T_1 = T_1 \left( \frac{1}{M} - 1 \right)
+\end{equation}
+
+
+By replacing we get that:
+
+\begin{equation}
+	\frac{V_{out}}{R_L} = \frac{V_{out} \cdot T_1}{2L} \left( \frac{1}{M} - 1 \right) \cdot \frac{T_1}{M} \cdot f_{sw}
+\end{equation}
+
+The duty cycle remains $D_C = T_1 \cdot f_{sw}$. By solving for $T_1$ and substituting, we get:
+
+\begin{equation}
+	\frac{1}{R_L} = \frac{D_C}{2Lf_{sw}} \cdot \frac{1-M}{M} \cdot \frac{D_C}{M} = \frac{D^2_C(1-M)}{2Lf_{sw}M^2}
+\end{equation}
+
+We thus have a quadratic equation in M:
+
+\begin{equation}
+	\frac{2Lf_{sw}}{R_LD^2_C} \cdot M^2 + M - 1 = 0
+\end{equation}
+
+Solving it we get:
+
+\begin{equation}
+	M = \dfrac{-1 \pm \sqrt{1 + \dfrac{8Lf_{sw}}{D^2_CR_L}} }{\dfrac{4Lf_{sw}}{D^2_CR_L}}
+\end{equation}
+
+Of the two solutions, only the positive one is valid.\\
+As can be seen, the relationship between $D_C$ and $M$ is much more complex than in CCM. Furthermore, the value of the output voltage depends not only on the duty cycle but also on the value of the output resistance, and thus on the current drawn by the load. \\
+If the control system maintains a constant duty cycle and the current in the load decreases, causing the system to switch from CCM to DCM, the output
+voltage increases. This is because M is equal to $T_1 /(T_1 + T_2)$ in both cases, but, with the switching frequency held constant, the denominator in DCM decreases, since $T_{sw} = T_1 + T_2 + T_{IDLE}$.
+
+
+\subsubsection*{Currents in components}
+
+
+Moving on we can now further analyze the behaviors of the whole circuit.
+Specifically we want to consider the currents flowing inside the different components.\\
+
+In order to properly size the regulator, it is very important to evaluate the currents within the converter’s components. Our analysis will be based on the assumption that the system operates in CCM.
+
+\subsubsection*{Output capacitor}
+
+The current in the output capacitor is the $A_C$ component of the current in the inductor, while the average value of that same current represents the output current. The waveform is shown in \autoref{capoutccm}.
+
+\begin{figure}
+\begin{center}
+
+
+\label{capoutccm}
+\caption{Trend of the current inside the output capacitor}	
+\end{center}	
+\end{figure}
+
+The equivalent series resistance (ESR) of the capacitor $C_out$ is responsible for the ripple in the output voltage. To calculate the peak-to-peak value of the ripple, it is sufficient to know the peak-to-peak value of the current in the capacitor, which is:
+
+\begin{equation}
+	I_{pp} = I_B - I_A = \frac{V_{out}}{L} \cdot \frac{D_C - 1}{f_{sw}} \hspace{10pt} \longrightarrow \hspace{10pt} V_{R_{pp}} = I_{pp} \cdot \unit{ESR_{C_{out}}}
+\end{equation}
+
+The RMS value of the current in the capacitor is an important parameter for selecting the component. 
+It is therefore necessary to evaluate this value:
+
+\begin{equation}
+	I_{C_{RMS}} = \sqrt{\frac{1}{T} \int_0^T i^2_C(t)\; dt}
+\end{equation}
+
+Since the current in the capacitor follows a triangular waveform, the square of the current follows a parabolic curve, with a maximum value of $I^2_{pp}/4$. 
+
+Therefore:
+
+\begin{equation}
+	I_{C_{RMS}} = \sqrt{\frac{1}{T} \cdot \frac{I^2_{pp T}}{4 \cdot 3}} = \frac{I_{pp}}{\sqrt{12}}
+\end{equation}
+
+This value is low compared to the RMS value of the current in the input capacitor (which we will calculate later). The output capacitor, therefore, is subjected to little stress in a buck converter. The noise injected into the output by the regulator is also modest, since the current derivative is limited.
+
+\subsubsection*{Switch}
+
+
+The current in the switch is the same as the current flowing through the inductor during the time interval $T_1$, as shown in \autoref{swccm1}. It is also important to calculate the RMS current for the switch. 
+
+Instead of integrating the square of the current $I_{sw}$, it is usually preferable to make a slight over-estimation and replace the trapezoidal portion with its average value. 
+
+It can be seen graphically that the two areas differ only slightly from the graph in \autoref{swccm2}. This approximation allows us to obtain a very simple expression in terms of Iu, which is precisely the average value of the current in the switch during the time interval $T_1$:
+
+
+
+
+\begin{figure}[h!]
+\begin{center}
+
+
+\label{swccm1}
+\caption{Trend of the current $I_{sw}$ in CCM}	
+\end{center}
+\end{figure}
+
+\begin{figure}[h!]
+\begin{center}
+
+
+\label{swccm2}
+\caption{Trend of $I^2_{sw}$ in CCM}	
+\end{center}
+\end{figure}
+
+
+\begin{equation}
+	I_{sw_{RMS}} = \sqrt{\frac{1}{T} \int_0^T i^2_{sw} (t)\; dt } \simeq \sqrt{\frac{1}{T} I^2_{out} \cdot T_1} = I_{out} \sqrt{D_C}
+\end{equation}
+
+
+\subsubsection*{Input capacitor}
+
+The function of the input capacitor is to prevent the variable portion of the switch’s current from being supplied by the circuit’s input, and thus to prevent the regulator from injecting noise into the circuits that precede it in the power supply. 
+
+This function is very important in a buck converter, since the switching action causes discontinuities in the current. 
+
+The current therefore has large high-frequency components that must be short-circuited by the capacitor to limit electromagnetic compatibility issues.
+
+The current in the capacitor follows the waveform shown in Figure \autoref{diodeCCM}.
+
+In this case as well, we are interested in the RMS value of the current. To calculate it, we can use the same observation made in the previous sections.
+
+The average value of the current in the switch is supplied by the input, while the variable portion comes from the capacitor; therefore, the following relationship holds:
+
+\begin{equation}
+	I^2_{sw_{RMS}} = I^2_i + I^2_{C_{in},RMS}
+\end{equation}
+
+We have already expressed the current in the switch in terms of the output current. The input current is the average value of the current in the switch, that is, $I_i = I_{out} \cdot D_C$. 
+Therefore:
+
+\begin{equation}
+	I^2_{C_{in},RMS} = I^2_{out} D_C -  I^2_{out} D^2_C \hspace{10pt} \longrightarrow \hspace{10pt} I_{C_{in}, RMS} = I_{out} \sqrt{D_C(1-D_C)}
+\end{equation}
+
+\begin{figure}[h!]
+\begin{center}
+
+
+\label{diodeCCM}
+\caption{Trend of current inside the input capacitor in CCM}	
+\end{center}
+\end{figure}
+
+\subsubsection*{Diode}
+
+The diode is active when the switch is open, so the current through the diode has the waveform shown in the figure \autoref{diodeCCM2}.
+
+
+\begin{figure}[h!]
+\begin{center}
+
+
+\label{diodeCCM2}
+\caption{Trend of the current $I_D$ in CCM}	
+\end{center}
+\end{figure}
+
+The RMS value of the current through the diode can be easily calculated using a procedure similar to the one used for the switch. 
+
+The diode is a critical component for the system’s operation. It must be a fast-recovery or Schottky diode because it must switch very quickly. 
+
+Whenever possible, a Schottky diode is used to take advantage of the low voltage drop across it that is typical of this component during the on phase.
+
+
+\subsubsection*{Efficiency}
+
+
+The efficiency of a buck converter is ideally 100\%, since current flows only through the reactive components. In reality, losses will occur, considering:
+
+\begin{enumerate}[label=\textbf{-}]
+	\item Voltage drop across the switch
+	\item Voltage drop across the diode
+	\item Parasitic resistance of the inductor
+	\item ESR of the input and output capacitor
+	\item Power loss due to the switch activation (on-off and off-on switching)
+\end{enumerate}
+
+Losses in the switch are generally the most significant, but the voltage drop
+across the diode can be critical in cases of low output voltage. 
+
+Typically,
+the efficiency of a buck regulator (and switching regulators in general) exceeds 80\%, but it can reach over 90\% with careful design and optimal operation.
+
+
+\subsubsection*{Synchronous Converter}
+
+
+\begin{figure}[h!]
+\begin{center}
+
+
+\label{synconv}
+\caption{Circuit diagram of the synchronous buck converter}	
+\end{center}
+\end{figure}
+
+
+
+In the event of low output voltage, the voltage drop across the diode reduces the circuit’s efficiency to an unacceptable degree. In this case, it is preferable to replace the diode with a second switch, driven in anti-phase with the main switch. 
+
+The switch’s low $R_{on}$ allows for a voltage drop that is significantly lower than that of the diode. The trade-off is greater circuit complexity, since the second switch must be driven; fortunately, it is a low-side switch. 
+
+The circuit diagram is shown in \autoref{synconv}. This circuit is called a synchronous buck or Synchronous (rectifier) buck.
+
+\subsubsection*{Protections}
+
+We have seen that when designing a power supply, it is important to protect the
+system from undesirable events, such as short circuits or overvoltages.\\
+
+The controller must handle these protections by monitoring, for example, the output current and the input voltage. One might wonder if it is easy to build the protection circuit.\\
+
+If we examine the schematic of the buck converter, we see that it is sufficient to keep the switch open to protect the system in case the output current exceeds a limit set by the controller, whereas an input overvoltage could easily damage the switch, since it is a high-side switch, directly connected to the input.\\
+
+It will therefore be necessary to add a protection circuit upstream of the controller to protect the switch.
+
+
+
+\subsubsection{Example of buck converter sizing} % TODO
+
+
+
+
+\subsection{Boost converter}
+
+
+Let’s now analyze a second topology used to implement a switching converter: the boost converter. The components in the circuit are the same, but they are arranged as shown in \autoref{boostconv}.
+
+\begin{figure}[h!]
+\begin{center}
+
+\begin{tikzpicture}[transform shape]
+	\draw (6, 7) to[capacitor, l={$C_{in}$}] (6, 4);
+	\node[nmos](N1) at (9.125, 5.5){} node[anchor=west] at (N1.text){$SW_1$};
+	\draw (9.125, 7) to[empty diode, l={$SW_2$}] (12, 7);
+	\draw (6, 7) to[cute inductor, l={$L$}, v<=$V_L$, voltage/shift=1.5] (9, 7);
+	\draw (12, 7) to[capacitor, l={$C_{out}$}] (12, 4);
+	\draw (14, 4) to[generic, v=$V_{out}$, voltage/shift=1.5] (14, 7);
+	\draw (5, 7) -- (6.71, 7);
+	\draw (8.25, 7) -- (9.125, 7);
+	\draw (12, 7) -- (14, 7);
+	\draw (14, 4) |- (5, 4);
+	\draw (5, 7) to[open, o-o, v<=$V_{in}$, voltage/bump b=1] (5, 4);
+	\draw (9.085, 7) -| (9.125, 6.25);
+	\draw (9.125, 4.73) -- (9.125, 4);
+\end{tikzpicture}
+
+
+\label{boostconv}
+\caption{Circuit diagram of the boost converter}	
+\end{center}
+\end{figure}
+
+This circuit is called a \textit{"boost"} or \textit{"step-up"} converter because the output voltage is always greater than or equal to the input voltage. 
+Ignoring the non-idealities of the components, let’s analyze the circuit’s behavior.\\
+
+\textbf{Switch closed -} When the switch is closed, there is a voltage drop across the inductor equal to:
+
+\begin{equation}
+	V_L = V_i
+\end{equation}
+
+
+\textbf{Switch open -} When the switch is open, there is a voltage applied to the ends of the inductor equal to:
+
+\begin{equation}
+	V_L = V_{in} - V_{out}
+\end{equation}
+
+Assuming steady-state conditions (constant $V_{in}$ and $V_{out}$ over one cycle, with the current at the start of the cycle identical to that at the start of the next cycle) and in CCM, the waveforms of voltage and current across the inductor are shown in \autoref{boostend}.
+
+\begin{figure}[h!]
+\begin{center}
+
+
+\label{boostend}
+\caption{Trends of $V_L$ and $I_L$ in a boost converter in CCM}	
+\end{center}
+\end{figure}
+
+
+$V_{out}$ is greater than $V_{in}$ because, when the switch is open, the energy stored in the inductor is transferred to the load, $I_L$ decreases, and $V_L$ is negative. Therefore, the output voltage is always greater than the input voltage (hence the names of the converter: boost, step-up).
+
+By analyzing the currents in a similar way to what was done for the buck converter, it is easy to see that, with the switch closed:
+
+\begin{equation}
+	I_B = I_A + T_1 \frac{V_{in}}{L}
+\end{equation}
+
+With the switch open we get:
+
+\begin{equation}
+	I_A = I_B - T_2 \cdot \frac{V_{out} - V_{in}}{L}
+\end{equation}
+
+Therefore:
+
+\begin{equation}
+	T_1 \cdot \frac{V_{in}}{L} = T_2 \cdot \frac{V_{out} - V_{in}}{L} \hspace{10pt} \longrightarrow \hspace{10pt} T_1V_{in} = T_2V_{out} - T_2V_{in}
+\end{equation}
+
+From which we get:
+
+\begin{equation}
+	(T_1 + T_2)V_{in} = T_2V_{out}
+\end{equation}
+
+Therefore:
+
+\begin{equation}
+	M = \frac{V_{out}}{V_{in}} = \left( 1 + \frac{T_1}{T_2} \right) = \frac{1}{1 - D_C}
+\end{equation}
+
+In this case as well, in a CCM converter, the ratio of output voltage to input voltage depends solely on the duty cycle. The difference from a buck converter is that in a boost converter, the duty cycle is compared to the denominator and yields a negative result.
+
+Since the output voltage is controlled in a closed-loop system, the control function will have a pole in the right half-plane. If this pole is at frequencies where the loop gain is still high, the system is unstable.
+
+To avoid instability, the control system must have a low passband. In this case, instability is avoided at the cost of having a system that reacts slowly to disturbances. Consequently, boost regulators have significantly worse performance than buck regulators; they react slowly to variations or noise on the load and the line.
+
+A thorough analysis of the boost regulator would require determining the operating limits in CCM and deriving the operating equation in DCM. We will not address this task here but leave it to specialized courses.
+
+The analysis of the input, output, and component currents is simpler. This analysis is left as an exercise, using the buck converter as a model. We’ll just note that the input current follows a similar pattern to the output current of the buck converter, since it is the current through the inductor; consequently, the input capacitor is subjected to little stress, and the boost converter injects little noise into the input.
+
+Conversely, the output current is the current through the diode, so the output capacitor is heavily loaded (like the input capacitor of a buck converter) and the output noise is high.
+
+We can then analyze the behavior in the event of load and input anomalies: a short circuit in the load cannot be handled by the circuit without adding additional components because, whether the switch is open or closed, the load is not disconnected from the input. On the other hand, input overvoltages do not damage the switch, since the switch is low-side and the overvoltages are filtered by the inductor.
+
+Stability issues with this topology partially limit its use. These can be overcome by using the boost converter to generate a voltage slightly higher than the desired one. A linear regulator, typically an LDO, is then connected to the boost output to filter and stabilize the output.
+
+The low output stability is not a serious problem when using the boost as a PFC, since by definition the PFC output does not need to be constant but must have a sinusoidal component. In fact, many PFCs are based on a boost regulator.
+
+
+\subsection{Buck-boost converter}
+
+
+Let's now examine the third topology, known as buck-boost or up-down. The electrical schematic is shown in \autoref{bbschem}.
+
+
+
+\begin{figure}[h!]
+\begin{center}
+
+
+\label{bbschem}
+\caption{Circuit diagram of a buck-boost up-down converter}	
+\end{center}
+\end{figure}
+
+
+The term \textit{"buck-boost"} comes from the fact that, at the input, there is a switch as in a buck converter, and at the output, there is a diode as in a boost converter. 
+
+The output voltage of a buck-boost converter can be higher or lower in absolute value than the input voltage, but it has the distinctive feature of being negative.
+
+\subsubsection*{Continuous Current Mode - CCM}
+
+Let’s examine how this topology operates in CCM by analyzing the waveform shown in \autoref{bbccm} , which represents the voltage across the inductor. 
+
+\begin{figure}[h!]
+\begin{center}
+
+
+\begin{tikzpicture}[transform shape]
+	\draw (6, 7) to[capacitor, l={$C_{in}$}] (6, 4);
+	\node[nmos, rotate=-90](N1) at (7.48, 7){} node[anchor=north] at (N1.text){$SW_1$};
+	\draw (12, 7) to[empty diode, l={$SW_2$}] (9.125, 7);
+	\draw (9.125, 7) to[cute inductor, l={$L$}, v<=$V_L$, voltage/shift=1.5] (9.125, 4);
+	\draw (12, 7) to[capacitor, l={$C_{out}$}] (12, 4);
+	\draw (14, 4) to[generic, v=$V_{out}$, voltage/shift=1.5] (14, 7);
+	\draw (5, 7) -- (6.71, 7);
+	\draw (8.25, 7) -- (9.125, 7);
+	\draw (12, 7) -- (14, 7);
+	\draw (14, 4) |- (5, 4);
+	\draw (5, 7) to[open, o-o, v<=$V_{in}$, voltage/bump b=1] (5, 4);
+	\draw (9.125, 4.73) -- (9.125, 4);
+\end{tikzpicture}
+
+
+\label{bbccm}
+\caption{Trends of $V_L$ and $I_L$ in a buck-boost converter in CCM}	
+\end{center}
+\end{figure}
+
+
+
+When the switch is closed, the voltage across the inductor is $V_{in}$ and the current increases; when the switch is open, the current continues to flow through the diode, and the inductor discharges into the output node. The voltage across the inductor changes sign because the derivative of the current is negative. \\
+
+Therefore:\\
+
+\textbf{Switch closed -} With this condition we will have that:
+
+\begin{equation}
+	V_L = V_{in}
+\end{equation}
+
+\textbf{Switch open -} On the other hand with the opposite conditions we will have that:
+
+\begin{equation}
+	V_{L} = V_{out}
+\end{equation}
+
+We remind now that $V_{in} \cdot V_{out} < 0$: which means that input and output have opposites polarities.
+Moving on we can now operate on the duty-cycle and calculate the $M$ value:
+
+\begin{equation}
+	T_1 \cdot \frac{V_{in}}{L} = -T_2 \frac{V_{out}}{L} \hspace{10pt} \longrightarrow \hspace{10pt} \frac{V_{out}}{V_{in}} = - \frac{T_1}{T_2} = \frac{D_C}{D_C - 1}
+\end{equation}
+
+In this topology as well, the duty cycle appears in the denominator. The denominator is the same as in the boost converter, and this leads to a pole in the right half-plane of the control loop. 
+
+Therefore, even the continuous-mode buck-boost converter has stability issues. Unlike the boost converter, however, these stability issues disappear in discontinuous mode.
+
+\subsubsection*{Discontinuous Current Mode - DCM}
+
+
+The voltage and current waveforms in DCM for the buck-boost converter are shown in \autoref{bbdcm}.
+
+\begin{figure}[h!]
+\begin{center}
+
+
+\label{bbdcm}
+\caption{Trends of $V_L$ and $I_L$ in a buck-boost converter in DCM}	
+\end{center}
+\end{figure}
+
+
+We know that:
+
+\begin{equation}
+	T_1 + T_2 + T_{IDLE} = T_{sw}
+\end{equation}
+
+If we use the same procedure followed to determine the DCM operation of the buck converter, in this case we can state that:
+
+\begin{equation}
+	M = \frac{V_{out}}{V_{in}} = - \frac{T_1}{T_2}
+\end{equation}
+
+but as before $T_2$ is an unknown term. 
+
+We can proceed as in the previous case, expressing the output current in terms of the current in the inductor, but in the case of a buck-boost converter, there is a simpler way to proceed, based on energy considerations.\\
+
+In fact, we observe that in DCM, the inductor has no stored energy at the beginning of the cycle. 
+
+During interval $T_1$, it charges due to current flowing from the input. During interval $T_2$, it discharges completely due to current flowing exclusively through the output. We are therefore dealing with a converter in which the inductor transfers a very precise amount of energy from the input to the output in each cycle, operating in two distinct phases. 
+
+Converters of this type are called indirect converters. Let $\varepsilon_L$ be the energy stored by the inductor in one cycle.
+
+We can then express the regulator’s output power as a function of this energy and the switching frequency:
+
+\begin{equation}
+	P_{out} = \frac{V^2_{out}}{R_L} = \frac{\varepsilon_L}{T_{sw}} = \varepsilon_L \cdot f_{sw}
+\end{equation}
+
+But the energy stored by an inductor is a function of the current flowing through it. 
+
+Specifically, at the end of $T_1$, the inductor will have stored the following energy:
+
+\begin{equation}
+	\varepsilon_L = \frac{1}{2}LI^2_B
+\end{equation}
+
+We can express $I_B$, in DCM as a function of $T_1$ as:
+
+\begin{equation}
+	I_B = \frac{V_{in}}{L}T_1
+\end{equation}
+
+Substituting all of this into the expression for the output power, we get:
+
+\begin{equation}
+	P_{out} = \frac{V^2_{out}}{R_L} = f_{sw} \cdot \frac{1}{2}L \left( \frac{V_{in}}{L} T_1 \right)^2 = f_{sw} \frac{V^2_{in}}{2L} \cdot T^2_1
+\end{equation}
+
+
+Recalling that T1 can be expressed in terms of the duty cycle as:
+
+\begin{equation}
+	T_1 = D_C \cdot T_{sw} = \frac{D_C}{f_{sw}}
+\end{equation}
+
+
+We get that:
+
+\begin{equation}
+	\frac{V_{out}^2}{R_L} = \frac{V_{in}^2D^2_C}{2Lf_{sw}}
+\end{equation}
+
+From here, considering only the negative solution:
+
+\begin{equation}
+	M = \frac{V_{out}}{V_{in}} = -D_C \sqrt{\frac{R_L}{2_Lf_{sw}}}
+\end{equation}
+
+Analyzing this relationship, we note that in DCM, the output voltage is proportional to the duty cycle; therefore, there is no risk of instability in the loop gain. 
+
+For this reason, the buck-boost converter is primarily used in DCM.
+
+Obviously, in this mode—as with the buck converter—there is also a dependence on the switching frequency, the inductor, and, above all, the output current.
+
+We still need to calculate the operating limits that ensure DCM mode. To obtain them, let’s assume we are in CCM and find the condition that brings $I_A$ to 0. The output current is the average value of the current through the diode, with the sign reversed:
+
+\begin{equation}
+	\frac{V_{out}}{R_L} = - \frac{I_A + I_B}{2} \cdot \frac{T_2}{T_{sw}}
+\end{equation}
+
+Recalling that in CCM, $T_2 = (1 - D_C) \cdot T_{sw}$, we get that:
+
+\begin{equation}
+\begin{cases}
+	I_A + I_B = - \dfrac{2V_{out}}{R_L(1-D_C)} \\
+	I_B - I_A = - \dfrac{V_{out}}{L} \cdot T_2 = - \dfrac{V_{out}}{L} \cdot \dfrac{1 - D_C}{f_{sw}}\\
+\end{cases}	
+\end{equation}
+
+From here:
+
+\begin{equation}
+	I_A = -V_{out} \left[ \frac{1}{R_L(1-D_C)} - \frac{1-D_C}{2Lf_{sw}} \right] > 0
+\end{equation}
+
+
+This relationship must be satisfied in order to operate in CCM mode; if the opposite condition is imposed, the system will therefore operate in DCM mode:
+
+\begin{equation}
+	L < \frac{R_L(1-D_C)^2}{2f_{sw}}
+\end{equation}
+
+
+Under these conditions, therefore, you are guaranteed to work in a continuous manner.
+
+\subsubsection{Currents and noise}
+
+For this topology as well, the calculation of the currents in the converter’s components is similar to that of the buck converter and is left as an exercise. 
+
+We note only that the input current is the one flowing through the switch; therefore, it has discontinuities, which stress the input capacitor and also cause electromagnetic compatibility issues at the input. 
+
+Similarly, the output current is the one flowing through the diode, so it is also discontinuous, creating problems with RMS current at the output capacitor and high-frequency noise at the output.
+
+
+\subsection{Flyback converter}
+
+
+
+The three topologies discussed so far represent the simplest way to build a switching converter. 
+
+However, if we return to the specifications of mains power supplies, we realize that none of them meets a fundamental requirement of the power supply: galvanic isolation from the electric power distribution network. These converters are, in fact, referred to as non-isolated converters.\\
+
+
+Starting from each of the basic converters, it is possible to derive a version that also provides galvanic isolation, known as an isolated converter. 
+
+Here, we will build only the isolated version of the buck-boost converter. 
+
+This converter is called a flyback converter and is derived very simply.\\
+
+Let’s start with the observation we’ve already made: in a buck-boost converter, energy is first drawn from the input during interval $T_1$ and stored in the inductor, then transferred to the output during interval $T_2$.
+
+We can then achieve galvanic isolation by creating a magnetic circuit that is more complex than a single inductor, replacing it with two mutually coupled inductors. This results in the circuit shown in \autoref{flydiag}.
+
+
+\begin{figure}[h!]
+\begin{center}
+
+
+\begin{tikzpicture}[transform shape]
+	\draw (6, 7) to[capacitor, l={$C_{in}$}] (6, 4);
+	\node[nmos, rotate=-90](N1) at (7.48, 7){} node[anchor=north] at (N1.text){$SW_1$};
+	\draw (12.875, 7) to[empty diode, l={$SW_2$}] (10.5, 7);
+	\draw (12.875, 7) to[capacitor, l={$C_{out}$}] (12.875, 4);
+	\draw (14.875, 4) to[generic, v=$V_{out}$, voltage/shift=1.5] (14.875, 7);
+	\draw (5, 7) -- (6.71, 7);
+	\draw (12.875, 7) -- (14.875, 7);
+	\draw (5, 7) to[open, o-o, v<=$V_{in}$, voltage/bump b=1] (5, 4);
+	\node[transformer core, cute] at (9.46, 5.45){};
+	\draw (5, 4) -- (5.875, 4);
+	\draw (10.5, 6.5) -| (10.5, 7);
+	\draw (5.875, 4) -- (8.375, 4);
+	\draw (8.41, 4.4) -| (8.375, 4);
+	\draw (8.41, 6.5) |- (8.25, 6.5) -| (8.25, 7);
+	\draw (10.51, 4.4) |- (12.875, 4);
+	\draw (14.875, 4) |- (12.875, 4);
+	\node[circ] at (9.67, 6.15){};
+	\node[circ] at (9.25, 6.15){};
+	\node[shape=rectangle, minimum width=0.59cm, minimum height=0.59cm] at (8.437, 5.5){} node[anchor=center, align=center, text width=0.202cm, inner sep=6pt] at (8.437, 5.5){$L_1$};
+	\node[shape=rectangle, minimum width=0.59cm, minimum height=0.59cm] at (10.5, 5.5){} node[anchor=center, align=center, text width=0.202cm, inner sep=6pt] at (10.5, 5.5){$L_2$};
+\end{tikzpicture}
+
+
+\caption{Circuit diagram of a flyback converter}
+\label{flydiag}	
+\end{center}	
+\end{figure}
+
+
+In this circuit, inductor $L_1$ is used to inject energy into the magnetic circuit consisting of the two mutually coupled inductors. 
+When the switch opens, the magnetic circuit discharges through inductor $L_2$ and the diode. The operating equations are the same as those for the buck-boost converter, with the sole addition of the design freedom provided by the transformer’s turns ratio.\\
+
+Note that, in reality, the inclusion of the transformer allows us to make some adjustments that can be very useful.\\
+
+Given this preliminary introduction we can notice that:
+
+\begin{enumerate}[label=\textbf{-}]
+	\item The switch and inductor $L_1$ are connected in series. The circuit works the same way if we swap the two components, placing the switch on the low side of the circuit (this was not possible in the buck-boost circuit). The low-side switch is easier to implement.
+	\item If you reverse the polarity of the secondary winding (the \textit{"dot"}), you change the direction of the current in the output circuit. By also swapping the anode and cathode of the diode, you end up with a circuit in which the output is no longer negative.
+\end{enumerate}
+
+These modifications are represented in \autoref{flymodified}
+
+
+
+\begin{figure}[h!]
+\begin{center}
+
+\begin{tikzpicture}[transform shape]
+	\draw (6, 7) to[capacitor, l={$C_{in}$}] (6, 4);
+	\node[nmos, rotate=-90](N1) at (7.48, 7){} node[anchor=north] at (N1.text){$SW_1$};
+	\draw (10.5, 7) to[empty diode, l={$SW_2$}] (12.875, 7);
+	\draw (12.875, 7) to[capacitor, l={$C_{out}$}] (12.875, 4);
+	\draw (14.875, 4) to[generic, v=$V_{out}$, voltage/shift=1.5] (14.875, 7);
+	\draw (5, 7) -- (6.71, 7);
+	\draw (12.875, 7) -- (14.875, 7);
+	\draw (5, 7) to[open, o-o, v<=$V_{in}$, voltage/bump b=1] (5, 4);
+	\node[transformer core, cute] at (9.46, 5.45){};
+	\draw (5, 4) -- (5.875, 4);
+	\draw (10.5, 6.5) -| (10.5, 7);
+	\draw (5.875, 4) -- (8.375, 4);
+	\draw (8.41, 4.4) -| (8.375, 4);
+	\draw (8.41, 6.5) |- (8.25, 6.5) -| (8.25, 7);
+	\draw (10.51, 4.4) |- (12.875, 4);
+	\draw (14.875, 4) |- (12.875, 4);
+	\node[circ] at (9.67, 4.75){};
+	\node[circ] at (9.25, 6.15){};
+	\node[shape=rectangle, minimum width=0.59cm, minimum height=0.59cm] at (8.437, 5.5){} node[anchor=center, align=center, text width=0.202cm, inner sep=6pt] at (8.437, 5.5){$L_1$};
+	\node[shape=rectangle, minimum width=0.59cm, minimum height=0.59cm] at (10.5, 5.5){} node[anchor=center, align=center, text width=0.202cm, inner sep=6pt] at (10.5, 5.5){$L_2$};
+\end{tikzpicture}
+
+
+\caption{Circuit diagram of a flyback converter with positive output}
+\label{flymodified}	
+\end{center}	
+\end{figure}
+
+So far, we have only described the isolated version of the converter. To achieve galvanic isolation, the controller must also be galvanically isolated between the part that reads the output voltage and the part that drives the switch.
+
+\subsubsection*{Multiple outputs}
+
+
+The use of two mutually coupled inductors is not the only option for the magnetic circuit. 
+If three coupled inductors are used, it is possible to obtain two different outputs from the converter, as shown in \autoref{flymult}.
+
+\begin{figure}[h!]
+\begin{center}
+
+\begin{tikzpicture}[transform shape]
+	\node[ocirc] at (38, -11){};
+	\node[ocirc] at (38, -14){};
+	\draw (38, -14) to[open, v^=$V_{in}$, voltage/distance from node=0.4, voltage/bump b=1.2, voltage/shift=-1] (38, -11);
+	\draw (38, -11) -- (40, -11);
+	\draw (38, -14) -- (40, -14);
+	\draw (40, -11) to[capacitor, l_={$C_{in}$}] (40, -14);
+	\node[nmos, rotate=90](N1) at (41, -14){} node[anchor=south] at (N1.text){$SW_1$};
+	\draw (42, -11) to[cute inductor, l_={$L_1$}] (42, -14);
+	\draw (40, -11) -- (42, -11);
+	\draw (42, -14) -- (41.75, -14);
+	\draw (40.25, -14) -- (40, -14);
+	\node[ocirc] at (38, -14){};
+	\node[ocirc] at (38, -11){};
+	\draw (42.375, -9.5) to[short] (42.375, -15.5);
+	\draw (42.5, -9.5) to[short] (42.5, -15.5);
+	\draw (42.915, -10) to[cute inductor, l={$L_{2a}$}] (42.915, -12);
+	\draw (42.915, -10) to[empty diode, l={$D_1$}] (45.915, -10);
+	\draw (45.915, -10) to[capacitor, l_={$C_{out1}$}] (45.915, -12);
+	\draw (42.915, -12) -- (45.915, -12);
+	\draw (46.915, -10) to[generic, l={$R_{L1}$}, v^<=$V_{out1}$, voltage/distance from node=0.3, voltage/bump b=0.2, voltage/shift=8] (46.915, -12);
+	\draw (45.915, -10) -- (46.915, -10);
+	\draw (45.915, -12) -- (46.915, -12);
+	\draw (42.915, -13) to[cute inductor, l={$L_{2b}$}] (42.915, -15);
+	\draw (42.915, -13) to[empty diode, l={$D_2$}] (45.915, -13);
+	\draw (45.915, -13) to[capacitor, l_={$C_{out2}$}] (45.915, -15);
+	\draw (42.915, -15) -- (45.915, -15);
+	\draw (46.915, -13) to[generic, l={$R_{L2}$}, v^<=$V_{out2}$, voltage/distance from node=0.3, voltage/bump b=0.2, voltage/shift=8] (46.915, -15);
+	\draw (45.915, -13) -- (46.915, -13);
+	\draw (45.915, -15) -- (46.915, -15);
+	\node[circ] at (41.75, -12){};
+	\node[circ] at (43.125, -11.625){};
+	\node[circ] at (43.125, -14.625){};
+\end{tikzpicture}
+
+\caption{Circuit diagram of a flyback converter with multiple outputs}
+\label{flymult}	
+\end{center}	
+\end{figure}
+
+
+By adding inductors, you can add even more outputs. The only problem is that there is only one switch, so the control system can stabilize the voltage of only one of the outputs. \\
+
+The other outputs are uncontrolled, and their voltage will also depend on the load value. The controlled output is called the primary output of the regulator; the others are secondary outputs.\\
+
+
+
+
+
+\end{document}
