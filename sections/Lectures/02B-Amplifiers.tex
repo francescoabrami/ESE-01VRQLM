@@ -33,12 +33,1136 @@ For this reason, it is often said that the inverting amplifier is the \textit{"m
 In the following paragraphs, we will begin by presenting a first example of a circuit based on the inverting amplifier. As we will soon see, the name \textit{"operational"} of the amplification device on which we are basing our discussion derives precisely from the fact that, by configuring its use with certain external components, it is possible, in a very simple manner, to perform various types of mathematical operations on signals (derivation, logarithm, integration, linear combinations).
 
 \subsubsection{Integrator}
+
+
+We proceed by considering the following circuit \autoref{opampint}:
+
+\begin{figure}[h!]
+\begin{center}
+
+\begin{tikzpicture}[transform shape]
+	\node[op amp] at (9.19, 6.51){};
+	\draw (7.75, 8.5) to[capacitor, l={$C_2$}] (11, 8.5);
+	\node[ground] at (7, 6){};
+	\draw (5, 7) to[american resistor, l={$R_1$}] (8, 7);
+	\draw (5, 5) to[european voltage source, v=$V_{in}$] (5, 7);
+	\draw (8, 6.02) -| (7, 6);
+	\draw (10.38, 6.51) -| (12, 6.5);
+	\node[ground] at (5, 5){};
+	\draw (7.75, 7) -| (7.75, 8.5);
+	\draw (11, 6.5) -| (11, 8.5);
+	\node[ocirc](N1) at (12, 6.51){} node[anchor=north] at (N1.text){$V_{out}$};
+	\node[circ] at (7.75, 7){};
+	\node[circ] at (11, 6.5){};
+\end{tikzpicture}
+
+\label{opampint}
+\caption{Circuit diagram of the integrator circuit}	
+\end{center}	
+\end{figure}
+
+
+It is easy to see that, in the Laplace domain, the transfer function of this object is given by:
+
+\begin{equation}
+	\frac{V_{out}}{V_{in}} = - \frac{1}{sC_2R_1}
+\end{equation}
+
+
+This topology is called an integrator; to analyze the behavior of the signal in the time domain, we apply the \textit{"inverse Laplace transform"} operator to the transfer function, yielding:
+
+\begin{equation}
+	V_{out} = \mathcal{L}^{-1} \{ V_{out}(s)\} = V_{out}(0) - \frac{1}{R_1C_2} \int_0^t V_{in}(t)\; dt
+\end{equation}
+
+This circuit integrates the input signal in the time domain; hence the name \textit{"integrator"}. 
+
+Unfortunately, if we could build this circuit with an ideal amplifier, we would have no operational problems, whereas the gain and bandwidth limitations of real components lead to problems that are by no means insignificant, which must be resolved through a more careful study of the topology in question.\\
+
+
+To characterize the real system, it is necessary to verify whether it is stable, and therefore we must study the $\beta$ feedback block. Its expression can be derived using methods from electrical engineering.
+
+
+
+\begin{equation}
+	\beta = \dfrac{R_1}{R_1 + \frac{1}{sC_2}} = \dfrac{sR_1C_2}{1 + sR_1C_2} 
+\end{equation}
+
+
+\begin{figure}[h!]
+\begin{center}
+
+\label{intchar}
+\caption{Ideal characteristic of the integrator circuit }	
+\end{center}	
+\end{figure}
+
+As usual, $\beta$ was determined simply by evaluating the ratio of the output signal to the input signal, temporarily canceling out the input signal—that is, the voltage source.\\
+
+A real integrator does not behave like its ideal model: the operational amplifier does not have a gain that truly tends to infinity. Useful information about its actual operation can be obtained by recalling what we just observed: its configuration is the same as that of an inverting amplifier in which the resistors are replaced by generic impedances.\\
+
+Its closed-loop gain can be denoted as $A_V$ and depends both on the loop gain $A\beta$ of the amplifier and on the feedback network $\beta$.\\
+
+\begin{equation}
+	A_V = - \frac{1 - \beta}{\beta} \cdot \frac{A\beta}{1 + A\beta}
+\end{equation}
+
+Since the first factor corresponds to the closed-loop gain of the ideal system ($A\beta \rightarrow \infty$), it is commonly referred to as $A_{\infty}$. It depends solely on the feedback network composed of passive elements. Its behavior is very simple; see \autoref{intchar}.
+
+\begin{equation}
+	A_{\infty} = - \frac{1 - \beta}{\beta} = - \frac{Z_2}{Z_1} = - \frac{1}{sC_2R_1}
+\end{equation}
+
+Let $f_0$ be the frequency at which the circuit's gain is unity. 
+Then we have:
+
+\begin{equation}
+	f_0 = \frac{1}{2\pi R_1C_2}
+\end{equation}
+
+\begin{equation}
+	A_{\infty}(jf) = - \frac{1}{\frac{jf}{f_0}}
+\end{equation}
+
+\begin{figure}[h!]
+\begin{center}
+
+\label{bodeint}
+\caption{Bode diagram of $|A|$ and $|\beta|$}	
+\end{center}	
+\end{figure}
+
+
+But over what frequency range can the circuit’s behavior be approximated by $A_{\infty}$?\\
+
+We must study the loop gain $A\beta$ in order to answer this question. Let’s assume that the amplifier is a standard operational amplifier internally compensated for unity gain and plot the behavior of $|A|$ assuming that the dominant pole is at frequency $f_1$ and of $|\beta|$, \autoref{bodeint}.\\
+
+To find the loop gain, we must add the two graphs shown above (keeping in mind that the axes are logarithmic, this is equivalent to multiplying the terms).
+
+
+
+
+\begin{figure}[h!]
+\begin{center}
+
+\label{bodeintcompl}
+\caption{Bode diagram of $|A\beta|$}	
+\end{center}	
+\end{figure}
+
+
+The overall graph is shown in \autoref{bodeintcompl}.\\ 
+
+Note that at low frequencies, the amplifier’s constant gain is superimposed on the rising curve with a slope of 20 dB/decade due to the transmission zero of the $\beta$ network at $f = 0$.
+
+At frequency $f_1$, there is the pole of the operational amplifier; therefore, -20 dB/dec is added to the 20 dB/dec slope, resulting in a flat operating region. 
+
+For frequencies above $f_0$, $\beta$ is constant and equal to 1, so the overall slope is -20 dB/dec even in the final diagram of $|A\beta|$. 
+
+From this discussion, we conclude that at high frequencies, the system’s behavior, from the standpoint of stability, is no different from that of a voltage follower.\\
+
+If the amplifier is stable for unit feedback, then it is also stable when used as an integrator.\\
+
+
+For low frequencies, however, another problem arises: in this frequency range, the loop gain is a quantity of small magnitude, being zero for DC. Therefore, the non-ideal correction term in the expression for $A_V$ is highly influential, and the system’s behavior deviates significantly from the ideal behavior.\\
+
+Let's look at the two terms separately:
+
+\begin{equation}
+	\lim_{\beta \rightarrow 0} \left( \frac{1 - \beta}{\beta} \right) = \frac{1}{\beta}
+\end{equation}
+
+\begin{equation}
+	\lim_{\beta \rightarrow 0} \left( \frac{A\beta}{1 + A\beta} \right) = A\beta
+\end{equation}
+
+The result is therefore ($A_V = A$). At low frequencies, the system does not exhibit the infinite gain of an ideal integrator; instead, its gain is equal to the open-loop gain of the operational amplifier.\\
+
+The same conclusion can be reached by observing that, at low frequencies, the capacitor behaves almost as an open circuit. As a result, the feedback path is effectively removed, and the circuit approaches the operating condition of an open-loop operational amplifier, whose gain is equal to ($A_d$).\\
+
+However, it should be recalled that when an operational amplifier is used in an open-loop configuration, its allowable input dynamic range becomes practically negligible. Consequently, the amplifier quickly leaves its linear operating region and saturates.\\
+
+One might attempt to overcome this limitation by applying only zero-mean input signals to the integrator. In practice, however, this is not sufficient, since the input bias currents and the input offset voltage, both DC quantities, are enough to drive the circuit into saturation.\\
+
+Despite these limitations, the integrator remains an extremely useful circuit. It is therefore necessary to adopt suitable techniques to overcome its inherent drawbacks. Two possible solutions are presented in the following sections.\\
+
+
+\subsubsection*{Periodic reset}
+
+If the system is required to operate only for a limited period of time, the circuit output can be periodically reset, allowing the integrator to operate only over a time interval during which the contribution of the integral of the input bias current remains negligible. 
+
+In practice, this is achieved by adding an electronic switch in parallel with the capacitor. When the integrator is not in use, the switch shorts the capacitor, thereby resetting its voltage.\\
+
+At the beginning of each integration interval, the switch is opened, and it is closed again at the end of the interval so that each integration cycle starts from the same initial conditions. This technique is widely employed in the implementation of ramp-type voltmeters.\\
+
+
+\subsubsection*{Integrator with losses}
+
+If the system is intended to emulate the behavior of an integrator over a limited frequency range that does not include DC, the circuit can be modified so that it exhibits a finite DC gain \autoref{intloss}.
+
+\begin{figure}[h!]
+\begin{center}
+
+\begin{tikzpicture}[transform shape]
+	\node[op amp] at (9.19, 6.51){};
+	\draw (7.75, 8.5) to[capacitor, l={$C_1$}] (11, 8.5);
+	\node[ground] at (7, 6){};
+	\draw (5, 7) to[american resistor, l={$R_1$}] (8, 7);
+	\draw (5, 5) to[european voltage source, v=$V_{in}$] (5, 7);
+	\draw (8, 6.02) -| (7, 6);
+	\draw (10.38, 6.51) -| (12, 6.5);
+	\node[ground] at (5, 5){};
+	\draw (7.75, 7) -| (7.75, 8.5);
+	\draw (11, 6.5) -| (11, 8.5);
+	\node[ocirc](N1) at (12, 6.51){} node[anchor=north] at (N1.text){$V_{out}$};
+	\node[circ] at (7.75, 7){};
+	\node[circ] at (11, 6.5){};
+	\draw (8.25, 10.25) to[american resistor, l={$R_2$}] (10.5, 10.25);
+	\draw (8.25, 10.25) -| (8.25, 8.5);
+	\draw (10.5, 10.25) -| (10.5, 8.5);
+	\node[circ] at (8.25, 8.5){};
+	\node[circ] at (10.5, 8.5){};
+\end{tikzpicture}
+
+\label{intloss}
+\caption{Circuit diagram of the integrator with the addition of $R_2$}	
+\end{center}	
+\end{figure}
+
+The addition of the resistor reduces the circuit's DC gain. 
+
+At low frequencies, the circuit behaves as an inverting amplifier; as the frequency increases and the capacitive reactance becomes smaller than ($R_2$), the circuit gradually operates as an integrator. 
+
+Consequently, the circuit exhibits two distinct operating modes, depending on the frequency.\\
+
+The transfer function of the circuit can be derived by noting that one of the impedances in the generalized inverting amplifier consists of a resistor connected in parallel with a capacitor.\\
+
+We can then obtain:
+
+\begin{equation}
+	Z_2 = R_2 // \frac{1}{sC_2} = \frac{R_2 / (sC_2)}{R_2 + 1 /(sC_2)} = \frac{R_2}{1 + sR_2C_1}
+\end{equation}
+
+From this we get that:
+
+\begin{equation}
+	\Rightarrow \frac{V_{out}}{V_{in}} = - \frac{Z_2}{Z_2} = - \frac{R_2}{R_1} \cdot \frac{1}{1 + sR_2C_2}
+\end{equation}
+
+
+Therefore, as previously anticipated, the circuit exhibits a pole at the frequency $f_2 = 1 / 2\pi R_2 C$. Starting from one decade above this pole frequency, the behavior of the circuit becomes equivalent to that of an integrator.
+
+
+\begin{figure}[h!]
+\begin{center}
+
+\label{bodelosses}
+\caption{Bode plot of the transfer function of the lossy integrator.}	
+\end{center}	
+\end{figure}
+
+The Bode plot of the magnitude of ($A_\infty$) is shown in \autoref{bodelosses}.\\
+
+For now, it is sufficient to state that, by applying the same analysis previously carried out for the integrator to this circuit, it can be easily concluded that the system is stable and that the gain can be approximated by ($A_\infty$) from DC up to a frequency range close to the operational amplifier’s gain-bandwidth product.\\
+
+
 \subsubsection{Differentiator}
+
+
+The circuit diagram of the ideal differentiator is the dual counterpart of that of the integrator and is shown in \autoref{intopamp}.\\
+
+
+\begin{figure}[h!]
+\begin{center}
+
+\begin{tikzpicture}[transform shape]
+	\node[op amp] at (9.19, 6.51){};
+	\draw (5, 7) to[capacitor, l={$C$}] (7.75, 7);
+	\node[ground] at (7, 6){};
+	\draw (5, 5) to[european voltage source, v=$V_{in}$] (5, 7);
+	\draw (8, 6.02) -| (7, 6);
+	\draw (10.38, 6.51) -| (12, 6.5);
+	\node[ground] at (5, 5){};
+	\draw (7.75, 7) -| (7.75, 8.5);
+	\draw (11, 6.5) -| (11, 8.5);
+	\node[ocirc](N1) at (12, 6.51){} node[anchor=north] at (N1.text){$V_{out}$};
+	\node[circ] at (7.75, 7){};
+	\node[circ] at (11, 6.5){};
+	\draw (8, 7) -- (7.75, 7);
+	\draw (7.75, 8.5) to[american resistor, l={$R_1$}] (11, 8.5);
+\end{tikzpicture}
+
+\label{intopamp}
+\caption{Circuit diagram of the differentiator}	
+\end{center}	
+\end{figure}
+ 
+The ideal transfer function of the differentiator corresponds to the Laplace transform of the differentiation operation applied to a time-domain function.\\
+
+\begin{equation}
+	\frac{V_{out}}{V_{in}} = -sR_1C
+\end{equation}
+
+The Bode plot of this transfer function exhibits a zero at DC and a gain that increases proportionally with the input frequency, as shown in \autoref{diffbode}. The gain is equal to unity at a frequency $f_0 = 1 / 2\pi R_1C$.\\
+
+
+\begin{figure}[h!]
+\begin{center}
+
+\caption{Ideal characteristic of the differentiator}	
+\label{diffbode}
+\end{center}	
+\end{figure}
+
+
+The non-ideal operational amplifier does not have an infinite bandwidth; therefore, it cannot faithfully implement this transfer function beyond a certain frequency. Furthermore, the stability of the system must also be analyzed.\\
+
+In this case, we can also derive the expression of ($\beta$). The behavior of ($\beta$) is shown in \autoref{bodeABdiff}. It can be observed that the pole is located at the unity-gain frequency ($f_0$).\\
+
+By summing the logarithms of ($\beta$) and ($|A_V|$), the magnitude response of ($A\beta$) shown in the same \autoref{bodeABdiff} is obtained. 
+
+It can be seen that the loop gain plot crosses the 0 dB axis in a critical manner: the differentiator may therefore be an unstable system, since the two poles together can introduce a phase shift of 180$^\circ$ in the feedback signal with respect to the input signal.\\
+
+The phase margin is consequently reduced, and the stability of the system depends only on the relative position of the dominant pole frequency of the operational amplifier ($f_1$) and the unity-gain frequency of the differentiator ($f_0$).\\
+
+In addition to the frequency limitations due to reasons similar to those affecting the integrator, the differentiator is also subject to stability issues. 
+
+In this case as well, the problems can be partially solved by introducing a resistor, specifically in series with the capacitor. This modification improves the stability of the system; however, it reduces the high-frequency gain, and therefore decreases the frequency range over which the circuit can be considered to perform the time derivative operation of the input signal.\\
+
+
+
+\begin{figure}[h!]
+\begin{center}
+
+
+\begin{tikzpicture}[transform shape]
+	\node[op amp] at (9.19, 6.51){};
+	\draw (5.5, 7) to[capacitor, l={$C$}] (7.75, 7);
+	\node[ground] at (7, 6){};
+	\draw (3, 5) to[european voltage source, v=$V_{in}$] (3, 7);
+	\draw (8, 6.02) -| (7, 6);
+	\draw (10.38, 6.51) -| (12, 6.5);
+	\node[ground] at (3, 5){};
+	\draw (7.75, 7) -| (7.75, 8.5);
+	\draw (11, 6.5) -| (11, 8.5);
+	\node[ocirc](N1) at (12, 6.51){} node[anchor=north] at (N1.text){$V_{out}$};
+	\node[circ] at (7.75, 7){};
+	\node[circ] at (11, 6.5){};
+	\draw (8, 7) -- (7.75, 7);
+	\draw (7.75, 8.5) to[american resistor, l={$R_1$}] (11, 8.5);
+	\draw (3, 7) to[american resistor, l={$R_2$}] (5.5, 7);
+\end{tikzpicture}
+
+\caption{Circuit diagram of the differentiator with the addition of $R_2$}	
+\label{diffRes}
+\end{center}	
+\end{figure}
+
+The transfer function of the circuit modified by the introduction of the additional resistor can be derived from the expressions of the modified impedances.
+
+\begin{equation}
+	\frac{V_{out}}{V_{in}} = - \frac{Z_1}{Z_2} = - \frac{R_1}{1 / (sC) + R_2} = - \frac{sR_1C}{1+sR_2C}
+\end{equation}
+
+The transfer function presents a zero at the origin and a pole at the frequency ($f_p$).
+
+
+\begin{equation}
+	f_p = \frac{1}{2\pi R_2C}
+\end{equation}
+
+This circuit can also be interpreted as a filter and will therefore be revisited in the chapter dedicated to filters. For the stability analysis, the new ($\beta$) factor must be calculated.
+
+\begin{equation}
+	\beta = \frac{1 + sR_2C}{1 + s(R_1 + R_2)C}
+\end{equation}
+
+
+In this case, the feedback network introduces a pole-zero pair, thereby reducing, as previously stated, the instability problems.
+
+
 \subsubsection{Inverting summing amplifier}
 
+Here below is the circuit diagram of the inverting summing amplifier (\autoref{invsumm}).
+
+\begin{figure}[h!]
+\begin{center}
+
+\begin{tikzpicture}[transform shape]
+	\node[op amp] at (9.19, 6.51){};
+	\node[ground] at (7, 6){};
+	\draw (4.5, 5) to[european voltage source, v=$V_{in,2}$] (4.5, 7);
+	\draw (8, 6.02) -| (7, 6);
+	\draw (10.38, 6.51) -| (12, 6.5);
+	\node[ground] at (4.5, 5){};
+	\draw (7.75, 7) -| (7.75, 8.5);
+	\draw (11, 6.5) -| (11, 8.5);
+	\node[ocirc](N1) at (12, 6.51){} node[anchor=north] at (N1.text){$V_{out}$};
+	\node[circ] at (7.75, 7){};
+	\node[circ] at (11, 6.5){};
+	\draw (8, 7) -- (7.75, 7);
+	\draw (7.75, 8.5) to[american resistor, l={$R_3$}] (11, 8.5);
+	\draw (4.5, 8.5) to[american resistor, l={$R_1$}] (7.75, 8.5);
+	\draw (4.5, 7) to[american resistor, l={$R_2$}] (7.75, 7);
+	\node[circ] at (7.75, 8.5){};
+	\draw (2.75, 6.5) to[european voltage source, v=$V_{in,1}$] (2.75, 8.5);
+	\node[ground] at (2.75, 6.5){};
+	\draw (4.5, 8.5) -- (2.75, 8.5);
+\end{tikzpicture}
+
+\caption{Circuit diagram of the inverting summing amplifier}	
+\label{invsumm}
+\end{center}	
+\end{figure}
+
+This circuit derives from the inverting amplifier configuration, with the addition of branches consisting of the signal generators to be summed, each connected in series with a different resistor and connected to the inverting terminal of the operational amplifier.\\ 
+
+As seen for the previous configuration, a current proportional to the voltage across the connected signal generator will flow through each branch. All currents are summed at the inverting terminal and converted into a voltage by the output stage. 
+
+To analyze the circuit, since all the elements are linear, the principle of superposition can be applied.
+
+\begin{figure}[h!]
+\begin{center}
+
+\begin{tikzpicture}[transform shape]
+	\node[op amp] at (9.19, 6.51){};
+	\node[ground] at (7, 6){};
+	\draw (8, 6.02) -| (7, 6);
+	\draw (10.38, 6.51) -| (12, 6.5);
+	\node[ground] at (4.5, 7){};
+	\draw (7.75, 7) -| (7.75, 8.5);
+	\draw (11, 6.5) -| (11, 8.5);
+	\node[ocirc](N1) at (12, 6.51){} node[anchor=north] at (N1.text){$V_{out}$};
+	\node[circ] at (7.75, 7){};
+	\node[circ] at (11, 6.5){};
+	\draw (8, 7) -- (7.75, 7);
+	\draw (7.75, 8.5) to[american resistor, l={$R_3$}] (11, 8.5);
+	\draw (4.5, 8.5) to[american resistor, l={$R_1$}] (7.75, 8.5);
+	\draw (4.5, 7) to[american resistor, l={$R_2$}] (7.75, 7);
+	\node[circ] at (7.75, 8.5){};
+	\draw (2.75, 6.5) to[european voltage source, v=$V_{in,1}$] (2.75, 8.5);
+	\node[ground] at (2.75, 6.5){};
+	\draw (4.5, 8.5) -- (2.75, 8.5);
+\end{tikzpicture}
+
+\caption{Circuit diagram of the inverting summing amplifier with only one active input}
+\label{invsummone}	
+\end{center}	
+\end{figure}
+
+Consider only the signal generator ($V_{in,1}$) switched on, with all the others switched off \autoref{invsummone}. 
+
+We can see that, on one side, the non-inverting terminal is always connected to 0 V; consequently, the inverting terminal is also at a \textit{"virtual 0 V"}. Since only ($R_1$) has its corresponding generator active, ($R_2$) can be considered connected to 0 V at both terminals.\\
+
+Therefore, there will be no voltage drop across it, and consequently no current will flow through it according to Ohm’s law. 
+
+In practice, ($R_2$) can be neglected in the calculations. The partial transfer characteristic of the circuit can be reduced to that of a standard inverting amplifier, and therefore we obtain:
+
+\begin{equation}
+	\frac{V_{out}}{V_{in}} \bigg|_{V_{in,1}} = - \frac{R_3}{R_1}
+\end{equation}
+
+Applying the same reasoning to ($V_{in,2}$), connected to resistor ($R_2$), it can be seen that:
+
+\begin{equation}
+	\frac{V_{out}}{V_{in}} \bigg|_{V_{in,2}} = - \frac{R_3}{R_2}
+\end{equation}
+
+Using the linearity of the network, and therefore the principle of superposition of effects, we obtain:
+
+\begin{equation}
+	V_{out} = - \frac{R_3}{R_1} \cdot V_{in,1} - \frac{R_3}{R_2} \cdot V_{in,2}
+\end{equation}
+
+The same reasoning can obviously be extended to any arbitrary number of signal generators.
+
 \subsection{Differential amplifier}
+
+
+We have performed (inverted) summations, but can we also obtain generic linear combinations of a certain number of signals? We would like, for example, to have an output with the following form:
+
+
+\begin{equation}
+	V_{out} = k (V_{in,1} - V_{in,2})
+\end{equation}
+
+Why do we use the same ($K$) for both? In this way, the output depends only on the difference between the two signals.\\
+
+To implement the transfer function, we could try to analyze a circuit similar to the one shown in \autoref{diffop}.
+
+
+\begin{figure}[h!]
+\begin{center}
+
+\begin{tikzpicture}[transform shape]
+	\node[op amp] at (9.19, 6.51){};
+	\draw (8, 6.02) -| (7, 6);
+	\draw (10.38, 6.51) -| (12, 6.5);
+	\draw (7.75, 7) -| (7.75, 8.5);
+	\draw (11, 6.5) -| (11, 8.5);
+	\node[ocirc](N1) at (12, 6.51){} node[anchor=north] at (N1.text){$V_{out}$};
+	\node[circ] at (7.75, 7){};
+	\node[circ] at (11, 6.5){};
+	\draw (8, 7) -- (7.75, 7);
+	\draw (7.75, 8.5) to[american resistor, l={$R_2$}] (11, 8.5);
+	\draw (4.5, 7) to[american resistor, l={$R_1$}] (7.75, 7);
+	\draw (4.5, 5) to[european voltage source, v=$V_{in,2}$] (4.5, 7);
+	\node[ground] at (4.5, 5){};
+	\draw (7, 4.02) to[european voltage source, v=$V_{in,1}$] (7, 6.02);
+	\node[ground] at (7, 4.02){};
+\end{tikzpicture}
+
+\caption{Circuit candidate for the title of \textit{differential amplifier}.}
+\label{diffop}	
+\end{center}	
+\end{figure}
+
+Considering a circuit completely analogous to the previous one, except for the fact that the signal to be summed is introduced at the non-inverting terminal, the following contributions are obtained by applying the principle of superposition:
+
+\begin{equation}
+	V_{out} \big|_{V_{in,1}} = \left( 1 + \frac{R_2}{R_1} \right) \cdot V_{in,1}
+\end{equation}
+
+
+\begin{equation}
+	V_{out} \big|_{V_{in,2}} = - \frac{R_2}{R_1} \cdot V_{in,2}
+\end{equation}
+
+Superimposing the effects:
+
+\begin{equation}
+	V_{out} = \left( 1 + \frac{R_2}{R_1} \right) \cdot V_{in,1} - \frac{R_2}{R_1} \cdot V_{in,2} = K_1 V_{in,1} - K_2 V_{in,2} 
+\end{equation}
+
+In this case, however, ($K_1 \neq K_2$). 
+
+Therefore, it is possible to obtain a certain linear combination, but not the one we desire.\\
+
+The starting point is promising: we have discovered that signals applied to the $"+"$ terminal are amplified and not inverted (summed), while signals applied to the $"-"$ terminal are amplified and inverted (subtracted). 
+
+However, we have not been able to assign the same weight to the two signals.
+ 
+To achieve this, additional elements must be introduced into the circuit, in order to increase the degrees of freedom of our equations and allow better adjustment of the gain.\\
+
+How can we therefore obtain ($K_1 = K_2$)? Since ($K_1 > K_2$), the gain of ($V_{in,1}$) must be reduced. 
+
+This can be achieved by using a voltage divider at the non-inverting terminal, with a topology as shown in \autoref{diffop14}.
+
+
+\begin{figure}[h!]
+\begin{center}
+
+\begin{tikzpicture}[transform shape]
+	\node[op amp] at (9.19, 6.51){};
+	\draw (8, 6.02) -| (7, 6);
+	\draw (10.38, 6.51) -| (12, 6.5);
+	\draw (7.75, 7) -| (7.75, 8.5);
+	\draw (11, 6.5) -| (11, 8.5);
+	\node[ocirc](N1) at (12, 6.51){} node[anchor=north] at (N1.text){$V_{out}$};
+	\node[circ] at (11, 6.5){};
+	\draw (8, 7) -- (7.75, 7);
+	\draw (7.75, 9.5) to[american resistor, l={$R_2$}] (11, 9.5);
+	\draw (4.25, 7.25) to[european voltage source, v=$V_{in,2}$] (4.25, 9.25);
+	\node[ground] at (4.25, 7.25){};
+	\draw (4.25, 3.48) to[european voltage source, v=$V_{in,1}$] (4.25, 6);
+	\node[ground] at (7, 3.5){};
+	\node[circ] at (7, 6.02){};
+	\draw (7, 6.02) to[american resistor, l={$R_4$}] (7, 3.5);
+	\node[ground] at (4.25, 3.5){};
+	\draw (7, 6.02) to[american resistor, l={$R_3$}] (4.25, 6);
+	\draw (7.75, 9.5) to[american resistor, l={$R_1$}] (5, 9.5);
+	\draw (7.75, 8.5) -| (7.75, 9.5);
+	\draw (11, 9.5) -| (11, 8.5);
+	\draw (5, 9.5) |- (4.25, 9.5) -| (4.25, 9.25);
+\end{tikzpicture}
+
+\caption{Circuit diagram of the differential amplifier}	
+\label{diffop14}
+\end{center}	
+\end{figure}
+
+This time, by applying the principle of superposition of effects in the usual manner, we will obtain the following contributions:
+
+\begin{equation}
+	V_+ = V_{in,1} \cdot \frac{R_4}{R_3+R_4}
+\end{equation}
+
+\begin{equation}
+	V_{out} = V_{in,1} \cdot \frac{R_4}{R_3+R_4} \left( 1 + \frac{R_2}{R_1} \right) - \frac{R_2}{R_1} \cdot V_{in,2}
+\end{equation}
+
+To obtain the same $K$, the two multiplication coefficients for the input signals must be equal, and therefore:
+
+\begin{equation}
+	\frac{R_4}{R_3 + R_4} \left( 1 + \frac{R_2}{R_1} \right) = \frac{R_2}{R_1} \rightarrow \frac{R_4}{R_3 + R_4} = \frac{R_2}{R_1} \cdot \frac{R_1}{R_1 + R_2} = \frac{R_2}{R_1 + R_2}
+\end{equation}
+
+If the equality is satisfied, then it is also satisfied for the reciprocals:
+
+\begin{equation}
+	\frac{R_4 + R_3}{R_4} = \frac{R_2 + R_1}{R_2} \rightarrow 1 + \frac{R_3}{R_4} = 1 + \frac{R_1}{R_2}
+\end{equation}
+
+From here:
+
+\begin{equation}
+	\frac{R_1}{R_2} = \frac{R_3}{R_4}
+\end{equation}
+
+
+We have now found the condition required for an amplifier to be differential, meaning that it is capable of performing the subtraction between two signals without assigning one of the two signals a different weight, i.e., without having a different input amplification for the two signals.\\
+
+It should be noted that, due to the parasitic parameters of the operational amplifier, the optimal choice of resistors is:
+
+\begin{equation}
+\begin{cases}
+	R_1 = R_3\\
+	R_2 = R_4\\
+\end{cases}
+\end{equation}
+
+
+In turn, the differential amplifier is the \textit{"mother"} of a broad family of amplifiers: instrumentation amplifiers. 
+
+It should be noted that the fundamental problem of the inverting amplifier has not yet been solved: as will be seen later, this amplifier still requires further developments in order to become a good voltage amplifier, due to its low input impedance.
+
+
+
+\subsubsection*{Common-mode gain}
+
+A very important issue of this circuit is common-mode rejection.\\
+
+By introducing a \textit{common-mode signal} into the differential amplifier, i.e., the \textit{same signal} applied to both terminals, we would expect a good differential amplifier to produce a zero output: the difference between a signal and itself is equal to 0, resulting in a constantly null signal.
+
+
+\begin{figure}[h!]
+\begin{center}
+
+\begin{tikzpicture}[transform shape]
+	\node[op amp] at (9.19, 6.51){};
+	\draw (8, 6.02) -| (7, 6);
+	\draw (10.38, 6.51) -| (12, 6.5);
+	\draw (7, 7) -| (7, 8.5);
+	\draw (11, 6.5) -| (11, 8.5);
+	\node[ocirc](N1) at (12, 6.51){} node[anchor=north] at (N1.text){$V_{out}$};
+	\node[circ] at (11, 6.5){};
+	\draw (8, 7) -- (7.75, 7);
+	\draw (7, 8.5) to[american resistor, l={$R_2$}] (11, 8.5);
+	\draw (3, 3.5) to[european voltage source, v=$V_C$] (3, 6.02);
+	\node[ground] at (7, 3.5){};
+	\node[circ] at (7, 6.02){};
+	\draw (7, 6.02) to[american resistor, l={$R_4$}] (7, 3.5);
+	\node[ground] at (3, 3.52){};
+	\draw (7, 6.02) to[american resistor, l={$R_3$}] (4.25, 6);
+	\draw (7, 7) to[american resistor, l={$R_1$}] (4.25, 7);
+	\draw (7.75, 7) -- (7, 7);
+	\node[circ] at (7, 7){};
+	\draw (4.25, 7) -| (4.25, 6);
+	\node[circ] at (4.25, 6.5){};
+	\draw (3, 6) -| (3, 6.5) -- (4.25, 6.5);
+\end{tikzpicture}
+
+\caption{Differential amplifier with common-mode input.}	
+\label{diffcommon}
+\end{center}	
+\end{figure}
+
+Consider the circuit shown in \autoref{diffcommon}.
+
+It can be seen that, due to the signal $V_C$ applied at the input, a current through resistor $R_1$ is given by:
+
+\begin{equation}
+	I_1 = \frac{1}{R_1} \left[ V_C - \frac{R_4}{R_4 + R_3} V_C \right] = V_C \frac{R_3}{R_4 + R_3} \cdot \frac{1}{R_1}
+\end{equation}
+
+The output voltage will then be:
+
+\begin{equation}
+	V_{out} = \frac{R_4}{R_4 + R_3} V_C - I_1R_2
+\end{equation}
+
+Where $I_2$ is the current flowing through resistor $R_2$; since no current enters the operational amplifier (ideally), and given the expression for $I_1$, we can state that $I_2 = I_1$. \\
+
+Therefore, by substituting:
+
+\begin{equation}
+	V_{out} = \frac{R_4}{R_3 + R_4} V_C - \frac{R_2}{R_1} \cdot \frac{R_3}{R_3 + R_4} V_C = \frac{R_4}{R_3 + R_4} \left( 1 - \frac{R_2}{R_1} \cdot \frac{R_3}{R_4} \right) V_C
+\end{equation}
+
+
+The common-mode gain $A_C$, i.e., the gain of the amplifier with respect to the common-mode components, namely the \textit{"equal"} components of the two signals, is:
+
+\begin{equation}
+	A_C = \frac{V_{out}}{V_{in}} \left( \frac{R_4}{R_3 + R_4} \right) \cdot \left( 1 - \frac{R_2}{R_1}  \cdot  \frac{R_3}{R_4} \right)
+\end{equation}
+
+
+
+By continuing to satisfy the optimized formula, i.e., the condition $R_1 = R_3$ and $R_2 = R_4$, the common-mode gain will be minimized (theoretically and ideally reduced to 0). 
+
+However, it should be noted that resistor tolerances make it difficult to achieve this condition in practice.
+
+
 \subsection{Non-inverting summing amplifier}
+\label{nonincsummamp}
+
+It is also possible to perform the summation of two or more signals starting from the non-inverting amplifier configuration. In the case of three signals, the circuit shown in \autoref{noninvsumm} is obtained.\\
+
+To analyze the circuit, we once again apply the principle of superposition of effects:
+
+\begin{equation}
+	V_{out} \big|_{V_{P_1}} = \left( 1 + \frac{R_f}{R_N} \right) \cdot \frac{R_{P_2} // R_{P_3}}{R_{P_1} + R_{P_2} // R_{P_3}} \cdot V_{P_1}
+\end{equation}
+
+
+Analogous contributions are obtained from the other inputs.\\
+
+By defining $R_P$ as:
+
+\begin{equation}
+	R_P = R_{P_1} // R_{P_2} R_{P_3}
+\end{equation}
+
+and by calling $A_N$ the term:
+
+\begin{equation}
+	A_N = \frac{R_f}{R_N}
+\end{equation}
+
+
+we can describe the expression of the gain relative to the $V_{P_1}$ generator as:
+
+\begin{equation}
+	V_{out}\big|_{V_{P_1}} = (A_N + 1) \cdot \frac{R_P}{R_{P_1}} \cdot V_{P_1}
+\end{equation}
+
+
+The overall transfer function is therefore:
+
+\begin{equation}
+	V_{out} = (A_N + 1) \cdot \left( \frac{R_P}{R_{P_1}} \cdot V_{P_1} + \frac{R_P}{R_{P_2}} \cdot V_{P_2} + \frac{R_P}{R_{P_3}} \cdot V_{P_3} \right)
+\end{equation}
+
+\begin{figure}[h!]
+\begin{center}
+
+\begin{tikzpicture}[transform shape]
+	\node[op amp] at (9.19, 6.51){};
+	\draw (8, 6.02) -| (7, 6);
+	\draw (10.38, 6.51) -| (12, 6.5);
+	\draw (7, 7) -| (7, 8.5);
+	\draw (11, 6.5) -| (11, 8.5);
+	\node[ocirc](N1) at (12, 6.51){} node[anchor=north] at (N1.text){$V_{out}$};
+	\node[circ] at (11, 6.5){};
+	\draw (8, 7) -- (7.75, 7);
+	\draw (7, 8.5) to[american resistor, l={$R_f$}] (11, 8.5);
+	\node[circ] at (7, 6.02){};
+	\draw (7.75, 7) -- (7, 7);
+	\draw (7, 6) -- (7, 4);
+	\node[circ] at (7, 5){};
+	\draw (4, 6.02) to[american resistor, l={$R_{P_1}$}] (7, 6.02);
+	\draw (4, 5) to[american resistor, l={$R_{P_2}$}] (7, 5);
+	\draw (4, 4) to[american resistor, l={$R_{P_3}$}] (7, 4);
+	\draw (4, 8.5) to[american resistor, l={$R_N$}] (7, 8.5);
+	\node[circ] at (7, 8.5){};
+	\node[ground] at (4, 8.5){};
+	\node[ocirc](N2) at (4, 6.02){} node[anchor=north] at (N2.text){$V_{P_1}$};
+	\node[ocirc](N3) at (4, 5){} node[anchor=north] at (N3.text){$V_{P_2}$};
+	\node[ocirc](N4) at (4, 4){} node[anchor=north] at (N4.text){$V_{P_3}$};
+\end{tikzpicture}
+
+\caption{Circuit diagram of the non-inverting summing amplifier}
+\label{noninvsumm}
+\end{center}	
+\end{figure}
+
+
+Unlike the inverting summing amplifier, in which the gain of each branch is independent of the others, in this case changing a single resistor modifies the gain of all branches.\\
+
+What procedure should be followed to design a non-inverting summing amplifier? Let us see how to size the resistors, given a specification of the following type:
+
+\begin{equation}
+	V_{out} = K_{P_1} V_{P_1} + K_{P_2} V_{P_2} + K_{P_3} V_{P_3}
+\end{equation}
+
+We note that:
+
+\begin{equation}
+\begin{aligned}
+	K_{P_1} = (A_N + 1) \cdot R_P / R_{P_1}\\
+	K_{P_2} = (A_N + 1) \cdot R_P / R_{P_2}\\
+	K_{P_3} = (A_N + 1) \cdot R_P / R_{P_3}	
+\end{aligned}
+\end{equation}
+
+Summing term by term we get that:
+
+\begin{equation}
+	A_N + 1 = K_{P_1} + K_{P_2} + K_{P_3}
+\end{equation}
+
+while by dividing them pairwise, the relationship that must exist between the resistances is obtained:
+
+\begin{equation}
+	\frac{R_{P_3}}{R_{P_1}} = \frac{K_{P_1}}{R_{P_3}}
+\end{equation}
+
+and
+
+\begin{equation}
+	\frac{R_{P_2}}{R_{P_1}} = \frac{K_{P_1}}{R_{P_2}}
+\end{equation}
+
+
+The obvious extension to summations with an arbitrary number of inputs can be made.\\
+
+In the previous chapter, we saw that, in order to minimize the contribution of the offsets at the output of a non-inverting amplifier, the resistance seen from the non-inverting input must be equal to the parallel combination of the feedback resistance and the resistance connected between the inverting input and 0 V (in the exercise, this resulted in ($R_3 = R_2 \parallel R_1)$).\\
+
+This result also applies to the case of the non-inverting summing amplifier, because the offsets are independent sources and their contribution is calculated by setting all inputs to 0 V. Therefore, to optimize the contribution of the offsets at the output of the summing amplifier, it is necessary that:
+
+\begin{equation}
+	R_P = R_f \| R_N
+\end{equation}
+
+This condition leads to an even simpler solution for assigning the resistor values than the one seen above. In fact, the same condition can be written as:
+
+\begin{equation}
+	R_P = \dfrac{1}{\dfrac{1}{R_f} + \dfrac{1}{R_N}} = \frac{R_f}{1 + \dfrac{R_f}{R_N}} = \frac{R_f}{A_N + 1}
+\end{equation}
+
+Let's now shine light on $R_P$ in the formula that defines the gain of the summing amplifier:
+
+\begin{equation}
+	V_{out} = (A_N + 1) \cdot R_P \left( \frac{1}{R_{P_1}} V_{P_1} +  \frac{1}{R_{P_2}} V_{P_2} + \frac{1}{R_{P_3}} V_{P_3} \right)
+\end{equation}
+
+we can now substitute $R_P$ with the value found before:
+
+\begin{equation}
+	V_{out} = R_f \cdot \left( \frac{1}{R_{P_1}} V_{P_1} +  \frac{1}{R_{P_2}} V_{P_2} + \frac{1}{R_{P_3}} V_{P_3} \right)
+\end{equation}
+
+
+This means that we will have a circuit optimized for offsets if the resistors connected to the inputs have the following values:
+
+\begin{equation}
+	R_{P_i} = R_f / K_{P_i}
+\end{equation}
+
+the resistor $R_N$ is then:
+
+\begin{equation}
+	R_N = \frac{R_f}{\left( \sum_{j=1}^p K_{P_j} \right) - 1}
+\end{equation}
+
+
+
+\subsubsection*{Example exercise}
+
+Design a non-inverting summing amplifier using a real operational amplifier such that the transfer function is:
+
+\begin{equation}
+	V_{out} = 3V_{1} + 2V_2 + V_3
+\end{equation}
+
+Use a feedback resistor $R_f$ = 100 k$\Omega$.\\
+
+The solution to this problem is very easy. The sum of the gains on the three different branches is 6, then we will have:
+
+\begin{equation}
+	R_N = \frac{100 \unit{k}\Omega}{6 -1} = 20 \; \unit{k}\Omega
+\end{equation}
+
+The three input resistances will the be:
+
+\begin{equation}
+\begin{aligned}
+	R_{P_1} = R_f / K_{P_1} = 33 \unit{k}\Omega\\
+	R_{P_2} = R_f / K_{P_2} = 50 \unit{k}\Omega\\
+	R_{P_3} = R_f / K_{P_3} = 100 \unit{k}\Omega
+\end{aligned}	
+\end{equation}
+
+
 \subsection{Generalized summing amplifier}
+
+The previous circuit can be extended to an even more general form by adding inputs on the inverting side of the operational amplifier, as shown in \autoref{gensumm}.
+
+\begin{figure}[h!]
+\begin{center}
+
+\begin{tikzpicture}[transform shape]
+	\node[op amp] at (9.19, 6.51){};
+	\draw (8, 6.02) -| (7, 6);
+	\draw (10.38, 6.51) -| (12, 6.5);
+	\draw (7, 7) -| (7, 8.5);
+	\draw (11, 6.5) -| (11, 8.5);
+	\node[ocirc](N1) at (12, 6.51){} node[anchor=north] at (N1.text){$V_{out}$};
+	\node[circ] at (11, 6.5){};
+	\draw (8, 7) -- (7.75, 7);
+	\draw (7, 10) to[american resistor, l={$R_f$}] (11, 10);
+	\node[circ] at (7, 6.02){};
+	\draw (7.75, 7) -- (7, 7);
+	\draw (7, 6) -- (7, 4);
+	\draw (4, 6.02) to[american resistor, l_={$R_{P_1}$}] (7, 6.02);
+	\draw (4, 3) to[american resistor, l={$R_{P_p}$}] (7, 3);
+	\node[circ] at (7, 10){};
+	\node[ocirc](N2) at (4, 6.02){} node[anchor=north] at (N2.text){$V_{P_1}$};
+	\node[ocirc](N3) at (4, 3){} node[anchor=north] at (N3.text){$V_{P_p}$};
+	\draw (7, 4) -| (7, 3);
+	\draw (7, 10) -| (7, 8.5);
+	\draw (11, 8.5) -| (11, 10);
+	\draw[dash pattern={on 1.6pt off 3.2pt}] (4, 4.25) -- (6.75, 4.25);
+	\draw[dash pattern={on 1.6pt off 3.2pt}] (4, 4.75) -- (6.75, 4.75);
+	\draw (4, 10) to[american resistor, l_={$R_{N_1}$}] (7, 10);
+	\draw (4, 7) to[american resistor, l={$R_{N_n}$}] (7, 7);
+	\node[ocirc](N4) at (4, 10){} node[anchor=north] at (N4.text){$V_{N_1}$};
+	\node[ocirc](N5) at (4, 7){} node[anchor=north] at (N5.text){$V_{N_n}$};
+	\draw[dash pattern={on 1.6pt off 3.2pt}] (4, 8.23) -- (6.75, 8.23);
+	\draw[dash pattern={on 1.6pt off 3.2pt}] (4, 8.73) -- (6.75, 8.73);
+	\node[circ] at (7, 7){};
+\end{tikzpicture}
+
+\caption{gensumm}
+\label{Generalized form of the summing amplifier}
+\end{center}	
+\end{figure}
+
+
+Considering a system with $n$ inputs on the inverting side and $p$ inputs on the non-inverting side, the operating equations can be derived using the superposition principle.\\
+
+Regarding the gain associated with the inputs connected to the inverting side of the operational amplifier, we have:
+
+\begin{equation}
+	V_{out}\big|_{V_{N_i}} = - \frac{R_f}{R_{N_i}} \cdot V_{N_i}
+\end{equation}
+
+For the inputs connected to the non-inverting side, the case discussed in \autoref{nonincsummamp} can be considered by taking $R_N$ as:
+
+\begin{equation}
+	R_N = R{N_1} // R{N_2} // \dots // R{N_n}
+\end{equation}
+
+
+Overall, the expression of the transfer function will be:
+
+\begin{equation}
+	V_{out} = (A_N + 1) \cdot \sum_{j=1}^p \frac{R_P}{R_{P_j}} \cdot V_{P_j} - \sum_{i=1}^n \frac{R_f}{R_{N_i}} \cdot V_{N_i}
+\end{equation}
+
+Let us now see how to design a generalized summing amplifier in which the gains for the different signals are specified:
+
+\begin{equation}
+	V_{out} = \sum_{j=1}^p K_{P_j} \cdot V_{P_j} - \sum_{i=1}^n K_{N_i} \cdot V_{N_i}
+\end{equation}
+
+We are faced with a problem: with this circuit, it is not possible to satisfy all the imposed constraints, because one degree of freedom is missing. Let us see why.\\
+
+We first have that:
+
+\begin{equation}
+	\frac{R_f}{R_{N_i}} = K_{N_1}
+\end{equation}
+
+we can easily see that:
+
+\begin{equation}
+	A_N = \frac{R_f}{R_N} = \sum_{i=1}^n K_{N_i}
+\end{equation}
+
+calling now $A_P = \sum_{i=1}^p$, with calculations done in the previous section, we know that:
+
+\begin{equation}
+	A_N + 1 = A_P
+\end{equation}
+
+What can be done if the specifications require different gains?\\
+
+The solution is simple. If $(A_N < A_P - 1)$, it means that we need to increase the \textit{"inverting gain"}. This can be achieved by adding a resistor $(R_{N_x})$ between the inverting terminal and 0 V. 
+
+It is as if we were adding an input on the inverting side, connected to a generator that is identically zero.\\
+
+The circuit operates correctly if we impose:
+
+\begin{equation}
+	\frac{R_f}{R_{N_x}} = K_{N_x} = A_P - A_N - 1	
+\end{equation}
+
+If instead $(A_N > A_P - 1)$, it means that we need to increase the \textit{"non-inverting gain"}. 
+
+This can be achieved by adding a resistor $(R_{P_x})$ between the non-inverting terminal and 0 V. 
+
+It is as if we were adding an input on the non-inverting side, connected to a generator that is identically zero.\\ 
+
+The circuit operates correctly if we impose:
+
+
+\begin{equation}
+	\frac{R_f}{R_{P_x}} = K_{P_x} = A_N + 1 - A_P	
+\end{equation}
+
+
+Despite the formal simplicity of this solution, the generalized summing amplifier also suffers from the fact that the gains applied to the signals summed on the non-inverting side are not independent of each other.\\
+
+If the gains need to be varied, the generalized summing amplifier is preferably implemented as the sum of two inverting summing amplifiers connected in cascade.\\
+
+The observations made for the non-inverting summing amplifier, regarding the optimal solution for minimizing offsets and the resulting simple method for selecting the resistor values, can obviously be extended to the generalized summing amplifier.
+
+Considering the final circuit configuration, with a possible additional resistor added on the inverting or non-inverting side, it is easy to observe that the following relationship must exist:
+
+\begin{equation}
+	R_P = \frac{1}{\dfrac{1}{R_f} + \dfrac{1}{R_N}} = \frac{R_f}{1 + \dfrac{R_f}{R_N}} = \frac{R_f}{A_N + 1} = \frac{R_f}{A_P}
+\end{equation}
+
+where $R_N$ is the parallel combination of the resistors connected to the inverting side of the amplifier, as defined above, and also including the possible additional resistor $R_{N_x}$.\\
+
+Therefore, in this case as well, we have that:
+
+\begin{equation}
+	R_{P_j} = \frac{R_f}{K_{P_j}}
+\end{equation}
+
+eventually extending this definition also to the possible additional branch $R_{P_x}$.
+
+\subsubsection*{Example exercise}
+
+Design a generalized summing amplifier using an LM741 operational amplifier powered by $\pm15\ \text{V}$. The required transfer function is:
+
+\begin{equation}
+	V_{out} = 4V_1 + 6V_2 - 3V_3
+\end{equation}
+
+We begin by calculating the inverting and non-inverting gains.\\
+
+In this case, we have $A_P = 10$ and $A_N = 3$. Therefore, an additional resistor $R_{N_x}$ must be added on the inverting side to balance the gains, so that the total inverting gain becomes $A_N = 9$.\\
+
+We therefore need to transform the transfer function into:
+
+
+\begin{equation}
+	V_{out} = 4V_1 + 6V_2 - 3V_3 - 6 \cdot 0V
+\end{equation}
+
+\begin{figure}[h!]
+\begin{center}
+
+\begin{tikzpicture}[transform shape]
+	\node[op amp] at (9.19, 6.51){};
+	\draw (10.38, 6.51) -| (11, 6.5);
+	\draw (10.38, 6.51) -| (10.38, 8.51);
+	\node[ocirc](N1) at (11, 6.5){} node[anchor=north] at (N1.text){$V_{out}$};
+	\node[circ] at (10.38, 6.51){};
+	\draw (8, 8.5) to[american resistor, l={$R_f$}] (10.38, 8.51);
+	\draw (6, 5) to[american resistor, l_={$R_{P_1}$}] (8, 5);
+	\draw (6, 3.5) to[american resistor, l_={$R_{P_2}$}] (8, 3.5);
+	\node[circ] at (8, 8.5){};
+	\node[ocirc](N2) at (6, 5){} node[anchor=north] at (N2.text){$V_1$};
+	\node[ocirc](N3) at (6, 3.5){} node[anchor=north] at (N3.text){$V_2$};
+	\draw (6, 8.5) to[american resistor, l_={$R_{N_1}$}] (8, 8.5);
+	\draw (6, 7) to[american resistor, l_={$R_{N_x}$}] (8, 7);
+	\node[ocirc](N4) at (6, 8.5){} node[anchor=north] at (N4.text){$V_3$};
+	\node[circ] at (8, 7){};
+	\draw (8, 7) -| (8, 8.5);
+	\node[ground] at (6, 7){};
+	\draw (8, 6.02) -| (8, 5);
+	\draw (8, 3.5) -| (8, 5);
+	\node[circ] at (8, 5){};
+\end{tikzpicture}
+
+
+\caption{Diagram of the example}
+\label{ex11}
+\end{center}	
+\end{figure}
+
+The circuit diagram is shown in \autoref{ex11}. To dimension the resistors, we can note that, since the gain $A_P = 10$, the offset conditions are exactly the same as those in the example discussed before, consequently, we can set $R_f = 22\ \text{k}\Omega$.\\
+
+From this, the values of the other resistors follow:
+
+\begin{equation}
+\begin{aligned}
+	R_{N_1} = R_f / 3 = 7.33 \; \unit{k}\Omega\\
+	R_{N_x} = R_f / 6 = 7.67 \; \unit{k}\Omega\\
+	R_{P_1} = R_f / 4 = 5.50 \; \unit{k}\Omega\\
+	R_{P_3} = R_f / 6 = 6.67 \; \unit{k}\Omega\\
+\end{aligned}	
+\end{equation}
+
+Depending on the required gain accuracy, we will then select the nearest standardized resistor values to those calculated, using the appropriate E-series.\\
+
+\subsubsection*{Example exercise}
+
+Design a generalized summing amplifier whose transfer function is:
+
+\begin{equation}
+	V_{out} = 4V_1 - 6V_2 - 2V_3
+\end{equation}
+
+Use a feedback resistor $R_f = 50\ \text{k}\Omega$.\\
+
+Also in this case, we calculate the inverting and non-inverting gains. Here, we have $A_P = 4$ and $A_N = 8$. 
+
+Therefore, an additional resistor $R_{P_x}$ must be added on the non-inverting side to balance the gains, so that the total non-inverting gain becomes $A_P = 9$.\\ 
+
+We therefore need to transform the transfer function into:
+
+\begin{equation}
+	V_{out} = 4V_1 - 6V_2 - 2V_3 + 5 \cdot 0V
+\end{equation}
+
+\begin{figure}[h!]
+\begin{center}
+
+\begin{tikzpicture}[transform shape]
+	\node[op amp] at (9.19, 6.51){};
+	\draw (10.38, 6.51) -| (11, 6.5);
+	\draw (10.38, 6.51) -| (10.38, 8.51);
+	\node[ocirc](N1) at (11, 6.5){} node[anchor=north] at (N1.text){$V_{out}$};
+	\node[circ] at (10.38, 6.51){};
+	\draw (8, 8.5) to[american resistor, l={$R_f$}] (10.38, 8.51);
+	\draw (6, 5) to[american resistor, l_={$R_{P_1}$}] (8, 5);
+	\draw (6, 3.5) to[american resistor, l_={$R_{P_2}$}] (8, 3.5);
+	\node[circ] at (8, 8.5){};
+	\node[ocirc](N2) at (6, 5){} node[anchor=north] at (N2.text){$V_1$};
+	\draw (6, 8.5) to[american resistor, l_={$R_{N_1}$}] (8, 8.5);
+	\draw (6, 7) to[american resistor, l_={$R_{N_x}$}] (8, 7);
+	\node[ocirc](N3) at (6, 8.5){} node[anchor=north] at (N3.text){$V_2$};
+	\node[circ] at (8, 7){};
+	\draw (8, 7) -| (8, 8.5);
+	\draw (8, 6.02) -| (8, 5);
+	\draw (8, 3.5) -| (8, 5);
+	\node[circ] at (8, 5){};
+	\node[ocirc](N4) at (6, 7){} node[anchor=north] at (N4.text){$V_3$};
+	\node[ground] at (6, 3.5){};
+\end{tikzpicture}
+
+\caption{Diagram of the example}
+\label{ex22}
+\end{center}	
+\end{figure}
+
+
+The circuit diagram is shown in \autoref{ex22}.\\
+
+Since, according to the specifications, $R_f = 50\ \text{k}\Omega$, the values of the other resistors will be:
+
+
+\begin{equation}
+\begin{aligned}
+	R_{N_1} = R_f / 6 = 16.7 \; \text{k}\Omega\\
+	R_{N_1} = R_f / 2 = 25.0 \; \text{k}\Omega\\
+	R_{P_1} = R_f / 4 = 12.5 \; \text{k}\Omega\\
+	R_{P_3} = R_f / 5 = 10.0 \; \text{k}\Omega\\
+\end{aligned}	
+\end{equation}
+
+Depending on the required gain accuracy, we will then select the nearest standardized resistor values to those calculated, using the appropriate E-series.
+
+
+
+
+
+
 
 \subsection{Instrumentation amplifiers}
 \subsubsection{Introduction}
@@ -49,6 +1173,16 @@ In the following paragraphs, we will begin by presenting a first example of a ci
 \subsection{Audio amplifiers}
 \subsection{Single supply circuits}
 
+
+
+
+%\begin{figure}[h!]
+%\begin{center}
+%
+%\caption{}
+%\label{}
+%\end{center}	
+%\end{figure}
 
 
 

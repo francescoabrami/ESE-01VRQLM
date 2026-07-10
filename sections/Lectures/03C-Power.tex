@@ -361,6 +361,7 @@ At this point, as seen before:
 
 
 The difference is that now $T_1 + T_2 < T_{sw}$ and $T_2$ is unknown.\\
+
 We need a new condition from which to derive the dependence of $M$ on the duty cycle. We can observe that in discontinuous mode, the output current continues to be equal to the average value of the current in the inductor, but now this quantity is given by:
 
 \begin{equation}
@@ -411,7 +412,9 @@ Solving it we get:
 \end{equation}
 
 Of the two solutions, only the positive one is valid.\\
-As can be seen, the relationship between $D_C$ and $M$ is much more complex than in CCM. Furthermore, the value of the output voltage depends not only on the duty cycle but also on the value of the output resistance, and thus on the current drawn by the load. \\
+
+As can be seen, the relationship between $D_C$ and $M$ is much more complex than in CCM. Furthermore, the value of the output voltage depends not only on the duty cycle but also on the value of the output resistance, and thus on the current drawn by the load.\\
+
 If the control system maintains a constant duty cycle and the current in the load decreases, causing the system to switch from CCM to DCM, the output
 voltage increases. This is because M is equal to $T_1 /(T_1 + T_2)$ in both cases, but, with the switching frequency held constant, the denominator in DCM decreases, since $T_{sw} = T_1 + T_2 + T_{IDLE}$.
 
