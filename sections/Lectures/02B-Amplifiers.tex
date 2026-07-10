@@ -1047,26 +1047,31 @@ We therefore need to transform the transfer function into:
 \begin{center}
 
 \begin{tikzpicture}[transform shape]
-	\node[op amp] at (9.19, 6.51){};
+	\node[op amp] at (9.19, 6.51){};	
 	\draw (10.38, 6.51) -| (11, 6.5);
-	\draw (10.38, 6.51) -| (10.38, 8.51);
-	\node[ocirc](N1) at (11, 6.5){} node[anchor=north] at (N1.text){$V_{out}$};
-	\node[circ] at (10.38, 6.51){};
-	\draw (8, 8.5) to[american resistor, l={$R_f$}] (10.38, 8.51);
+	\draw (10.38, 6.51) -| (10.38, 8.51);	
+	\node[ocirc](N1) at (11, 6.5){} 
+		node[anchor=north] at (N1.text){$V_{out}$};
+	\node[circ] at (10.38, 6.51){};	
+	\draw (8, 8.5) to[american resistor, l={$R_f$}] (10.38, 8.51);	
 	\draw (6, 5) to[american resistor, l_={$R_{P_1}$}] (8, 5);
 	\draw (6, 3.5) to[american resistor, l_={$R_{P_2}$}] (8, 3.5);
-	\node[circ] at (8, 8.5){};
-	\node[ocirc](N2) at (6, 5){} node[anchor=north] at (N2.text){$V_1$};
-	\node[ocirc](N3) at (6, 3.5){} node[anchor=north] at (N3.text){$V_2$};
+	\node[circ] at (8, 8.5){};	
+	\node[ocirc](N2) at (6, 5){} 
+		node[anchor=north] at (N2.text){$V_1$};	
+	\node[ocirc](N3) at (6, 3.5){} 
+		node[anchor=north] at (N3.text){$V_2$};	
 	\draw (6, 8.5) to[american resistor, l_={$R_{N_1}$}] (8, 8.5);
-	\draw (6, 7) to[american resistor, l_={$R_{N_x}$}] (8, 7);
-	\node[ocirc](N4) at (6, 8.5){} node[anchor=north] at (N4.text){$V_3$};
-	\node[circ] at (8, 7){};
-	\draw (8, 7) -| (8, 8.5);
-	\node[ground] at (6, 7){};
+	\draw[blue] (6, 7) to[american resistor, l_={\color{blue}$R_{N_x}$}] (8, 7);
+	\node[circ, color=blue] at (8, 7){};
+	\draw[black] (8, 7) -| (8, 8.5);
+	\node[ground, color=blue] at (6, 7){};
+	
+	\node[ocirc](N4) at (6, 8.5){} 
+		node[anchor=north] at (N4.text){$V_3$};	
 	\draw (8, 6.02) -| (8, 5);
-	\draw (8, 3.5) -| (8, 5);
-	\node[circ] at (8, 5){};
+	\draw (8, 3.5) -| (8, 5);	
+	\node[circ] at (8, 5){};	
 \end{tikzpicture}
 
 
@@ -1118,22 +1123,23 @@ We therefore need to transform the transfer function into:
 	\draw (10.38, 6.51) -| (11, 6.5);
 	\draw (10.38, 6.51) -| (10.38, 8.51);
 	\node[ocirc](N1) at (11, 6.5){} node[anchor=north] at (N1.text){$V_{out}$};
-	\node[circ] at (10.38, 6.51){};
-	\draw (8, 8.5) to[american resistor, l={$R_f$}] (10.38, 8.51);
+	\node[circ] at (10.38, 6.51){};	
+	\draw (8, 8.5) to[american resistor, l={$R_f$}] (10.38, 8.51);	
 	\draw (6, 5) to[american resistor, l_={$R_{P_1}$}] (8, 5);
-	\draw (6, 3.5) to[american resistor, l_={$R_{P_2}$}] (8, 3.5);
+	\draw[blue] (6, 3.5) to[american resistor, l_={\color{blue}$R_{P_2}$}] (8, 3.5);	
 	\node[circ] at (8, 8.5){};
-	\node[ocirc](N2) at (6, 5){} node[anchor=north] at (N2.text){$V_1$};
+	\node[ocirc](N2) at (6, 5){} node[anchor=north] at (N2.text){$V_1$};	
 	\draw (6, 8.5) to[american resistor, l_={$R_{N_1}$}] (8, 8.5);
-	\draw (6, 7) to[american resistor, l_={$R_{N_x}$}] (8, 7);
+	\draw (6, 7) to[american resistor, l_={$R_{N_x}$}] (8, 7);	
 	\node[ocirc](N3) at (6, 8.5){} node[anchor=north] at (N3.text){$V_2$};
-	\node[circ] at (8, 7){};
+	\node[circ] at (8, 7){};	
 	\draw (8, 7) -| (8, 8.5);
 	\draw (8, 6.02) -| (8, 5);
-	\draw (8, 3.5) -| (8, 5);
+	\draw[black] (8, 3.5) -| (8, 5);
 	\node[circ] at (8, 5){};
+	\node[circ, color=blue] at (8, 3.5){};
 	\node[ocirc](N4) at (6, 7){} node[anchor=north] at (N4.text){$V_3$};
-	\node[ground] at (6, 3.5){};
+	\node[ground, color=blue] at (6, 3.5){};	
 \end{tikzpicture}
 
 \caption{Diagram of the example}
@@ -1165,8 +1171,67 @@ Depending on the required gain accuracy, we will then select the nearest standar
 
 
 \subsection{Instrumentation amplifiers}
+
+
+We can now move on and begin to analyze a more specific section relative to a specific application od operational amplifiers.\\
+
 \subsubsection{Introduction}
+
+
+We have already discussed the circuit topology known as the differential amplifier: an amplifier capable of implementing the transfer function:
+
+
+\begin{equation}
+	V_{out} = K(V_{in,1} - V_{in,2})
+\end{equation}
+
+
+These amplifiers are fundamental for many electronic applications:
+one example is a line receiver, i.e., a device that must receive signals through a cable connection. The electromagnetic interference affecting the transmission channel degrades the signal; the use of a differential receiver allows the elimination of all the common-mode components added by the cable.\\
+
+When considering connections between analog systems that are physically separated, it is necessary to carefully evaluate all the parameters involved, including those that are normally neglected when designing a circuit on a single board.\\ 
+
+Before analyzing the circuit solutions for obtaining a differential amplifier better than the one already studied, we will briefly discuss the issues introduced by interconnections in electronic systems, limiting the analysis to low-frequency applications.
+
+
 \subsubsection{Electromagnetic compatibility}
+
+
+In a generic electronic system, such as a telecommunications system or the onboard electronics of a vehicle, there are several subsystems (modules) that communicate with each other through connections, possibly long ones, over which the various signals are transmitted from one part of the system to another.\\
+
+
+A relevant aspect is the reference potential (0 V), which is the node with respect to which all the voltages in the system are measured.\\
+
+
+In addition to the reference potential, another important element is represented by the so-called grounds, i.e., the metal enclosures or external chassis of the device.\\
+
+Often, grounds do not have specific electronic functional purposes; however, they are very important from the point of view of electromagnetic compatibility (EMC). In fact, they can be used as a reference potential if they are directly connected to 0 V, or only under certain conditions, such as at radio frequencies (by connecting 0 V and the ground through a capacitor, so that the capacitor effectively shorts them above a certain frequency). On the other hand, they may also be completely unused.\\
+
+It is therefore essential to consider the presence of metallic grounds during the design phase: as a result of damage or other causes, contacts may form between active circuit elements and the chassis, making the latter relevant from the perspective of electrical safety.\\ 
+
+For this reason, metallic grounds are often connected to the earth potential, which, depending on the specific case, may or may not be connected to the reference potential.\\
+
+In general, grounds, wires, and other circuit connection elements cannot be modeled as ideal short circuits; rather, they are affected by several non-ideal effects that can be represented by unwanted resistances, capacitances, and inductances.\\
+
+For example, the chassis of a car moving near a high-voltage power line could, due to the low-frequency electromagnetic field generated by the current flowing through the power line, be subject to an induced current. If the chassis is used as a connection element for the reference potential, then the equivalent circuit of the system must include noise voltages $V_N$, which can be modeled as voltage generators.\\
+
+Other voltages and currents can also be induced on the same chassis due to the various electric motors present in the vehicle or the different power circuits related to ignition and other onboard functions. Even mobile phones or other radio-frequency sources can inject disturbances into the chassis.\\
+
+There are several techniques capable of eliminating or reducing some of the electromagnetic compatibility (EMC) issues: the study of how grounds are connected with respect to reference potentials, methods for reducing parasitic parameters, and others.\\
+
+Let us focus on a specific problem: a system composed of a remote sensor, referred to its own local reference potential, whose output must be read by an amplifier located in a control unit at a certain distance from it. The sensor and the control unit have a reference potential that is only nominally common because, as previously discussed, disturbances can create noise voltages between the system and the amplifier.\\
+
+Let us assume that the sensor’s task is to convert a physical quantity into an equivalent voltage. The voltage measured by the sensor is referred to its own 0 V reference. 
+
+
+If we connect the sensor output to the amplifier input using a simple wire, the measured voltage will not only be the sum of the sensor output voltage and the noise voltages induced on the reference potential, but the connection wire and the ground return path will also form a loop capable of capturing additional disturbances from the surrounding electromagnetic environment.\\
+
+A simple solution to this problem is to perform a differential measurement: the connection between the sensor and the amplifier is made using two wires, preferably shielded, for example by using a twisted pair, so that the amplifier calculates the difference between the sensor’s output potential and its reference potential.
+
+Obviously, the common-mode voltage must not affect the amplifier output. Therefore, it is important that the amplifier has a high CMRR (Common-Mode Rejection Ratio).
+
+
+
 \subsubsection{Instrumentation amplifiers}
 \subsubsection{Two op-amp amplifier}
 
