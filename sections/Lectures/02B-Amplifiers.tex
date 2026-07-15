@@ -1183,7 +1183,9 @@ We have already discussed the circuit topology known as the differential amplifi
 
 \begin{equation}
 	V_{out} = K(V_{in,1} - V_{in,2})
+\label{eq11}	
 \end{equation}
+
 
 
 These amplifiers are fundamental for many electronic applications:
@@ -1226,17 +1228,235 @@ Let us assume that the sensor’s task is to convert a physical quantity into an
 
 If we connect the sensor output to the amplifier input using a simple wire, the measured voltage will not only be the sum of the sensor output voltage and the noise voltages induced on the reference potential, but the connection wire and the ground return path will also form a loop capable of capturing additional disturbances from the surrounding electromagnetic environment.\\
 
-A simple solution to this problem is to perform a differential measurement: the connection between the sensor and the amplifier is made using two wires, preferably shielded, for example by using a twisted pair, so that the amplifier calculates the difference between the sensor’s output potential and its reference potential.
-
-Obviously, the common-mode voltage must not affect the amplifier output. Therefore, it is important that the amplifier has a high CMRR (Common-Mode Rejection Ratio).
+A simple solution to this problem is to perform a differential measurement: the connection between the sensor and the amplifier is made using two wires, preferably shielded, for example by using a twisted pair, so that the amplifier calculates the difference between the sensor’s output potential and its reference potential. Obviously, the common-mode voltage must not affect the amplifier output. Therefore, it is important that the amplifier has a high CMRR (Common-Mode Rejection Ratio).
 
 
 
 \subsubsection{Instrumentation amplifiers}
+
+For the reasons explained above (and also for other applications), high-performance differential amplifiers have been developed. 
+
+These amplifiers are known as instrumentation amplifiers. 
+
+Let us analyze how this type of amplifier improves the characteristics of the simple differential amplifier \autoref{insopamp}.
+
+\begin{figure}[h!]
+\begin{center}
+
+\begin{tikzpicture}[transform shape]
+	\node[op amp] at (9.19, 6.51){};
+	\draw (10.38, 6.51) -| (11, 6.5);
+	\draw (10.38, 6.51) -| (10.38, 8.51);
+	\node[ocirc](N1) at (11, 6.5){} node[anchor=north] at (N1.text){$V_{out}$};
+	\node[circ] at (10.38, 6.51){};
+	\draw (8, 8.5) to[american resistor, l={$R_2$}] (10.38, 8.51);
+	\draw (6, 5) to[american resistor, l_={$R_3$}] (8, 5);
+	\draw (8, 5) to[american resistor, l={$R_4$}] (8, 3);
+	\node[circ] at (8, 8.5){};
+	\node[ocirc](N2) at (6, 5){} node[anchor=north] at (N2.text){$V_1$};
+	\draw (6, 8.5) to[american resistor, l={$R_1$}] (8, 8.5);
+	\node[ocirc](N3) at (6, 8.5){} node[anchor=north] at (N3.text){$V_2$};
+	\node[circ] at (8, 7){};
+	\draw (8, 7) -| (8, 8.5);
+	\draw (8, 6.02) -| (8, 5);
+	\node[circ] at (8, 5){};
+	\node[ground] at (8, 3){};
+\end{tikzpicture}
+
+\caption{Circuit diagram of the differential amplifier}
+\label{insopamp}
+\end{center}	
+\end{figure}
+
+
+As explained in the chapter dedicated to this circuit, by comparing the transfer function with (\autoref{eq11}), it can be obtained that, in order to achieve a differential gain equal to $K$, (\autoref{eq11}) must be satisfied. In this equation, the first relationship allows the gain $K$ to be obtained, while the other two allow the contribution of the operational amplifier input bias current to be minimized.\\
+
+\begin{equation}
+\begin{cases}
+	R_2 / R_1 = R_4/R_3 = K\\
+	R_2 = R_4\\
+	R_1 = R_3\\	
+\end{cases}
+\label{sist}
+\end{equation}
+
+But what problems does this circuit have?  The main issue is the input impedance: in fact, the impedance seen from the inverting terminal is equal to $R_1$, while the impedance seen from the non-inverting terminal is equal to $R_3 + R_4$. 
+Therefore, the two impedances are not infinite and, moreover, they are different.\\
+
+The problem is more serious than it may appear at first glance. Indeed, $R_1$ and $R_3$ do not only determine the input impedance, but also the gain (or rather, the gains) of the stage.\\
+
+If the input signals come from circuits with a non-zero output impedance, then the gains of the two channels are modified by the impedance seen at the inputs.
+
+Calling $R_{\mathrm{eq1}}$ the Thevenin equivalent resistance of the generator $V_1$, and $R_{\mathrm{eq2}}$ that of the generator $V_2$, the actual gains of the two channels are:
+
+
+
+\begin{equation}
+	K_2 = \frac{R_2}{R_1 + R_{eq2}}
+\end{equation}
+
+\begin{equation}
+	K_1 = \left( 1 + \frac{R_2}{R_1 + R_{eq2}}  \right) \cdot \frac{R_4}{R_3 + R_4 + R_{eq1}}
+\end{equation}
+
+It is evident that both gains are lower than the designed gain and, moreover, if $R_{eq2} \neq R_{eq1}$, then $K_1 \neq K_2$. This latter condition is the most critical, since in this case the common-mode gain is no longer zero, and consequently the CMRR decreases.\\
+
+The same reduction in CMRR also occurs because of the tolerances of the resistors used in the feedback network. Indeed, resistor tolerances can cause the gains of the two branches to differ even when the input signals have identical equivalent impedances.\\
+
+This latter problem is solved by integrating the four resistors of the differential amplifier together with the operational amplifier and then performing a post-fabrication laser trimming of their values.\\
+
+To eliminate the problems caused by the input impedance, buffer stages can instead be placed before the amplifier. These stages act as impedance isolators, such as the voltage follower shown in \autoref{voltfollowerbuffer}. Voltage followers have a very high input impedance and a very low output impedance.
+
+
+\begin{figure}[h!]
+\begin{center}
+
+
+\begin{tikzpicture}[transform shape]
+	\node[op amp](N1) at (8.19, 6.51){} node[anchor=center] at (N1.text){$2$};
+	\node[op amp](N2) at (8.19, 2.51){} node[anchor=center] at (N2.text){$1$};
+	\node[op amp] at (12.69, 4.49){};
+	\draw (9.38, 6.51) to[american resistor, l={$R_1$}] (11.5, 6.5);
+	\draw (11.5, 6.5) to[american resistor, l={$R_2$}] (13.62, 6.49);
+	\draw (9.38, 2.51) to[american resistor, l={$R_3$}] (11.5, 2.5);
+	\draw (11.5, 2.5) to[american resistor, l={$R_4$}] (11.5, 0.75);
+	\draw (7, 2.02) -- (6, 2.02);
+	\node[ocirc](N3) at (6, 2.02){} node[anchor=north] at (N3.text){$V_1$};
+	\draw (7, 6.02) -- (6, 6.02);
+	\node[ocirc](N4) at (6, 6.02){} node[anchor=north] at (N4.text){$V_2$};
+	\draw (7, 7) -- (6.5, 7) -| (6.5, 8) -- (9.5, 8) -- (9.5, 6.5);
+	\node[circ] at (9.5, 6.5){};
+	\draw (7, 3) -- (6.5, 3) -| (6.5, 4) -- (9.5, 4) -- (9.5, 2.5);
+	\node[circ] at (9.5, 2.5){};
+	\draw (11.5, 2.5) -| (11.5, 4);
+	\draw (11.5, 4.98) -| (11.5, 6.5);
+	\node[circ] at (11.5, 2.5){};
+	\node[circ] at (11.5, 6.5){};
+	\draw (13.62, 6.49) -| (13.88, 4.49);
+	\draw (13.88, 4.49) -| (14.5, 4.5);
+	\node[ground] at (11.5, 0.75){};
+	\node[circ] at (13.88, 4.49){};
+	\node[ocirc](N5) at (14.5, 4.49){} node[anchor=north] at (N5.text){$V_{out}$};
+\end{tikzpicture}
+
+\caption{Schematic of the amplifier employing voltage followers as buffer stages.}
+\label{voltfollowerbuffer}
+\end{center}	
+\end{figure}
+
+
+\subsubsection*{Gain regulations}
+
+Circuit \autoref{voltfollowerbuffer} is a good differential amplifier, but it has a fixed gain $K$. Since integrating the resistors is necessary to achieve a high CMRR, it would be advantageous to have a circuit whose gain could be programmed by changing only a single resistor, without affecting the common-mode performance.\\
+
+To achieve this, the voltage followers can be replaced with non-inverting amplifiers whose feedback networks are interconnected by introducing a resistor $R$ between the inverting inputs of the two amplification stages \autoref{voltfollowerbuffer2}. With these modifications, the circuit operates as a differential amplifier with a very high CMRR and a gain $K$ that can be adjusted with great simplicity.
+
+
+\begin{figure}[h!]
+\begin{center}
+
+\begin{tikzpicture}[transform shape]
+	\node[op amp, yscale=-1](N1) at (8.82, 7.52){} node[anchor=center] at (N1.text){$2$};
+	\node[op amp](N2) at (8.833, 1.461){} node[anchor=center] at (N2.text){$1$};
+	\node[op amp] at (13.32, 4.5){};
+	\draw (10.01, 7.52) to[american resistor, l={$R_1$}] (12.13, 7.51);
+	\draw (12.13, 7.51) to[american resistor, l={$R_2$}] (14.25, 7.5);
+	\draw (10.023, 1.461) to[american resistor, l={$R_3$}] (12.143, 1.451);
+	\draw (12.13, 1.451) to[american resistor, l={$R_4$}] (12.13, -0.299);
+	\draw (7.643, 0.971) -- (6.643, 0.971);
+	\node[ocirc](N3) at (6.643, 0.971){} node[anchor=north] at (N3.text){$V_1$};
+	\draw (7.63, 8.01) -- (6.63, 8.01);
+	\node[ocirc](N4) at (6.63, 8.01){} node[anchor=north] at (N4.text){$V_2$};
+	\node[circ] at (10.01, 7.52){};
+	\node[circ] at (10.023, 1.461){};
+	\draw (12.13, 1.451) -| (12.13, 2.951);
+	\draw (12.13, 5.99) -| (12.13, 7.51);
+	\node[circ] at (12.13, 1.451){};
+	\node[circ] at (12.13, 7.51){};
+	\draw (14.25, 7.5) -| (14.51, 5.5);
+	\draw (14.51, 4.5) -| (15.13, 4.51);
+	\node[ground] at (12.13, -0.299){};
+	\node[circ] at (14.51, 4.5){};
+	\node[ocirc](N5) at (15.13, 4.5){} node[anchor=north] at (N5.text){$V_{out}$};
+	\draw (8, 6) to[american resistor, l={$R_b$}] (10, 6);
+	\draw (14.51, 5.5) |- (14.5, 4.5);
+	\draw (12.13, 4.99) |- (12.13, 5.99);
+	\draw (8, 3) to[american resistor, l={$R_a$}, label distance=0.01cm] (10, 3);
+	\draw (10.023, 1.461) |- (10, 3);
+	\draw (10.01, 7.52) |- (10, 6);
+	\draw (7.643, 3) to[american resistor, l={$R$}, label distance=0.01cm, i>^=$I$] (7.63, 6);
+	\draw (12.13, 4.01) |- (12.143, 2.951);
+	\draw (7.63, 7.03) |- (8, 6);
+	\draw (7.643, 1.951) |- (8, 3);
+	\node[circ] at (7.643, 3){};
+	\node[circ] at (7.63, 6){};
+\end{tikzpicture}
+
+\caption{Circuit diagram of an instrumentation amplifier}
+\label{voltfollowerbuffer2}
+\end{center}	
+\end{figure}
+
+
+
+If a common-mode signal $V_C$ is applied to the input of the system, that is, to the non-inverting terminals of the two preamplification stages, the inverting terminals also assume the voltage $V_C$, since the operational amplifiers operate in the linear region and therefore $v_d = 0$.\\
+
+In this case, the voltage drop across the gain-setting resistor $R$ is zero because both of its terminals are at the same potential $V_C$. Consequently, no current flows through $R$, and likewise no current flows through $R_a$ and $R_b$, since the three resistors are effectively connected in series (the input terminals of the operational amplifiers draw negligible current).\\
+
+Since there is no voltage drop across $R_a$ and $R_b$, the voltage $V_C$ also appears at the outputs of the non-inverting amplifiers, which therefore behave as voltage followers under these conditions. The common-mode rejection is therefore determined by the final differential amplifier, because its inputs are subjected to exactly the same voltage $V_C$, namely the same common-mode signal applied at the system input.\\
+
+Unlike the common-mode signal $V_C$, a differential input signal $v_d = V_1 - V_2$ appears across the resistor $R$ (since $v^+ = v^-$) and causes a current $I$ to flow through it.\\
+
+\begin{equation}
+	I = \frac{V_1 - V_2}{R}
+\end{equation}
+
+Since no current flows into the operational amplifiers, the current $I$ also flows through the resistors $R_a$ and $R_b$. The differential voltage applied to the input of the final amplifier can be obtained by applying Kirchhoff's Voltage Law (KVL) to the loop containing $R$,$R_a$, and $R_b$.\\
+
+\begin{equation}
+	V_{out,1} - V_{out,2} = \frac{V_1 - V_2}{R} \cdot (R_a + R + R_b) 
+\end{equation}
+
+By combining the transfer function of the final stage with the expression for the differential output of the preamplifiers given in previous formula, the overall relationship between the system input and output is obtained. Furthermore, the assumptions introduced in \autoref{sist} for offset minimization and CMRR optimization remain valid.\\
+
+\begin{equation}
+	\frac{R_2}{R_1} = \frac{R_4}{R_3}
+\end{equation}
+
+\begin{equation}
+	V_{out} = (V_{out,1} - V_{out,2}) \cdot \frac{R_2}{R_1} = \frac{R_1 + R + R_b}{R} \cdot \frac{R_2}{R_1} \cdot	(V_1 - V_2)
+\end{equation}
+
+\begin{equation}
+	A_d = \frac{R_a + R + R_b}{R} \cdot \frac{R_2}{R_1}
+\end{equation}
+
+Therefore, the differential gain of the system $A_d(R)$ is a function of $R$, and can therefore be easily adjusted. 
+
+However, this effective configuration can be further improved by introducing two additional auxiliary inputs.
+
+\subsubsection*{Complete instrumentation amplifier}
+
+
+\subsubsection{SENSE Terminal}
+
+\subsubsection{REF Terminal}
+
+
+
+
+
+
 \subsubsection{Two op-amp amplifier}
 
 \subsection{Audio amplifiers}
 \subsection{Single supply circuits}
+
+
+\subsection{Frequency response}
+
+\subsubsection{Phase and gain margins}
+\subsubsection{BWGP}
 
 
 
