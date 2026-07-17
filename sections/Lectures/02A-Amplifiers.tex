@@ -388,6 +388,7 @@ We can also write this formula this way to make it better to understand:
 
 \begin{equation}
 	\frac{Y}{I} = \frac{1}{\beta} \cdot \frac{A \beta }{1 + A\beta} 
+\label{solvex}
 \end{equation}
 
 At this point since $A \rightarrow \infty$ we can operate on the obtained formula by dividing both numerator and denominator for $A$.
@@ -416,11 +417,32 @@ and $\frac{1}{\beta}$:
 	\frac{1}{\beta} = \frac{R_1 + R_2}{R_1} = 1 + \frac{R_2}{R_1}
 \end{equation}
 
+In the end we want to recall that:
 
-\subsubsection*{Example exercise}
+\begin{equation}
+	\frac{1}{\beta}
+\end{equation}
 
-Design a voltage amplifier with a gain $G = 3$.
-Since we are using an ideal op-amp we assume that $A$ is infinite hence the gain will be:
+is the ideal gain and that:
+
+\begin{equation}
+	\frac{A\beta}{1 + A\beta}
+\end{equation}
+
+is the correction factor caused by finite open-loop gain.
+Also we remember that:
+
+\begin{equation}
+	\frac{A\beta}{1 + A\beta} = \frac{1}{\beta} \cdot \frac{A\beta}{1 + A\beta}
+\end{equation}
+
+Especially if $A\beta \gg 1$ then:
+
+\begin{equation}
+	\frac{A\beta}{1 + A\beta} \approx 1 \hspace{10pt} \unit{and} \hspace{10pt} G \approx \frac{1}{\beta}
+\end{equation}
+
+\paragraph{Example exercise}  Design a voltage amplifier with a gain $G = 3$. Since we are using an ideal op-amp we assume that $A$ is infinite hence the gain will be:
 
 \begin{equation}
 	\frac{Y}{I} = \frac{1}{\beta}
@@ -448,12 +470,11 @@ We can also derive the relative uncertainty on our calculation:
 	\varepsilon_G = \frac{\Delta G}{G} = \frac{3 - 2.83}{3} = 0.056 = 5.6 \%
 \end{equation}
 
-
 \subsubsection{Voltage follower}
 
 One variation of the circuit we have discussed at length is the one shown in the following \ref{ex6}
 
-\begin{figure}
+\begin{figure}[h!]
 \begin{center}
 
 \begin{tikzpicture}[transform shape]
@@ -534,10 +555,7 @@ This will get us a gain $G'$:
 \end{equation}
 
 
-\subsubsection*{Example exercise}
-
-
-It is now asked to designa a non-inverting amplifier with a gain $G = 10000$.\\
+\paragraph{Example exercise} It is now asked to designa a non-inverting amplifier with a gain $G = 10000$ knowing that the open-loop gain $A = 100000$.
 As seen before we can use the following relations:
 
 \begin{equation}
@@ -547,27 +565,37 @@ As seen before we can use the following relations:
 This means that:
 
 \begin{equation}
-	\beta = \frac{1}{10000}
+	\beta = \frac{1}{G} = \frac{1}{10000}
 \end{equation}
 
-And that $A$ (open-loop gain) is:
+Knowing the $A$ open-loop gain we can calculate $A\beta$:
 
 \begin{equation}
-	aa
+	A\beta = \frac{100000}{10000} = 10
 \end{equation}
 
-Then $A\beta$ (loop gain) is:
+Using now the \autoref{solvex} we get that:
 
 \begin{equation}
-	A\beta = \frac{A}{}
+	\frac{A\beta}{1 + A\beta} = \frac{10}{1 + 10} = 0.90909
 \end{equation}
 
 
+\paragraph{Example exercise} Design e non inverting voltage amplifier with a gain $G = \sqrt{2}/2 = 0.707$.
 
- 
+As done before we operate using the formula:
 
+\begin{equation}
+	G = 1 + \frac{R_2}{R_1}
+\end{equation}
 
+Since:
 
+\begin{equation}
+	1 + \frac{R_2}{R_1} \geq 1
+\end{equation}
+
+we are not able to create a non inverting amplifier with a gain that is less that 1. To be able to achieve this we would need to use some kind of attenuator or an inverting amplifier.\\
 
 
 
