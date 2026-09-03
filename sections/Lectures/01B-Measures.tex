@@ -216,7 +216,7 @@ Let Y denote the measured parameter, which is related to other parameters $X_i$ 
 The central value $y_0$ of the range assigned as a measure of $Y$ is obtained from the central values $x_{i0}$ of the other parameters as follows:
 
 \begin{equation}
-	y_0 = f(x_10, x_20, \dots, x_{N0})
+	y_0 = f(x_{10}, x_{20}, \dots, x_{N0})
 \end{equation}
 
 The absolute value of the measurement uncertainty, i.e., the half-width of the range of values for $y$, is instead obtained separately from the absolute uncertainties $\delta_{xi}$ of the quantities $x_i$ using the following equation:\\
@@ -229,8 +229,10 @@ The absolute value of the measurement uncertainty, i.e., the half-width of the r
 In other terms we can write that:\\
 
 \begin{equation}
-	\delta_y = \sum_{i = 1}^N  \bigg| \frac{\partial f}{\partial x_i} \bigg|_{x_0} \cdot \delta_{xi}	
+	\delta_y = \sum_{i = 1}^N  \Bigg| \frac{\partial f}{\partial x_i} \bigg|_{x_0} \; \Bigg| \cdot \delta_{xi}	
 \end{equation}
+
+Where the therm $x_0$ in the previous formula stands for all of the $(x_{10},\dots,x_{N0})$. This is intended as the calculation of the $\delta_y$ as the sum of the absolute values of the partial derivative of the equation given calculated for the specific measure.\\
 
 The model expressed by the first relation represents the approximate Taylor series expansion to the first-order terms (linear expansion) of the function $f$ around the point $(x_0, x_1, \dots, x_n)$. If the function is linear, the relation is exact, since terms of order higher than the first are all zero. \\
 
@@ -293,7 +295,7 @@ Let's now switch to a different case scenario:
 The absolute uncertainty of the quantity $Y$ is given by:\\
 
 \begin{equation}
-	\delta_y = \frac{x_{20}}{x_{30}} \cdot \delta_{x_1} + \frac{x_{10}}{x_{30}} \cdot \delta_{x_2} + \frac{x_{10} \cdot x_{20}}{x_{30}} \cdot \delta_{x_3}
+	\delta_y = \frac{x_{20}}{x_{30}} \cdot \delta_{x_1} + \frac{x_{10}}{x_{30}} \cdot \delta_{x_2} + \frac{x_{10} \cdot x_{20}}{{x_{30}}^2} \cdot \delta_{x_3}
 \end{equation}
 
 that can be rewritten as:\\
@@ -354,21 +356,21 @@ and suppose that the quantity being measured is the quantity $Z$ defined as foll
 From the last equation and using the definition of relative uncertainty, we have that:
 
 \begin{equation}
-	\varepsilon_z = \varepsilon_{(1 + \Delta_X/X)} = \frac{\delta_{(1 + \Delta_X/X)}}{1 + \Delta_X/X} \approx \delta_{(1 + \Delta_X/X)} 
+	\varepsilon_z = \varepsilon_{(1 + \Delta_x/x)} = \frac{\delta_{(1 + \Delta_x/x)}}{1 + \Delta_x/x} \approx \delta_{(1 + \Delta_x/x)} 
 \end{equation}
 
-where the approximation used stems from the fact that, by assumption, $\Delta_X \ll X$. 
+where the approximation used stems from the fact that, by assumption, $\frac{\Delta_x}{x}  \ll 1$. 
 
 Applying the rules described above yields the following relationship:
 
 \begin{equation}
-	\delta_{(1+\Delta_X / X)} = \delta_1 + \delta_{\frac{\Delta_X}{X}} = \delta_{\frac{\Delta_X}{X}} = \frac{\Delta_X}{X} \cdot \varepsilon_{\frac{\Delta_X}{X}} = \frac{\Delta_X}{X} \cdot (\varepsilon_{\Delta_X} + \varepsilon_X) 
+	\delta_{(1+\Delta_x / x)} = \delta_1 + \delta_{\frac{\Delta_x}{x}} = \delta_{\frac{\Delta_x}{x}} = \frac{\Delta_x}{x} \cdot \varepsilon_{\frac{\Delta_x}{x}} = \frac{\Delta_x}{x} \cdot (\varepsilon_{\Delta_x} + \varepsilon_x) 
 \end{equation}
 
 which ultimately allows us to express the relative uncertainty of the measurand as:
 
 \begin{equation}
-	\varepsilon_z = \frac{\Delta_X}{X} \cdot (\varepsilon_{\Delta_X} + \varepsilon_X) 
+	\varepsilon_z = \frac{\Delta_x}{x} \cdot (\varepsilon_{\Delta_x} + \varepsilon_x) 
 \end{equation}
 
 Note, therefore, that since the term $\Delta_X / X$ is much smaller than unity, the quantity measured by $Z$ is obtained with a relative uncertainty that is much smaller than the sum of the relative uncertainties of the input quantities.
@@ -450,7 +452,7 @@ The population variance $\sigma^2$ is estimated through the corrected empirical 
 
 The positive square root $s(x)$ of the empirical variance, expressed in the same units as the quantity $X$, is referred to as the experimental standard deviation and represents the dispersion of the individual observations around the sample mean $\overline{x}$.\\
 
-\autoref{} illustrates, for example, two sets of voltage output measurements of a power supply. Both datasets are characterized by the same empirical mean $\overline{V}$, but by different values of the experimental standard deviation: it is observed that the second dataset, which exhibits a lower dispersion around the mean, is associated with a smaller standard deviation $s_2(V)$ than that of the first dataset $s_1(V)$.\\
+\autoref{figVV} illustrates, for example, two sets of voltage output measurements of a power supply. Both datasets are characterized by the same empirical mean $\overline{V}$, but by different values of the experimental standard deviation: it is observed that the second dataset, which exhibits a lower dispersion around the mean, is associated with a smaller standard deviation $s_2(V)$ than that of the first dataset $s_1(V)$.\\
 
 The experimental standard deviation therefore represents the uncertainty contribution associated with random effects. 
 Consequently, when the quantity $X$ is estimated via a single measurement, the corresponding standard uncertainty is taken equal to the experimental standard deviation, namely:
@@ -463,6 +465,84 @@ Consequently, when the quantity $X$ is estimated via a single measurement, the c
 It should be noted that, even in the case of single-measurement methods, the experimental standard deviation should always be estimated, in order to avoid neglecting uncertainty contributions that may be significant.
 
 When the quantity $X$ is instead estimated using a repeated-measurement method, the expected value of $X$ is represented by the sample mean $\overline{x}$.\\
+
+
+\begin{figure}[h!]
+\begin{center}
+
+\begin{tikzpicture}[transform shape]
+	\draw[line width=0.61234pt] (33, -7) -- (37, -7);
+	\draw[line width=0.61234pt] (33, -11) -- (37, -11);
+	\draw[line width=0.61234pt] (33, -7) -- (33, -11);
+	\draw[line width=0.61234pt] (37, -7) -- (37, -11);
+	\draw[line width=0.61234pt] (39, -7) -- (43, -7);
+	\draw[line width=0.61234pt] (39, -11) -- (43, -11);
+	\draw[line width=0.61234pt] (39, -7) -- (39, -11);
+	\draw[line width=0.61234pt] (43, -7) -- (43, -11);
+	\node[shape=rectangle, minimum width=0.965cm, minimum height=0.965cm] at (38, -9){} node[anchor=center, align=center, text width=0.577cm, inner sep=6pt] at (38, -9){\large $\bar{V}$};
+	\node[shape=rectangle, minimum width=0.965cm, minimum height=0.965cm] at (35, -6.25){} node[anchor=center, align=center, text width=0.577cm, inner sep=6pt] at (35, -6.25){\large $V_1(V)$};
+	\node[shape=rectangle, minimum width=0.965cm, minimum height=0.965cm] at (41, -6.25){} node[anchor=center, align=center, text width=0.577cm, inner sep=6pt] at (41, -6.25){\large $V_2(V)$};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (32, -7){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (32, -7){10.02};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (32, -8){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (32, -8){10.01\\};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (32, -9){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (32, -9){10.00\\};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (32, -10){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (32, -10){9.99\\};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (32, -11){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (32, -11){9.98\\};
+	\draw[line width=0.3pt] (33, -9) -- (37, -9);
+	\draw[line width=0.3pt, dash pattern={on 0.3pt off 2.4pt}] (33, -8) -- (37, -8);
+	\draw[line width=0.3pt, dash pattern={on 0.3pt off 2.4pt}] (33, -10) -- (37, -10);
+	\draw[line width=0.3pt, dash pattern={on 0.3pt off 2.4pt}] (34, -7) -- (34, -11);
+	\draw[line width=0.3pt, dash pattern={on 0.3pt off 2.4pt}] (35, -7) -- (35, -11);
+	\draw[line width=0.3pt, dash pattern={on 0.3pt off 2.4pt}] (36, -7) -- (36, -11);
+	\draw[line width=0.2pt] (39, -9) -- (43, -9);
+	\draw[line width=0.3pt, dash pattern={on 0.3pt off 2.4pt}] (39, -8) -- (43, -8);
+	\draw[line width=0.3pt, dash pattern={on 0.3pt off 2.4pt}] (39, -10) -- (43, -10);
+	\draw[line width=0.3pt, dash pattern={on 0.3pt off 2.4pt}] (40, -7) -- (40, -11);
+	\draw[line width=0.3pt, dash pattern={on 0.3pt off 2.4pt}] (41, -7) -- (41, -11);
+	\draw[line width=0.3pt, dash pattern={on 0.3pt off 2.4pt}] (42, -7) -- (42, -11);
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (33, -11.75){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (33, -11.75){0\\};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (35, -11.75){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (35, -11.75){10\\};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (34, -11.75){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (34, -11.75){5\\};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (36, -11.75){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (36, -11.75){15\\};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (37, -11.75){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (37, -11.75){20};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (39, -11.75){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (39, -11.75){0\\};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (41, -11.75){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (41, -11.75){10\\};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (40, -11.75){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (40, -11.75){5\\};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (42, -11.75){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (42, -11.75){15\\};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (43, -11.75){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (43, -11.75){20};
+	\node[circ] at (33.25, -9.75){};
+	\node[circ] at (33.5, -10.25){};
+	\node[circ] at (33.75, -7.75){};
+	\node[circ] at (34, -8.25){};
+	\node[circ] at (34.25, -8.75){};
+	\node[circ] at (35.5, -10){};
+	\node[circ] at (34.489, -10.25){};
+	\node[circ] at (35, -8.25){};
+	\node[circ] at (34.779, -9.279){};
+	\node[circ] at (34.779, -9.279){};
+	\node[circ] at (35.25, -9.5){};
+	\node[circ] at (35.75, -9.75){};
+	\node[circ] at (36, -8.25){};
+	\node[circ] at (36.25, -9.5){};
+	\node[circ] at (36.5, -9.75){};
+	\node[circ] at (36.75, -7.75){};
+	\node[circ] at (39.5, -9.25){};
+	\node[circ] at (41.75, -8.75){};
+	\node[circ] at (39.25, -8.75){};
+	\node[circ] at (40.25, -8.75){};
+	\node[circ] at (42.25, -9.25){};
+	\node[circ] at (41.25, -9.25){};
+	\node[circ] at (40.5, -9.25){};
+	\node[circ] at (39.75, -8.5){};
+	\node[circ] at (41, -9){};
+	\node[circ] at (41.5, -8.5){};
+	\node[circ] at (42.029, -9.779){};
+	\node[circ] at (42.5, -8.75){};
+\end{tikzpicture}
+
+\end{center}
+\label{figVV}
+\caption{Two series of repeated measurements of the output voltage of a power supply. The second series is characterized by a lower dispersion $s_2(V) < s_1(V)$}
+\end{figure}
 
 Consequently, it is necessary to provide an estimate of the dispersion associated with the mean value itself, which in general could be obtained by analyzing multiple estimates of the mean derived from different sets of repeated measurements. 
 
@@ -497,11 +577,386 @@ At this stage, a critical remark concerning relation (\autoref{eq:237}) is neces
 First, it should be noted that, as $N$ increases, the observation time increases proportionally. 
 Consequently, in addition to higher measurement costs, it becomes increasingly difficult to ensure the stability of the measurand: there is a risk of tracking temporal variations of the measurand rather than performing repeated observations under nominally identical conditions. 
 
-% FOGURE REF
-Under such circumstances, the empirical estimators previously defined lose their validity, as illustrated for instance in FIGURE , where it is observed that the sample mean $\overline{V}$ is no longer a consistent estimator of the population mean.\\
+Under such circumstances, the empirical estimators previously defined lose their validity, as illustrated for instance in the left graph of \autoref{figXX}, where it is observed that the sample mean $\overline{V}$ is no longer a consistent estimator of the population mean.\\
 
-% FOGURE REF
-Furthermore, as the measurement duration increases, the risk of correlation among observations also increases, for example due to periodic fluctuations of influence quantities, as shown in the example of Figure 2.3. Under these conditions, estimator (\autoref{eq:237}) is no longer applicable, since the observations $x_1, x_2, x_3, \dots, x_N$ are no longer statistically independent.\\
+Furthermore, as the measurement duration increases, the risk of correlation among observations also increases, for example due to periodic fluctuations of influence quantities, as shown in the example of right graph of \autoref{figXX}. Under these conditions, estimator (\autoref{eq:237}) is no longer applicable, since the observations $x_1, x_2, x_3, \dots, x_N$ are no longer statistically independent.\\
+
+
+\begin{figure}[h!]
+\begin{center}
+
+\begin{tikzpicture}[transform shape]
+	% Paths, nodes and wires:
+	\draw[line width=0.61234pt] (33, -7) -- (38, -7);
+	\draw[line width=0.61234pt] (33, -11) -- (38, -11);
+	\draw[line width=0.61234pt] (33, -7) -- (33, -11);
+	\draw[line width=0.61234pt] (38, -7) -- (38, -11);
+	\node[shape=rectangle, minimum width=0.965cm, minimum height=0.965cm] at (35.5, -6.25){} node[anchor=center, align=center, text width=0.577cm, inner sep=6pt] at (35.5, -6.25){\large $V_1(V)$};
+	\node[shape=rectangle, minimum width=0.965cm, minimum height=0.965cm] at (42.5, -6.25){} node[anchor=center, align=center, text width=0.577cm, inner sep=6pt] at (42.5, -6.25){\large $V_2(V)$};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (32, -7){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (32, -7){10.06\\};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (32, -8){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (32, -8){10.04\\};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (32, -9){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (32, -9){10.02\\};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (32, -10){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (32, -10){10.00\\};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (32, -11){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (32, -11){9.98\\};
+	\draw[line width=0.3pt] (33, -9) -- (38, -9);
+	\draw[line width=0.3pt, dash pattern={on 0.3pt off 2.4pt}] (33, -10) -- (38, -10);
+	\draw[line width=0.3pt, dash pattern={on 0.3pt off 2.4pt}] (34, -7) -- (34, -11);
+	\draw[line width=0.3pt, dash pattern={on 0.3pt off 2.4pt}] (36, -7) -- (36, -11);
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (33, -11.75){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (33, -11.75){0\\};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (35, -11.75){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (35, -11.75){200\\};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (34, -11.75){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (34, -11.75){100};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (36, -11.75){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (36, -11.75){300\\};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (37, -11.75){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (37, -11.75){400};
+	\draw[line width=0.3pt, dash pattern={on 0.3pt off 2.4pt}] (37, -7) -- (37, -11);
+	\draw[line width=0.3pt, dash pattern={on 0.3pt off 2.4pt}] (35, -7) -- (35, -11);
+	\draw[line width=0.61234pt] (40, -7) -- (45, -7);
+	\draw[line width=0.61234pt] (40, -11) -- (45, -11);
+	\draw[line width=0.61234pt] (40, -7) -- (40, -11);
+	\draw[line width=0.61234pt] (45, -7) -- (45, -11);
+	\draw[line width=0.3pt] (40, -9) -- (45, -9);
+	\draw[line width=0.3pt, dash pattern={on 0.3pt off 2.4pt}] (40, -8) -- (45, -8);
+	\draw[line width=0.3pt, dash pattern={on 0.3pt off 2.4pt}] (40, -10) -- (45, -10);
+	\draw[line width=0.3pt, dash pattern={on 0.3pt off 2.4pt}] (41, -7) -- (41, -11);
+	\draw[line width=0.3pt, dash pattern={on 0.3pt off 2.4pt}] (43, -7) -- (43, -11);
+	\draw[line width=0.3pt, dash pattern={on 0.3pt off 2.4pt}] (44, -7) -- (44, -11);
+	\draw[line width=0.3pt, dash pattern={on 0.3pt off 2.4pt}] (42, -7) -- (42, -11);
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (38, -11.75){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (38, -11.75){500};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (40, -11.75){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (40, -11.75){0\\};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (42, -11.75){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (42, -11.75){200\\};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (41, -11.75){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (41, -11.75){100};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (43, -11.75){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (43, -11.75){300\\};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (44, -11.75){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (44, -11.75){400};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (45, -11.75){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (45, -11.75){500};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (39, -7){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (39, -7){10.02};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (39, -8){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (39, -8){10.01\\};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (39, -9){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (39, -9){10.00\\};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (39, -10){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (39, -10){9.99\\};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (39, -11){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (39, -11){9.98\\};
+	\node[circ] at (33.25, -10.5){};
+	\node[circ] at (33.5, -10.25){};
+	\node[circ] at (33.5, -10.5){};
+	\node[circ] at (33.25, -10){};
+	\node[circ] at (33.5, -9.75){};
+	\node[circ] at (33.5, -10){};
+	\node[circ] at (33.5, -10.25){};
+	\node[circ] at (33.8, -10){};
+	\node[circ] at (33.8, -10.3){};
+	\node[circ] at (33.5, -9.75){};
+	\node[circ] at (33.75, -9.5){};
+	\node[circ] at (33.7, -9.7){};
+	\node[circ] at (34.1, -10.2){};
+	\node[circ] at (34, -10.5){};
+	\node[circ] at (34, -9.7){};
+	\node[circ] at (34, -10){};
+	\node[circ] at (34.25, -9.75){};
+	\node[circ] at (34.25, -10){};
+	\node[circ] at (34.25, -9.25){};
+	\node[circ] at (34.25, -9.5){};
+	\node[circ] at (34.5, -9){};
+	\node[circ] at (34, -9.25){};
+	\node[circ] at (34.4, -9.5){};
+	\node[circ] at (34.6, -9.7){};
+	\node[circ] at (34.5, -9.5){};
+	\node[circ] at (35, -9.25){};
+	\node[circ] at (34.75, -9.5){};
+	\node[circ] at (34.7, -8.9){};
+	\node[circ] at (35, -8.75){};
+	\node[circ] at (35, -9){};
+	\node[circ] at (35, -9.25){};
+	\node[circ] at (35.25, -9){};
+	\node[circ] at (35.3, -9.2){};
+	\node[circ] at (35, -8.7){};
+	\node[circ] at (35.2, -8.5){};
+	\node[circ] at (35.25, -8.75){};
+	\node[circ] at (35.5, -9.25){};
+	\node[circ] at (35.25, -9.5){};
+	\node[circ] at (35.4, -8.8){};
+	\node[circ] at (35.5, -9){};
+	\node[circ] at (35.75, -8.75){};
+	\node[circ] at (35.75, -9){};
+	\node[circ] at (35.75, -8.25){};
+	\node[circ] at (35.75, -8.5){};
+	\node[circ] at (35.5, -8){};
+	\node[circ] at (35.5, -8.3){};
+	\node[circ] at (35.75, -8.25){};
+	\node[circ] at (36, -8.75){};
+	\node[circ] at (35, -9.5){};
+	\node[circ] at (36, -8){};
+	\node[circ] at (36, -8.25){};
+	\node[circ] at (36.25, -8.25){};
+	\node[circ] at (36.25, -8){};
+	\node[circ] at (36.5, -8){};
+	\node[circ] at (36.75, -8){};
+	\node[circ] at (36.75, -7.75){};
+	\node[circ] at (37, -7.75){};
+	\node[circ] at (37, -8){};
+	\node[circ] at (37, -8){};
+	\node[circ] at (37.25, -7.75){};
+	\node[circ] at (37.25, -8){};
+	\node[circ] at (37.5, -8){};
+	\node[circ] at (37.75, -8){};
+	\node[circ] at (37.75, -7.5){};
+	\node[circ] at (37.75, -7.75){};
+	\node[circ] at (37.5, -7.25){};
+	\node[circ] at (37.5, -7.5){};
+	\node[circ] at (37.75, -7.5){};
+	\node[circ] at (36.4, -8.7){};
+	\node[circ] at (36.5, -8.5){};
+	\node[circ] at (36.75, -8.5){};
+	\node[circ] at (34.6, -9.7){};
+	\node[circ] at (34.6, -9.2){};
+	\node[circ] at (34.6, -9.45){};
+	\node[circ] at (34.6, -9.2){};
+	\node[circ] at (34.95, -9.65){};
+	\node[circ] at (34.85, -9.45){};
+	\node[circ] at (36.15, -8.35){};
+	\node[circ] at (36.3, -8.4){};
+	\node[circ] at (36.65, -8.35){};
+	\node[circ] at (36.65, -7.85){};
+	\node[circ] at (36.65, -8.1){};
+	\node[circ] at (36.4, -7.6){};
+	\node[circ] at (36.4, -7.9){};
+	\node[circ] at (36.65, -7.85){};
+	\node[circ] at (33.4, -10.4){};
+	\node[circ] at (33.55, -10.45){};
+	\node[circ] at (33.9, -10.4){};
+	\node[circ] at (33.9, -9.9){};
+	\node[circ] at (33.9, -10.15){};
+	\node[circ] at (33.65, -9.65){};
+	\node[circ] at (33.65, -9.95){};
+	\node[circ] at (33.9, -9.9){};
+	\node[circ] at (34.1, -9.8){};
+	\node[circ] at (34.25, -9.85){};
+	\node[circ] at (34.6, -9.8){};
+	\node[circ] at (34.6, -9.3){};
+	\node[circ] at (34.6, -9.55){};
+	\node[circ] at (34.35, -9.05){};
+	\node[circ] at (34.35, -9.35){};
+	\node[circ] at (34.6, -9.3){};
+	\node[circ] at (35.2, -8.85){};
+	\node[circ] at (35.35, -8.9){};
+	\node[circ] at (35.7, -8.85){};
+	\node[circ] at (35.7, -8.35){};
+	\node[circ] at (35.7, -8.6){};
+	\node[circ] at (35.45, -8.1){};
+	\node[circ] at (35.45, -8.4){};
+	\node[circ] at (35.7, -8.35){};
+	\node[circ] at (37.1, -8.1){};
+	\node[circ] at (37.25, -8.15){};
+	\node[circ] at (37.6, -8.1){};
+	\node[circ] at (37.6, -7.6){};
+	\node[circ] at (37.6, -7.85){};
+	\node[circ] at (37.35, -7.35){};
+	\node[circ] at (37.35, -7.65){};
+	\node[circ] at (37.6, -7.6){};
+	\node[circ] at (36.4, -8.4){};
+	\node[circ] at (36.55, -8.45){};
+	\node[circ] at (36.9, -8.4){};
+	\node[circ] at (36.9, -7.9){};
+	\node[circ] at (36.9, -8.15){};
+	\node[circ] at (36.65, -7.65){};
+	\node[circ] at (36.65, -7.95){};
+	\node[circ] at (36.9, -7.9){};
+	\draw[line width=0.3pt, dash pattern={on 0.3pt off 2.4pt}] (33, -8) -- (38, -8);
+	\node[circ] at (40.15, -10.25){};
+	\node[circ] at (40.3, -10.7){};
+	\node[circ] at (40.4, -10.5){};
+	\node[circ] at (40.65, -10.5){};
+	\node[circ] at (40.2, -10.4){};
+	\node[circ] at (40.55, -10.35){};
+	\node[circ] at (40.3, -10.4){};
+	\node[circ] at (40.45, -10.45){};
+	\node[circ] at (40.35, -9.85){};
+	\node[circ] at (40.5, -10.3){};
+	\node[circ] at (40.6, -10.1){};
+	\node[circ] at (40.85, -10.1){};
+	\node[circ] at (40.4, -10){};
+	\node[circ] at (40.75, -9.95){};
+	\node[circ] at (40.5, -10){};
+	\node[circ] at (40.65, -10.05){};
+	\node[circ] at (42.5, -8.15){};
+	\node[circ] at (42.4, -7.95){};
+	\node[circ] at (42.65, -7.95){};
+	\node[circ] at (42.5, -8.15){};
+	\node[circ] at (42.5, -7.9){};
+	\node[circ] at (42.5, -8.25){};
+	\node[circ] at (42.5, -7.75){};
+	\node[circ] at (42.5, -8){};
+	\node[circ] at (42.25, -7.8){};
+	\node[circ] at (42.5, -7.75){};
+	\node[circ] at (42.9, -8.25){};
+	\node[circ] at (42.8, -8.05){};
+	\node[circ] at (43.05, -8.05){};
+	\node[circ] at (42.9, -8.25){};
+	\node[circ] at (42.9, -8){};
+	\node[circ] at (42.9, -8.35){};
+	\node[circ] at (42.9, -7.85){};
+	\node[circ] at (42.9, -8.1){};
+	\node[circ] at (42.65, -7.9){};
+	\node[circ] at (42.9, -7.85){};
+	\node[circ] at (42.1, -8.35){};
+	\node[circ] at (42, -8.15){};
+	\node[circ] at (42.25, -8.15){};
+	\node[circ] at (42.1, -8.35){};
+	\node[circ] at (42.1, -8.1){};
+	\node[circ] at (42.1, -8.45){};
+	\node[circ] at (42.1, -7.95){};
+	\node[circ] at (42.1, -8.2){};
+	\node[circ] at (41.85, -8){};
+	\node[circ] at (42.1, -7.95){};
+	\node[circ] at (44.35, -10.65){};
+	\node[circ] at (44.45, -10.45){};
+	\node[circ] at (44.7, -10.45){};
+	\node[circ] at (44.25, -10.35){};
+	\node[circ] at (44.6, -10.3){};
+	\node[circ] at (44.35, -10.35){};
+	\node[circ] at (44.5, -10.4){};
+	\node[circ] at (44.55, -10.25){};
+	\node[circ] at (44.65, -10.05){};
+	\node[circ] at (44.05, -10.25){};
+	\node[circ] at (44.15, -10.05){};
+	\node[circ] at (44.4, -10.05){};
+	\node[circ] at (43.95, -9.95){};
+	\node[circ] at (44.3, -9.9){};
+	\node[circ] at (44.05, -9.95){};
+	\node[circ] at (44.2, -10){};
+	\node[circ] at (44.25, -9.85){};
+	\node[circ] at (44.35, -9.65){};
+	\node[circ] at (41.45, -8.45){};
+	\node[circ] at (41.15, -9.05){};
+	\node[circ] at (41.65, -8.75){};
+	\node[circ] at (41.25, -9.25){};
+	\node[circ] at (41.5, -9.05){};
+	\node[circ] at (41.65, -8.35){};
+	\node[circ] at (41.65, -8.75){};
+	\node[circ] at (41.35, -8.75){};
+	\node[circ] at (41.35, -9){};
+	\node[circ] at (41.35, -8.75){};
+	\node[circ] at (41.65, -8.85){};
+	\node[circ] at (41.35, -8.85){};
+	\node[circ] at (41.35, -9.1){};
+	\node[circ] at (41.5, -8.6){};
+	\node[circ] at (41.1, -8.9){};
+	\node[circ] at (41.35, -8.85){};
+	\node[circ] at (42.15, -8.15){};
+	\node[circ] at (41.5, -8.3){};
+	\node[circ] at (42.15, -8.35){};
+	\node[circ] at (41.75, -8.85){};
+	\node[circ] at (42, -8.65){};
+	\node[circ] at (41.75, -7.95){};
+	\node[circ] at (42.15, -8.35){};
+	\node[circ] at (41.85, -8.35){};
+	\node[circ] at (41.85, -8.6){};
+	\node[circ] at (41.85, -8.35){};
+	\node[circ] at (41.95, -8.35){};
+	\node[circ] at (41.65, -8.35){};
+	\node[circ] at (41.85, -8.7){};
+	\node[circ] at (42, -8.2){};
+	\node[circ] at (41.65, -8.25){};
+	\node[circ] at (41.65, -8.35){};
+	\node[circ] at (40.95, -9.5){};
+	\node[circ] at (40.65, -10.1){};
+	\node[circ] at (41.15, -9.8){};
+	\node[circ] at (40.75, -10.3){};
+	\node[circ] at (41, -10.1){};
+	\node[circ] at (41.15, -9.4){};
+	\node[circ] at (41.15, -9.8){};
+	\node[circ] at (40.85, -9.8){};
+	\node[circ] at (40.85, -10.05){};
+	\node[circ] at (40.85, -9.8){};
+	\node[circ] at (41.15, -9.9){};
+	\node[circ] at (40.85, -9.9){};
+	\node[circ] at (40.85, -10.15){};
+	\node[circ] at (41, -9.65){};
+	\node[circ] at (40.6, -9.95){};
+	\node[circ] at (40.85, -9.9){};
+	\node[circ] at (41.65, -9.2){};
+	\node[circ] at (41, -9.35){};
+	\node[circ] at (41.65, -9.4){};
+	\node[circ] at (41.25, -9.9){};
+	\node[circ] at (41.5, -9.7){};
+	\node[circ] at (41.25, -9){};
+	\node[circ] at (41.65, -9.4){};
+	\node[circ] at (41.35, -9.4){};
+	\node[circ] at (41.35, -9.65){};
+	\node[circ] at (41.35, -9.4){};
+	\node[circ] at (41.45, -9.4){};
+	\node[circ] at (41.15, -9.4){};
+	\node[circ] at (41.35, -9.75){};
+	\node[circ] at (41.5, -9.25){};
+	\node[circ] at (41.15, -9.3){};
+	\node[circ] at (41.15, -9.4){};
+	\node[circ, rotate=90] at (43.929, -9.571){};
+	\node[circ, rotate=90] at (44.148, -9.966){};
+	\node[circ, rotate=90] at (44.229, -9.371){};
+	\node[circ, rotate=90] at (44.348, -9.866){};
+	\node[circ, rotate=90] at (44.298, -9.566){};
+	\node[circ, rotate=90] at (43.829, -9.371){};
+	\node[circ, rotate=90] at (44.229, -9.371){};
+	\node[circ, rotate=90] at (43.848, -9.766){};
+	\node[circ, rotate=90] at (44.098, -9.766){};
+	\node[circ, rotate=90] at (43.848, -9.766){};
+	\node[circ, rotate=90] at (44.329, -9.371){};
+	\node[circ, rotate=90] at (43.948, -9.766){};
+	\node[circ, rotate=90] at (44.198, -9.766){};
+	\node[circ, rotate=90] at (44.079, -9.521){};
+	\node[circ, rotate=90] at (43.998, -10.016){};
+	\node[circ, rotate=90] at (43.948, -9.766){};
+	\node[circ, rotate=90] at (43.629, -8.871){};
+	\node[circ, rotate=90] at (43.779, -9.521){};
+	\node[circ, rotate=90] at (43.829, -8.871){};
+	\node[circ, rotate=90] at (44.329, -9.271){};
+	\node[circ, rotate=90] at (44.129, -9.021){};
+	\node[circ, rotate=90] at (43.429, -9.271){};
+	\node[circ, rotate=90] at (43.829, -8.871){};
+	\node[circ, rotate=90] at (43.829, -9.171){};
+	\node[circ, rotate=90] at (44.079, -9.171){};
+	\node[circ, rotate=90] at (43.829, -9.171){};
+	\node[circ, rotate=90] at (43.829, -9.071){};
+	\node[circ, rotate=90] at (43.829, -9.371){};
+	\node[circ, rotate=90] at (44.2, -9.2){};
+	\node[circ, rotate=90] at (43.679, -9.021){};
+	\node[circ, rotate=90] at (43.729, -9.371){};
+	\node[circ, rotate=90] at (43.829, -9.371){};
+	\node[circ, rotate=90] at (43.298, -8.866){};
+	\node[circ, rotate=90] at (43.5, -9.3){};
+	\node[circ, rotate=90] at (43.2, -8.8){};
+	\node[circ, rotate=90] at (43.7, -9.2){};
+	\node[circ, rotate=90] at (43.5, -8.95){};
+	\node[circ, rotate=90] at (43.198, -8.666){};
+	\node[circ, rotate=90] at (43.2, -8.8){};
+	\node[circ, rotate=90] at (43.2, -9.1){};
+	\node[circ, rotate=90] at (43.45, -9.1){};
+	\node[circ, rotate=90] at (43.2, -9.1){};
+	\node[circ, rotate=90] at (43.3, -8.8){};
+	\node[circ, rotate=90] at (43.3, -9.1){};
+	\node[circ, rotate=90] at (43.55, -9.1){};
+	\node[circ, rotate=90] at (43.448, -8.816){};
+	\node[circ, rotate=90] at (43.35, -9.35){};
+	\node[circ, rotate=90] at (43.3, -9.1){};
+	\node[circ, rotate=90] at (42.998, -8.166){};
+	\node[circ, rotate=90] at (43.148, -8.816){};
+	\node[circ, rotate=90] at (43.198, -8.166){};
+	\node[circ, rotate=90] at (43.3, -8.7){};
+	\node[circ, rotate=90] at (43.498, -8.316){};
+	\node[circ, rotate=90] at (42.798, -8.566){};
+	\node[circ, rotate=90] at (43.198, -8.166){};
+	\node[circ, rotate=90] at (43.198, -8.466){};
+	\node[circ, rotate=90] at (43.448, -8.466){};
+	\node[circ, rotate=90] at (43.198, -8.466){};
+	\node[circ, rotate=90] at (43.198, -8.366){};
+	\node[circ, rotate=90] at (43.198, -8.666){};
+	\node[circ, rotate=90] at (43.171, -8.629){};
+	\node[circ, rotate=90] at (43.048, -8.316){};
+	\node[circ, rotate=90] at (43.098, -8.666){};
+	\node[circ, rotate=90] at (43.198, -8.666){};
+\end{tikzpicture}
+
+\end{center}	
+\caption{Example of measurements series taken with an increased number of samples}
+\label{figXX}
+\end{figure}
+
 
 With increasing number of observations, it therefore becomes increasingly difficult to guarantee the validity conditions underlying the empirical estimators previously introduced. It should also be emphasised that the considerations presented so far refer exclusively to uncertainty contributions of random nature, and that increasing the number of observations does not reduce systematic contributions, the most relevant of which, in most practical cases, is the instrumental uncertainty, i.e. the deviation of the instrument calibration function from its nominal behaviour.\\
 
@@ -583,6 +1038,38 @@ If all values within the interval can be considered equally valid representation
 \end{equation}
 
 If, instead, additional information suggests that values near the centre of the interval are more likely than those at the boundaries, a different \textit{p.d.f.} than the uniform one may be assumed. 
+
+\begin{figure}[h!]
+\begin{center}
+
+\begin{tikzpicture}[transform shape]
+	\draw[-latex] (33, -8) -- (38, -8);
+	\draw[-latex] (35.5, -8.3) -| (35.5, -5);
+	\draw[line width=0.8pt] (33.5, -8) -- (33.5, -6.5) -- (37.5, -6.5) -| (37.5, -8);
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (35, -4.5){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (35, -4.5){$p(x)$};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (35.5, -8.75){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (35.5, -8.75){0\\};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (37.5, -8.5){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (37.5, -8.5){$\delta x$};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (33.5, -8.5){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (33.5, -8.5){$- \delta x$};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (36, -6){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (36, -6){$1/2\delta x$};
+	\draw[-latex] (39, -8) -- (44, -8);
+	\draw[-latex] (41.5, -8.3) -| (41.5, -5);
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (41, -4.5){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (41, -4.5){$p(x)$};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (41.5, -8.75){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (41.5, -8.75){0\\};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (43.5, -8.5){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (43.5, -8.5){$\delta x$};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (39.5, -8.5){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (39.5, -8.5){$- \delta x$};
+	\draw[line width=0.8pt] (39.5, -8) -- (41, -6.5) -- (42, -6.5) -- (43.5, -8);
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (40.5, -6){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (40.5, -6){$- \beta \delta x$};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (42, -6){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (42, -6){$\beta \delta x$};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (35.5, -9.75){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (35.5, -9.75){$\textbf{(a)}$};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (41.5, -9.75){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (41.5, -9.75){$\textbf{(b)}$};
+\end{tikzpicture}
+	
+\end{center}	
+\label{FigZZ}
+\caption{A random variable characterized by a uniform (a) and trapezoidal (b) probability distribution}
+\end{figure}
+
+
 An example is the trapezoidal probability density function (see Figure 2.4(b)), characterized by a base width equal to $2 \cdot \beta \cdot \delta_x$, where the parameter $\beta$ can take values between 0 and 1 (note that for $\beta = 1$ the distribution is uniform, whereas for $\beta = 0$ it becomes triangular).
 In this case, the standard uncertainty is obtained from the half-width $\delta_x$ of the interval as:
   
@@ -616,15 +1103,15 @@ For each quantity $X_1, \dots, X_H$, a set of observations is available, so (\au
 The estimate $y_0$ of the measurand is obtained as:
 
 \begin{equation}
-	y_0 = f \left(\overline{x_1}, \dots, \overline{H}, x_{(H+1)0}, \dots, x_{M0} \right)
+	y_0 = f \left(\overline{x_1}, \dots, \overline{x_H}, x_{(H+1)0}, \dots, x_{M0} \right)
 \label{eq:244}	
 \end{equation}
 
 
-Regarding the evaluation of the measurement uncertainty, known as the combined standard uncertainty, denoted by $u_c(y)$, the following relationship holds:
+Regarding the evaluation of the measurement uncertainty, known as the \textbf{combined} standard uncertainty, denoted by $u_c(y)$, the following relationship holds:
 
 \begin{equation}
-	u_c(y) = \sqrt{\sum_{i=1}^M \left( \frac{\delta f}{\delta x_i} \right)^2 \cdot u^2(x_1) + 2 \cdot \sum_{j=1}^{M-1} \sum_{l=j+1}^M \frac{\delta f}{\delta x_j} \frac{\delta f}{\delta x_l} \cdot u(x_j, x_l) }
+	u_c(y) = \sqrt{\sum_{i=1}^M \left( \frac{\partial f}{\partial x_i} \right)^2 \cdot u^2(x_1) + 2 \cdot \sum_{j=1}^{M-1} \sum_{l=j+1}^M \frac{\partial f}{\partial x_j} \frac{\partial f}{\partial x_l} \cdot u(x_j, x_l) }
 \label{eq:245}	
 \end{equation}
 
@@ -644,12 +1131,12 @@ It therefore appears that the probabilistic model for measurement uncertainty ev
 
 \subsubsection*{Absence of correlation}
 
-When measurements of two quantities are obtained at different times and using different instruments, it is reasonable to assume the absence of correlation between the two measurements. 
+When measurements of two quantities are obtained at different times and using different instruments, it is reasonable to assume the absence of correlation between the two measurements \footnote{Note that two variables may be independent in the sense of mathematical analysis, but their measurements may be dependent in the statistical sense—for example, because they are obtained from the same sample.}.
 
 In this case, both the correlation coefficient and the covariance between the two measurements are equal to zero. Consequently, the expression for the combined standard uncertainty $u_c(Y)$ becomes:
 
 \begin{equation}
-	u_c(Y) = \sqrt{\sum_{i = 1}^M \left(  \frac{\delta f}{\delta x_i}\right) \cdot u^2(x_i)}
+	u_c(y) = \sqrt{\sum_{i = 1}^M \left(  \frac{\partial f}{\partial x_i}\right) \cdot u^2(x_i)}
 \end{equation}
 
 
@@ -660,7 +1147,7 @@ When measurements of two quantities are obtained using the same instrument, with
 If the instrumental uncertainty is the dominant uncertainty contribution, it is reasonable to assume $\rho(x_j, x_l) = +1$ (perfect positive linear correlation), and therefore \autoref{eq:245} becomes:
 
 \begin{equation}
-	u_c(y) = \sqrt{\left[ \sum_{i=1}^M \frac{\delta f}{\delta x_1} \cdot u(x_i)  \right]^2} = \sum_{i=i}^M \frac{\delta f}{\delta x_i} \cdot u(x_i)
+	u_c(y) = \sqrt{\left[ \sum_{i=1}^M \frac{\partial f}{\partial x_1} \cdot u(x_i)  \right]^2} = \sum_{i=i}^M \frac{\partial f}{\partial x_i} \cdot u(x_i)
 \label{eq:248}	
 \end{equation}
 
@@ -682,8 +1169,729 @@ Starting from (\autoref{eq:249}), it is also possible to obtain an estimate of t
 	\rho (\overline{x_j},\overline{x_l}) = \frac{s(\overline{x_j},\overline{x_l})}{s(\overline{x_j}) \cdot s(\overline{x_l}}
 \end{equation}
 
-% FIGURA DA FARE
-Figure 2.5 shows an example of two uncorrelated quantities, for which the correlation coefficient between the sample means is approximately zero, whereas Figure 2.6 shows an example of strongly correlated quantities, where the correlation coefficient between the sample means is approximately 0.94.\\
+
+The left graph of \autoref{figure5} shows an example of two uncorrelated quantities, for which the correlation coefficient between the sample means is approximately zero, whereas the right graph of \autoref{figure5} shows an example of strongly correlated quantities, where the correlation coefficient between the sample means is approximately 0.94.\\
+
+
+\begin{figure}[h!]
+\begin{center}
+
+\begin{tikzpicture}[transform shape]
+	\node[circ] at (47.3, -11.8){};
+	\node[circ] at (47.55, -11.55){};
+	\node[circ] at (47.55, -11.8){};
+	\node[circ] at (47.3, -11.3){};
+	\node[circ] at (47.55, -11.05){};
+	\node[circ] at (47.55, -11.3){};
+	\node[circ] at (47.55, -11.55){};
+	\node[circ] at (47.85, -11.3){};
+	\node[circ] at (47.85, -11.6){};
+	\node[circ] at (47.55, -11.05){};
+	\node[circ] at (47.8, -10.8){};
+	\node[circ] at (47.75, -11){};
+	\node[circ] at (48.15, -11.5){};
+	\node[circ] at (48.05, -11.8){};
+	\node[circ] at (48.05, -11){};
+	\node[circ] at (48.05, -11.3){};
+	\node[circ] at (48.3, -11.05){};
+	\node[circ] at (48.3, -11.3){};
+	\node[circ] at (48.5, -10){};
+	\node[circ] at (48.3, -10.8){};
+	\node[circ] at (48.75, -9.75){};
+	\node[circ] at (48.25, -10){};
+	\node[circ] at (48.45, -10.8){};
+	\node[circ] at (48.85, -10.45){};
+	\node[circ] at (48.75, -10.25){};
+	\node[circ] at (49.25, -10){};
+	\node[circ] at (49, -10.25){};
+	\node[circ] at (48.95, -9.65){};
+	\node[circ] at (49, -9.25){};
+	\node[circ] at (49.25, -9.75){};
+	\node[circ] at (49.25, -10){};
+	\node[circ] at (49.5, -9.75){};
+	\node[circ] at (49.55, -9.95){};
+	\node[circ] at (49, -9.2){};
+	\node[circ] at (49.2, -9){};
+	\node[circ] at (49.25, -9.25){};
+	\node[circ] at (49.75, -10){};
+	\node[circ] at (49.5, -10.25){};
+	\node[circ] at (49.4, -9.3){};
+	\node[circ] at (49.75, -9.75){};
+	\node[circ] at (49.9, -9.2){};
+	\node[circ] at (49.75, -9){};
+	\node[circ] at (49.9, -8.7){};
+	\node[circ] at (49.9, -8.95){};
+	\node[circ] at (49.65, -8.45){};
+	\node[circ] at (49.65, -8.75){};
+	\node[circ] at (49.9, -8.7){};
+	\node[circ] at (50.15, -9.2){};
+	\node[circ] at (49.25, -10.25){};
+	\node[circ] at (50.15, -8.45){};
+	\node[circ] at (50.15, -8.7){};
+	\node[circ] at (50.4, -8.7){};
+	\node[circ] at (50.4, -8.45){};
+	\node[circ] at (50.5, -8){};
+	\node[circ] at (50.75, -8){};
+	\node[circ] at (50.75, -7.75){};
+	\node[circ] at (51, -7.75){};
+	\node[circ] at (51, -8){};
+	\node[circ] at (51, -8){};
+	\node[circ] at (51.25, -7.75){};
+	\node[circ] at (51.25, -8){};
+	\node[circ] at (51.5, -8){};
+	\node[circ] at (51.75, -8){};
+	\node[circ] at (51.75, -7.5){};
+	\node[circ] at (51.75, -7.75){};
+	\node[circ] at (51.5, -7.25){};
+	\node[circ] at (51.5, -7.5){};
+	\node[circ] at (51.75, -7.5){};
+	\node[circ] at (50.4, -8.7){};
+	\node[circ] at (50.5, -8.5){};
+	\node[circ] at (50.75, -8.5){};
+	\node[circ] at (48.85, -10.45){};
+	\node[circ] at (48.85, -9.95){};
+	\node[circ] at (48.85, -10.2){};
+	\node[circ] at (48.85, -9.95){};
+	\node[circ] at (49.2, -10.4){};
+	\node[circ] at (49.1, -10.2){};
+	\node[circ] at (50.3, -8.8){};
+	\node[circ] at (50.3, -8.4){};
+	\node[circ] at (50.65, -8.35){};
+	\node[circ] at (50.65, -7.85){};
+	\node[circ] at (50.65, -8.1){};
+	\node[circ] at (50.4, -7.6){};
+	\node[circ] at (50.4, -7.9){};
+	\node[circ] at (50.65, -7.85){};
+	\node[circ] at (47.45, -11.7){};
+	\node[circ] at (47.6, -11.75){};
+	\node[circ] at (47.95, -11.7){};
+	\node[circ] at (47.95, -11.2){};
+	\node[circ] at (47.95, -11.45){};
+	\node[circ] at (47.7, -10.95){};
+	\node[circ] at (47.7, -11.25){};
+	\node[circ] at (47.95, -11.2){};
+	\node[circ] at (48.15, -11.1){};
+	\node[circ] at (48.3, -11.15){};
+	\node[circ] at (48.85, -10.55){};
+	\node[circ] at (48.85, -10.05){};
+	\node[circ] at (48.85, -10.3){};
+	\node[circ] at (48.6, -9.8){};
+	\node[circ] at (48.4, -10.65){};
+	\node[circ] at (48.85, -10.05){};
+	\node[circ] at (49.45, -9.6){};
+	\node[circ] at (49.6, -9.65){};
+	\node[circ] at (49.85, -9.3){};
+	\node[circ] at (49.85, -8.8){};
+	\node[circ] at (49.85, -9.05){};
+	\node[circ] at (49.6, -8.55){};
+	\node[circ] at (49.85, -9.6){};
+	\node[circ] at (49.85, -8.8){};
+	\node[circ] at (51.1, -8.1){};
+	\node[circ] at (51.25, -8.15){};
+	\node[circ] at (51.6, -8.1){};
+	\node[circ] at (51.6, -7.6){};
+	\node[circ] at (51.6, -7.85){};
+	\node[circ] at (51.35, -7.35){};
+	\node[circ] at (51.35, -7.65){};
+	\node[circ] at (51.6, -7.6){};
+	\node[circ] at (50.4, -8.4){};
+	\node[circ] at (50.55, -8.45){};
+	\node[circ] at (50.9, -8.4){};
+	\node[circ] at (50.9, -7.9){};
+	\node[circ] at (50.9, -8.15){};
+	\node[circ] at (50.65, -7.65){};
+	\node[circ] at (50.65, -7.95){};
+	\node[circ] at (50.9, -7.9){};
+	\draw[line width=0.61234pt] (40, -12) -- (45, -12);
+	\draw[line width=0.61234pt] (40, -7) -- (40, -12);
+	\draw[line width=0.61234pt] (45, -7) -- (45, -12);
+	\draw[line width=0.3pt, dash pattern={on 0.3pt off 2.4pt}] (41, -7) -- (41, -12);
+	\draw[line width=0.3pt, dash pattern={on 0.3pt off 2.4pt}] (43, -7) -- (43, -12);
+	\draw[line width=0.3pt, dash pattern={on 0.3pt off 2.4pt}] (44, -7) -- (44, -12);
+	\draw[line width=0.3pt, dash pattern={on 0.3pt off 2.4pt}] (42, -7) -- (42, -12);
+	\draw[line width=0.3pt, dash pattern={on 0.3pt off 2.4pt}] (40, -8) -- (45, -8);
+	\draw[line width=0.3pt, dash pattern={on 0.3pt off 2.4pt}] (40, -9) -- (45, -9);
+	\draw[line width=0.3pt, dash pattern={on 0.3pt off 2.4pt}] (40, -10) -- (45, -10);
+	\draw[line width=0.3pt, dash pattern={on 0.3pt off 2.4pt}] (40, -11) -- (45, -11);
+	\draw[line width=0.61234pt] (40, -7) -- (45, -7);
+	\draw[line width=0.61234pt] (47, -12) -- (52, -12);
+	\draw[line width=0.61234pt] (47, -7) -- (47, -12);
+	\draw[line width=0.61234pt] (52, -7) -- (52, -12);
+	\draw[line width=0.3pt, dash pattern={on 0.3pt off 2.4pt}] (48, -7) -- (48, -12);
+	\draw[line width=0.3pt, dash pattern={on 0.3pt off 2.4pt}] (50, -7) -- (50, -12);
+	\draw[line width=0.3pt, dash pattern={on 0.3pt off 2.4pt}] (51, -7) -- (51, -12);
+	\draw[line width=0.3pt, dash pattern={on 0.3pt off 2.4pt}] (49, -7) -- (49, -12);
+	\draw[line width=0.3pt, dash pattern={on 0.3pt off 2.4pt}] (47, -8) -- (52, -8);
+	\draw[line width=0.3pt, dash pattern={on 0.3pt off 2.4pt}] (47, -9) -- (52, -9);
+	\draw[line width=0.3pt, dash pattern={on 0.3pt off 2.4pt}] (47, -10) -- (52, -10);
+	\draw[line width=0.3pt, dash pattern={on 0.3pt off 2.4pt}] (47, -11) -- (52, -11);
+	\draw[line width=0.61234pt] (47, -7) -- (52, -7);
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (39.5, -9.5){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (39.5, -9.5){\large $x_j$};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (46.5, -9.5){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (46.5, -9.5){\large $x_j$};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (42.5, -12.5){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (42.5, -12.5){\large $x_l$};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (49.5, -12.5){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (49.5, -12.5){\large $x_l$};
+	\node[circ] at (48, -10.55){};
+	\node[circ] at (48.05, -10.75){};
+	\node[circ] at (48.25, -10.8){};
+	\node[circ] at (48.25, -10.55){};
+	\node[circ] at (47.95, -10.4){};
+	\node[circ] at (48.1, -10.45){};
+	\node[circ] at (48.35, -10.4){};
+	\node[circ] at (50.1, -8.35){};
+	\node[circ] at (50.15, -8.55){};
+	\node[circ] at (50.35, -8.6){};
+	\node[circ] at (50.35, -8.35){};
+	\node[circ] at (50.05, -8.2){};
+	\node[circ] at (50.2, -8.25){};
+	\node[circ] at (50.45, -8.2){};
+	\node[circ] at (49.45, -9.25){};
+	\node[circ] at (49.5, -9.45){};
+	\node[circ] at (49.7, -9.5){};
+	\node[circ] at (49.7, -9.25){};
+	\node[circ] at (49.4, -9.1){};
+	\node[circ] at (49.55, -9.15){};
+	\node[circ] at (49.8, -9.1){};
+	\node[circ] at (48.4, -10.35){};
+	\node[circ] at (48.45, -10.55){};
+	\node[circ] at (48.65, -10.6){};
+	\node[circ] at (48.65, -10.35){};
+	\node[circ] at (48.35, -10.2){};
+	\node[circ] at (48.5, -10.25){};
+	\node[circ] at (48.75, -10.2){};
+	\node[circ] at (49, -9.65){};
+	\node[circ] at (49.05, -9.85){};
+	\node[circ] at (49.25, -9.9){};
+	\node[circ] at (49.25, -9.65){};
+	\node[circ] at (48.95, -9.5){};
+	\node[circ] at (49.1, -9.55){};
+	\node[circ] at (49.35, -9.5){};
+	\node[circ] at (51.2, -7.85){};
+	\node[circ] at (51.25, -8.05){};
+	\node[circ] at (51.45, -8.1){};
+	\node[circ] at (51.45, -7.85){};
+	\node[circ] at (51.15, -7.7){};
+	\node[circ] at (51.3, -7.75){};
+	\node[circ] at (51.55, -7.7){};
+	\node[circ] at (41.85, -9.65){};
+	\node[circ] at (42, -9.65){};
+	\node[circ] at (42.3, -9.1){};
+	\node[circ] at (41.95, -9.5){};
+	\node[circ] at (41.8, -9.65){};
+	\node[circ] at (41.8, -9.4){};
+	\node[circ] at (41.9, -9.25){};
+	\node[circ] at (41.95, -9.2){};
+	\node[circ] at (42, -9.4){};
+	\node[circ] at (42.2, -9.45){};
+	\node[circ] at (42.2, -9.2){};
+	\node[circ] at (41.9, -9.05){};
+	\node[circ] at (42.05, -9.1){};
+	\node[circ] at (42.3, -9.05){};
+	\node[circ] at (42.25, -9.7){};
+	\node[circ] at (41.25, -9.65){};
+	\node[circ] at (41.55, -9.1){};
+	\node[circ] at (41.2, -9.5){};
+	\node[circ] at (42.2, -9.7){};
+	\node[circ] at (42.45, -9.2){};
+	\node[circ] at (41.15, -9.25){};
+	\node[circ] at (41.2, -9.2){};
+	\node[circ] at (41.25, -9.4){};
+	\node[circ] at (41.45, -9.45){};
+	\node[circ] at (41.45, -9.2){};
+	\node[circ] at (42.429, -9.579){};
+	\node[circ] at (41.3, -9.1){};
+	\node[circ] at (42.829, -9.579){};
+	\node[circ] at (42.25, -9.7){};
+	\node[circ] at (41.25, -9.65){};
+	\node[circ] at (41.2, -9.5){};
+	\node[circ] at (42.2, -9.7){};
+	\node[circ] at (41.95, -8.95){};
+	\node[circ] at (41.25, -9.4){};
+	\node[circ] at (41.45, -9.45){};
+	\node[circ] at (43.5, -9.1){};
+	\node[circ] at (43.55, -9.05){};
+	\node[circ] at (41.679, -9.579){};
+	\node[circ] at (42.979, -9.679){};
+	\node[circ] at (43.05, -9.45){};
+	\node[circ] at (43.2, -9.45){};
+	\node[circ] at (42.829, -9.629){};
+	\node[circ] at (43.15, -9.3){};
+	\node[circ] at (43, -9.45){};
+	\node[circ] at (43, -9.2){};
+	\node[circ] at (43.1, -9.05){};
+	\node[circ] at (42.479, -9.729){};
+	\node[circ] at (43.2, -9.2){};
+	\node[circ] at (43.4, -9.25){};
+	\node[circ] at (42.729, -9.729){};
+	\node[circ] at (42.429, -9.579){};
+	\node[circ] at (42.579, -9.629){};
+	\node[circ] at (42.829, -9.579){};
+	\node[circ] at (43.45, -9.5){};
+	\node[circ] at (42.079, -9.629){};
+	\node[circ] at (43.4, -9.5){};
+	\node[circ] at (42.979, -9.729){};
+	\node[circ] at (43.629, -9.379){};
+	\node[circ] at (44.029, -9.379){};
+	\node[circ] at (43.45, -9.5){};
+	\node[circ] at (43.4, -9.5){};
+	\node[circ] at (42.979, -9.729){};
+	\node[circ] at (44.029, -9.629){};
+	\node[circ] at (44.079, -9.579){};
+	\node[circ] at (42.879, -9.379){};
+	\node[circ] at (44.179, -9.479){};
+	\node[circ] at (41.471, -8.771){};
+	\node[circ] at (41.621, -8.771){};
+	\node[circ] at (41.421, -8.771){};
+	\node[circ] at (41.871, -8.821){};
+	\node[circ] at (41.821, -8.821){};
+	\node[circ] at (42.05, -8.7){};
+	\node[circ] at (42.45, -8.7){};
+	\node[circ] at (41.871, -8.821){};
+	\node[circ] at (41.821, -8.821){};
+	\node[circ] at (42.6, -8.8){};
+	\node[circ] at (42.45, -8.75){};
+	\node[circ] at (42.1, -8.85){};
+	\node[circ] at (42.35, -8.85){};
+	\node[circ] at (42.05, -8.7){};
+	\node[circ] at (42.2, -8.75){};
+	\node[circ] at (42.45, -8.7){};
+	\node[circ] at (41.7, -8.75){};
+	\node[circ] at (42.6, -8.85){};
+	\node[circ] at (42.6, -8.85){};
+	\node[circ] at (43.65, -8.75){};
+	\node[circ] at (43.7, -8.7){};
+	\node[circ] at (42.621, -10.271){};
+	\node[circ] at (42.771, -10.271){};
+	\node[circ] at (42.721, -10.121){};
+	\node[circ] at (42.571, -10.271){};
+	\node[circ] at (42.571, -10.021){};
+	\node[circ] at (42.771, -10.021){};
+	\node[circ] at (42.812, -9.663){};
+	\node[circ] at (42.862, -9.912){};
+	\node[circ] at (42.812, -9.913){};
+	\node[circ] at (43.042, -9.792){};
+	\node[circ] at (43.279, -9.829){};
+	\node[circ] at (42.862, -9.912){};
+	\node[circ] at (42.812, -9.913){};
+	\node[circ] at (42.45, -10.2){};
+	\node[circ] at (43.429, -9.929){};
+	\node[circ] at (43.5, -9.7){};
+	\node[circ] at (43.65, -9.7){};
+	\node[circ] at (43.279, -9.879){};
+	\node[circ] at (43.45, -9.7){};
+	\node[circ] at (43.092, -9.942){};
+	\node[circ] at (43.342, -9.942){};
+	\node[circ] at (43.042, -9.792){};
+	\node[circ] at (43.192, -9.842){};
+	\node[circ] at (43.279, -9.829){};
+	\node[circ] at (42.85, -10.25){};
+	\node[circ] at (43.85, -9.75){};
+	\node[circ] at (43.429, -9.979){};
+	\node[circ] at (43.85, -9.75){};
+	\node[circ] at (43.429, -9.979){};
+	\node[circ] at (43.329, -9.629){};
+	\node[circ] at (42.4, -9.35){};
+	\node[circ] at (42.35, -9.35){};
+	\node[circ] at (42.579, -9.229){};
+	\node[circ] at (42.979, -9.229){};
+	\node[circ] at (42.4, -9.35){};
+	\node[circ] at (42.35, -9.35){};
+	\node[circ] at (43.129, -9.329){};
+	\node[circ] at (42.979, -9.279){};
+	\node[circ] at (42.629, -9.379){};
+	\node[circ] at (42.879, -9.379){};
+	\node[circ] at (42.579, -9.229){};
+	\node[circ] at (42.729, -9.279){};
+	\node[circ] at (42.979, -9.229){};
+	\node[circ] at (43.129, -9.379){};
+	\node[circ] at (43.129, -9.379){};
+	\node[circ] at (42.9, -8.45){};
+	\node[circ] at (42.5, -8.6){};
+	\node[circ] at (42.55, -8.55){};
+	\node[circ] at (42.8, -8.55){};
+	\node[circ] at (42.5, -8.4){};
+	\node[circ] at (42.65, -8.45){};
+	\node[circ] at (42.9, -8.4){};
+	\node[circ] at (42.15, -8.45){};
+	\node[circ] at (43.05, -8.55){};
+	\node[circ] at (41.75, -8.6){};
+	\node[circ] at (41.8, -8.55){};
+	\node[circ] at (42.05, -8.55){};
+	\node[circ] at (41.9, -8.45){};
+	\node[circ] at (43.05, -8.55){};
+	\node[circ] at (42.071, -8.121){};
+	\node[circ] at (42.221, -8.121){};
+	\node[circ] at (42.021, -8.121){};
+	\node[circ] at (42.471, -8.171){};
+	\node[circ] at (42.421, -8.171){};
+	\node[circ] at (42.65, -8.05){};
+	\node[circ] at (43.05, -8.05){};
+	\node[circ] at (42.471, -8.171){};
+	\node[circ] at (42.421, -8.171){};
+	\node[circ] at (43.2, -8.15){};
+	\node[circ] at (43.05, -8.1){};
+	\node[circ] at (42.7, -8.2){};
+	\node[circ] at (42.95, -8.2){};
+	\node[circ] at (42.65, -8.05){};
+	\node[circ] at (42.8, -8.1){};
+	\node[circ] at (43.05, -8.05){};
+	\node[circ] at (42.3, -8.1){};
+	\node[circ] at (43.2, -8.2){};
+	\node[circ] at (43.2, -8.2){};
+	\node[circ] at (43, -8.7){};
+	\node[circ] at (42.95, -8.7){};
+	\node[circ] at (43.179, -8.579){};
+	\node[circ] at (43, -8.7){};
+	\node[circ] at (42.95, -8.7){};
+	\node[circ] at (43.179, -8.579){};
+	\node[circ] at (42.379, -10.179){};
+	\node[circ] at (42.529, -10.179){};
+	\node[circ] at (42.479, -10.029){};
+	\node[circ] at (42.329, -10.179){};
+	\node[circ] at (42.329, -9.929){};
+	\node[circ] at (42.429, -9.779){};
+	\node[circ] at (42.479, -9.729){};
+	\node[circ] at (42.529, -9.929){};
+	\node[circ] at (42.579, -9.629){};
+	\node[circ] at (41.779, -10.179){};
+	\node[circ] at (42.079, -9.629){};
+	\node[circ] at (41.729, -10.029){};
+	\node[circ] at (41.679, -9.779){};
+	\node[circ] at (41.729, -9.729){};
+	\node[circ] at (41.779, -9.929){};
+	\node[circ] at (41.979, -9.979){};
+	\node[circ] at (41.979, -9.729){};
+	\node[circ] at (41.829, -9.629){};
+	\node[circ] at (41.779, -10.179){};
+	\node[circ] at (41.729, -10.029){};
+	\node[circ] at (41.779, -9.929){};
+	\node[circ] at (41.979, -9.979){};
+	\node[circ] at (42.208, -10.108){};
+	\node[circ] at (42.608, -10.158){};
+	\node[circ] at (43.05, -8.95){};
+	\node[circ] at (43.2, -8.95){};
+	\node[circ] at (43.15, -8.8){};
+	\node[circ] at (43, -8.95){};
+	\node[circ] at (43, -8.7){};
+	\node[circ] at (43.2, -8.7){};
+	\node[circ] at (43.4, -8.75){};
+	\node[circ] at (43.45, -9){};
+	\node[circ] at (43.4, -9){};
+	\node[circ] at (43.629, -8.879){};
+	\node[circ] at (43.708, -8.508){};
+	\node[circ] at (43.45, -9){};
+	\node[circ] at (43.4, -9){};
+	\node[circ] at (42.879, -8.879){};
+	\node[circ] at (43.858, -8.608){};
+	\node[circ] at (43.708, -8.558){};
+	\node[circ] at (43.679, -9.029){};
+	\node[circ] at (43.929, -9.029){};
+	\node[circ] at (43.629, -8.879){};
+	\node[circ] at (43.779, -8.929){};
+	\node[circ] at (43.708, -8.508){};
+	\node[circ] at (43.279, -8.929){};
+	\node[circ] at (43.858, -8.658){};
+	\node[circ] at (43.858, -8.658){};
+	\node[circ] at (42.808, -8.858){};
+	\node[circ] at (42.958, -8.858){};
+	\node[circ] at (42.908, -8.708){};
+	\node[circ] at (42.758, -8.858){};
+	\node[circ] at (42.758, -8.608){};
+	\node[circ] at (42.858, -8.458){};
+	\node[circ] at (42.958, -8.608){};
+	\node[circ] at (43.037, -8.837){};
+	\node[circ] at (43.2, -9.7){};
+	\node[circ] at (43.35, -9.8){};
+	\node[circ] at (43.579, -9.979){};
+	\node[circ] at (43.729, -9.979){};
+	\node[circ] at (43.2, -9.75){};
+	\node[circ] at (43.529, -9.979){};
+	\node[circ] at (43.2, -9.7){};
+	\node[circ] at (43.821, -9.621){};
+	\node[circ] at (43.771, -9.621){};
+	\node[circ] at (43.35, -9.85){};
+	\node[circ] at (43.821, -9.621){};
+	\node[circ] at (43.771, -9.621){};
+	\node[circ] at (43.35, -9.85){};
+	\node[circ] at (44.4, -9.75){};
+	\node[circ] at (44.45, -9.7){};
+	\node[circ] at (44.55, -9.6){};
+	\node[circ] at (43.342, -10.192){};
+	\node[circ] at (43.392, -10.442){};
+	\node[circ] at (43.342, -10.442){};
+	\node[circ] at (43.571, -10.321){};
+	\node[circ] at (43.65, -9.95){};
+	\node[circ] at (43.392, -10.442){};
+	\node[circ] at (43.342, -10.442){};
+	\node[circ] at (43.8, -10.05){};
+	\node[circ] at (43.871, -9.821){};
+	\node[circ] at (44.021, -9.821){};
+	\node[circ] at (43.65, -10){};
+	\node[circ] at (43.821, -9.821){};
+	\node[circ] at (43.621, -10.471){};
+	\node[circ] at (43.871, -10.471){};
+	\node[circ] at (43.571, -10.321){};
+	\node[circ] at (43.721, -10.371){};
+	\node[circ] at (43.65, -9.95){};
+	\node[circ] at (43.221, -10.371){};
+	\node[circ] at (44.221, -9.871){};
+	\node[circ] at (43.8, -10.1){};
+	\node[circ] at (44.221, -9.871){};
+	\node[circ] at (43.8, -10.1){};
+	\node[circ] at (43.7, -9.75){};
+	\node[circ] at (41.821, -10.321){};
+	\node[circ] at (41.971, -10.321){};
+	\node[circ] at (42.271, -9.771){};
+	\node[circ] at (41.921, -10.171){};
+	\node[circ] at (41.771, -10.321){};
+	\node[circ] at (41.771, -10.071){};
+	\node[circ] at (41.871, -9.921){};
+	\node[circ] at (41.921, -9.871){};
+	\node[circ] at (41.971, -10.071){};
+	\node[circ] at (42.171, -10.121){};
+	\node[circ] at (42.171, -9.871){};
+	\node[circ] at (41.871, -9.721){};
+	\node[circ] at (42.021, -9.771){};
+	\node[circ] at (42.271, -9.721){};
+	\node[circ] at (42.221, -10.371){};
+	\node[circ] at (41.221, -10.321){};
+	\node[circ] at (41.521, -9.771){};
+	\node[circ] at (41.171, -10.171){};
+	\node[circ] at (42.171, -10.371){};
+	\node[circ] at (42.421, -9.871){};
+	\node[circ] at (41.121, -9.921){};
+	\node[circ] at (41.171, -9.871){};
+	\node[circ] at (41.221, -10.071){};
+	\node[circ] at (41.421, -10.121){};
+	\node[circ] at (41.421, -9.871){};
+	\node[circ] at (42.4, -10.25){};
+	\node[circ] at (41.271, -9.771){};
+	\node[circ] at (42.8, -10.25){};
+	\node[circ] at (42.221, -10.371){};
+	\node[circ] at (41.221, -10.321){};
+	\node[circ] at (41.171, -10.171){};
+	\node[circ] at (42.171, -10.371){};
+	\node[circ] at (42.421, -9.871){};
+	\node[circ] at (41.221, -10.071){};
+	\node[circ] at (41.421, -10.121){};
+	\node[circ] at (41.65, -10.25){};
+	\node[circ] at (42.8, -10.3){};
+	\node[circ] at (42.45, -10.4){};
+	\node[circ] at (42.7, -10.4){};
+	\node[circ] at (42.4, -10.25){};
+	\node[circ] at (42.55, -10.3){};
+	\node[circ] at (42.8, -10.25){};
+	\node[circ] at (42.05, -10.3){};
+	\node[circ] at (42.85, -10.05){};
+	\node[circ] at (42.591, -10.942){};
+	\node[circ] at (42.741, -10.942){};
+	\node[circ] at (42.692, -10.792){};
+	\node[circ] at (42.542, -10.942){};
+	\node[circ] at (42.542, -10.692){};
+	\node[circ] at (42.741, -10.692){};
+	\node[circ] at (42.783, -10.333){};
+	\node[circ] at (42.833, -10.583){};
+	\node[circ] at (42.783, -10.583){};
+	\node[circ] at (42.833, -10.583){};
+	\node[circ] at (42.783, -10.583){};
+	\node[circ] at (42.421, -10.871){};
+	\node[circ] at (42.821, -10.921){};
+	\node[circ] at (42.371, -10.021){};
+	\node[circ] at (42.321, -10.021){};
+	\node[circ] at (42.55, -9.9){};
+	\node[circ] at (42.371, -10.021){};
+	\node[circ] at (42.321, -10.021){};
+	\node[circ] at (42.6, -10.05){};
+	\node[circ] at (42.85, -10.05){};
+	\node[circ] at (42.55, -9.9){};
+	\node[circ] at (42.7, -9.95){};
+	\node[circ] at (42.35, -10.85){};
+	\node[circ] at (42.5, -10.85){};
+	\node[circ] at (42.45, -10.7){};
+	\node[circ] at (42.3, -10.85){};
+	\node[circ] at (42.3, -10.6){};
+	\node[circ] at (42.4, -10.45){};
+	\node[circ] at (42.45, -10.4){};
+	\node[circ] at (42.5, -10.6){};
+	\node[circ] at (42.55, -10.3){};
+	\node[circ] at (41.75, -10.85){};
+	\node[circ] at (42.05, -10.3){};
+	\node[circ] at (41.7, -10.7){};
+	\node[circ] at (41.65, -10.45){};
+	\node[circ] at (41.7, -10.4){};
+	\node[circ] at (41.75, -10.6){};
+	\node[circ] at (41.95, -10.65){};
+	\node[circ] at (41.95, -10.4){};
+	\node[circ] at (41.8, -10.3){};
+	\node[circ] at (41.75, -10.85){};
+	\node[circ] at (41.7, -10.7){};
+	\node[circ] at (41.75, -10.6){};
+	\node[circ] at (41.95, -10.65){};
+	\node[circ] at (42.179, -10.779){};
+	\node[circ] at (42.579, -10.829){};
+	\node[circ] at (42.85, -9.55){};
+	\node[circ] at (42.971, -10.571){};
+	\node[circ] at (43.021, -10.821){};
+	\node[circ] at (42.971, -10.821){};
+	\node[circ] at (43.2, -10.7){};
+	\node[circ] at (43.021, -10.821){};
+	\node[circ] at (42.971, -10.821){};
+	\node[circ] at (43.25, -10.85){};
+	\node[circ] at (43.5, -10.85){};
+	\node[circ] at (43.2, -10.7){};
+	\node[circ] at (43.35, -10.75){};
+	\node[circ] at (42.85, -10.75){};
+	\node[circ] at (41.121, -8.671){};
+	\node[circ] at (41.271, -8.671){};
+	\node[circ] at (41.071, -8.671){};
+	\node[circ] at (41.521, -8.721){};
+	\node[circ] at (41.471, -8.721){};
+	\node[circ] at (41.7, -8.6){};
+	\node[circ] at (41.521, -8.721){};
+	\node[circ] at (41.471, -8.721){};
+	\node[circ] at (41.75, -8.75){};
+	\node[circ] at (41.7, -8.6){};
+	\node[circ] at (41.85, -8.65){};
+	\node[circ] at (41.35, -8.65){};
+	\node[circ] at (41.8, -8.35){};
+	\node[circ] at (41.4, -8.5){};
+	\node[circ] at (41.45, -8.45){};
+	\node[circ] at (41.7, -8.45){};
+	\node[circ] at (41.55, -8.35){};
+	\node[circ] at (41.721, -8.021){};
+	\node[circ] at (41.671, -8.021){};
+	\node[circ] at (41.029, -9.329){};
+	\node[circ] at (40.679, -9.429){};
+	\node[circ] at (40.929, -9.429){};
+	\node[circ] at (40.779, -9.329){};
+	\node[circ] at (40.95, -9){};
+	\node[circ] at (41.1, -9){};
+	\node[circ] at (40.9, -9){};
+	\node[circ] at (41.179, -8.979){};
+	\node[circ] at (41.229, -8.829){};
+	\node[circ] at (41.279, -8.779){};
+	\node[circ] at (40.6, -8.9){};
+	\node[circ] at (40.75, -8.9){};
+	\node[circ] at (40.55, -8.9){};
+	\node[circ] at (41, -8.95){};
+	\node[circ] at (40.95, -8.95){};
+	\node[circ] at (41.179, -8.829){};
+	\node[circ] at (41, -8.95){};
+	\node[circ] at (40.95, -8.95){};
+	\node[circ] at (41.229, -8.979){};
+	\node[circ] at (41.179, -8.829){};
+	\node[circ] at (40.829, -8.879){};
+	\node[circ] at (41.279, -8.579){};
+	\node[circ] at (40.879, -8.729){};
+	\node[circ] at (40.929, -8.679){};
+	\node[circ] at (41.179, -8.679){};
+	\node[circ] at (41.029, -8.579){};
+	\node[circ] at (43.3, -10.7){};
+	\node[circ] at (43.45, -10.7){};
+	\node[circ] at (43.4, -10.55){};
+	\node[circ] at (43.25, -10.7){};
+	\node[circ] at (43.25, -10.45){};
+	\node[circ] at (43.45, -10.45){};
+	\node[circ] at (43.542, -10.342){};
+	\node[circ] at (43.492, -10.342){};
+	\node[circ] at (43.542, -10.342){};
+	\node[circ] at (43.492, -10.342){};
+	\node[circ] at (43.129, -10.629){};
+	\node[circ] at (43.529, -10.679){};
+	\node[circ] at (43.208, -10.608){};
+	\node[circ] at (43.158, -10.458){};
+	\node[circ] at (43.208, -10.358){};
+	\node[circ] at (43.287, -10.587){};
+	\node[circ] at (43.679, -10.329){};
+	\node[circ] at (43.729, -10.579){};
+	\node[circ] at (43.679, -10.579){};
+	\node[circ] at (43.908, -10.458){};
+	\node[circ] at (43.729, -10.579){};
+	\node[circ] at (43.679, -10.579){};
+	\node[circ] at (43.958, -10.608){};
+	\node[circ] at (44.208, -10.608){};
+	\node[circ] at (43.908, -10.458){};
+	\node[circ] at (44.058, -10.508){};
+	\node[circ] at (43.558, -10.508){};
+	\node[circ] at (43.108, -11.358){};
+	\node[circ] at (44.158, -9.408){};
+	\node[circ] at (44.158, -9.408){};
+	\node[circ] at (44.158, -9.408){};
+	\node[circ] at (41.5, -10.75){};
+	\node[circ] at (41, -8.25){};
+	\node[circ] at (44.25, -11.25){};
+	\node[circ] at (42.75, -9.25){};
+	\node[circ] at (42.604, -9.354){};
+	\node[circ] at (42.554, -9.354){};
+	\node[circ] at (42.604, -9.354){};
+	\node[circ] at (42.554, -9.354){};
+	\node[circ] at (42.833, -9.383){};
+	\node[circ] at (42.933, -9.283){};
+	\node[circ] at (42.433, -9.283){};
+	\node[circ] at (42.412, -9.613){};
+	\node[circ] at (42.412, -9.613){};
+	\node[circ] at (42.562, -9.663){};
+	\node[circ] at (42.512, -9.613){};
+	\node[circ] at (42.662, -9.613){};
+	\node[circ] at (42.613, -9.463){};
+	\node[circ] at (42.463, -9.613){};
+	\node[circ] at (42.463, -9.363){};
+	\node[circ] at (42.662, -9.363){};
+	\node[circ] at (42.342, -9.542){};
+	\node[circ] at (42.742, -9.592){};
+	\node[circ] at (42.421, -9.521){};
+	\node[circ] at (42.371, -9.371){};
+	\node[circ] at (42.421, -9.271){};
+	\node[circ] at (42.5, -9.5){};
+	\node[circ] at (42.942, -9.492){};
+	\node[circ] at (42.892, -9.492){};
+	\node[circ] at (42.942, -9.492){};
+	\node[circ] at (42.892, -9.492){};
+	\node[circ] at (42.771, -9.421){};
+	\node[circ] at (42.742, -9.642){};
+	\node[circ] at (42.692, -9.642){};
+	\node[circ] at (42.742, -9.642){};
+	\node[circ] at (42.692, -9.642){};
+	\node[circ] at (42.971, -9.671){};
+	\node[circ] at (43.071, -9.571){};
+	\node[circ] at (42.571, -9.571){};
+	\node[circ] at (42.55, -9.9){};
+	\node[circ] at (42.55, -9.9){};
+	\node[circ] at (42.7, -9.95){};
+	\node[circ] at (42.65, -9.9){};
+	\node[circ] at (42.8, -9.9){};
+	\node[circ] at (42.75, -9.75){};
+	\node[circ] at (42.6, -9.9){};
+	\node[circ] at (42.6, -9.65){};
+	\node[circ] at (42.8, -9.65){};
+	\node[circ] at (42.479, -9.829){};
+	\node[circ] at (42.879, -9.879){};
+	\node[circ] at (42.558, -9.808){};
+	\node[circ] at (42.508, -9.658){};
+	\node[circ] at (42.558, -9.558){};
+	\node[circ] at (42.637, -9.787){};
+	\node[circ] at (43.079, -9.779){};
+	\node[circ] at (43.029, -9.779){};
+	\node[circ] at (43.079, -9.779){};
+	\node[circ] at (43.029, -9.779){};
+	\node[circ] at (42.908, -9.708){};
+	\node[circ] at (43.038, -10.187){};
+	\node[circ] at (40.8, -10.9){};
+	\node[circ] at (40.75, -10.75){};
+	\node[circ] at (40.8, -10.65){};
+	\node[circ] at (41, -10.7){};
+	\node[circ] at (40.8, -10.9){};
+	\node[circ] at (40.75, -10.75){};
+	\node[circ] at (40.8, -10.65){};
+	\node[circ] at (41, -10.7){};
+	\node[circ] at (41.2, -7.8){};
+	\node[circ] at (41.25, -7.75){};
+	\node[circ] at (41.35, -7.65){};
+\end{tikzpicture}
+	
+\end{center}
+\caption{Series of two variables with a correlation coefficient between their empirical means equal to zero and equal to 0.94}	
+\label{figure5}
+\end{figure}
 
 
 \subsubsection{Estimation of the confidence level}
@@ -702,8 +1910,8 @@ If there are reasonable doubts about the normality of the probability distributi
 However, this upper bound, equal to $(k^{-2})$, is almost always much larger than the actual probability. 
 For example, in the case of a Gaussian distribution, the probability that the measurand falls outside the interval $(Y_0 \pm 3 \cdot u_c(Y))$ is approximately 0.003, whereas the upper bound given by Chebyshev’s inequality is about 0.11.\\
 
-% TODO FINISH STUFF APPENDIX B
-A better correspondence between confidence level and coverage factor can be obtained using other techniques not proposed here such as , 
+
+A better correspondence between confidence level and coverage factor can be obtained using other techniques not proposed here such as, correlation between the confidence level and the coverage factor that will not be covered in this text.
 
 It should be noted, however, that these techniques are used almost exclusively in high-level measurement applications, i.e., when uncertainties are close to those of primary reference standards.
 
@@ -711,7 +1919,7 @@ It should be noted, however, that these techniques are used almost exclusively i
 
 As a conclusion to this section, and as an illustrative example of the rules presented so far, we report the evaluation of the standard uncertainty of a quantity obtained through a repeated-measurement method.\\
 
-The output voltage of a stabilized power supply is measured using a digital multimeter by applying a repeated-observation method, obtaining 20 measurements of the measurand. The estimate of the quantity $(V)$ is given by the sample mean $(\overline{V})$, equal to 9.9992 V. By examining the available readings, the observed phenomenon can be represented by the following model:
+The output voltage of a stabilized power supply is measured using a digital multimeter by applying a repeated-observation method, obtaining 20 measurements of the measurand (example given in the left side of \autoref{figure2728}) \footnote{For the calculation an example with 20 samples was chosen, in the figure only some samples are shown.}. The estimate of the quantity $(V)$ is given by the sample mean $(\overline{V})$, equal to 9.9992 V. By examining the available readings, the observed phenomenon can be represented by the following model:
 
 \begin{equation}
 	V_i = \overline{V} + n_i
@@ -729,12 +1937,12 @@ Applying the Type A uncertainty evaluation method, the experimental standard dev
 Since the estimate of the measurand is given by the empirical mean, the standard uncertainty is equal to the experimental standard deviation of the mean (\autoref{eq:237}), evaluated as:
 
 \begin{equation}
-	u_A(V) = \frac{s(n)}{\sqrt{20}} = 2 \text{ mV} 
+	u_A(V) = \frac{s(n)}{\sqrt{20}} \approx 2 \text{ mV} 
 \end{equation}
 
 In addition to the contribution related to the repeatability of the measurand, one must also account for the fact that each reading $V_i$ is affected by instrumental uncertainty. 
 
-Assume that the uncertainty specifications of the instrument are expressed as a value interval of width $2 \delta_v$, with $\delta_v = 2.5 $ mV.\\
+Assume that the uncertainty specifications of the instrument are expressed as a value interval of width $2 \delta_v$, with $\delta_v = 2.5 $ mV.
 
 Under the assumption that all values within this interval are equally likely to represent the measurand i.e., assuming a uniform probability density function for the random variable the standard uncertainty of each observation evaluated by a Type B method is given by:
 
@@ -744,6 +1952,99 @@ Under the assumption that all values within this interval are equally likely to 
 
 The propagation of the Type B uncertainty of the individual observations onto the estimate $V$ of the measurand can be carried out by noting that the sample mean estimator (\autoref{eq:233}) can be treated as an indirect measurement method, so that the rules presented in \autoref{uncprop243} can be applied.\\
 
+\begin{figure}[h!]
+\begin{center}
+
+\begin{tikzpicture}[transform shape]
+	% Paths, nodes and wires:
+	\draw[line width=0.61234pt] (33, -7) -- (37, -7);
+	\draw[line width=0.61234pt] (33, -11) -- (37, -11);
+	\draw[line width=0.61234pt] (33, -7) -- (33, -11);
+	\draw[line width=0.61234pt] (37, -7) -- (37, -11);
+	\node[shape=rectangle, minimum width=0.965cm, minimum height=0.965cm] at (35, -6.25){} node[anchor=center, align=center, text width=0.577cm, inner sep=6pt] at (35, -6.25){\large $V_1(V)$};
+	\node[shape=rectangle, minimum width=0.965cm, minimum height=0.965cm] at (41, -6.25){} node[anchor=center, align=center, text width=0.577cm, inner sep=6pt] at (41, -6.25){\large $V_1(V)$};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (32, -7){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (32, -7){10.02};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (32, -8){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (32, -8){10.01\\};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (32, -9){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (32, -9){10.00\\};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (32, -10){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (32, -10){9.99\\};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (32, -11){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (32, -11){9.98\\};
+	\draw[line width=0.3pt] (33, -9) -- (37, -9);
+	\draw[line width=0.3pt, dash pattern={on 0.3pt off 2.4pt}] (33, -8) -- (37, -8);
+	\draw[line width=0.3pt, dash pattern={on 0.3pt off 2.4pt}] (33, -10) -- (37, -10);
+	\draw[line width=0.3pt, dash pattern={on 0.3pt off 2.4pt}] (34, -7) -- (34, -11);
+	\draw[line width=0.3pt, dash pattern={on 0.3pt off 2.4pt}] (35, -7) -- (35, -11);
+	\draw[line width=0.3pt, dash pattern={on 0.3pt off 2.4pt}] (36, -7) -- (36, -11);
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (33, -11.75){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (33, -11.75){0\\};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (35, -11.75){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (35, -11.75){10\\};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (34, -11.75){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (34, -11.75){5\\};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (36, -11.75){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (36, -11.75){15\\};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (37, -11.75){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (37, -11.75){20};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (39, -11.75){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (39, -11.75){0\\};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (41, -11.75){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (41, -11.75){10\\};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (40, -11.75){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (40, -11.75){5\\};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (42, -11.75){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (42, -11.75){15\\};
+	\node[shape=rectangle, minimum width=0.465cm, minimum height=0.465cm] at (43, -11.75){} node[anchor=center, align=center, text width=0.077cm, inner sep=6pt] at (43, -11.75){20};
+	\node[circ] at (33.25, -9.75){};
+	\node[circ] at (33.75, -7.75){};
+	\node[circ] at (34.25, -8.75){};
+	\node[circ] at (35.5, -10){};
+	\node[circ] at (34.489, -10.25){};
+	\node[circ] at (35, -8.25){};
+	\node[circ] at (35.25, -9.5){};
+	\node[circ] at (36.5, -9.75){};
+	\node[circ] at (36.75, -7.75){};
+	\draw[line width=0.61234pt] (39, -7) -- (43, -7);
+	\draw[line width=0.61234pt] (39, -7) -- (39, -11);
+	\draw[line width=0.61234pt] (43, -7) -- (43, -11);
+	\draw[line width=0.3pt] (39, -9) -- (43, -9);
+	\draw[line width=0.3pt, dash pattern={on 0.3pt off 2.4pt}] (39, -8) -- (43, -8);
+	\draw[line width=0.3pt, dash pattern={on 0.3pt off 2.4pt}] (39, -10) -- (43, -10);
+	\draw[line width=0.3pt, dash pattern={on 0.3pt off 2.4pt}] (40, -7) -- (40, -11);
+	\draw[line width=0.3pt, dash pattern={on 0.3pt off 2.4pt}] (41, -7) -- (41, -11);
+	\draw[line width=0.3pt, dash pattern={on 0.3pt off 2.4pt}] (42, -7) -- (42, -11);
+	\node[circ] at (39.25, -9.75){};
+	\node[circ] at (39.75, -7.75){};
+	\node[circ] at (40.25, -8.75){};
+	\node[circ] at (41.5, -10){};
+	\node[circ] at (40.489, -10.25){};
+	\node[circ] at (41, -8.25){};
+	\node[circ] at (41.25, -9.5){};
+	\node[circ] at (42.5, -9.75){};
+	\node[circ] at (42.75, -7.75){};
+	\draw[line width=0.61234pt] (39, -11) -- (43, -11);
+	\draw (42.5, -9.5) -- (42.5, -10) -- (42.6, -10) -- (42.4, -10);
+	\draw (42.4, -9.5) -- (42.6, -9.5);
+	\draw (39.75, -7.5) -- (39.75, -8) -- (39.85, -8) -- (39.65, -8);
+	\draw (39.65, -7.5) -- (39.85, -7.5);
+	\draw (41, -8) -- (41, -8.5) -- (41.1, -8.5) -- (40.9, -8.5);
+	\draw (40.9, -8) -- (41.1, -8);
+	\draw (42.75, -7.5) -- (42.75, -8) -- (42.85, -8) -- (42.65, -8);
+	\draw (42.65, -7.5) -- (42.85, -7.5);
+	\draw (40.25, -8.5) -- (40.25, -9) -- (40.35, -9) -- (40.15, -9);
+	\draw (40.15, -8.5) -- (40.35, -8.5);
+	\draw (41.5, -9.75) -- (41.5, -10.25) -- (41.6, -10.25) -- (41.4, -10.25);
+	\draw (41.4, -9.75) -- (41.6, -9.75);
+	\draw (41.5, -9.75) -- (41.5, -10.25) -- (41.6, -10.25) -- (41.4, -10.25);
+	\draw (41.4, -9.75) -- (41.6, -9.75);
+	\draw (41.5, -9.75) -- (41.5, -10.25) -- (41.6, -10.25) -- (41.4, -10.25);
+	\draw (41.4, -9.75) -- (41.6, -9.75);
+	\draw (39.25, -9.5) -- (39.25, -10) -- (39.35, -10) -- (39.15, -10);
+	\draw (39.15, -9.5) -- (39.35, -9.5);
+	\draw (40.5, -10) -- (40.5, -10.5) -- (40.6, -10.5) -- (40.4, -10.5);
+	\draw (40.4, -10) -- (40.6, -10);
+	\draw (40.5, -10) -- (40.5, -10.5) -- (40.6, -10.5) -- (40.4, -10.5);
+	\draw (40.4, -10) -- (40.6, -10);
+	\draw (40.5, -10) -- (40.5, -10.5) -- (40.6, -10.5) -- (40.4, -10.5);
+	\draw (40.4, -10) -- (40.6, -10);
+	\draw (41.25, -9.25) -- (41.25, -9.75) -- (41.35, -9.75) -- (41.15, -9.75);
+	\draw (41.15, -9.25) -- (41.35, -9.25);
+\end{tikzpicture}
+	
+\end{center}
+\caption{Previously used voltages readings with and without assigned values band given by the multimeter reading.}
+\label{figure2728}
+\end{figure}
+
 To estimate the correlation coefficient between the different readings, we consider model (\ref{eq:251}) in the absence of noise $(n_i = 0)$, since its effect has already been accounted for using the Type A method. 
 
 Under these conditions, the correlation coefficient between the observations $V_i$ can be considered equal to unity, since the different readings are obtained with the same instrument and the same measurement range. 
@@ -751,7 +2052,7 @@ Under these conditions, the correlation coefficient between the observations $V_
 Therefore, relation (\ref{eq:248}) can be applied, yielding:
 
 \begin{equation}
-	u_B(\overline{V}) = \sum_{i=1}^{20} \frac{\delta \overline{V}}{\delta V_i} \cdot u_B(V_i) = \frac{1}{20} \cdot 20 \cdot u_B(V_i) = u_B(V_i)
+	u_B(\overline{V}) = \sum_{i=1}^{20} \frac{\partial \overline{V}}{\partial V_i} \cdot u_B(V_i) = \frac{1}{20} \cdot 20 \cdot u_B(V_i) = u_B(V_i)
 \end{equation}
 
 In the end we get that:
