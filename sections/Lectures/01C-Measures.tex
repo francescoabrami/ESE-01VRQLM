@@ -17,22 +17,906 @@ After providing a comprehensive introduction to the concept of measurement and t
 
 \subsubsection{Basic operation}
 
-Let's now begin to analyze the way an oscilloscope work starting by looking at how an analog one works. From seeing how the analog version works we will then move on to analyze and study the property and functions of its digital counterpart.
+Let's now begin to analyze the way an oscilloscope work starting by looking at how an analog one works. From seeing how the analog version works we will then move on to analyze and study the property and functions of its digital counterpart.\\
+
+An analog oscilloscope is a measuring instrument used to graphically display the time-varying characteristics of an electrical signal. Unlike a digital oscilloscope, in which the signal is sampled and then processed numerically, in an analog oscilloscope the signal is directly converted into a physical deflection of the electron beam inside a cathode ray tube (CRT). The movement of the beam on the screen thus directly produces a representation of the voltage as a function of time.\\
+
+More specifically the traced voltage signal is taken into consideration via a so called \textit{"probe"} which is a part of the oscilloscope that allows the possibility to measure a voltage in one point using another point (usually ground) ad a reference. We will go over this specific part later on in this chapter.
 
 
 \subsubsection{Display}
 
+
+The fundamental component of an analog oscilloscope is the cathode-ray tube (CRT), which consists of a glass envelope containing a vacuum. The CRT is primarily composed of an electron gun, an electrostatic deflection system, and a fluorescent screen.
+
+The electron gun is located at the rear of the tube and is responsible for generating and accelerating a beam of electrons. It consists of a heated cathode, which emits electrons through the thermionic effect, and a series of electrodes that control the beam. A control grid regulates the number of electrons passing through the system and thus the intensity of the bright spot produced on the screen. The electrons are then accelerated by a high potential difference, reaching very high speeds.\\
+
+After acceleration, the beam passes through the focusing system, which concentrates the electrons to produce a spot on the screen that is as small and well-defined as possible. The beam then passes through the deflection plates, generally consisting of two pairs of metal plates arranged perpendicular to one another.
+One pair of plates controls the vertical deflection, while the other controls the horizontal deflection. Applying a potential difference to the plates generates an electric field that exerts a force on the electrons in the beam, altering their trajectory.\\
+
+Finally, the electrons reach the fluorescent screen, which is coated on the inside with a phosphorescent material. When the electrons strike the screen, they transfer energy to the phosphorescent material, which emits light. In this way, the position of the electron beam becomes visible as a bright spot.\\
+
+Usually the screen is composed by a grid (drawn on the glass) of so called \textit{"divisions"} arranged in a 12 by 8 rectangle. Each division is then further divided into 5 sub-divisions for finer measurements.\\
+
+\begin{figure}
+\begin{center}
+
+\begin{tikzpicture}[transform shape]
+	\draw[line width=0.6pt] (3, 5) -- (11, 5);
+	\draw[line width=0.6pt] (7, 2) -- (7, 8);
+	\draw[line width=0.3pt, dash pattern={on 1.2pt off 2.4pt}] (3, 7) -- (11, 7);
+	\draw[line width=0.3pt, dash pattern={on 1.2pt off 2.4pt}] (3, 6) -- (11, 6);
+	\draw[line width=0.3pt, dash pattern={on 1.2pt off 2.4pt}] (3, 4) -- (11, 4);
+	\draw[line width=0.3pt, dash pattern={on 1.2pt off 2.4pt}] (3, 3) -- (11, 3);
+	\draw[line width=0.6pt] (3, 2) -- (11, 2);
+	\draw[line width=0.6pt] (3, 8) -- (11, 8);
+	\draw[line width=0.6pt] (3, 2) -- (3, 8);
+	\draw[line width=0.6pt] (11, 2) -- (11, 8);
+	\draw[line width=0.3pt, dash pattern={on 1.2pt off 2.4pt}] (4, 8) -- (4, 2);
+	\draw[line width=0.3pt, dash pattern={on 1.2pt off 2.4pt}] (5, 8) -- (5, 2);
+	\draw[line width=0.3pt, dash pattern={on 1.2pt off 2.4pt}] (6, 8) -- (6, 2);
+	\draw[line width=0.3pt, dash pattern={on 1.2pt off 2.4pt}] (8, 8) -- (8, 2);
+	\draw[line width=0.3pt, dash pattern={on 1.2pt off 2.4pt}] (9, 8) -- (9, 2);
+	\draw[line width=0.3pt, dash pattern={on 1.2pt off 2.4pt}] (10, 8) -- (10, 2);
+	\draw (3.2, 5.1) -- (3.2, 4.9);
+	\draw (3.4, 5.1) -- (3.4, 4.9);
+	\draw (3.6, 5.1) -- (3.6, 4.9);
+	\draw (3.8, 5.1) -- (3.8, 4.9);
+	\draw (4.2, 5.1) -- (4.2, 4.9);
+	\draw (4.4, 5.1) -- (4.4, 4.9);
+	\draw (4.6, 5.1) -- (4.6, 4.9);
+	\draw (4.8, 5.1) -- (4.8, 4.9);
+	\draw (5.2, 5.1) -- (5.2, 4.9);
+	\draw (5.4, 5.1) -- (5.4, 4.9);
+	\draw (5.6, 5.1) -- (5.6, 4.9);
+	\draw (5.8, 5.1) -- (5.8, 4.9);
+	\draw (6.2, 5.1) -- (6.2, 4.9);
+	\draw (6.4, 5.1) -- (6.4, 4.9);
+	\draw (6.6, 5.1) -- (6.6, 4.9);
+	\draw (6.8, 5.1) -- (6.8, 4.9);
+	\draw (7.2, 5.1) -- (7.2, 4.9);
+	\draw (7.4, 5.1) -- (7.4, 4.9);
+	\draw (7.6, 5.1) -- (7.6, 4.9);
+	\draw (7.8, 5.1) -- (7.8, 4.9);
+	\draw (8.2, 5.1) -- (8.2, 4.9);
+	\draw (8.4, 5.1) -- (8.4, 4.9);
+	\draw (8.6, 5.1) -- (8.6, 4.9);
+	\draw (8.8, 5.1) -- (8.8, 4.9);
+	\draw (9.2, 5.1) -- (9.2, 4.9);
+	\draw (9.4, 5.1) -- (9.4, 4.9);
+	\draw (9.6, 5.1) -- (9.6, 4.9);
+	\draw (9.8, 5.1) -- (9.8, 4.9);
+	\draw (10.2, 5.1) -- (10.2, 4.9);
+	\draw (10.4, 5.1) -- (10.4, 4.9);
+	\draw (10.6, 5.1) -- (10.6, 4.9);
+	\draw (10.8, 5.1) -- (10.8, 4.9);
+	\draw (6.9, 7.8) -- (7.1, 7.8);
+	\draw (6.9, 7.6) -- (7.1, 7.6);
+	\draw (6.9, 7.4) -- (7.1, 7.4);
+	\draw (6.9, 7.2) -- (7.1, 7.2);
+	\draw (6.9, 6.8) -- (7.1, 6.8);
+	\draw (6.9, 6.6) -- (7.1, 6.6);
+	\draw (6.9, 6.4) -- (7.1, 6.4);
+	\draw (6.9, 6.2) -- (7.1, 6.2);
+	\draw (6.9, 5.8) -- (7.1, 5.8);
+	\draw (6.9, 5.6) -- (7.1, 5.6);
+	\draw (6.9, 5.4) -- (7.1, 5.4);
+	\draw (6.9, 5.2) -- (7.1, 5.2);
+	\draw (6.9, 4.8) -- (7.1, 4.8);
+	\draw (6.9, 4.6) -- (7.1, 4.6);
+	\draw (6.9, 4.4) -- (7.1, 4.4);
+	\draw (6.9, 4.2) -- (7.1, 4.2);
+	\draw (6.9, 3.8) -- (7.1, 3.8);
+	\draw (6.9, 3.6) -- (7.1, 3.6);
+	\draw (6.9, 3.4) -- (7.1, 3.4);
+	\draw (6.9, 3.2) -- (7.1, 3.2);
+	\draw (6.9, 2.8) -- (7.1, 2.8);
+	\draw (6.9, 2.6) -- (7.1, 2.6);
+	\draw (6.9, 2.4) -- (7.1, 2.4);
+	\draw (6.9, 2.2) -- (7.1, 2.2);
+\end{tikzpicture}
+	
+\end{center}
+\caption{Example of the grid on an oscilloscope screen}	
+\label{AanalogOScreen}
+\end{figure}
+
+
+\subsubsection{Signal conditioning and vertical scaling factors}
+
+
+Once the operating principle of the cathode-ray tube is understood, it is necessary to analyze how the electrical signal from the circuit under test is converted into vertical movement of the electron beam and how the time scale of the horizontal axis is defined.\\
+
+The signal applied to the oscilloscope’s input, denoted by ($V_{in}(t)$), is generally not sent directly to the vertical deflection plates. Before reaching them, it passes through a signal conditioning chain, whose purpose is to adapt the signal’s amplitude to the characteristics of the deflection system and allow the user to select the most appropriate display scale.\\
+
+
+The signal from the probe enters the oscilloscope’s vertical channel. The first component it encounters is generally an attenuator, consisting of a suitably sized network of resistors. The attenuator reduces the signal’s amplitude when it is too high to be processed directly by subsequent stages. For example, a signal of a few volts may be attenuated before being sent to the vertical amplifier. The signal then passes through one or more amplification stages. The vertical amplifier increases the signal’s amplitude until the beam deflection is large enough to fully utilize the screen.\\
+
+
+The system must therefore be capable of both attenuation and amplification. This makes it possible to display signals with widely varying amplitudes while keeping the signal within the operating range of the internal circuits. Here is a small diagram to show what stages the signal is going trough.
+
+
+\begin{equation*}
+	V_{in}(t)
+\longrightarrow
+\text{attenuator}
+\longrightarrow
+\text{Vertical AMP}
+\longrightarrow
+\text{Vertical plates}
+\longrightarrow
+\text{CRT}
+\end{equation*}
+
+We can now get to the fundamental part where the user has control on how \textit{"zoomed"} or not he want so see the signal based on the nature and the voltage of the incoming signal.
+
+On the oscilloscope panel, the user can select the \texttt{VOLTS/DIV} value—that is, how many volts correspond to one vertical division on the screen.
+
+We denote this scale factor as:
+
+\begin{equation}
+	V_y = \frac{\text{volt}}{\text{division}}
+\end{equation}
+
+For example, if:
+
+\begin{equation}
+	V_y=2 \; \text{V/div}
+\end{equation}
+
+This means that each vertical division of the screen corresponds to 2 V of the signal. We recall that the value shown on the scope is the difference between the probe incoming signal and what is supposed to be ground, the user has to be sure about this otherwise it will mess up all of the measurements and display. We will give some example in the later on sections.\\
+
+From now we can say that the factor $V_y$ therefore does not physically alter the signal produced by the circuit under test; rather, it determines the conversion ratio between the signal voltage and the vertical displacement observed on the screen.\\
+
+In other words, the oscilloscope must ensure that a certain voltage corresponds to a specific number of divisions:
+
+\begin{equation}
+	N_y=\frac{V}{V_y}
+\end{equation}
+
+where $N_y$ is the vertical displacement expressed in divisions. For example, with $V_y = 1 \; \text{V/div}$, a voltage of 3 V results in a displacement of:
+
+\begin{equation}
+	N_y=\frac{3 \; \text{V}}{1 \; \text{V/div}}=3 \; \text{div}
+\end{equation}
+
+In the end we can say that the signal must be adjusted because the CRT can produce only a certain maximum beam deflection. 
+
+If the signal were too large, the beam could move outside the visible area of the screen; if it were too small, the trace would be very close to the center, making it difficult to take an accurate measurement.
+
+For this reason, the \texttt{VOLTS/DIV} control adjusts the effective gain of the vertical channel. For example, when set to $5 \; \text{V/div}$, the oscilloscope uses a lower vertical gain than when set to $1 \; \text{V/div}$. 
+
+This means that more volts are needed to produce the same deflection on the screen.
+Conversely, when set to $0.1 \; \text{V/div}$, the system must amplify the signal more, because a small change in voltage must produce a relatively large deflection.
+
+\subsubsection{Horizontal deflection and the time base}
+
+To represent the signal as a function of time, it is not enough to control the vertical position of the beam. It is necessary to ensure that the beam moves horizontally at a controlled speed.
+
+This is achieved through the time base. The time base generates a ramp voltage which, when applied to the horizontal deflection plates, causes the beam to move from left to right.
+Is it easy to imagine that is the vertical signal was a non predictable one since it was coming from an external source this horizontal scanning signal must move from left to right and the instantly go back to zero to then repeat anther sweep.
+
+We would need a ramp signal (also called sawtooth) proportional to time to sweep the screen and then go back to the beginning, obviously while the time base is being swept the vertical signal will draw the incoming signal from the probe.\\
+
+Here is an example of the horizontal signal that drives the position of the dot on the screen from left to right.
+Note that is this system we defined the center of the grid as the zero point making the dot stay still there if no voltage or signal is applied to the deflecting plates.
+
+
+\begin{figure}[h!]
+\begin{center}
+
+\begin{tikzpicture}[transform shape, scale = 1.25]
+	\path[draw={rgb,255:red,0;green,86;blue,214}, line width=0.8pt] (3, 1) -- (4, 3);
+	\path[draw={rgb,255:red,0;green,86;blue,214}, line width=0.8pt] (4, 1) -- (5, 3);
+	\path[draw={rgb,255:red,0;green,86;blue,214}, line width=0.8pt] (5, 1) -- (6, 3);
+	\path[draw={rgb,255:red,0;green,86;blue,214}, line width=0.8pt] (6, 1) -- (7, 3);
+	\path[draw={rgb,255:red,0;green,86;blue,214}, line width=0.8pt] (7.014, 1) -- (8.014, 3);
+	\path[draw={rgb,255:red,0;green,86;blue,214}, line width=0.8pt] (8, 1) -- (9, 3);
+	\path[draw={rgb,255:red,0;green,86;blue,214}, line width=0.8pt] (9, 1) -- (10, 3);
+	\path[draw={rgb,255:red,0;green,86;blue,214}, line width=0.8pt] (10, 1) -- (11, 3);
+	\draw[line width=0.6pt, -latex] (2.6, 2) -- (11.4, 2);
+	\draw[line width=0.6pt, -latex] (7, 0.6) -- (7, 3.4);
+	\path[draw={rgb,255:red,0;green,86;blue,214}, line width=0.3pt, dash pattern={on 0.3pt off 0.6pt}] (4, 3) -- (4, 1);
+	\path[draw={rgb,255:red,0;green,86;blue,214}, line width=0.3pt, dash pattern={on 0.3pt off 0.6pt}] (5, 3) -- (5, 1);
+	\path[draw={rgb,255:red,0;green,86;blue,214}, line width=0.3pt, dash pattern={on 0.3pt off 0.6pt}] (6, 3) -- (6, 1);
+	\path[draw={rgb,255:red,0;green,86;blue,214}, line width=0.3pt, dash pattern={on 0.3pt off 0.6pt}] (7, 3) -- (7, 1);
+	\path[draw={rgb,255:red,0;green,86;blue,214}, line width=0.8pt, dash pattern={on 0.8pt off 1.6pt}] (7, 3) -- (7, 1);
+	\path[draw={rgb,255:red,0;green,86;blue,214}, line width=0.3pt, dash pattern={on 0.3pt off 0.6pt}] (8, 3) -- (8, 1);
+	\path[draw={rgb,255:red,0;green,86;blue,214}, line width=0.3pt, dash pattern={on 0.3pt off 0.6pt}] (9, 3) -- (9, 1);
+	\path[draw={rgb,255:red,0;green,86;blue,214}, line width=0.3pt, dash pattern={on 0.3pt off 0.6pt}] (10, 3) -- (10, 1);
+	\path[draw={rgb,255:red,0;green,86;blue,214}, line width=0.3pt, dash pattern={on 0.3pt off 0.6pt}] (11, 3) -- (11, 1);
+	\node[shape=rectangle, minimum width=0.365cm, minimum height=0.365cm] at (11.8, 2){} node[anchor=center, align=center, text width=-0.023cm, inner sep=6pt] at (11.8, 2){$t$};
+	\node[shape=rectangle, minimum width=0.365cm, minimum height=0.365cm] at (7.2, 3.4){} node[anchor=center, align=center, text width=-0.023cm, inner sep=6pt] at (7.2, 3.4){$V_x$};
+\end{tikzpicture}
+
+\end{center}
+\caption{Horizontal timebase sweep function}
+\label{sawtooth}
+\end{figure}
+
+During each ramp the function is moving from a negative position (left of the screen) to the right most position of the screen (positive value).\\
+
+In particular, during the linear part of the ramp:
+
+\begin{equation}
+	V_x(t)\propto t
+\end{equation}
+
+and therefore the horizontal position of the beam is also proportional to time:
+
+\begin{equation}
+	x(t)\propto t
+\end{equation}
+
+In this way, each horizontal position on the screen represents a specific point in time.\\
+
+There is also a scale factor for the horizontal axis, which is typically expressed by the \texttt{TIME/DIV} setting. We denote this factor as:
+
+\begin{equation}
+	V_x=\frac{\text{time}}{\text{division}}
+\end{equation}
+
+More precisely, since the horizontal axis represents time, we can write:
+
+\begin{equation}
+	V_x=\frac{\Delta t}{\text{div}}
+\end{equation}
+
+For example:
+
+\begin{equation}
+	V_x=1 \; \text{ms/div}
+\end{equation}
+
+means that each horizontal division on the screen corresponds to 1 ms. If one period of the signal spans 4 horizontal divisions, the period is:
+
+\begin{equation}
+	T = 4 \;\text{div}\cdot1 \; \frac{\text{ms}}{\text{div}}
+= 4 \; \text{ms}
+\end{equation}
+
+and therefore the frequency is:
+
+\begin{equation}
+	f=\frac{1}{T}
+	=\frac{1}{4 \; \text{ms}}
+	=250 \; \text{Hz}
+\end{equation}
+
+Similarly to what happens with the vertical axis, the number of divisions thus allows us to derive the physical quantity:
+
+\begin{equation}
+	\Delta t=N_xV_x
+\end{equation}
+
+where $N_x$ is the number of horizontal divisions occupied by the time interval under consideration.
+
+
+\subsubsection{Trigger and waveform stabilization}
+
+Once the operation of the vertical scale and the time base has been defined, one fundamental problem remains: ensuring that the waveform displayed on the screen remains steady and stable.
+
+Consider, for example, a periodic sinusoidal signal. The time base causes the electron beam to move from left to right, while the signal applied to the vertical channel continuously determines its vertical position. If the horizontal scan were simply repeated at arbitrary intervals, each new scan could begin at a different point on the sine wave.\\
+
+As a result, one scan might start when the signal is zero, the next when the signal is near its peak, and the one after that at yet another point. If these different scans were superimposed rapidly, the trace would not appear stationary but would seem to scroll horizontally across the screen.
+
+A trigger is used to prevent this phenomenon.
+
+The trigger determines when the horizontal scan should begin.
+
+The basic idea is simple: instead of starting the scan at any random moment, the oscilloscope waits for the signal to reach a specific condition. When this condition is met, the time-base scan begins.
+
+In this way, if the signal is periodic and the trigger condition always occurs at the same point in the waveform, each scan always begins at the same point in the signal.
+
+As a result, successive traces are plotted at the same position on the screen, and the image appears stable.
+
+
+To determine the point at which the scan should begin, the oscilloscope uses a voltage level called the trigger level. Suppose we have a sine wave:
+
+\begin{equation}
+	V(t)=A\sin(\omega t)
+\end{equation}
+
+and set the trigger level to:
+
+\begin{equation}
+	V_{TRIG}=0,\text{V}
+\end{equation}
+
+The oscilloscope can be configured so that the trigger occurs when the signal crosses this level.
+
+The signal crosses zero twice per period: once while rising and once while falling. To distinguish between these two crossings, the slope of the trigger is also used.
+
+You can therefore choose, for example: 
+
+\begin{enumerate}[label=\textbf{-}]
+	\item \textbf{rising edge:} trigger when the signal crosses the set level from low to high;
+	\item \textbf{falling edge:} trigger when the signal crosses the set level from high to low.\\
+\end{enumerate}
+
+Suppose we choose:
+\begin{equation}
+	V_{TRIG}=0 \; \text{V}
+\end{equation}
+
+
+with a rising edge. The trigger will be generated every time the sine wave crosses zero with a positive slope. This event occurs once per period and therefore constitutes a constant time reference.\\
+
+With this said we can then understand what would happen without a triggering function: the signal will slowly shift in each scan and appear as if it was moving across the display making any reading impossible.
+
+Also to ensure a good working trigger mechanism the signal we want to analyze has to be periodic which is the fundamental base for the trigger to be able to make the time base scan begin in the first place.\\
+
+At the end we can analyze the working principle of the trigger mechanism. Physically, the signal taken from the vertical channel is also sent to the trigger circuit.
+
+The circuit compares the signal with the trigger level set by the user. When the signal crosses that level in the selected direction, the circuit generates a trigger pulse. The pulse is not used to directly modify the shape of the displayed signal. 
+Its function is to control the moment when the horizontal scan is to begin. The system can therefore be viewed as a sort of \textit{"clock"} that does not simply start the scan at regular intervals, but rather starts it when the signal meets a specific condition.\\
+
+The choice of trigger level determines the point on the waveform used as a reference. If the signal has sufficient amplitude, the trigger can always be generated at the same point in the period in both cases.
+
+Changing the trigger level therefore means choosing a different point on the waveform as a time reference. It is important to note that the trigger level does not necessarily have to coincide with the zero crossing of the signal.\\
+
+As mentioned, for a periodic signal, the trigger level may be crossed multiple times during a period. For this reason, it is also necessary to specify the direction of the crossing. Let’s consider a sine wave and a trigger level again. 
+
+\begin{equation}
+	V_{TRIG}=0,\text{V}
+\end{equation}
+
+During a period, the signal crosses zero twice: from negative to positive and from positive to negative. If the \textbf{rising edge }is selected, only the first crossing is used. If the \textbf{falling edge} is selected, only the second crossing is used.
+
+In this way, the trigger circuit uniquely identifies the point on the waveform from which the scan must begin.\\
+
+Lastly the sweep does not necessarily have to start exactly at the moment of the trigger and show only what happens after it. The oscilloscope can be configured to also display a portion of the signal preceding the trigger event. In this case, the trigger point is used as a time reference, and the position of the trace on the screen can be adjusted horizontally.\\
+
+Conceptually, therefore, the trigger establishes a specific point in time:
+
+\begin{equation}
+	t=t_{TRIG}
+\end{equation}
+
+relative to which the signal display is constructed. The time base then determines how subsequent and preceding instants are distributed along the horizontal axis.\\
+
+Before moving to an example we want to show what happens when you analyze different channels and how to operate with them.
+
+
+\begin{figure}[h!]
+\begin{center}
+
+\begin{tikzpicture}[transform shape]
+	\draw[line width=0.6pt] (3, 5) -- (11, 5);
+	\draw[line width=0.6pt] (7, 2) -- (7, 8);
+	\draw[line width=0.3pt, dash pattern={on 1.2pt off 2.4pt}] (3, 7) -- (11, 7);
+	\draw[line width=0.3pt, dash pattern={on 1.2pt off 2.4pt}] (3, 6) -- (11, 6);
+	\draw[line width=0.3pt, dash pattern={on 1.2pt off 2.4pt}] (3, 4) -- (11, 4);
+	\draw[line width=0.3pt, dash pattern={on 1.2pt off 2.4pt}] (3, 3) -- (11, 3);
+	\draw[line width=0.6pt] (3, 2) -- (11, 2);
+	\draw[line width=0.6pt] (3, 8) -- (11, 8);
+	\draw[line width=0.6pt] (3, 2) -- (3, 8);
+	\draw[line width=0.6pt] (11, 2) -- (11, 8);
+	\draw[line width=0.3pt, dash pattern={on 1.2pt off 2.4pt}] (4, 8) -- (4, 2);
+	\draw[line width=0.3pt, dash pattern={on 1.2pt off 2.4pt}] (5, 8) -- (5, 2);
+	\draw[line width=0.3pt, dash pattern={on 1.2pt off 2.4pt}] (6, 8) -- (6, 2);
+	\draw[line width=0.3pt, dash pattern={on 1.2pt off 2.4pt}] (8, 8) -- (8, 2);
+	\draw[line width=0.3pt, dash pattern={on 1.2pt off 2.4pt}] (9, 8) -- (9, 2);
+	\draw[line width=0.3pt, dash pattern={on 1.2pt off 2.4pt}] (10, 8) -- (10, 2);
+	\draw (3.2, 5.1) -- (3.2, 4.9);
+	\draw (3.4, 5.1) -- (3.4, 4.9);
+	\draw (3.6, 5.1) -- (3.6, 4.9);
+	\draw (3.8, 5.1) -- (3.8, 4.9);
+	\draw (4.2, 5.1) -- (4.2, 4.9);
+	\draw (4.4, 5.1) -- (4.4, 4.9);
+	\draw (4.6, 5.1) -- (4.6, 4.9);
+	\draw (4.8, 5.1) -- (4.8, 4.9);
+	\draw (5.2, 5.1) -- (5.2, 4.9);
+	\draw (5.4, 5.1) -- (5.4, 4.9);
+	\draw (5.6, 5.1) -- (5.6, 4.9);
+	\draw (5.8, 5.1) -- (5.8, 4.9);
+	\draw (6.2, 5.1) -- (6.2, 4.9);
+	\draw (6.4, 5.1) -- (6.4, 4.9);
+	\draw (6.6, 5.1) -- (6.6, 4.9);
+	\draw (6.8, 5.1) -- (6.8, 4.9);
+	\draw (7.2, 5.1) -- (7.2, 4.9);
+	\draw (7.4, 5.1) -- (7.4, 4.9);
+	\draw (7.6, 5.1) -- (7.6, 4.9);
+	\draw (7.8, 5.1) -- (7.8, 4.9);
+	\draw (8.2, 5.1) -- (8.2, 4.9);
+	\draw (8.4, 5.1) -- (8.4, 4.9);
+	\draw (8.6, 5.1) -- (8.6, 4.9);
+	\draw (8.8, 5.1) -- (8.8, 4.9);
+	\draw (9.2, 5.1) -- (9.2, 4.9);
+	\draw (9.4, 5.1) -- (9.4, 4.9);
+	\draw (9.6, 5.1) -- (9.6, 4.9);
+	\draw (9.8, 5.1) -- (9.8, 4.9);
+	\draw (10.2, 5.1) -- (10.2, 4.9);
+	\draw (10.4, 5.1) -- (10.4, 4.9);
+	\draw (10.6, 5.1) -- (10.6, 4.9);
+	\draw (10.8, 5.1) -- (10.8, 4.9);
+	\draw (6.9, 7.8) -- (7.1, 7.8);
+	\draw (6.9, 7.6) -- (7.1, 7.6);
+	\draw (6.9, 7.4) -- (7.1, 7.4);
+	\draw (6.9, 7.2) -- (7.1, 7.2);
+	\draw (6.9, 6.8) -- (7.1, 6.8);
+	\draw (6.9, 6.6) -- (7.1, 6.6);
+	\draw (6.9, 6.4) -- (7.1, 6.4);
+	\draw (6.9, 6.2) -- (7.1, 6.2);
+	\draw (6.9, 5.8) -- (7.1, 5.8);
+	\draw (6.9, 5.6) -- (7.1, 5.6);
+	\draw (6.9, 5.4) -- (7.1, 5.4);
+	\draw (6.9, 5.2) -- (7.1, 5.2);
+	\draw (6.9, 4.8) -- (7.1, 4.8);
+	\draw (6.9, 4.6) -- (7.1, 4.6);
+	\draw (6.9, 4.4) -- (7.1, 4.4);
+	\draw (6.9, 4.2) -- (7.1, 4.2);
+	\draw (6.9, 3.8) -- (7.1, 3.8);
+	\draw (6.9, 3.6) -- (7.1, 3.6);
+	\draw (6.9, 3.4) -- (7.1, 3.4);
+	\draw (6.9, 3.2) -- (7.1, 3.2);
+	\draw (6.9, 2.8) -- (7.1, 2.8);
+	\draw (6.9, 2.6) -- (7.1, 2.6);
+	\draw (6.9, 2.4) -- (7.1, 2.4);
+	\draw (6.9, 2.2) -- (7.1, 2.2);
+	\path[draw={rgb,255:red,0;green,66;blue,170}, line width=0.8pt] (3, 6) -- (4, 6) -- (4.2, 7) -- (5, 7) -- (5.2, 6) -- (6, 6) -- (6.2, 7) -- (7, 7) -- (7.2, 6);
+	\path[draw={rgb,255:red,0;green,66;blue,170}, line width=0.8pt] (7.2, 6) -- (8.2, 6) -- (8.4, 7) -- (9.2, 7) -- (9.4, 6) -- (10.2, 6) -- (10.4, 7) -| (11, 7) -- (11, 7);
+	\path[draw={rgb,255:red,255;green,64;blue,19}, line width=0.8pt] (3, 3) -- (4, 3) -- (4.2, 4) -- (6, 4) -- (6.2, 3) -- (8, 3) -- (8.2, 4) -- (10, 4) -- (10.2, 3) -- (11, 3);
+	\node[shape=rectangle, minimum width=0.565cm, minimum height=0.565cm] at (2.2, 6.5){} node[anchor=center, align=center, text width=0.177cm, inner sep=6pt] at (2.2, 6.5){$CH1$};
+	\node[shape=rectangle, minimum width=0.565cm, minimum height=0.565cm] at (2.2, 3.4){} node[anchor=center, align=center, text width=0.177cm, inner sep=6pt] at (2.2, 3.4){$CH2$};
+\end{tikzpicture}
+
+\end{center}
+\caption{Example of $CH1$ and $CH2$}
+\label{ch1ch2ex}
+\end{figure}
+
+As we can see the signal on channel 1 is changing faster than the one on the second channel. Suppose now to have a trigger level at the $50\;\%$ of the signal amplitude and that both signal have the same amplitude. Suppose alo to put the trigger on the rising edge for both signal.
+
+In this case is it correct to trigger on the signal that has a higher frequency to prevent doing the opposite and triggering on the slower one which might not be a multiple of the faster one resulting in one signal being shown still while the other is moving on the oscilloscope screen.\\
+
+Here in \autoref{timebaseex} is an example considering also the time base function.
+
+\begin{figure}[h!]
+\begin{center}
+
+\begin{tikzpicture}[transform shape]
+	\path[draw={rgb,255:red,0;green,66;blue,170}, line width=0.8pt] (3, 9) -- (4, 9) -- (4.2, 10) -- (5, 10) -- (5.2, 9) -- (6, 9) -- (6.2, 10) -- (7, 10) -- (7.2, 9);
+	\path[draw={rgb,255:red,0;green,66;blue,170}, line width=0.8pt] (7.2, 9) -- (8.2, 9) -- (8.4, 10) -- (9.2, 10) -- (9.4, 9) -- (10.2, 9) -- (10.4, 10) -| (11, 10) -- (11, 10);
+	\node[shape=rectangle, minimum width=0.565cm, minimum height=0.565cm] at (2.2, 9.5){} node[anchor=center, align=center, text width=0.177cm, inner sep=6pt] at (2.2, 9.5){$CH1$};
+	\node[shape=rectangle, minimum width=0.565cm, minimum height=0.565cm] at (2.2, 7.5){} node[anchor=center, align=center, text width=0.177cm, inner sep=6pt] at (2.2, 7.5){$CH2$};
+	\path[draw={rgb,255:red,227;green,36;blue,0}, line width=0.8pt] (4, 7) -- (4.2, 8) -- (6, 8) -- (6.2, 7) -- (6.2, 7);
+	\draw[line width=0.3pt, dash pattern={on 0.3pt off 0.6pt}] (3, 9.5) -- (11, 9.5);
+	\draw[line width=0.6pt] (4, 7.6) -- (4.2, 7.4);
+	\draw[line width=0.6pt] (4, 7.4) -- (4.2, 7.6);
+	\draw[line width=0.6pt] (6, 9.6) -- (6.2, 9.4);
+	\draw[line width=0.6pt] (6, 9.4) -- (6.2, 9.6);
+	\draw[line width=0.6pt] (4, 9.6) -- (4.2, 9.4);
+	\draw[line width=0.6pt] (4, 9.4) -- (4.2, 9.6);
+	\draw[line width=0.6pt] (8.2, 9.6) -- (8.4, 9.4);
+	\draw[line width=0.6pt] (8.2, 9.4) -- (8.4, 9.6);
+	\draw[line width=0.6pt] (10.2, 9.6) -- (10.4, 9.4);
+	\draw[line width=0.6pt] (10.2, 9.4) -- (10.4, 9.6);
+	\path[draw={rgb,255:red,227;green,36;blue,0}, line width=0.8pt] (4, 7) -- (3, 7);
+	\path[draw={rgb,255:red,227;green,36;blue,0}, line width=0.8pt] (8.2, 7) -- (8.4, 8) -- (10.2, 8) -- (10.4, 7) -- (10.4, 7);
+	\draw[line width=0.6pt] (8.2, 7.6) -- (8.4, 7.4);
+	\draw[line width=0.6pt] (8.2, 7.4) -- (8.4, 7.6);
+	\path[draw={rgb,255:red,227;green,36;blue,0}, line width=0.8pt] (8.2, 7) -- (6.2, 7);
+	\path[draw={rgb,255:red,227;green,36;blue,0}, line width=0.8pt] (11, 7) -- (10.4, 7);
+	\draw[line width=0.3pt, dash pattern={on 0.3pt off 0.6pt}] (3, 7.5) -- (11, 7.5);
+	\draw (3, 4) -- (11, 4);
+	\draw[dash pattern={on 0.4pt off 0.8pt}] (3, 6) -- (11, 6);
+	\draw[dash pattern={on 0.4pt off 0.8pt}] (3, 2) -- (11, 2);
+	\node[shape=rectangle, minimum width=0.565cm, minimum height=0.565cm] at (2.1, 6){} node[anchor=center, align=center, text width=0.177cm, inner sep=6pt] at (2.1, 6){$+A$};
+	\node[shape=rectangle, minimum width=0.565cm, minimum height=0.565cm] at (2.1, 2){} node[anchor=center, align=center, text width=0.177cm, inner sep=6pt] at (2.1, 2){$-A$};
+	\node[shape=rectangle, minimum width=0.565cm, minimum height=0.565cm] at (1.1, 4.1){} node[anchor=center, align=center, text width=0.177cm, inner sep=6pt] at (1.1, 4.1){$Time \;\;base$};
+	\path[draw={rgb,255:red,79;green,122;blue,40}, line width=0.8pt, dash pattern={on 3.2pt off 1.6pt}] (3, 2) -- (4.1, 2);
+	\path[draw={rgb,255:red,79;green,122;blue,40}, line width=0.8pt, dash pattern={on 3.2pt off 1.6pt}] (7.7, 2) -- (8.3, 2);
+	\path[draw={rgb,255:red,79;green,122;blue,40}, line width=0.8pt] (4.1, 2) -- (7.7, 6);
+	\path[draw={rgb,255:red,79;green,122;blue,40}, line width=0.8pt, dash pattern={on 3.2pt off 1.6pt}] (7.7, 6) -- (7.7, 2);
+	\path[draw={rgb,255:red,79;green,122;blue,40}, line width=0.8pt] (8.3, 2) -- (11, 5);
+	\draw[line width=0.3pt, dash pattern={on 0.3pt off 0.6pt}] (4.1, 2) -- (4.1, 9.5);
+	\draw[line width=0.3pt, dash pattern={on 0.3pt off 0.6pt}] (8.3, 2) -- (8.3, 9.5);
+\end{tikzpicture}
+
+\end{center}
+\caption{Example of $CH1$, $CH2$ and time base function}
+\label{timebaseex}
+\end{figure}
+
+As we can clearly see the image, the first time the trigger is activated (imagine $CH1$ and $CH2$ overlapped) the time base scan is initialized. Since we trigger on the slower channel $CH2$ the time base scan stops before the trigger is called again. This causes the mechanism to stall for a fraction of time and waits for the next trigger event to restart the time base sweep.\\
+
+The same idea applies if the faster channel is used to trigger the time base scan. In this case the $CH1$ will remain still on the screen while the $CH2$ will flicker between the different relative positions to $CH1$ based on which part of the signal you are on.\\
+
+We remember now that this case is only possible when two channel are synched in some way and we get two still images if we are triggering on the slower one with only one trigger level. As just said triggering on the faster one will result is the slower one not showing correctly.\\
+
+And finally if we have two signals that are not synched in any way having different frequencies it is not feasible to have them both shown correctly on the scope using one global trigger level.
+
 \subsubsection{Examples}
+
+At this point we can go ahed and try a small example analyzing from start to finish the usage of the analog oscilloscope.\\
+
+
+Suppose that on the screen the \autoref{exampleAsingal} signal is shown:
+
+\begin{figure}[h!]
+\begin{center}
+
+\begin{tikzpicture}
+
+
+\draw[thick, blue, domain=3:11, samples=500] 
+        plot (\x, {5 + 2*sin(5 * 360 * (\x - 3) / 8)});
+     
+        
+	\draw[line width=0.6pt] (3, 5) -- (11, 5);
+	\draw[line width=0.6pt] (7, 2) -- (7, 8);
+	\draw[line width=0.3pt, dash pattern={on 1.2pt off 2.4pt}] (3, 7) -- (11, 7);
+	\draw[line width=0.3pt, dash pattern={on 1.2pt off 2.4pt}] (3, 6) -- (11, 6);
+	\draw[line width=0.3pt, dash pattern={on 1.2pt off 2.4pt}] (3, 4) -- (11, 4);
+	\draw[line width=0.3pt, dash pattern={on 1.2pt off 2.4pt}] (3, 3) -- (11, 3);
+	\draw[line width=0.6pt] (3, 2) -- (11, 2);
+	\draw[line width=0.6pt] (3, 8) -- (11, 8);
+	\draw[line width=0.6pt] (3, 2) -- (3, 8);
+	\draw[line width=0.6pt] (11, 2) -- (11, 8);
+	\draw[line width=0.3pt, dash pattern={on 1.2pt off 2.4pt}] (4, 8) -- (4, 2);
+	\draw[line width=0.3pt, dash pattern={on 1.2pt off 2.4pt}] (5, 8) -- (5, 2);
+	\draw[line width=0.3pt, dash pattern={on 1.2pt off 2.4pt}] (6, 8) -- (6, 2);
+	\draw[line width=0.3pt, dash pattern={on 1.2pt off 2.4pt}] (8, 8) -- (8, 2);
+	\draw[line width=0.3pt, dash pattern={on 1.2pt off 2.4pt}] (9, 8) -- (9, 2);
+	\draw[line width=0.3pt, dash pattern={on 1.2pt off 2.4pt}] (10, 8) -- (10, 2);
+	\draw (3.2, 5.1) -- (3.2, 4.9);
+	\draw (3.4, 5.1) -- (3.4, 4.9);
+	\draw (3.6, 5.1) -- (3.6, 4.9);
+	\draw (3.8, 5.1) -- (3.8, 4.9);
+	\draw (4.2, 5.1) -- (4.2, 4.9);
+	\draw (4.4, 5.1) -- (4.4, 4.9);
+	\draw (4.6, 5.1) -- (4.6, 4.9);
+	\draw (4.8, 5.1) -- (4.8, 4.9);
+	\draw (5.2, 5.1) -- (5.2, 4.9);
+	\draw (5.4, 5.1) -- (5.4, 4.9);
+	\draw (5.6, 5.1) -- (5.6, 4.9);
+	\draw (5.8, 5.1) -- (5.8, 4.9);
+	\draw (6.2, 5.1) -- (6.2, 4.9);
+	\draw (6.4, 5.1) -- (6.4, 4.9);
+	\draw (6.6, 5.1) -- (6.6, 4.9);
+	\draw (6.8, 5.1) -- (6.8, 4.9);
+	\draw (7.2, 5.1) -- (7.2, 4.9);
+	\draw (7.4, 5.1) -- (7.4, 4.9);
+	\draw (7.6, 5.1) -- (7.6, 4.9);
+	\draw (7.8, 5.1) -- (7.8, 4.9);
+	\draw (8.2, 5.1) -- (8.2, 4.9);
+	\draw (8.4, 5.1) -- (8.4, 4.9);
+	\draw (8.6, 5.1) -- (8.6, 4.9);
+	\draw (8.8, 5.1) -- (8.8, 4.9);
+	\draw (9.2, 5.1) -- (9.2, 4.9);
+	\draw (9.4, 5.1) -- (9.4, 4.9);
+	\draw (9.6, 5.1) -- (9.6, 4.9);
+	\draw (9.8, 5.1) -- (9.8, 4.9);
+	\draw (10.2, 5.1) -- (10.2, 4.9);
+	\draw (10.4, 5.1) -- (10.4, 4.9);
+	\draw (10.6, 5.1) -- (10.6, 4.9);
+	\draw (10.8, 5.1) -- (10.8, 4.9);
+	\draw (6.9, 7.8) -- (7.1, 7.8);
+	\draw (6.9, 7.6) -- (7.1, 7.6);
+	\draw (6.9, 7.4) -- (7.1, 7.4);
+	\draw (6.9, 7.2) -- (7.1, 7.2);
+	\draw (6.9, 6.8) -- (7.1, 6.8);
+	\draw (6.9, 6.6) -- (7.1, 6.6);
+	\draw (6.9, 6.4) -- (7.1, 6.4);
+	\draw (6.9, 6.2) -- (7.1, 6.2);
+	\draw (6.9, 5.8) -- (7.1, 5.8);
+	\draw (6.9, 5.6) -- (7.1, 5.6);
+	\draw (6.9, 5.4) -- (7.1, 5.4);
+	\draw (6.9, 5.2) -- (7.1, 5.2);
+	\draw (6.9, 4.8) -- (7.1, 4.8);
+	\draw (6.9, 4.6) -- (7.1, 4.6);
+	\draw (6.9, 4.4) -- (7.1, 4.4);
+	\draw (6.9, 4.2) -- (7.1, 4.2);
+	\draw (6.9, 3.8) -- (7.1, 3.8);
+	\draw (6.9, 3.6) -- (7.1, 3.6);
+	\draw (6.9, 3.4) -- (7.1, 3.4);
+	\draw (6.9, 3.2) -- (7.1, 3.2);
+	\draw (6.9, 2.8) -- (7.1, 2.8);
+	\draw (6.9, 2.6) -- (7.1, 2.6);
+	\draw (6.9, 2.4) -- (7.1, 2.4);
+	\draw (6.9, 2.2) -- (7.1, 2.2);
+
+    
+\end{tikzpicture}
+
+
+	
+\end{center}
+\caption{Example singal}
+\label{exampleAsingal}
+\end{figure}
+
+We know that $K_y = 0.5$ V/div and that it has a relative uncertainty equal to $\varepsilon_{k_y} = 2\;\%$. We also know that the timebase is equal to 1 ms/div.
+
+Calculate the $V_{pp}$ and its relative uncertainty.\\
+
+First of all we go and read the screen ad calculate the amplitude in divisions:
+
+\begin{equation}
+	L = L_h - L_l = 2 - (-2) = 4 \; \text{div} 
+\end{equation}
+
+Then for each of these reading we have to take into account the uncertainty given by the sub-divisions (0.2 division each). Since the top and bottom of the signal are on the $\pm$ 2 division we still have to add the uncertainty which means that they are between 0.1 division away from the next visible reading.
+
+We then get:
+
+\begin{equation}
+	\delta_{L_h} = \delta_{L_l} = 0.1  \; \text{div} 
+\end{equation}
+
+Then the absolute uncertainty on the measure of $L$ will be:
+
+\begin{equation}
+	\delta_L = \delta_{L_h} + \delta_{L_l} = 0.2\; \text{div} 
+\end{equation}
+
+We can the com up with the relative uncertainty:
+
+\begin{equation}
+	\varepsilon_L = \frac{\delta_L}{L} = \frac{0.2}{4} = 0.05 = 5\;\%
+\end{equation}
+
+At this point we can obtain the $V_{pp}$ measure using the vertical scale factor:
+
+\begin{equation}
+	V_{pp} = k_y \cdot L = 0.5 \; \text{V/div} \cdot 4  \; \text{div} = 2 \; \text{V}
+\end{equation}
+
+Lastly we include the uncertainty of the measure, including the uncertainty on the scale factor $\varepsilon_{k_y}$:
+
+\begin{equation}
+	\varepsilon_{V_{pp}} = \varepsilon_{k_y} + \varepsilon_{L} = 2\;\% + 5\;\% = 7\;\%  
+\end{equation}
+
+
+
 
 \subsection{Digital sampling oscilloscope - DSO}
 
+Now that we have a good understanding on how an oscilloscope works we can move on and try to understand what the digital version (DSO) does differently from the analog counterpart. Remember that all of the previous concepts such as triggers, division counting and uncertainties still apply to this section.\\
+
+After analyzing how an analog oscilloscope works, we can introduce the digital oscilloscope, noting first of all that many of the fundamental concepts remain the same, while the method by which the signal is acquired, stored, and displayed changes significantly.\\
+
+In an analog oscilloscope, the signal applied to the input is first conditioned to adapt its amplitude to the instrument’s vertical scale. The conditioned signal is then used to control the vertical deflection of the electron beam inside the cathode ray tube. At the same time, the time base generates a horizontal sweep that determines the speed at which the beam traverses the screen. The bright spot produced by the beam’s impact on the screen’s phosphor material thus allows the waveform to be observed directly.\\
+
+The trigger is responsible for stabilizing this display. It detects a specific condition in the signal—such as the signal exceeding a certain voltage level with a rising edge—and uses this event as a reference to start the horizontal sweep. In this way, for a periodic signal, each sweep begins essentially at the same point on the waveform, and the trace appears stationary on the screen rather than continuously scrolling.\\
+
+In a digital oscilloscope, the general principle of measurement remains similar, but the signal is no longer used directly to control the movement of an electron beam. The main difference is that the analog signal is converted into a sequence of numerical values, which can be processed and stored.\\
+
+We can then introduce the chain of operations done to the signal incoming a DSO:\\
+
+\begin{figure}[h!]
+\begin{center}
+
+\begin{tikzpicture}[transform shape, every node/.style={font=\bfseries\sffamily}]
+	\draw[line width=0.8pt, -latex] (3.7, 5.7) -- (4.7, 5.7);
+	\draw[line width=0.8pt] (4.75, 5.7) -- (5.75, 6.5) -- (7.45, 6.5) -- (7.45, 4.9) -- (5.75, 4.9) -- (4.75, 5.7);
+	\node[shape=rectangle, minimum width=1.865cm, minimum height=1.465cm] at (6.3, 5.7){} node[anchor=center, align=center, text width=1.477cm, inner sep=6pt] at (6.3, 5.7){\Large ADC};
+	\draw[line width=0.8pt, -latex] (6.5, 6.5) -| (6.5, 8);
+	\draw[line width=0.8pt] (5, 8) -- (5, 10) -- (8, 10) -| (8, 8) -- (5, 8);
+	\node[shape=rectangle, minimum width=2.965cm, minimum height=1.965cm] at (6.5, 9){} node[anchor=center, align=center, text width=2.577cm, inner sep=6pt] at (6.5, 9){\Large Acquisition\\Memory};
+	\draw[line width=0.8pt, -latex] (8, 9) -- (9.3, 9);
+	\draw[line width=0.8pt] (9.3, 8) -- (9.3, 10) -- (12.3, 10) -| (12.3, 8) -- (9.3, 8);
+	\node[shape=rectangle, minimum width=2.965cm, minimum height=1.965cm] at (10.8, 9){} node[anchor=center, align=center, text width=2.577cm, inner sep=6pt] at (10.8, 9){\Large Digital\\Processing};
+	\draw[line width=0.8pt, -latex] (10.8, 8) -- (10.8, 6.7);
+	\draw[line width=0.8pt] (9.3, 4.7) -- (9.3, 6.7) -- (12.3, 6.7) -| (12.3, 4.7) -- (9.3, 4.7);
+	\draw[line width=0.8pt] (9.5, 6.5) -- (12, 6.5) -- (12.1, 6.5) -- (12.1, 4.9) -- (9.5, 4.9) -- (9.5, 6.5);
+	\draw[line width=0.3pt, dash pattern={on 0.3pt off 0.6pt}] (10.8, 6.5) -- (10.8, 4.9);
+	\draw[line width=0.3pt, dash pattern={on 0.3pt off 0.6pt}] (9.5, 5.7) -- (12.1, 5.7);
+	\path[draw={rgb,255:red,227;green,36;blue,0}] (9.5, 5.3) -- (10, 5.3) -- (10, 6.1) -- (10.5, 6.1) -- (10.5, 5.3) -- (11, 5.3) -- (11, 6.1) -- (11.5, 6.1) -- (11.5, 5.3) -- (12, 5.3) -- (12, 6.1) -- (12.1, 6.1);
+	\node[shape=rectangle, minimum width=2.965cm, minimum height=0.665cm] at (10.8, 4.3){} node[anchor=center, align=center, text width=2.577cm, inner sep=6pt] at (10.8, 4.3){\Large Display};
+	\node[shape=rectangle, minimum width=0.265cm, minimum height=0.265cm] at (1.95, 8.5){} node[anchor=center, align=center, text width=-0.123cm, inner sep=6pt] at (1.60, 8.5){\Large $V_{in}$};
+	\draw[line width=0.8pt] (0.2, 4.7) -- (0.2, 6.7) -| (3.7, 6.7) -| (3.7, 4.7) -- (0.2, 4.7);
+	\node[shape=rectangle, minimum width=3.465cm, minimum height=1.965cm] at (1.95, 5.7){} node[anchor=center, align=center, text width=3.077cm, inner sep=6pt] at (1.95, 5.7){\Large Input\\Conditioning};
+	\draw[line width=0.8pt, -latex] (1.95, 8) -- (1.95, 6.7);
+\end{tikzpicture}
+	
+\end{center}
+\caption{DSO input signal chain of operations}	
+\label{dsochain}
+\end{figure}
+
+Now that we have a general scheme we can over each single part:
+
+\begin{enumerate}[label=\textbf{-}]
+	\item \textbf{Input:} The input of the oscilloscope, which is also the first part that picks up the signal are the probes. We will see them later on giving them a separate section to talk about their working mechanism.
+	
+	\item \textbf{Input conditioning:} Input conditioning continues to play a fundamental role. Even in a digital oscilloscope, it is necessary to adapt the signal to the voltage range that the instrument can acquire. The vertical scale, expressed for example in $\mathrm{V/div}$, therefore continues to indicate the relationship between the signal’s amplitude and its representation on the screen.
+	
+	\item \textbf{ADC:} The difference is that, instead of directly causing a vertical shift in the waveform, the conditioned signal is sent to an analog-to-digital converter, known as an ADC (Analog-to-Digital Converter). The ADC converts the voltage value into a number that can be processed by the oscilloscope's digital electronics instead of shifting ad electron beam on a CRT as in the analog version.
+	
+	\item \textbf{Acquisition memory:} One of the most important features of a digital oscilloscope is therefore its memory. The acquired values can be stored and later used to reconstruct the waveform on the display. This allows you to stop the acquisition and continue observing the previously recorded signal—something that was not possible in the same way with an analog oscilloscope, since the trace depended continuously on the movement of the beam across the screen. Memory also allows for the observation of single or very brief events. For example, if a circuit normally produces a steady signal but occasionally exhibits a very short pulse, a digital oscilloscope can capture the event, store it in memory, and allow the user to analyze it even after the event has ended. The trigger is also present in the digital oscilloscope and essentially maintains the same synchronization function. However, the presence of memory introduces a particularly important capability: the ability to record a portion of the signal preceding the trigger instant and a portion following it.
+
+	\item \textbf{Digital processing:} This area is the one that is able to show just a part of the data but also retrive from memory what happened before trigger (the scope is always listening) or to zoom in and out of a large quantities of data. We want to make sure that there is a difference between acquisition and visualization. Since we can move along the time base it does not mean that is now useless. The time base also retains its meaning, since the horizontal scale continues to be expressed in $\mathrm{s/div}$. If, for example $K_x=1 \; \mathrm{ms/div}$, one horizontal division still corresponds to $1 \; \mathrm{ms}$. In a digital oscilloscope, however, the time base no longer directly determines the speed of the electron beam, because there is no longer an analog sweep of the beam across the screen. Instead, it is related to how the acquired data is represented and to the observed time interval. It is therefore important to distinguish between acquisition and display. A digital oscilloscope can acquire a certain amount of data, store it in memory, and subsequently display a portion of it on the screen, possibly applying zoom or other processing.
+	
+	\item \textbf{Display:} The screen also represents a clear difference. In an analog oscilloscope, the trace is physically produced by the electron beam striking the phosphor screen. The phosphor has a certain afterglow, allowing the trace left by the beam to remain visible for a brief interval, which contributes to the perception of a stable signal. In a digital oscilloscope, however, the display does not directly represent the analog signal. The acquired numerical values are processed and used to determine the points to be displayed on the screen. The display is therefore the result of processing the stored data.
+\end{enumerate}
+
+This architecture offers numerous advantages. In addition to the ability to store and analyze individual events, a digital oscilloscope can automatically perform measurements such as period, frequency, average value, root mean square (RMS) value, and peak-to-peak value. It can also process the signal, perform mathematical operations, conduct frequency analysis using FFT, and allow users to zoom in on or analyze details of the acquired waveform.\\
+
+However, the transition from analog to digital also introduces a new fundamental problem. The electrical signal is continuous in time and amplitude, whereas digital electronics can only operate with a discrete set of numerical values. To convert the analog signal into a sequence of numbers, two fundamental operations are therefore necessary: \textbf{quantization} and \textbf{sampling}.
+
 \subsubsection{Quantization}
 
+Let's begin by analyzing the concept of quantization which basically is the ability to divide il little interval a bigger one. In this case this operation will be take place over the vertical swing of the oscilloscope, more specifically the full swing obtainable by the scope is divided into a number of finite $N$ sections where at certain time interval (sampling) will be measured and compared agains them to decide which one they fall into. By doing this operation we have assigned to an infinite dense range of number an ordered slot to which they will fall into. By doing do we have gone from continuous values to finites one.\\
+
+Here is an example in \autoref{quantmech} to better visualize what we just covered:
+
+\begin{figure}[h!]
+\begin{center}
+
+\begin{tikzpicture}[transform shape]
+	\draw[line width=0.8pt, -latex] (3, 1.4) -- (3, 5.4);
+	\draw (2.8, 1.8) -- (3.2, 1.8);
+	\draw (2.8, 2.2) -- (3.2, 2.2);
+	\draw (2.8, 2.6) -- (3.2, 2.6);
+	\draw (2.8, 3) -- (3.2, 3);
+	\draw (2.8, 3.4) -- (3.2, 3.4);
+	\draw (2.8, 3.8) -- (3.2, 3.8);
+	\draw (2.8, 4.2) -- (3.2, 4.2);
+	\draw (2.8, 4.6) -- (3.2, 4.6);
+	\node[shape=rectangle, minimum width=0.365cm, minimum height=0.365cm] at (3, 5.8){} node[anchor=center, align=center, text width=-0.023cm, inner sep=6pt] at (2.85, 5.8){A};
+	\node[shape=rectangle, minimum width=0.365cm, minimum height=0.365cm] at (2.2, 5){} node[anchor=center, align=center, text width=-0.023cm, inner sep=6pt] at (2.2, 5){S};
+	\node[shape=rectangle, minimum width=0.365cm, minimum height=0.365cm] at (2.2, 1.8){} node[anchor=center, align=center, text width=-0.023cm, inner sep=6pt] at (2.2, 1.8){0};
+	\draw[-latex] (3.6, 2) -- (5, 2);
+	\draw[-latex] (3.6, 2.4) -- (5, 2.4);
+	\draw[-latex] (3.6, 2.8) -- (5, 2.8);
+	\draw[-latex] (3.6, 3.2) -- (5, 3.2);
+	\draw[-latex] (3.6, 3.6) -- (5, 3.6);
+	\draw[-latex] (3.6, 4) -- (5, 4);
+	\draw[-latex] (3.6, 4.4) -- (5, 4.4);
+	\draw[-latex] (3.6, 4.8) -- (5, 4.8);
+	\draw (2.8, 5) -- (3.2, 5);
+	\node[shape=rectangle, minimum width=0.365cm, minimum height=0.365cm] at (5.6, 2.4){} node[anchor=center, align=center, text width=-0.023cm, inner sep=6pt] at (5.6, 2.4){1};
+	\node[shape=rectangle, minimum width=0.365cm, minimum height=0.365cm] at (5.6, 2){} node[anchor=center, align=center, text width=-0.023cm, inner sep=6pt] at (5.6, 2){0};
+	\node[shape=rectangle, minimum width=0.365cm, minimum height=0.365cm] at (5.6, 3.2){} node[anchor=center, align=center, text width=-0.023cm, inner sep=6pt] at (5.6, 3.2){3};
+	\node[shape=rectangle, minimum width=0.365cm, minimum height=0.365cm] at (5.6, 2.8){} node[anchor=center, align=center, text width=-0.023cm, inner sep=6pt] at (5.6, 2.8){2};
+	\node[shape=rectangle, minimum width=0.365cm, minimum height=0.365cm] at (5.6, 4){} node[anchor=center, align=center, text width=-0.023cm, inner sep=6pt] at (5.6, 4){5};
+	\node[shape=rectangle, minimum width=0.365cm, minimum height=0.365cm] at (5.6, 3.6){} node[anchor=center, align=center, text width=-0.023cm, inner sep=6pt] at (5.6, 3.6){4};
+	\node[shape=rectangle, minimum width=0.365cm, minimum height=0.365cm] at (5.6, 4.8){} node[anchor=center, align=center, text width=-0.023cm, inner sep=6pt] at (5.6, 4.8){7};
+	\node[shape=rectangle, minimum width=0.365cm, minimum height=0.365cm] at (5.6, 4.4){} node[anchor=center, align=center, text width=-0.023cm, inner sep=6pt] at (5.6, 4.4){6};
+	\node[shape=rectangle, minimum width=0.365cm, minimum height=0.365cm] at (6.4, 2.4){} node[anchor=center, align=center, text width=-0.023cm, inner sep=6pt] at (6.4, 2.4){\textcolor{rgb,255:red,0;green,66;blue,170}{001}};
+	\node[shape=rectangle, minimum width=0.365cm, minimum height=0.365cm] at (6.4, 2){} node[anchor=center, align=center, text width=-0.023cm, inner sep=6pt] at (6.4, 2){\textcolor{rgb,255:red,0;green,66;blue,170}{000}};
+	\node[shape=rectangle, minimum width=0.365cm, minimum height=0.365cm] at (6.4, 3.2){} node[anchor=center, align=center, text width=-0.023cm, inner sep=6pt] at (6.4, 3.2){\textcolor{rgb,255:red,0;green,66;blue,170}{011}};
+	\node[shape=rectangle, minimum width=0.365cm, minimum height=0.365cm] at (6.4, 2.8){} node[anchor=center, align=center, text width=-0.023cm, inner sep=6pt] at (6.4, 2.8){\textcolor{rgb,255:red,0;green,66;blue,170}{010}};
+	\node[shape=rectangle, minimum width=0.365cm, minimum height=0.365cm] at (6.4, 4){} node[anchor=center, align=center, text width=-0.023cm, inner sep=6pt] at (6.4, 4){\textcolor{rgb,255:red,0;green,66;blue,170}{101}};
+	\node[shape=rectangle, minimum width=0.365cm, minimum height=0.365cm] at (6.4, 3.6){} node[anchor=center, align=center, text width=-0.023cm, inner sep=6pt] at (6.4, 3.6){\textcolor{rgb,255:red,0;green,66;blue,170}{100}};
+	\node[shape=rectangle, minimum width=0.365cm, minimum height=0.365cm] at (6.4, 4.8){} node[anchor=center, align=center, text width=-0.023cm, inner sep=6pt] at (6.4, 4.8){\textcolor{rgb,255:red,0;green,66;blue,170}{111}};
+	\node[shape=rectangle, minimum width=0.365cm, minimum height=0.365cm] at (6.4, 4.4){} node[anchor=center, align=center, text width=-0.023cm, inner sep=6pt] at (6.4, 4.4){\textcolor{rgb,255:red,0;green,66;blue,170}{110}};
+\end{tikzpicture}
+	
+\end{center}
+\caption{Quantization mechanism}
+\label{quantmech}	
+\end{figure} 
+
+As we can see the vertical swing of the signal could be between 0 and the so called full-scale $S$. In between there are (in this case 8) intervals $A_d$ of equal dimension that correspond to an increasing value based on the number of interval present in our converter.
+
+In this case $N=3$ that gives us:
+
+\begin{equation}
+	\text{\# of intervals} = 2^N = 8
+\end{equation}
+
+To calculate the height of one interval we can do this:
+
+\begin{equation}
+	A_d = \frac{S}{2^N} 
+\end{equation}
+
+We can also know that:
+
+\begin{equation}
+	\frac{A_d}{2} = \frac{S}{N^{2+1}}
+\end{equation}
+
+As we can see quantization, on the other hand, concerns amplitude. 
+The ADC cannot represent an infinite number of possible voltage values (in our case only 8), but has a finite number of levels determined by its resolution. As we saw before a measured voltage is therefore assigned to the closest digital level among those available. In other words quantization discretizes amplitude.\\
+
+Lastly we want to make clear that each of the $A_d$ interval represents an LSB which stands for least significant bit. In other word is the smallest increment that can me measured after the signal is converted.\\
 
 \subsubsection{Sampling}
 
+Sampling relates to time. Instead of measuring the signal at every instant, the oscilloscope measures its value only at specific instants:
+
+\begin{equation}
+	t_0,\; t_1, \;t_2, \;t_3,\ldots	
+\end{equation}
+
+resulting in a sequence:
+
+\begin{equation}
+	V_0,\;V_1,\;V_2,\;V_3,\ldots
+\end{equation}
+
+The time interval between two consecutive samples is the sampling period $T_s$, while the frequency at which measurements are taken is the sampling frequency:
+
+\begin{equation}
+	f_s=\frac{1}{T_s}
+\end{equation}
+
+Sampling can therefore be viewed as a discretization of the signal along the time axis and its what gives us the time base.\\
+
+Regarding the subject of sampling is very important to introduce one fundamental theorem: the \textbf{Nyquist–Shannon} sampling theorem states that a continuous-time analog signal can be perfectly reconstructed from its discrete samples if it is sampled at a frequency strictly greater than twice the highest frequency component of the signal.\\
+
+This really translate to:
+
+\begin{enumerate}[label=\textbf{-}]
+	\item If you suppose to have a signal with a limited bandwidth (highest frequency component is known) to $f_B$.
+	\item If the signal is sampled at a $f_s > 2 f_B$ where $2f_B$ is the Nyquist frequency.
+	\item If you then reconstruct the continuous time signal using an ideal low pass filter with cut-off frequency $f_c = f_B$.
+	\item You will obtain back a signal which is \textbf{identical} to the one that was sampled. 
+\end{enumerate}
+
+
+The transition from analog to digital oscilloscopes thus introduces a new perspective: we no longer simply observe the signal as it is produced, but we can acquire it, convert it into data, store it, and subsequently analyze it. From this point on, it becomes essential to understand how faithfully this data represents the original signal, and this naturally leads to an in-depth study of sampling, the Nyquist theorem, aliasing, and quantization.\\
+
+\subsubsection{Examples}
+
 
 \subsubsection{Oscilloscope connections}
+
+\begin{figure}[h!]
+\begin{center}
+
+\begin{tikzpicture}[transform shape]
+	\draw (3.2, 3) to[european voltage source, l={$V_g$}] (3.2, 5);
+	\draw (3.6, 5) to[american resistor, l={$R_g$}] (5.6, 5);
+	\draw (7.4, 5) to[american resistor, l={$R_i$}] (7.4, 3);
+	\draw (8.8, 5) to[capacitor, l={$C_i$}] (8.8, 3);
+	\draw (6, 5) to[capacitor, l_={$C_c$}, label distance=0.16cm] (6, 3);
+	\node[ground] at (3.2, 3){};
+	\node[ground] at (7.4, 3){};
+	\draw (6.8, 5) -- (8.8, 5);
+	\draw (8.8, 3) -- (4, 3);
+	\node[ocirc] at (9.8, 3){};
+	\draw (8.8, 5) -- (9.8, 5);
+	\draw (8.8, 3) -- (9.8, 3);
+	\node[ocirc] at (9.8, 5){};
+	\node[ocirc] at (9.8, 3){};
+	\draw (10.2, 2.5) to[open, v=$V_i$, voltage/distance from node=0.3, voltage/bump b=1.2, voltage/shift=-0.3] (10.2, 5.3);
+	\draw (5.6, 5) -- (6, 5);
+	\draw (3.6, 5) -- (3.2, 5);
+	\draw (6.8, 5) -- (6, 5);
+	\draw (4, 3) -- (3.2, 3);
+\end{tikzpicture}
+	
+\end{center}	
+\caption{Electric diagram of a BNC connector}
+\label{bnconnector}
+\end{figure}
+
+
+\begin{figure}[h!]
+\begin{center}
+
+\begin{tikzpicture}[transform shape]
+	\draw (3.2, 3) to[european voltage source, l={$V_g$}] (3.2, 5);
+	\draw (3.6, 5) to[american resistor, l={$R_g$}] (5.6, 5);
+	\draw (9, 5) to[american resistor, l={$R_i$}] (9, 3);
+	\draw (10.6, 5) to[capacitor, l={$C_i$}] (10.6, 3);
+	\node[ground] at (3.2, 3){};
+	\draw (10.6, 5) -- (11.6, 5);
+	\node[ocirc] at (11.6, 5){};
+	\draw (12, 2.6) to[open, v=$V_i$, voltage/distance from node=0.3, voltage/bump b=1.2, voltage/shift=-0.3] (12, 5.4);
+	\draw (3.6, 5) -- (3.2, 5);
+	\draw (5.6, 5) to[american resistor, l_={$R_s$}] (7.6, 5);
+	\draw (7.6, 6) to[variable capacitor, mirror, l_={$C_s$}] (5.6, 6);
+	\draw (5.6, 6) -| (5.6, 5);
+	\draw (7.6, 6) -| (7.6, 5);
+	\draw (7.6, 5) to[capacitor, l={$C_c$}] (7.6, 3);
+	\draw (10.6, 3) -- (11.6, 3);
+	\node[ocirc] at (11.6, 3){};
+	\draw (7.6, 5) -- (10.6, 5);
+	\draw (3.2, 3) -- (10.6, 3);
+	\node[ground] at (9, 3){};
+\end{tikzpicture}
+	
+\end{center}	
+\caption{Electric diagram of a compensated probe}
+\label{comprobe}
+\end{figure}
 
 After introducing the operation of the oscilloscope, both from a theoretical and practical point of view, we can now analyze how it is connected to the outside world and what operations need to be performed before taking a measurement.\\
 
@@ -130,6 +1014,78 @@ Notiamo come la sottcompensazione porti ad un drift crescente della parte piatta
 
 Tornando a noi una volta visualizzata l'onda sullo strumento ci è possibile regolare la capacità fino a quando non visualizzaimo una corretta onda quadra in che significa che la sonda è compensata correttamente.
 
+
+%\begin{figure}
+%\begin{center}
+%
+%\begin{tikzpicture}[
+%    scale=1.5, 
+%    thick,
+%    % Define styles for the traces
+%    correct/.style={draw=green!60!black, ultra thick, line join=round},
+%    under/.style={draw=orange!90!black, ultra thick, line join=round},
+%    over/.style={draw=cyan!80!black, ultra thick, line join=round},
+%    grid/.style={draw=gray!30, very thin, step=0.5}
+%]
+%
+%    % ==========================================
+%    % 1. PERFECTLY COMPENSATED (CRITICAL)
+%    % ==========================================
+%    \begin{scope}[shift={(0,5)}]
+%        \draw[grid] (-0.2,-0.2) grid (4.2,1.2);
+%        \draw[->] (-0.2,0) -- (4.3,0) node[right] {$t$};
+%        \draw[->] (0,-0.2) -- (0,1.3) node[above] {$V$};
+%        
+%        % Square Wave
+%        \draw[correct] (0,0) -- (0,1) -- (1,1) -- (1,0) -- (2,0) -- (2,1) -- (3,1) -- (3,0) -- (4,0);
+%        
+%        \node[anchor=west, font=\sffamily\bfseries] at (4.5,0.5) {Correctly Compensated};
+%    \end{scope}
+%
+%    % ==========================================
+%    % 2. OVERCOMPENSATED (OVERSHOOT)
+%    % ==========================================
+%    \begin{scope}[shift={(0,2.5)}]
+%        \draw[grid] (-0.2,-0.2) grid (4.2,1.2);
+%        \draw[->] (-0.2,0) -- (4.3,0) node[right] {$t$};
+%        \draw[->] (0,-0.2) -- (0,1.3) node[above] {$V$};
+%        
+%        % Overcompensated curve (using exponential decay for spikes)
+%        \draw[over] (0,0) 
+%            -- (0,1.3) plot[domain=0:1, samples=40] (\x, {1 + 0.3*exp(-8*\x)})
+%            -- (1,-0.3)   plot[domain=1:2, samples=40] (\x, {0 - 0.3*exp(-8*(\x-1))})
+%            -- (2,1.3) plot[domain=2:3, samples=40] (\x, {1 + 0.3*exp(-8*(\x-2))})
+%            -- (3,-0.3)   plot[domain=3:4, samples=40] (\x, {0 - 0.3*exp(-8*(\x-3))});
+%            
+%        \node[anchor=west, font=\sffamily\bfseries] at (4.5,0.5) {Overcompensated (Spike/Overshoot)};
+%    \end{scope}
+%
+%    % ==========================================
+%    % 3. UNDERCOMPENSATED (ROUNDED EDGES)
+%    % ==========================================
+%    \begin{scope}[shift={(0,0)}]
+%        \draw[grid] (-0.2,-0.2) grid (4.2,1.2);
+%        \draw[->] (-0.2,0) -- (4.3,0) node[right] {$t$};
+%        \draw[->] (0,-0.2) -- (0,1.3) node[above] {$V$};
+%        
+%        % Undercompensated curve (using 1 - exp(-x) for exponential rise)
+%        \draw[under] (0,0) 
+%            plot[domain=0:1, samples=40] (\x, {1 - exp(-5*\x)})
+%            -- (1,1) 
+%            plot[domain=1:2, samples=40] (\x, {exp(-5*(\x-1))})
+%            -- (2,0) 
+%            plot[domain=2:3, samples=40] (\x, {1 - exp(-5*(\x-2))})
+%            -- (3,1) 
+%            plot[domain=3:4, samples=40] (\x, {exp(-5*(\x-3))});
+%            
+%        \node[anchor=west, font=\sffamily\bfseries] at (4.5,0.5) {Undercompensated (Rounded)};
+%    \end{scope}
+%
+%\end{tikzpicture}
+%	
+%\end{center}	
+%\end{figure}
+%
 
 \subsubsection{Examples}
 
