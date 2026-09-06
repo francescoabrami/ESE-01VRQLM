@@ -542,8 +542,7 @@ Suppose that on the screen the \autoref{exampleAsingal} signal is shown:
 
 \draw[thick, blue, domain=3:11, samples=500] 
         plot (\x, {5 + 2*sin(5 * 360 * (\x - 3) / 8)});
-     
-        
+           
 	\draw[line width=0.6pt] (3, 5) -- (11, 5);
 	\draw[line width=0.6pt] (7, 2) -- (7, 8);
 	\draw[line width=0.3pt, dash pattern={on 1.2pt off 2.4pt}] (3, 7) -- (11, 7);
@@ -850,73 +849,384 @@ This really translate to:
 \end{enumerate}
 
 
-The transition from analog to digital oscilloscopes thus introduces a new perspective: we no longer simply observe the signal as it is produced, but we can acquire it, convert it into data, store it, and subsequently analyze it. From this point on, it becomes essential to understand how faithfully this data represents the original signal, and this naturally leads to an in-depth study of sampling, the Nyquist theorem, aliasing, and quantization.\\
+The transition from analog to digital oscilloscopes thus introduces a new perspective: we no longer simply observe the signal as it is produced, but we can acquire it, convert it into data, store it, and subsequently analyze it. From this point on, it becomes essential to understand how faithfully this data represents the original signal, and this naturally leads to an in-depth study of sampling, the Nyquist theorem, aliasing, and quantization.
 
-\subsubsection{Examples}
+\subsubsection{Interpolation}
 
+To this point before moving on we need to give some examples and also solve a second question. The Nyquist–Shannon theorem gave us the answer to how many data points we need in a unit of time ti be able to then reconstruct the signal that we sampled. The question still how do we do it? 
+
+When a digital oscilloscope acquires a signal, it does not store a continuous curve. It stores a sequence of numbers:
+
+\begin{equation}
+	x[0]\;,x[1],\;x[2], \dots ,\;x[N-1]
+\end{equation}
+
+obtained at specific instants:
+
+\begin{equation}
+	t_n = nT_s \hspace{2cm} T_s = \frac{1}{f_s}
+\end{equation}
+
+On the display, however, we want to see a continuous waveform.\\
+
+This is where interpolation comes into play: starting from the acquired data points, the oscilloscope calculates intermediate values to draw a curve between one sample and the next.\\
+
+Therefore, interpolation is not a method that allows one to violate Nyquist’s theorem. It cannot create information that has not been acquired. Instead, it serves to construct a continuous representation of the sampled data and, in the case of ideal \textit{sinc()} interpolation, to mathematically reconstruct the original signal when the sampling conditions are met.\\
+
+Here we introduce the two main methods that are in use and explain how they work:
+
+\begin{enumerate}[label=\textbf{-}]
+	\item \textbf{Linear Interpolation:} The simplest method is linear interpolation.
+	
+	Suppose we have two samples:
+	\begin{equation}
+		(t_n, x_n)
+	\end{equation}
+	and
+	\begin{equation}
+		(t_{n+1}, x_{n+1})
+	\end{equation}
+	
+	The oscilloscope assumes that, between these two points, the signal can be approximated by a straight line:
+	
+	\begin{equation}
+		x(t) = x_n + \frac{x_{n-1} + x_{n}}{x_{t-1} + x_{t}} \cdot (t - t_n)
+	\end{equation}
+	
+	Basically, it simply takes two consecutive samples and connects them with a line segment. If the sampling rate is very high compared to the signal frequency, the data points are very close together and the segments are short. The resulting curve can therefore closely resemble the original signal.
+ 
+	The main advantage is that it is extremely simple and fast to calculate.
+	It is therefore particularly suitable when the oscilloscope needs to update the display very quickly or when the signal contains rapid changes or transitions, such as a square wave.
+
+	The main disadvantage is that the straight line is only a local approximation of the signal.
+	Let’s imagine sampling a sine wave. By connecting the points with straight lines, we get something resembling a polygon, not a true sine wave.
+	The more we increase $f_s$, the more points there are, and the smaller the difference becomes between the actual sine wave and its linear approximation.
+	But it’s important not to confuse the two: increasing $f_s$ is not the same as interpolating.
+	Linear interpolation does not increase the information contained in the signal and does not allow us to arbitrarily lower the sampling frequency. If the signal has a maximum frequency of $f_\mathrm{max}$, we must still sample it appropriately:
+	\begin{equation}
+		f_s \geq 2 \cdot f_\mathrm{max}
+	\end{equation}
+	
+	\item \textbf{Sinc interpolation:} The other important interpolation method is the one based on the function:
+	
+	\begin{equation}
+		\mathrm{sinc()} = \frac{\mathrm{sin}(\pi x)}{\pi x}
+	\end{equation}
+
+	This is much more interesting from a theoretical standpoint because it does not simply connect two consecutive points.
+	For a band-limited signal sampled at the Nyquist rate, the continuous signal can be ideally reconstructed using:
+	
+	\begin{equation}
+		x(t) = \sum_{n=-\infty}^{+\infty} x[n] \cdot \mathrm{sinc}\left( \frac{t - nT_s}{T_s} \right)
+	\end{equation}
+
+In other words, each sample is associated with a sinc function, and the reconstructed signal is the sum of all these sinc functions.
+
+	Each sample generates a sinc function that is exactly equal to the sample value at its center and has zeros at the other sampling instants. The sum of all the sinc functions produces the continuous waveform.
+
+	The sinc function derives directly from the ideal reconstruction of a sampled signal using an ideal low-pass filter. In the frequency domain, sampling produces periodic replicas of the signal’s spectrum spaced by $f_s$. If
+	
+	\begin{equation}
+		f_s \geq 2\cdot f_{\mathrm{max}}
+	\end{equation}
+
+	the replicas do not overlap, it is then possible to isolate the original signal using an ideal low-pass filter. In the time domain, this operation corresponds precisely to \textit{sinc()} interpolation.
+	Thus, the \textit{sinc()} waveform represents the ideal case of reconstruction.
+	And this is why it is introduced in these notes: it helps us understand that sampling does not simply mean \textit{"taking samples"} but that, under Nyquist conditions, those samples theoretically contain all the information necessary to reconstruct the continuous signal.
+	
+\end{enumerate}
+
+\newpage
+\subsubsection{Example I}
+
+Let's now suppose we have this signal:
+
+\begin{equation}
+	x(t) = \sin(2\pi f_1 t) + \sin(2\pi f_2 t) \hspace{1cm} \mathrm{with} \;\; f_2 < f_1 
+\end{equation}
+
+Let's now suppose that we sample at a frequency $f_s$ that is greater that $f_1$ but not by much.
+We should get something like this shown in \autoref{exampleAsingal}:
+
+\begin{figure}[h!]
+\begin{center}
+
+\begin{tikzpicture}[transform shape]
+
+	\draw[line width=0.66pt, -latex] (0, -0) -- (6, -0);
+	\draw[line width=0.66pt, -latex] (0, -3) -- (0, 3);
+	\node[shape=rectangle, minimum width=0.365cm, minimum height=0.365cm] at (6.4, -0){} node[anchor=center, align=center, text width=-0.023cm, inner sep=6pt] at (6.3, -0){$t$};
+	\node[shape=rectangle, minimum width=0.365cm, minimum height=0.365cm] at (-0.6, 3){} node[anchor=center, align=center, text width=-0.023cm, inner sep=6pt] at (-0.75, 3){$x(t)$};
+	\node[shape=rectangle, minimum width=0.365cm, minimum height=0.365cm] at (-0.6, -0){} node[anchor=center, align=center, text width=-0.023cm, inner sep=6pt] at (-0.6, -0){$0$};
+        
+        \draw[thick, blue, domain=0:6, samples=500] 
+        plot (\x, {sin(2*3.14*100*\x) + sin(2*3.14*50*\x)});
+	
+\end{tikzpicture}
+
+\end{center}	
+\caption{Input signal}
+\label{examplesignal}
+\end{figure}
+
+We then expect the signal to have this spectrum shown in \autoref{examplesignal2}:
+
+\begin{figure}[h!]
+\begin{center}
+
+\begin{tikzpicture}[transform shape]
+	\draw[line width=0.66pt, -latex] (-3, -0) -- (3, -0);
+	\draw[line width=0.66pt, -latex] (0, -1) -- (0, 3);
+	\node[shape=rectangle, minimum width=0.365cm, minimum height=0.365cm] at (3.4, -0){} node[anchor=center, align=center, text width=-0.023cm, inner sep=6pt] at (3.4, -0){$f$};
+	\node[shape=rectangle, minimum width=0.365cm, minimum height=0.365cm] at (-1, 3){} node[anchor=center, align=center, text width=-0.023cm, inner sep=6pt] at (-1.25, 3){$X(j\omega)$};
+	\path[draw={rgb,255:red,0;green,0;blue,255}, line width=0.6pt, -latex] (1, -0) -- (1, 2);
+	\path[draw={rgb,255:red,0;green,0;blue,255}, line width=0.6pt, -latex] (2, -0) -- (2, 2);
+	\node[shape=rectangle, minimum width=0.365cm, minimum height=0.365cm] at (1, -0.4){} node[anchor=center, align=center, text width=-0.023cm, inner sep=6pt] at (1, -0.4){$f_1$};
+	\node[shape=rectangle, minimum width=0.365cm, minimum height=0.365cm] at (2, -0.4){} node[anchor=center, align=center, text width=-0.023cm, inner sep=6pt] at (2, -0.4){$f_2$};
+	\path[draw={rgb,255:red,0;green,0;blue,255}, line width=0.6pt, -latex] (-2, -0) -- (-2, 2);
+	\path[draw={rgb,255:red,0;green,0;blue,255}, line width=0.6pt, -latex] (-1, -0) -- (-1, 2);
+	\node[shape=rectangle, minimum width=0.365cm, minimum height=0.365cm] at (-2, -0.4){} node[anchor=center, align=center, text width=-0.023cm, inner sep=6pt] at (-2, -0.4){$-f_1$};
+	\node[shape=rectangle, minimum width=0.365cm, minimum height=0.365cm] at (-1, -0.4){} node[anchor=center, align=center, text width=-0.023cm, inner sep=6pt] at (-1, -0.4){$-f_2$};
+\end{tikzpicture}
+
+\end{center}
+\caption{Signal spectrum}
+\label{examplesignal2}
+\end{figure}	
+
+
+By sapling at a not so much higher frequency than the $f_1$ we then get this result via the linear interpolation as shown in \autoref{approxinterpol}:
+
+\begin{figure}[h!]
+\begin{center}
+
+\begin{tikzpicture}[transform shape]
+	\draw[line width=0.66pt, -latex] (0, -0) -- (6, -0);
+	\draw[line width=0.66pt, -latex] (0, -3) -- (0, 3);
+	\node[shape=rectangle, minimum width=0.365cm, minimum height=0.365cm] at (6.4, -0){} node[anchor=center, align=center, text width=-0.023cm, inner sep=6pt] at (6.4, -0){$t$};
+		\node[shape=rectangle, minimum width=0.365cm, minimum height=0.365cm] at (-0.6, 3){} node[anchor=center, align=center, text width=-0.023cm, inner sep=6pt] at (-0.75, 3){$x(t)$};
+	\node[shape=rectangle, minimum width=0.365cm, minimum height=0.365cm] at (-0.6, -0){} node[anchor=center, align=center, text width=-0.023cm, inner sep=6pt] at (-0.6, -0){$0$};
+	\node[circ] at (0, -0){};
+	\node[circ] at (0.4, 2){};
+	\node[circ] at (0.6, -0.2){};
+	\node[circ] at (1, 0.4){};
+	\node[circ] at (1.2, -2){};
+	\node[circ] at (1.4, -0){};
+	\node[circ] at (1.8, 2){};
+	\node[circ] at (2, -0.2){};
+	\node[circ] at (2.4, 0.4){};
+	\node[circ] at (2.6, -2){};
+	\node[circ] at (3, -0){};
+	\node[circ] at (3.4, 2){};
+	\node[circ] at (3.6, -0.2){};
+	\node[circ] at (4, 0.4){};
+	\node[circ] at (4.2, -2){};
+	\node[circ] at (4.6, -0){};
+	\node[circ] at (5, 2){};
+	\node[circ] at (5.2, -0.2){};
+	\node[circ] at (5.6, 0.4){};
+	\node[circ] at (5.8, -2){};
+	\path[draw={rgb,255:red,227;green,36;blue,0}, line width=0.6pt] (0, -0) -- (0.4, 2) -- (0.6, -0.2) -- (1, 0.4) -- (1.2, -2) -- (1.4, -0) -- (1.8, 2) -- (2, -0.2);
+\end{tikzpicture}
+	
+\end{center}	
+\caption{Linear interpolation with $f_1$ closer to $f_s$}
+\label{approxinterpol}
+\end{figure}
+
+We can obviously not that if we were to use the \textit{sinc()} interpolation we would get back the original signal since we are still sampling at a valid frequency according to the previously stated theorem.
+
+\newpage
+\subsubsection{Example II}
+
+We now move on to consider a second example. 
+Suppose we have the same signal as shown before:
+
+\begin{equation}
+	x(t) = \sin(2\pi f_1 t) + \sin(2\pi f_2 t) \hspace{1cm} \mathrm{with} \;\; f_2 < f_1 
+\end{equation}
+
+This time we sample the signal at a frequency $f_s \gg 2 \cdot f_1$. In particular we suppose that:
+
+\begin{equation}
+	f_s = 20 \cdot f_1
+\end{equation}
+
+This means that we are sampling at 10 times higher than the Nyquist frequency.
+As a result, given the same signal, we obtain a more finer selection of points that can represent way better the original signal. Here is an example in \autoref{ventifreq}:
+
+
+\begin{figure}[h!]
+\begin{center}
+
+\begin{tikzpicture}[transform shape]
+	\draw[line width=0.66pt, -latex] (-0.1, -3) -- (-0.1, 3);
+	\node[shape=rectangle, minimum width=0.365cm, minimum height=0.365cm] at (5.4, -0){} node[anchor=center, align=center, text width=-0.023cm, inner sep=6pt] at (5.4, -0){$t$};
+	\node[shape=rectangle, minimum width=0.365cm, minimum height=0.365cm] at (-0.6, 3){} node[anchor=center, align=center, text width=-0.023cm, inner sep=6pt] at (-0.6, 3){$x(t)$};
+	\node[shape=rectangle, minimum width=0.365cm, minimum height=0.365cm] at (-0.6, -0){} node[anchor=center, align=center, text width=-0.023cm, inner sep=6pt] at (-0.6, -0){$0$};
+	\node[circ] at (0.3, 1.7){};
+	\node[circ] at (0.1, 1.2){};
+	\node[circ] at (0.2, 1.5){};
+	\node[circ] at (0.5, 1.7){};
+	\node[circ] at (0.6, 1.4){};
+	\node[circ] at (0.7, 1){};
+	\node[circ] at (0.8, 0.7){};
+	\node[circ] at (0.9, 0.3){};
+	\node[circ] at (1.1, -0.3){};
+	\node[circ] at (1.3, -0.1){};
+	\node[circ] at (1.4, 0.1){};
+	\node[circ] at (1.6, 0.2){};
+	\node[circ] at (1.8, 0.1){};
+	\node[circ] at (2, -0.1){};
+	\node[circ] at (1, -0.1){};
+	\node[circ] at (2.1, -0.3){};
+	\node[circ] at (2.2, -0.6){};
+	\node[circ] at (2.3, -0.9){};
+	\node[circ] at (2.4, -1.2){};
+	\node[circ] at (2.5, -1.5){};
+	\node[circ] at (2.6, -1.8){};
+	\node[circ] at (2.8, -2.2){};
+	\node[circ] at (3, -2.1){};
+	\node[circ] at (3.1, -1.8){};
+	\node[circ] at (2.7, -2){};
+	\node[circ] at (3.4, -0.6){};
+	\node[circ] at (3.9, 1.3){};
+	\node[circ] at (3.6, 0.1){};
+	\node[circ] at (3.8, 0.8){};
+	\node[circ] at (3.2, -1.5){};
+	\node[circ] at (3.7, 0.4){};
+	\node[circ] at (3.3, -1){};
+	\node[circ] at (3.5, -0.2){};
+	\path[draw={rgb,255:red,227;green,36;blue,0}, line width=0.8pt] (2, -0.1) -- (2.1, -0.3) -- (2.2, -0.6) -- (2.3, -0.9) -- (2.4, -1.2) -- (2.5, -1.5) -- (2.6, -1.8) -- (2.7, -2) -- (2.8, -2.2) -- (3, -2.1) -- (3.1, -1.8) -- (3.2, -1.5) -- (3.3, -1) -- (3.4, -0.6) -- (3.5, -0.1) -- (3.6, 0.1) -- (3.7, 0.4) -- (3.8, 0.8) -- (3.9, 1.3);
+	\node[circ] at (0, 0.8){};
+	\node[circ] at (-0.1, -0){};
+	\path[draw={rgb,255:red,227;green,36;blue,0}, line width=0.8pt] (-0.1, -0) -- (0, 0.8) -- (0.1, 1.2) -- (0.2, 1.5) -- (0.3, 1.7) -- (0.5, 1.7) -- (0.6, 1.4) -- (0.7, 1) -- (0.8, 0.7) -- (0.9, 0.3) -- (1, -0.1) -- (1.1, -0.3) -- (1.3, -0.1) -- (1.4, 0.1) -- (1.6, 0.2) -- (1.8, 0.1) -- (2, -0.1);
+	\draw[line width=0.6pt, -latex] (-0.1, -0) -- (5, -0);
+\end{tikzpicture}
+
+\end{center}
+\caption{Linear interpolation with $f_s = 20 \cdot f_1$}
+\label{ventifreq}
+\end{figure}
+
+In the end what should be clear is that by using a DSO we should be able to sample at a higher frequency that the one we are sampling by at least a 10-20 factor. This is to prevent that a sufficient number of samples are gathered but interpreted in the wrong way via the linear interpolation. This phenomenon is extremely visible when a number of dots (representing a signal at a certain frequency) get interpolated linearly resulting in the reconstruction of a lower frequency alias of the same signal therefore invalidating the results.
 
 \subsubsection{Oscilloscope connections}
 
-\begin{figure}[h!]
-\begin{center}
+Let us now move on and analyze the oscilloscope connections and how do they work.
+First of all, as sai before, the DSO might be equipped with multiple channels which changes a bit the structure of the signal path that we saw before.
 
-\begin{tikzpicture}[transform shape]
-	\draw (3.2, 3) to[european voltage source, l={$V_g$}] (3.2, 5);
-	\draw (3.6, 5) to[american resistor, l={$R_g$}] (5.6, 5);
-	\draw (7.4, 5) to[american resistor, l={$R_i$}] (7.4, 3);
-	\draw (8.8, 5) to[capacitor, l={$C_i$}] (8.8, 3);
-	\draw (6, 5) to[capacitor, l_={$C_c$}, label distance=0.16cm] (6, 3);
-	\node[ground] at (3.2, 3){};
-	\node[ground] at (7.4, 3){};
-	\draw (6.8, 5) -- (8.8, 5);
-	\draw (8.8, 3) -- (4, 3);
-	\node[ocirc] at (9.8, 3){};
-	\draw (8.8, 5) -- (9.8, 5);
-	\draw (8.8, 3) -- (9.8, 3);
-	\node[ocirc] at (9.8, 5){};
-	\node[ocirc] at (9.8, 3){};
-	\draw (10.2, 2.5) to[open, v=$V_i$, voltage/distance from node=0.3, voltage/bump b=1.2, voltage/shift=-0.3] (10.2, 5.3);
-	\draw (5.6, 5) -- (6, 5);
-	\draw (3.6, 5) -- (3.2, 5);
-	\draw (6.8, 5) -- (6, 5);
-	\draw (4, 3) -- (3.2, 3);
-\end{tikzpicture}
-	
-\end{center}	
-\caption{Electric diagram of a BNC connector}
-\label{bnconnector}
-\end{figure}
 
+The main difference is the introduction of an analog multiplexer between the single channels and the input of the ADC. This component has the ability to select from which channel the signal is coming to then passing it to the ADC. 
+
+By doing this with multiple channels the MUX switches (multiplexing in time) between the connected channels and shows them in an alternating way. This operation comes at a cost that we cannot sample at the original scope rate but we are limited ad half since we are sampling one channel then the other and so on.\\
+
+Here is a simple diagram explaining what we just covered:
 
 \begin{figure}[h!]
 \begin{center}
 
-\begin{tikzpicture}[transform shape]
-	\draw (3.2, 3) to[european voltage source, l={$V_g$}] (3.2, 5);
-	\draw (3.6, 5) to[american resistor, l={$R_g$}] (5.6, 5);
-	\draw (9, 5) to[american resistor, l={$R_i$}] (9, 3);
-	\draw (10.6, 5) to[capacitor, l={$C_i$}] (10.6, 3);
-	\node[ground] at (3.2, 3){};
-	\draw (10.6, 5) -- (11.6, 5);
-	\node[ocirc] at (11.6, 5){};
-	\draw (12, 2.6) to[open, v=$V_i$, voltage/distance from node=0.3, voltage/bump b=1.2, voltage/shift=-0.3] (12, 5.4);
-	\draw (3.6, 5) -- (3.2, 5);
-	\draw (5.6, 5) to[american resistor, l_={$R_s$}] (7.6, 5);
-	\draw (7.6, 6) to[variable capacitor, mirror, l_={$C_s$}] (5.6, 6);
-	\draw (5.6, 6) -| (5.6, 5);
-	\draw (7.6, 6) -| (7.6, 5);
-	\draw (7.6, 5) to[capacitor, l={$C_c$}] (7.6, 3);
-	\draw (10.6, 3) -- (11.6, 3);
-	\node[ocirc] at (11.6, 3){};
-	\draw (7.6, 5) -- (10.6, 5);
-	\draw (3.2, 3) -- (10.6, 3);
-	\node[ground] at (9, 3){};
+\begin{tikzpicture}[transform shape, scale=0.65, every node/.style={font=\bfseries\sffamily}]
+
+	\draw[line width=0.6pt] (0, 1.5) -- (0, 0.5) -- (1, 1) -- (0, 1.5);
+	\draw[line width=0.6pt] (0, -0.5) -- (0, -1.5) -- (1, -1) -- (0, -0.5);
+	\draw[line width=0.6pt] (2, 1.9) -- (2, -1.9);
+	\draw[line width=0.6pt] (3, 1.5) -- (3, -1.5);
+	\draw[line width=0.6pt] (2, 1.9) -- (3, 1.5);
+	\draw[line width=0.6pt] (2, -1.9) -- (3, -1.5);
+	\draw[line width=0.6pt, -latex] (3, -0) -- (4, -0);
+	\draw[line width=0.6pt, -latex] (1, 1) -- (2, 1);
+	\draw[line width=0.6pt, -latex] (1, -1) -- (2, -1);
+	\draw[line width=0.6pt, -latex] (-1, 1) -- (0, 1);
+	\draw[line width=0.6pt, -latex] (-1, -1) -- (0, -1);
+	\draw[line width=0.6pt] (4, -0) -- (5, 0.9) -- (7, 0.9) -- (7, -1);
+	\draw[line width=0.6pt] (7, -1) -- (5, -1) -- (4, -0);
+	\draw[line width=0.6pt, -latex] (7, -0) -- (8, -0);
+	\draw[line width=0.6pt] (8, 1) -- (11, 1) -- (11, -1) -- (8, -1) -- (8, 1);
+	\draw[line width=0.6pt, -latex] (11, -0) -- (12, -0);
+	\draw[line width=0.6pt] (12, 1) -- (15, 1) -- (15, -1) -- (12, -1) -- (12, 1);
+	\node[shape=rectangle, minimum width=0.765cm, minimum height=0.365cm] at (-1.8, 1){} node[anchor=center, align=center, text width=0.377cm, inner sep=6pt] at (-1.8, 1){CH1};
+	\node[shape=rectangle, minimum width=0.765cm, minimum height=0.365cm] at (-1.8, -1){} node[anchor=center, align=center, text width=0.377cm, inner sep=6pt] at (-1.8, -1){CH2};
+	\node[shape=rectangle, minimum width=2.165cm, minimum height=0.465cm] at (2.5, -2.4){} node[anchor=center, align=center, text width=1.777cm, inner sep=6pt] at (2.5, -2.4){\LARGE MUX};
+	\node[shape=rectangle, minimum width=2.765cm, minimum height=0.365cm] at (5.6, -0){} node[anchor=center, align=center, text width=2.377cm, inner sep=6pt] at (5.6, -0){\LARGE ADC};
+	\node[shape=rectangle, minimum width=2.965cm, minimum height=0.365cm] at (9.5, -0){} node[anchor=center, align=center, text width=2.577cm, inner sep=6pt] at (9.5, -0){\Large Processing};
+	\node[shape=rectangle, minimum width=2.965cm, minimum height=0.365cm] at (13.5, -0){} node[anchor=center, align=center, text width=2.577cm, inner sep=6pt] at (13.5, -0){\Large Display};
 \end{tikzpicture}
 	
-\end{center}	
-\caption{Electric diagram of a compensated probe}
-\label{comprobe}
+	
+\end{center}
+\caption{Scheme of the DSO chain with multiple channels}	
+\label{DSOMUX}
 \end{figure}
+
+%\begin{figure}[h!]
+%\begin{center}
+%
+%\begin{tikzpicture}[transform shape]
+%	\draw (3.2, 3) to[european voltage source, l={$V_g$}] (3.2, 5);
+%	\draw (3.6, 5) to[american resistor, l={$R_g$}] (5.6, 5);
+%	\draw (7.4, 5) to[american resistor, l={$R_i$}] (7.4, 3);
+%	\draw (8.8, 5) to[capacitor, l={$C_i$}] (8.8, 3);
+%	\draw (6, 5) to[capacitor, l_={$C_c$}, label distance=0.16cm] (6, 3);
+%	\node[ground] at (3.2, 3){};
+%	\node[ground] at (7.4, 3){};
+%	\draw (6.8, 5) -- (8.8, 5);
+%	\draw (8.8, 3) -- (4, 3);
+%	\node[ocirc] at (9.8, 3){};
+%	\draw (8.8, 5) -- (9.8, 5);
+%	\draw (8.8, 3) -- (9.8, 3);
+%	\node[ocirc] at (9.8, 5){};
+%	\node[ocirc] at (9.8, 3){};
+%	\draw (10.2, 2.5) to[open, v=$V_i$, voltage/distance from node=0.3, voltage/bump b=1.2, voltage/shift=-0.3] (10.2, 5.3);
+%	\draw (5.6, 5) -- (6, 5);
+%	\draw (3.6, 5) -- (3.2, 5);
+%	\draw (6.8, 5) -- (6, 5);
+%	\draw (4, 3) -- (3.2, 3);
+%\end{tikzpicture}
+%	
+%\end{center}	
+%\caption{Electric diagram of a BNC connector}
+%\label{bnconnector}
+%\end{figure}
+%
+%
+%\begin{figure}[h!]
+%\begin{center}
+%
+%\begin{tikzpicture}[transform shape]
+%	\draw (3.2, 3) to[european voltage source, l={$V_g$}] (3.2, 5);
+%	\draw (3.6, 5) to[american resistor, l={$R_g$}] (5.6, 5);
+%	\draw (9, 5) to[american resistor, l={$R_i$}] (9, 3);
+%	\draw (10.6, 5) to[capacitor, l={$C_i$}] (10.6, 3);
+%	\node[ground] at (3.2, 3){};
+%	\draw (10.6, 5) -- (11.6, 5);
+%	\node[ocirc] at (11.6, 5){};
+%	\draw (12, 2.6) to[open, v=$V_i$, voltage/distance from node=0.3, voltage/bump b=1.2, voltage/shift=-0.3] (12, 5.4);
+%	\draw (3.6, 5) -- (3.2, 5);
+%	\draw (5.6, 5) to[american resistor, l_={$R_s$}] (7.6, 5);
+%	\draw (7.6, 6) to[variable capacitor, mirror, l_={$C_s$}] (5.6, 6);
+%	\draw (5.6, 6) -| (5.6, 5);
+%	\draw (7.6, 6) -| (7.6, 5);
+%	\draw (7.6, 5) to[capacitor, l={$C_c$}] (7.6, 3);
+%	\draw (10.6, 3) -- (11.6, 3);
+%	\node[ocirc] at (11.6, 3){};
+%	\draw (7.6, 5) -- (10.6, 5);
+%	\draw (3.2, 3) -- (10.6, 3);
+%	\node[ground] at (9, 3){};
+%\end{tikzpicture}
+%	
+%\end{center}	
+%\caption{Electric diagram of a compensated probe}
+%\label{comprobe}
+%\end{figure}
+
+
+
+After seeing this first difference necessarily introduced by  
+
+
+
+
 
 After introducing the operation of the oscilloscope, both from a theoretical and practical point of view, we can now analyze how it is connected to the outside world and what operations need to be performed before taking a measurement.\\
 
@@ -1005,7 +1315,7 @@ Svolgendo i calcoli si ottiene che:
 
 A questo punto comopreso andiamo a vedere nella pratica cosa succede. In partcioalre abbiamo visot come una sonda compensta carichi di meno il circuito e che quindi influisca con un'attenuazione costante. Infine dato che la capacità del compensatore deve essere variabile in quanto il suo valore di compensazione diopend dal cavo utilizzato e dalla capacità in ingresso dell'oscilloscopio. Viene dunque introdotto, cme visot in figura, un capacità variabile direttamente dall'utente affichè funzioni corettamnete.
 
-Andnado ne lparticoalr la regolazione avviene con un cacciavite in plastica - uno in metallo aggiungerebbe l'ennesima capacità parassita - sulla sonda stessa mentre essa è collegata a terra ed ad un'apposita uscita sull'oscilloscopio (PROBE COMP) che genera un'onda quadra avente certe caratteristiche tipo: $V_{pp}$ 1-5 V con frequenza $f_c$ pari a 1 kHz.
+Andnado ne lparticoalr la regolazione avviene con un cacciavite in plastica - uno in metallo aggiungerebbe l'ennesima capacità parassita - sulla sonda stessa mentre essa è collegata a terra ed ad un'apposita uscita sull'oscilloscopio (\texttt{PROBE COMP}) che genera un'onda quadra avente certe caratteristiche tipo: $V_{pp}$ 1-5 V con frequenza $f_c$ pari a 1 kHz.
 Dato che se la sonda non è ben compensata si comporta come un filtro passa basso l'onda quadra generata verrà visualizzata sullo schemro dell'osciloscoapio affeta da alcuni difetti sui fronti di salita e discesa. È ragionevole pensare ciò in quanto queste parti del segnale rappresentano nel dominio della frequenza le componenti a maggiore frequenza. Di seguoito sono riportati degli esempi di onde quadre sovra e sotto-compensate. 
 
 % TODO IMAGE SOV E SOTT COMPENSAZIONE
@@ -1087,6 +1397,8 @@ Tornando a noi una volta visualizzata l'onda sullo strumento ci è possibile reg
 %\end{figure}
 %
 
+\subsubsection{Oscilloscope bandwidth}
+
 \subsubsection{Examples}
 
 \subsection{Analog multimeter - AM}
@@ -1098,47 +1410,6 @@ Tornando a noi una volta visualizzata l'onda sullo strumento ci è possibile reg
 
 
 \subsubsection{Examples}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
 
