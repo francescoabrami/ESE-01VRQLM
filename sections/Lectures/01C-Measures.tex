@@ -1159,259 +1159,298 @@ Here in \autoref{DSOMUX} is a simple diagram explaining what we just covered:
 \label{DSOMUX}
 \end{figure}
 
-%\begin{figure}[h!]
-%\begin{center}
+Moving on we can introduce the oscilloscope probe that serves as the electrical interface between the circuit being measured and the oscilloscope’s input. 
+
+Its function is not simply to \textit{"carry"} the measured voltage to the oscilloscope, but to do so while introducing as little disturbance as possible to the circuit under test and maintaining the waveform as unaltered as possible, even at high frequencies.
+
+From a physical standpoint, a passive probe consists mainly of a contact tip, a network of resistive and capacitive components, a coaxial cable, and the BNC connector that connects it to the oscilloscope. There are several types of probes, but the most important one for understanding how they work is the classic 1×/10× compensated passive probe.\\
+
+The term \textit{"bayonet"} derives from the connection mechanism: the connector is inserted and then rotated about a quarter turn, so that the corresponding grooves and tabs form a stable mechanical lock.
+
+From an electrical standpoint, the BNC connector is therefore not a specific component of the measurement circuit: it is essentially the connection point between the probe’s circuit and the oscilloscope’s input, keeping the signal shielded from the environment.
+
+It is important, however, to consider the probe’s ground connection as an integral part of the circuit. The cable braid and the BNC’s ground are normally connected to the oscilloscope’s ground and, through it, to the instrument’s earth ground. This can have significant consequences when measuring a circuit that is not referenced to ground.\\
+
+We can now move on and proceed to analyze, from an electrical point of view, the diagram of the BNC connector how it works its limits and what we do to fix them. We will then talk into detail what we just introduced in the previous pragrpah.
+
+Let's start by analyzing the actual BNC connector, here in \autoref{bnconnector} is an example scheme.
+
+\begin{figure}[h!]
+\begin{center}
+
+\begin{tikzpicture}[transform shape]
+	\draw (3.2, 3) to[european voltage source, l={$V_g$}] (3.2, 5);
+	\draw (3.6, 5) to[american resistor, l={$R_g$}] (5.6, 5);
+	\draw (7.4, 5) to[american resistor, l={$R_i$}] (7.4, 3);
+	\draw (8.8, 5) to[capacitor, l={$C_i$}] (8.8, 3);
+	\draw (6, 5) to[capacitor, l_={$C_c$}, label distance=0.16cm] (6, 3);
+	\node[ground] at (3.2, 3){};
+	\node[ground] at (7.4, 3){};
+	\draw (6.8, 5) -- (8.8, 5);
+	\draw (8.8, 3) -- (4, 3);
+	\node[ocirc] at (9.8, 3){};
+	\draw (8.8, 5) -- (9.8, 5);
+	\draw (8.8, 3) -- (9.8, 3);
+	\node[ocirc] at (9.8, 5){};
+	\node[ocirc] at (9.8, 3){};
+	\draw (10.2, 2.5) to[open, v=$V_i$, voltage/distance from node=0.3, voltage/bump b=1.2, voltage/shift=-0.3] (10.2, 5.3);
+	\draw (5.6, 5) -- (6, 5);
+	\draw (3.6, 5) -- (3.2, 5);
+	\draw (6.8, 5) -- (6, 5);
+	\draw (4, 3) -- (3.2, 3);
+\end{tikzpicture}
+	
+\end{center}	
+\caption{Electric diagram of a BNC connector}
+\label{bnconnector}
+\end{figure}
+
+As we can se we have modeled a generic signal generator via the $V_g$ voltage source and its parasitic resistance $R_g$. We then modeled the connector itself with the capacitante $C_i$ and its resistance $R_i$, we then also added a capacitance that takes into account also the cable that connects the probe (point of input of the signal) to the actual scope connector, we called the cable capacitance $C_c$.\\
+
+
+When the probe is connected, the circuit does not see an ideal infinite input, but rather sees the probe's input impedance in parallel with the oscilloscope's input impedance.
+As we have seen the scope connector has its how know capacitance and resistance $C_i$ and $R_i$. Specially the capacitance raises some problems when the input signal start to introduce high frequency components. At low frequencies, the capacitor has a high impedance and has little effect on the circuit. As the frequency increases, however:
+
+\begin{equation}
+|Z_C|=\frac{1}{2\pi f C}
+\end{equation}
+
+decreases, so the capacitive component becomes increasingly significant.
+
+Now to give an idea of some numbers typically $R_i$ has a value of around 1 M$\Omega$ and $C_i$ is the range of 10 to 20 pF or even some tents of pF. We then also denote for sake of simplicity the probe capacitance as:
+
+\begin{equation}
+	C_p = C_i + C_c
+\end{equation} 
+
+As we can see this setup wold quickly attenuate and incoming high frequency signal.
+
+
+%After introducing the operation of the oscilloscope, both from a theoretical and practical point of view, we can now analyze how it is connected to the outside world and what operations need to be performed before taking a measurement.\\
 %
-%\begin{tikzpicture}[transform shape]
-%	\draw (3.2, 3) to[european voltage source, l={$V_g$}] (3.2, 5);
-%	\draw (3.6, 5) to[american resistor, l={$R_g$}] (5.6, 5);
-%	\draw (7.4, 5) to[american resistor, l={$R_i$}] (7.4, 3);
-%	\draw (8.8, 5) to[capacitor, l={$C_i$}] (8.8, 3);
-%	\draw (6, 5) to[capacitor, l_={$C_c$}, label distance=0.16cm] (6, 3);
-%	\node[ground] at (3.2, 3){};
-%	\node[ground] at (7.4, 3){};
-%	\draw (6.8, 5) -- (8.8, 5);
-%	\draw (8.8, 3) -- (4, 3);
-%	\node[ocirc] at (9.8, 3){};
-%	\draw (8.8, 5) -- (9.8, 5);
-%	\draw (8.8, 3) -- (9.8, 3);
-%	\node[ocirc] at (9.8, 5){};
-%	\node[ocirc] at (9.8, 3){};
-%	\draw (10.2, 2.5) to[open, v=$V_i$, voltage/distance from node=0.3, voltage/bump b=1.2, voltage/shift=-0.3] (10.2, 5.3);
-%	\draw (5.6, 5) -- (6, 5);
-%	\draw (3.6, 5) -- (3.2, 5);
-%	\draw (6.8, 5) -- (6, 5);
-%	\draw (4, 3) -- (3.2, 3);
-%\end{tikzpicture}
-%	
-%\end{center}	
-%\caption{Electric diagram of a BNC connector}
-%\label{bnconnector}
-%\end{figure}
+%In particolare l'oscilloscopio digitale a campionamento utilizza dei connetttori denominati BNC (Bayonet Neill–Concelman) utilizzati principalmente per quick-connect/disconnect, locking connector used for coaxial cables featuring a bayonet-style, twist-lock mechanism that prevents accidental disconnection, making it ideal for high-frequency. 
 %
+%At this point we might imagine that being the probe some kind di circuiti se stessa deve essere tenuta in considerazione all'interno della nostra misura in quanto potrebbe agire in un determianto modo sul fenomeno che andiao a misurare.
 %
-%\begin{figure}[h!]
-%\begin{center}
+%In particoalre, essendo nel modno reale, il connettore in ingresso non è ideale: essa infatta introduce una resistenza che denominiam ocome $R_i$ e una capacità denominata come $C_i$. Possiamo dunque modellare il connettore come una resistenza in parallelo ad un condensatore come riportato di seguito.
 %
-%\begin{tikzpicture}[transform shape]
-%	\draw (3.2, 3) to[european voltage source, l={$V_g$}] (3.2, 5);
-%	\draw (3.6, 5) to[american resistor, l={$R_g$}] (5.6, 5);
-%	\draw (9, 5) to[american resistor, l={$R_i$}] (9, 3);
-%	\draw (10.6, 5) to[capacitor, l={$C_i$}] (10.6, 3);
-%	\node[ground] at (3.2, 3){};
-%	\draw (10.6, 5) -- (11.6, 5);
-%	\node[ocirc] at (11.6, 5){};
-%	\draw (12, 2.6) to[open, v=$V_i$, voltage/distance from node=0.3, voltage/bump b=1.2, voltage/shift=-0.3] (12, 5.4);
-%	\draw (3.6, 5) -- (3.2, 5);
-%	\draw (5.6, 5) to[american resistor, l_={$R_s$}] (7.6, 5);
-%	\draw (7.6, 6) to[variable capacitor, mirror, l_={$C_s$}] (5.6, 6);
-%	\draw (5.6, 6) -| (5.6, 5);
-%	\draw (7.6, 6) -| (7.6, 5);
-%	\draw (7.6, 5) to[capacitor, l={$C_c$}] (7.6, 3);
-%	\draw (10.6, 3) -- (11.6, 3);
-%	\node[ocirc] at (11.6, 3){};
-%	\draw (7.6, 5) -- (10.6, 5);
-%	\draw (3.2, 3) -- (10.6, 3);
-%	\node[ground] at (9, 3){};
-%\end{tikzpicture}
-%	
-%\end{center}	
-%\caption{Electric diagram of a compensated probe}
-%\label{comprobe}
-%\end{figure}
+%% TODO MODELLO R + C
+%
+%Arrivati a questo punto possiamo agigungere al nostro modello un generatore di tensione messo ad indicare la funzione che viene posta in ingresso al nostro oscilosscopio. Dato che anche questo non è ideale è necessario aggoungere un'opportuna resistenza $R_g$ in serie al generatore stesso. Infine è doveroso introdurre, in quanto viene utilizzato un cavo per connetere questi due componenti, una capacità parassita aggiunta proprio da questa ultimo componente. Mettendo le varie parti assieme otteniamo il seguente schema:
+%
+%% TODO SCHEMA COMPLETO 1
+%
+%In aggiunta a quanto detto possiamo andare a dare degli ordini di grandezza della resistenza $R_i$ e della capacità $C_i$ che si aggirano attorno ad 1 M$\Omega$ ed a decine di pF.\\
 
 
-
-We can now move on and proceed to analyze, from an electrical point of view, the diagram of the BNC connector how it works its limits and what we do to fix them.\\
-
-
-
-
-
-
-
-After introducing the operation of the oscilloscope, both from a theoretical and practical point of view, we can now analyze how it is connected to the outside world and what operations need to be performed before taking a measurement.\\
-
-In particolare l'oscilloscopio digitale a campionamento utilizza dei connetttori denominati BNC (Bayonet Neill–Concelman) utilizzati principalmente per quick-connect/disconnect, locking connector used for coaxial cables featuring a bayonet-style, twist-lock mechanism that prevents accidental disconnection, making it ideal for high-frequency. 
-
-At this point we might imagine that being the probe some kind di circuiti se stessa deve essere tenuta in considerazione all'interno della nostra misura in quanto potrebbe agire in un determianto modo sul fenomeno che andiao a misurare.
-
-In particoalre, essendo nel modno reale, il connettore in ingresso non è ideale: essa infatta introduce una resistenza che denominiam ocome $R_i$ e una capacità denominata come $C_i$. Possiamo dunque modellare il connettore come una resistenza in parallelo ad un condensatore come riportato di seguito.
-
-% TODO MODELLO R + C
-
-Arrivati a questo punto possiamo agigungere al nostro modello un generatore di tensione messo ad indicare la funzione che viene posta in ingresso al nostro oscilosscopio. Dato che anche questo non è ideale è necessario aggoungere un'opportuna resistenza $R_g$ in serie al generatore stesso. Infine è doveroso introdurre, in quanto viene utilizzato un cavo per connetere questi due componenti, una capacità parassita aggiunta proprio da questa ultimo componente. Mettendo le varie parti assieme otteniamo il seguente schema:
-
-% TODO SCHEMA COMPLETO 1
-
-In aggiunta a quanto detto possiamo andare a dare degli ordini di grandezza della resistenza $R_i$ e della capacità $C_i$ che si aggirano attorno ad 1 M$\Omega$ ed a decine di pF.\\
-
-Sapendo l'ordine di grandezza di questi due parametri possiamo avere un'idea del valore visto e misurato dall'oscilloscopio ai capi della capacità $C_i$.
-Analizzando il circuito visto sopra arriviamo alla seguente espressione:
+Knowing the order of magnitude of these two parameters, we can get an idea of the value displayed and measured by the oscilloscope across the capacitor $C_i$.
+By analyzing the circuit shown above, we arrive at the following expression:
 
 \[ V_i = V_g \cdot \frac{R_i}{R_i + R_g} \cdot \frac{R_i}{s(R_g \;//\; R_i)C_p + 1}\]\
 
-Arrivati a questo punto possiamo fare l'assunzione che il valore di $R_g$, essendo una resistenza parassita, sia molto bassa e duqnue molto minore di $R_i$: $R_g \ll R_i$.
-Data questa condizione possiamo allora andare a dire che il valore dell'attenuazione data dal partitore di tensione (primo termine moltiplicativo) sia approssimabile ad uno.
-Segue quanto detto in termnimi matematici:
+At this point, we can assume that the value of $R_g$, being a parasitic resistance, is very low and therefore much smaller than $R_i$: $R_g \ll R_i$.
+
+Given this condition, we can then conclude that the attenuation value provided by the voltage divider (the first multiplicative term) can be approximated as one.
+
+Here is the mathematical expression:
 
 \[ R_g \ll R_i \Rightarrow \frac{R_i}{R_i + R_g}  \simeq 1 \]\
 
-Arrivati a questo punto, fatta la precedente assunzione sui valori di $R_g$ e $R_i$ possiamo dire che in corrente dirett (DC) il valore misurato a capi di $C_i$, ovvero $V_i$, sia circa pari a quello in ingresso: $V_g \simeq V_i$.\\
+At this point, given the previous assumption regarding the values of $R_g$ and $R_i$, we can say that in direct current (DC), the value measured across $C_i$—that is, $V_i$—is approximately equal to the input voltage: $V_g \simeq V_i$.\\
 
-Sapendo che però, come visto negl iesempi precedneti, sappiamo che con lo struento andiao anda alizzare forem d'onta di natura periodica ci chiadiamo come questo modello di circuito si comporti nel caso d itensioni alternate nel tempo.
+However, knowing that—as seen in the previous examples—the instrument is designed to analyze periodic waveforms, we wonder how this circuit model behaves in the case of voltages that vary over time.
 
-Possiamo dunqiue fare l'analisi del polo del secondo membro moltiplicato si ottiene che:
+We can therefore perform a pole analysis of the right-hand side; multiplying yields:
 
 \[ f_t = \frac{1}{2\pi (R_g \;//\; R_i)C_p}\]\
 
-Operando sempre attraverspo la semplificazione fatta prima otteniamo che:
+By continuing to apply the simplification made earlier, we obtain:
 
 \[ f_t = \frac{1}{2\pi  R_i C_p}\]\
 
-Inserendo ora dei possibili valori, di cui abbimo visto prima i possiibli ordini di grandezza, possiamo andare ad avere un'idea della frequenza di taglio.
-Ipotizzando che $R_g$ sia 50 $\Omega$ e che $C_p$ sia 100 pF si ottiene il seguente risultato:
+By now substituting some possible values—whose orders of magnitude we saw earlier—we can get an idea of the cutoff frequency.
+Assuming that $R_g$ is 50 $\Omega$ and that $C_p$ is 100 pF, we obtain the following result:
 
 \[ f_t = \frac{1}{2\pi  R_i C_p} = \frac{1}{2\pi \cdot 50 \Omega \cdot 100 \unit{pF}} = 31.830\; \unit{ks^{-1}} \simeq 32 \unit{MHz} \]\
 
 
-Come possiamo vedere abbiamo raggiunto, per le proiprità fisiche del nostro struemnto, un limite che non possiamo sorpassare. In altre parole non siamo in grado con il setup corrente di andare a misurare senza avere attenuazioni significative segnale con frequenze superiori ad i 32 MHz.\\
+As we can see, due to the physical properties of our instrument, we have reached a limit that we cannot exceed. In other words, with the current setup, we are unable to measure frequencies above 32 MHz without significant signal attenuation.
+For example if we where to hook up a signal generator via just a BNC cable (without any compensation) after this frequency the signal will start do appear on the scope with more and more amplitude attenuation.\\
 
-Per ovviare a questo problea possiamo andare ad intordure una seconda componente all;intenro del nostro circuito per costruire una sonda compensata, ovvero che compensi l'effetto ch abbiamo appena sottolineato.
+To overcome this problem, we can introduce a second component into our circuit to build a compensated probe—that is, one that compensates for the effect we just highlighted.
 
-Al fine di realizzare una sonda compensata andiamo ad aggiungere un dipolo compsoto da una resistenza $R_s$ connessa in parallea ad una capacotà variabile $C_s$ come mostrato di seguito:
+To create a compensated probe, we will add a dipole consisting of a resistor $R_s$ connected in parallel to a variable capacitor $C_s$, as shown below:
 
-% TODO CIRCUITO COMPENSATO
+\begin{figure}[h!]
+\begin{center}
 
-A quesot punto possiamo andare a calcolare la tensione ottenuta ai capi del consendatore del connettore. Si ottiene che:
+\begin{tikzpicture}[transform shape]
+	\draw (3.2, 3) to[european voltage source, l={$V_g$}] (3.2, 5);
+	\draw (3.6, 5) to[american resistor, l={$R_g$}] (5.6, 5);
+	\draw (9, 5) to[american resistor, l={$R_i$}] (9, 3);
+	\draw (10.6, 5) to[capacitor, l={$C_i$}] (10.6, 3);
+	\node[ground] at (3.2, 3){};
+	\draw (10.6, 5) -- (11.6, 5);
+	\node[ocirc] at (11.6, 5){};
+	\draw (12, 2.6) to[open, v=$V_i$, voltage/distance from node=0.3, voltage/bump b=1.2, voltage/shift=-0.3] (12, 5.4);
+	\draw (3.6, 5) -- (3.2, 5);
+	\draw (5.6, 5) to[american resistor, l_={$R_s$}] (7.6, 5);
+	\draw (7.6, 6) to[variable capacitor, mirror, l_={$C_s$}] (5.6, 6);
+	\draw (5.6, 6) -| (5.6, 5);
+	\draw (7.6, 6) -| (7.6, 5);
+	\draw (7.6, 5) to[capacitor, l={$C_c$}] (7.6, 3);
+	\draw (10.6, 3) -- (11.6, 3);
+	\node[ocirc] at (11.6, 3){};
+	\draw (7.6, 5) -- (10.6, 5);
+	\draw (3.2, 3) -- (10.6, 3);
+	\node[ground] at (9, 3){};
+\end{tikzpicture}
+	
+\end{center}	
+\caption{Electric diagram of a compensated probe}
+\label{comprobe}
+\end{figure}
+
+
+
+\newpage
+At this point, we can calculate the voltage across the connector's capacitor. We find that:
 
 \[ V_i = V_g \cdot \frac{\dfrac{R_i}{sR_iC_p + 1}}{R_g + \dfrac{R_s}{sR_sC_s + 1} + \dfrac{R_i}{sR_iC_p + 1}}\]\
 
-Come visto in precedenza andiamo a vedere come si comporta questo circuito con correnti dirette e non. Prima di tutto andiamo a fare delle assunzioni:
+As we saw earlier, let’s take a look at how this circuit behaves with direct and indirect currents. First of all, let’s make some assumptions:
 
 \begin{enumerate}
 	\item[\textbf{-}] $C_p = C_c + C_i $
 	\item[\textbf{-}] $R_s \cdot C_s = R_i \cdot C_i $
-	\item[\textbf{-}] $R_s = 9C_p$ e dunque $C_s = \dfrac{C_p}{9}$	
+	\item[\textbf{-}] $R_s = 9 \cdot R_i$ e dunque $C_s = \dfrac{C_p}{9}$	
 	
 \end{enumerate}
 
-Fatte queste premesse ed assunzioni arriviamo a dire che:
+Given these premises and assumptions, we can conclude that:
 
 \[ V_i = V_i \dfrac{R_i}{R_g + 10R_i}  \cdot \dfrac{1}{\dfrac{s R_gR_i}{R_g + 10R_i}C_p + 1} \]\
 
-
-A questo punto in corrente diretta (DC) si ha che:
+At this point, for direct current (DC), we have that:
 
 \[ \dfrac{R_i}{R_g + 10R_i}  \simeq \dfrac{R_i}{10R_i} \simeq \frac{1}{10} \]\
 
-Analizzando invece il circuito a tensioni non costanti si ottiene che:
+On the other hand, when analyzing the circuit at non-constant voltages, we find that:
 
 \[ f'_t = \frac{1}{2\pi \dfrac{R_gR_i}{R_g + 10R_i}C_p } \simeq \frac{1}{2\pi \dfrac{R_g}{10}C_p }  = \frac{10}{2\pi R_g C_p} \]\
 
-Possiamo notare come calcolando il valore ottenuto di $f'_t$ si ottiene una frequenza dieci volte più grande e dunque una maggiore banda di segnale in ingresso che non viene attenuata.
-Svolgendo i calcoli si ottiene che:
+We can see that calculating the value of $f'_t$ yields a frequency that is ten times greater and, therefore, a wider input signal bandwidth that is not attenuated.
+Performing the calculations, we find that:
 
 
 \[ f'_t = \frac{10}{2\pi R_g C_p} = \frac{10}{2\pi \cdot 50 \Omega \cdot 100 \unit{pF}} = 318.30\; \unit{ks^{-1}} \simeq 320 \unit{MHz} \]\
 
-A questo punto comopreso andiamo a vedere nella pratica cosa succede. In partcioalre abbiamo visot come una sonda compensta carichi di meno il circuito e che quindi influisca con un'attenuazione costante. Infine dato che la capacità del compensatore deve essere variabile in quanto il suo valore di compensazione diopend dal cavo utilizzato e dalla capacità in ingresso dell'oscilloscopio. Viene dunque introdotto, cme visot in figura, un capacità variabile direttamente dall'utente affichè funzioni corettamnete.
+Now that we understand this, let’s see what happens in practice. 
+In particular, we have seen how a probe reduces the circuit’s load and thus results in constant attenuation. Finally, since the compensator’s capacitance must be variable—as its compensation value depends on the cable used and the oscilloscope’s input capacitance—a variable capacitor is introduced, as shown in the figure, which the user can adjust directly to ensure proper operation.
 
-Andnado ne lparticoalr la regolazione avviene con un cacciavite in plastica - uno in metallo aggiungerebbe l'ennesima capacità parassita - sulla sonda stessa mentre essa è collegata a terra ed ad un'apposita uscita sull'oscilloscopio (\texttt{PROBE COMP}) che genera un'onda quadra avente certe caratteristiche tipo: $V_{pp}$ 1-5 V con frequenza $f_c$ pari a 1 kHz.
-Dato che se la sonda non è ben compensata si comporta come un filtro passa basso l'onda quadra generata verrà visualizzata sullo schemro dell'osciloscoapio affeta da alcuni difetti sui fronti di salita e discesa. È ragionevole pensare ciò in quanto queste parti del segnale rappresentano nel dominio della frequenza le componenti a maggiore frequenza. Di seguoito sono riportati degli esempi di onde quadre sovra e sotto-compensate. 
+More specifically, the adjustment is made with a plastic screwdriver—a metal one would add yet another parasitic capacitance—on the probe itself while it is connected to ground and to a dedicated output on the oscilloscope (\texttt{PROBE COMP}) that generates a square wave with certain characteristics, such as: $V_{pp}$ 1–5 V with a frequency $f_c$ of 1 kHz.
 
-% TODO IMAGE SOV E SOTT COMPENSAZIONE
+Since the probe behaves like a low-pass filter if it is not properly compensated, the generated square wave will appear on the oscilloscope screen with some distortions on the rising and falling edges. This is reasonable to expect, since these parts of the signal represent the highest-frequency components in the frequency domain. 
 
-Notiamo come la sottcompensazione porti ad un drift crescente della parte piatta dell;onda  metre la sovracomoensazione porti la genereazione di un picco dopo  
+Below are examples of over-and under-compensated square waves.
 
-Tornando a noi una volta visualizzata l'onda sullo strumento ci è possibile regolare la capacità fino a quando non visualizzaimo una corretta onda quadra in che significa che la sonda è compensata correttamente.
+\begin{figure}[h!]
+\begin{center}
+
+\begin{tikzpicture}[scale=1, thick,
+    correct/.style={draw=green!0!black, ultra thick, line join=round},
+    under/.style={draw=orange!0!black, ultra thick, line join=round},
+    over/.style={draw=cyan!0!black, ultra thick, line join=round}]
+
+    % 1. PERFECTLY COMPENSATED (CRITICAL)
+
+    \begin{scope}[shift={(0,5)}]
+
+       \draw[correct] (0,0) -- (0,1) -- (1,1) -- (1,0) -- (2,0) -- (2,1) -- (3,1) -- (3,0) -- (4,0);
+       \node at (-1,0.5) {(a)};
+        
+	\end{scope}
 
 
-%\begin{figure}
-%\begin{center}
-%
-%\begin{tikzpicture}[
-%    scale=1.5, 
-%    thick,
-%    % Define styles for the traces
-%    correct/.style={draw=green!60!black, ultra thick, line join=round},
-%    under/.style={draw=orange!90!black, ultra thick, line join=round},
-%    over/.style={draw=cyan!80!black, ultra thick, line join=round},
-%    grid/.style={draw=gray!30, very thin, step=0.5}
-%]
-%
-%    % ==========================================
-%    % 1. PERFECTLY COMPENSATED (CRITICAL)
-%    % ==========================================
-%    \begin{scope}[shift={(0,5)}]
-%        \draw[grid] (-0.2,-0.2) grid (4.2,1.2);
-%        \draw[->] (-0.2,0) -- (4.3,0) node[right] {$t$};
-%        \draw[->] (0,-0.2) -- (0,1.3) node[above] {$V$};
-%        
-%        % Square Wave
-%        \draw[correct] (0,0) -- (0,1) -- (1,1) -- (1,0) -- (2,0) -- (2,1) -- (3,1) -- (3,0) -- (4,0);
-%        
-%        \node[anchor=west, font=\sffamily\bfseries] at (4.5,0.5) {Correctly Compensated};
-%    \end{scope}
-%
-%    % ==========================================
-%    % 2. OVERCOMPENSATED (OVERSHOOT)
-%    % ==========================================
-%    \begin{scope}[shift={(0,2.5)}]
-%        \draw[grid] (-0.2,-0.2) grid (4.2,1.2);
-%        \draw[->] (-0.2,0) -- (4.3,0) node[right] {$t$};
-%        \draw[->] (0,-0.2) -- (0,1.3) node[above] {$V$};
-%        
-%        % Overcompensated curve (using exponential decay for spikes)
-%        \draw[over] (0,0) 
-%            -- (0,1.3) plot[domain=0:1, samples=40] (\x, {1 + 0.3*exp(-8*\x)})
-%            -- (1,-0.3)   plot[domain=1:2, samples=40] (\x, {0 - 0.3*exp(-8*(\x-1))})
-%            -- (2,1.3) plot[domain=2:3, samples=40] (\x, {1 + 0.3*exp(-8*(\x-2))})
-%            -- (3,-0.3)   plot[domain=3:4, samples=40] (\x, {0 - 0.3*exp(-8*(\x-3))});
-%            
-%        \node[anchor=west, font=\sffamily\bfseries] at (4.5,0.5) {Overcompensated (Spike/Overshoot)};
-%    \end{scope}
-%
-%    % ==========================================
-%    % 3. UNDERCOMPENSATED (ROUNDED EDGES)
-%    % ==========================================
-%    \begin{scope}[shift={(0,0)}]
-%        \draw[grid] (-0.2,-0.2) grid (4.2,1.2);
-%        \draw[->] (-0.2,0) -- (4.3,0) node[right] {$t$};
-%        \draw[->] (0,-0.2) -- (0,1.3) node[above] {$V$};
-%        
-%        % Undercompensated curve (using 1 - exp(-x) for exponential rise)
-%        \draw[under] (0,0) 
-%            plot[domain=0:1, samples=40] (\x, {1 - exp(-5*\x)})
-%            -- (1,1) 
-%            plot[domain=1:2, samples=40] (\x, {exp(-5*(\x-1))})
-%            -- (2,0) 
-%            plot[domain=2:3, samples=40] (\x, {1 - exp(-5*(\x-2))})
-%            -- (3,1) 
-%            plot[domain=3:4, samples=40] (\x, {exp(-5*(\x-3))});
-%            
-%        \node[anchor=west, font=\sffamily\bfseries] at (4.5,0.5) {Undercompensated (Rounded)};
-%    \end{scope}
-%
-%\end{tikzpicture}
-%	
-%\end{center}	
-%\end{figure}
-%
+    % 2. OVERCOMPENSATED (OVERSHOOT)
+    \begin{scope}[shift={(0,2.5)}]
+    
+        \draw[over] (0,0) 
+            -- (0,1.3) plot[domain=0:1, samples=40] (\x, {1 + 0.3*exp(-8*\x)})
+            -- (1,-0.3)   plot[domain=1:2, samples=40] (\x, {0 - 0.3*exp(-8*(\x-1))})
+            -- (2,1.3) plot[domain=2:3, samples=40] (\x, {1 + 0.3*exp(-8*(\x-2))})
+            -- (3,-0.3)   plot[domain=3:4, samples=40] (\x, {0 - 0.3*exp(-8*(\x-3))});
+            \node at (-1,0.5) {(b)};
+            
+    \end{scope}
+
+    % 3. UNDERCOMPENSATED (ROUNDED EDGES)
+    \begin{scope}[shift={(0,0)}]
+
+        \draw[under] (0,0) 
+            plot[domain=0:1, samples=40] (\x, {1 - exp(-5*\x)})
+            -- (1,1) 
+            plot[domain=1:2, samples=40] (\x, {exp(-5*(\x-1))})
+            -- (2,0) 
+            plot[domain=2:3, samples=40] (\x, {1 - exp(-5*(\x-2))})
+            -- (3,1) 
+            plot[domain=3:4, samples=40] (\x, {exp(-5*(\x-3))});
+            \node at (-1,0.5) {(c)};
+            
+    \end{scope}
+
+\end{tikzpicture}
+
+	
+\end{center}
+\caption{Images of square wave with the probe correctly (a), over (b) and under (c) compensated}	
+\label{comp}
+\end{figure}
+
+
+Note that under-compensation leads to an increasing drift in the flat portion of the waveform, while overcompensation leads to the generation of a peak after
+
+Getting back to the topic at hand, once the waveform is displayed on the instrument, we can adjust the capacitance until we see a proper square wave, which means the probe is properly compensated.
+
+
 
 \subsubsection{Oscilloscope bandwidth}
 
-\subsubsection{Examples}
+Let us now move on and make some examples to better understand the concept of bandwidth of an DSO.
+We suppose to have a perfect signal that rises in not time, hence, in theory it should be see as a \textit{"wall"} going, for example, from 0 to 5 V.
+Since the DSO does not have an infinite bandwidth it is not able to pick up all of the highest components that make up the edge of the wall. Due to this limitation we will encounter a period of time where the signal rises smoothly from 0 to 5 V.
 
-\subsection{Analog multimeter - AM}
+Recalling that the rise time of a signal is given by the time taken by the signal to go from 10\% of its value to 90\%, in this case from 0.5 V to 4.5 V. We can then represent what we have just see here in \autoref{badrise}:
+
+
+\begin{figure}
+\begin{center}
+
+
+
+
+
+
+\caption{Rise time of a signal compared to the ideal one}
+\label{badrise}	
+\end{center}	
+\end{figure}
+
+
+
+
+
+\subsubsection{Example I}
+\subsubsection{Example II}
+
 
 
 \subsection{Digital multimeter - DM}
 
-\subsection{Intrumentation}
+\subsection{Measurements}
 
 
-\subsubsection{Examples}
+\subsubsection{Root Mean Square - RMS}
 
 
 
