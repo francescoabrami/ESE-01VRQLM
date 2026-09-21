@@ -1,0 +1,179 @@
+\documentclass[../main.tex]{subfiles}
+
+\graphicspath{{\subfix{../images/}}}
+
+
+
+\begin{document}
+
+%% BEGIN SUBFILE %%
+
+\newpage
+\section{Operational Amplifiers}
+
+Black box approach:
+
+\begin{enumerate}[label=\textbf{-}]
+	\item 2 input inverting (-) and non-inverting (+)
+	\item 2 Power supply terminals $V_{cc}$ or $V_{dd}$ and $V_{ee}$ or $V_{ss}$ 
+	\item 1 output terminal
+	\item $V_{out} = A_d  \cdot v_d$ $A_d$ is the open loop gain of the amplifer
+\end{enumerate}
+
+The amplifier has a linear region where this relation applies before reaching saturation implied by power supply voltages. Since the open loop gain is very large $A_d \gg 100'000$ and we usually supply $\pm$ 12 or 15 V we would get this linear region:
+
+\begin{equation}
+	\Delta v_d = \frac{15 - (-15)}{100'000} = 300 \mu V
+\end{equation}
+
+Very little swing of the differental voltage, that is the differnce between the inverting and non inverting terminal on the amplifier.
+
+
+\textbf{Ideal Op-Amp}: let's now make some assumptions around the amplifier:
+
+\begin{enumerate}[label=\textbf{-}]
+	\item $A_d \rightarrow \infty$ but since $V_{out} = A_d \cdot v_d$
+	\item If $A_d$ is infinite and the $V_{out}$ is finite in the linear region means that the differential voltage $v_d$ tents to 0.
+	\item We also assume that the input absorb no current $i_-$ $i_+$ is 0.
+	\item We also assume the $r_d$ is infinite and that the $r_0$ is zero. This means that the op-amp absorbs no current and can drive ideally any circuit.
+ \end{enumerate}
+
+
+Ideally we have the + and - terminal such as that the $V_{out}$ is in phase with. the voltage on + terminal. Also if V on + an - is equal ideally we have an output of 0, this is called common-mode rejection. This mean an ideal op-amp has a zero common mode gain or infinite common mode rejection. This makes the op amp a \textbf{differential-input single-ended-output}. The gain A is called open-loop or differetial gain.\\
+
+The op-amp are dc coupled meaninf directly coupled. meaning it can amplify as low as freq at 0 Hz.\\
+
+Regarding the bandwidth the gain A remains constant all the way. Ideally it amplifies from DC signal to infinite frequencies. Also the gain A (open loop) is ideally very large ideally infinite.
+
+But how do we use it? We close the loop.
+
+
+\subsection{Inverting configuration}
+
+We use a network of passive componets to close the loop:
+We put the voltage on the - terminal and feed back the output to it:
+
+
+\vspace*{7cm}
+
+
+We define now the closed loop gain as $G = \frac{V_o}{V_i}$
+Ideally we will have:
+
+\begin{equation}
+	v_2 - v_1 = \frac{v_O}{A} = 0
+\end{equation}
+
+since A is supposed to be infinitly large.
+ideally $v_1$ approached and areached $v_2$ "tracking each other in potential" and we speak of a "virtual short circuit" it means that what is on 2 will appear on 1. Since 2 is GND terminal one will be called a virtual ground.
+
+We apply Ohm's law to the resistors:
+
+\begin{equation}
+	i_1 = \frac{v_i - v_1}{R_1} = \frac{V_i - 0}{R_1} = \frac{V_i}{R_1}
+\end{equation}
+
+sice the terminal has infinite impedance it will go via the $R_2$ resistance.
+
+We have that:
+
+\begin{equation}
+	v_1 = 0 \rightarrow i_1 = \frac{v_I}{R_1} \rightarrow i_2 = i_1 = \frac{v_I}{R_1} \rightarrow v_o = 0 - \frac{v_I}{R_1} R_2 \rightarrow v_O = - \frac{R_2}{R_1} v_I
+\end{equation}
+
+Closed loop gain $\rightarrow$ ration of the resistor values. This is the inverting configuration.
+
+
+We then define the gain $G = - \frac{R_2}{R_1}$ account for possible $R_s$.
+
+
+\subsection{NON Inverting configuration}
+
+We apply now thw voltage directly to the NON inverting input of the opamp while the inverting terminal is connected to GND via. $R_1$.\\
+
+
+\vspace*{7cm}
+
+
+We will have:
+
+\begin{equation}
+	v_+ = v_{in} \rightarrow v_d = v{+} - v_- \rightarrow v_- = v_+ - v_d = v_+ = v_{in} \rightarrow i_1 = \frac{V_{in}}{R_1}
+\end{equation}
+
+then:
+
+\begin{equation}
+	V_{r2} = i_1 \cdot R_2 = v_{in} \frac{R_2}{R_1}
+\end{equation}
+
+Since:
+
+\begin{equation}
+	V_{in} + v_{r2} - v_{out} = 0 \rightarrow V_{out} = v_{in} + v_{in} \frac{R_2}{R_1} = v_{in} (1 + \frac{R_2}{R_1})
+\end{equation}
+
+
+\subsection{CONTROL THEORY}
+
+Design basic control blocks:
+
+I is input and Y is ouput.
+The relation:
+
+\begin{equation}
+	\frac{Y}{I} = \frac{1}{\beta} \cdot \frac{A\beta}{1 + A\beta}
+\end{equation}
+
+We remind that A is the open loop gain while the $\beta$ term is what is called the negative feedback factor.
+
+\begin{equation}
+	e = I - \beta Y \rightarrow Y = Ae \rightarrow Y = A(I - \beta Y)
+\end{equation}
+
+Expand move factor on one side and factor Y therms we obtain that:
+
+\begin{equation}
+	\frac{Y}{I} = \frac{1}{\beta} \cdot \frac{A\beta}{1 + A\beta} = \frac{A}{1 + A\beta}
+\end{equation}
+
+The $A\beta$ is the so-called loop gain.
+Since the $A\beta \rightarrow \infty$ therfore:
+
+\begin{equation}
+	\frac{Y}{I} \approx \frac{1}{\beta}
+\end{equation}
+
+We find that $\beta$:
+
+\begin{equation}
+	\beta = \frac{R_1}{R_1 + R_2} \rightarrow \frac{1}{\beta} = \frac{R_1+ R_2}{R_1} = 1 + \frac{R_2}{R_1}
+\end{equation}
+
+
+\subsection{Voltage follower}
+
+We now have a gain G of 1 if $R_2$ is 0 and $R_1 = \infty$
+
+
+
+\subsection{NON IDEAL OP-AMP}
+
+We now study the op amp when $A_d$ is not infinite menaing that $V_d$ is not 0.
+
+
+\vspace*{10cm}
+
+
+We start from the NON inverting voltage amplifier.
+
+
+
+
+
+
+
+
+%% END SUBFILE %%
+
+\end{document}
